@@ -31,24 +31,25 @@ async function BlogPostContent({ id }: { id: string }) {
 
 export default async function Post({ params }: Props) {
   const resolvedParams = await params;
-  
-  if (!resolvedParams?.id) {
-    notFound();
-  }
+  const post = await getPostData(resolvedParams.id);
 
   return (
-    <main className="min-h-screen max-w-4xl mx-auto px-4 py-8">
-      <Link 
-        href="/"
-        className="text-blue-600 hover:text-blue-800 mb-8 inline-block"
-      >
-        ← Back to home
-      </Link>
-      
-      <Suspense fallback={<div>Loading...</div>}>
-        {/* @ts-expect-error Async Server Component */}
-        <BlogPostContent id={resolvedParams.id} />
-      </Suspense>
-    </main>
+    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <header className="mb-8">
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{post.title}</h1>
+        <div className="flex items-center text-gray-600 dark:text-gray-400">
+          <time dateTime={post.date}>{new Date(post.date).toLocaleDateString()}</time>
+          {post.author && (
+            <>
+              <span className="mx-2">•</span>
+              <span>{post.author}</span>
+            </>
+          )}
+        </div>
+      </header>
+      <div className="prose dark:prose-dark prose-lg max-w-none">
+        {post.contentHtml}
+      </div>
+    </article>
   );
 } 

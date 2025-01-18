@@ -4,19 +4,24 @@ import matter from 'gray-matter';
 
 const eventsDirectory = path.join(process.cwd(), 'events');
 
-export type Event = {
+export interface Event {
   id: string;
   title: string;
+  description: string;
   date: string;
   time: string;
   location: string;
-  description: string;
   type: 'online' | 'in-person' | 'hybrid';
   registrationLink: string;
   speakers?: string[];
 }
 
-export function getSortedEventsData(): Event[] {
+export interface EventsData {
+  upcoming: Event[];
+  past: Event[];
+}
+
+export function getEvents(): EventsData {
   // Create events directory if it doesn't exist
   if (!fs.existsSync(eventsDirectory)) {
     fs.mkdirSync(eventsDirectory, { recursive: true });
@@ -42,26 +47,33 @@ export function getSortedEventsData(): Event[] {
     };
   });
 
-  // Sort events by date
-  return allEventsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return -1;
-    } else {
-      return 1;
-    }
-  });
+  const now = new Date();
+  const upcoming = allEventsData
+    .filter(event => new Date(event.date) >= now)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+  const past = allEventsData
+    .filter(event => new Date(event.date) < now)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // Most recent first
+    .slice(0, 10); // Only keep the 10 most recent past events
+
+  return { upcoming, past };
 }
 
-export async function getEventData(id: string): Promise<Event> {
-  const fullPath = path.join(eventsDirectory, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+export function getEvent(id: string): Event | undefined {
+  try {
+    const fullPath = path.join(eventsDirectory, `${id}.md`);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-  // Use gray-matter to parse the event metadata section
-  const matterResult = matter(fileContents);
+    // Use gray-matter to parse the event metadata section
+    const matterResult = matter(fileContents);
 
-  // Combine the data with the id
-  return {
-    id,
-    ...(matterResult.data as Omit<Event, 'id'>),
-  };
+    // Combine the data with the id
+    return {
+      id,
+      ...(matterResult.data as Omit<Event, 'id'>),
+    };
+  } catch {
+    return undefined;
+  }
 } 
