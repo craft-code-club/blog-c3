@@ -11,7 +11,7 @@ export interface Event {
   date: string;
   time: string;
   location: string;
-  type: 'online' | 'in-person' | 'hybrid';
+  type: string;
   registrationLink: string;
   speakers?: string[];
 }
@@ -22,58 +22,52 @@ export interface EventsData {
 }
 
 export function getEvents(): EventsData {
-  // Create events directory if it doesn't exist
-  if (!fs.existsSync(eventsDirectory)) {
-    fs.mkdirSync(eventsDirectory, { recursive: true });
-  }
-
-  // Get file names under /events
   const fileNames = fs.readdirSync(eventsDirectory);
-  const allEventsData = fileNames.map((fileName) => {
-    // Remove ".md" from file name to get id
+  const allEvents = fileNames.map((fileName) => {
     const id = fileName.replace(/\.md$/, '');
-
-    // Read markdown file as string
     const fullPath = path.join(eventsDirectory, fileName);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-    // Use gray-matter to parse the event metadata section
     const matterResult = matter(fileContents);
 
-    // Combine the data with the id
     return {
       id,
       ...(matterResult.data as Omit<Event, 'id'>),
     };
   });
 
-  const now = new Date();
-  const upcoming = allEventsData
-    .filter(event => new Date(event.date) >= now)
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const today = new Date().toISOString().split('T')[0];
 
-  const past = allEventsData
-    .filter(event => new Date(event.date) < now)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // Most recent first
-    .slice(0, 10); // Only keep the 10 most recent past events
+  // Filter events first
+  const upcomingEvents = allEvents.filter(event => event.date >= today);
+  const pastEvents = allEvents.filter(event => event.date < today);
 
-  return { upcoming, past };
+  // Sort upcoming events by date (closer dates first)
+  const upcoming = upcomingEvents.sort((a, b) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+  });
+
+  // Sort past events by date (most recent first)
+  const past = pastEvents.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
+  return {
+    upcoming,
+    past,
+  };
 }
 
-export function getEvent(id: string): Event | undefined {
+export function getEvent(id: string): Event | null {
   try {
     const fullPath = path.join(eventsDirectory, `${id}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-    // Use gray-matter to parse the event metadata section
     const matterResult = matter(fileContents);
 
-    // Combine the data with the id
     return {
       id,
       ...(matterResult.data as Omit<Event, 'id'>),
     };
   } catch {
-    return undefined;
+    return null;
   }
 } 

@@ -1,8 +1,8 @@
 ---
 title: "AI Pair Programming Workshop: Beyond the Basics"
 description: "Learn advanced techniques for effective AI pair programming. Topics include prompt engineering, maintaining code quality, and integrating AI tools into your workflow."
-date: "2025-02-15"
-time: "10:00-16:00"
+date: "2025-01-18"
+time: "21:00-22:00"
 location: "Google Campus London + Live Stream"
 type: "hybrid"
 registrationLink: "https://www.meetup.com/craft-code-club"
