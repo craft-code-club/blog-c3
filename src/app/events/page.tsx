@@ -24,10 +24,10 @@ export default async function EventsPage() {
     };
 
     return (
-      <article className={`flex flex-col h-full rounded-lg shadow-sm border overflow-hidden transition-all ${
+      <article className={`flex flex-col h-full rounded-lg shadow-sm border overflow-hidden transition-all hover:shadow-lg ${
         isToday 
           ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 ring-2 ring-blue-500 dark:ring-blue-400'
-          : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700'
+          : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:ring-2 hover:ring-blue-500 dark:hover:ring-blue-400 hover:border-blue-200 dark:hover:border-blue-800'
       }`}>
         <div className="p-6 flex-grow flex flex-col">
           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
@@ -110,7 +110,7 @@ export default async function EventsPage() {
                 href={getCalendarUrl(event)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+                className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-purple-600 dark:bg-purple-500 hover:bg-purple-700 dark:hover:bg-purple-600 text-white"
               >
                 Add to Calendar
               </a>
@@ -118,7 +118,7 @@ export default async function EventsPage() {
                 href="https://discord.gg/V7hQJZSDYu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+                className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
               >
                 Join Discord
               </a>
