@@ -41,20 +41,7 @@ export default function TopicTags({ visibleTopics, hiddenTopics, hasHidden }: To
           content={<TagContent />}
           interactive={true}
           placement="top"
-          className="[&_.tippy-content]:p-0 [&_.tippy-arrow]:hidden"
-          popperOptions={{
-            modifiers: [{
-              name: 'applyStyles',
-              enabled: true,
-              phase: 'beforeWrite',
-              fn: ({ state }) => {
-                const box = state.elements.popper.querySelector('.tippy-box') as HTMLElement;
-                if (box) {
-                  box.style.background = 'transparent';
-                }
-              }
-            }]
-          }}
+          className="[&_.tippy-content]:p-0 [&_.tippy-arrow]:hidden [&_.tippy-box]:!bg-transparent"
         >
           <span className="inline-flex items-center flex-shrink-0 px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 cursor-pointer">
             ...
