@@ -6,11 +6,12 @@ import html from 'remark-html';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
-export interface BlogPost {
+export type BlogPost = {
   id: string;
   title: string;
   date: string;
   description: string;
+  topic: string;
   contentHtml: string;
 }
 
@@ -28,12 +29,15 @@ export function getSortedPostsData(): Omit<BlogPost, 'contentHtml'>[] {
     // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents);
 
+    // Combine the data with the id
     return {
       id,
-      ...(matterResult.data as { title: string; date: string; description: string }),
+      title: matterResult.data.title,
+      date: matterResult.data.date,
+      description: matterResult.data.description,
+      topic: matterResult.data.topic || '',
     };
   });
-
   // Sort posts by date
   return allPostsData.sort((a, b) => {
     if (a.date < b.date) {
@@ -57,9 +61,13 @@ export async function getPostData(id: string): Promise<BlogPost> {
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
+  // Combine the data with the id and contentHtml
   return {
     id,
     contentHtml,
-    ...(matterResult.data as { title: string; date: string; description: string }),
+    title: matterResult.data.title,
+    date: matterResult.data.date,
+    description: matterResult.data.description,
+    topic: matterResult.data.topic || '',
   };
 } 
