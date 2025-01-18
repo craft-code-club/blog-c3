@@ -20,14 +20,17 @@ export default function BlogPage() {
               <div className="p-6">
                 <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
                   <time dateTime={post.date}>{post.date}</time>
-                  {post.topic && (
-                    <>
-                      <span>•</span>
-                      <Link href={`/topics/${post.topic}`} className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
-                        {post.topic.toUpperCase()}
-                      </Link>
-                    </>
-                  )}
+                </div>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {post.topics.map((topic) => (
+                    <Link
+                      key={topic}
+                      href={`/topics/${topic}`}
+                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+                    >
+                      {topic}
+                    </Link>
+                  ))}
                 </div>
                 <Link href={`/posts/${post.id}`}>
                   <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">

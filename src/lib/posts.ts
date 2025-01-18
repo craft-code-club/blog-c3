@@ -11,7 +11,7 @@ export type BlogPost = {
   title: string;
   date: string;
   description: string;
-  topic: string;
+  topics: string[];
   contentHtml: string;
   authors?: Array<{
     name: string;
@@ -39,7 +39,7 @@ export function getSortedPostsData(): Omit<BlogPost, 'contentHtml'>[] {
       title: matterResult.data.title,
       date: matterResult.data.date,
       description: matterResult.data.description,
-      topic: matterResult.data.topic || '',
+      topics: matterResult.data.topics || [],
     };
   });
   // Sort posts by date
@@ -72,7 +72,7 @@ export async function getPostData(id: string): Promise<BlogPost> {
     title: matterResult.data.title,
     date: matterResult.data.date,
     description: matterResult.data.description,
-    topic: matterResult.data.topic || '',
+    topics: matterResult.data.topics || [],
     authors: matterResult.data.authors,
   };
 } 

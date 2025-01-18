@@ -1,5 +1,6 @@
 import { getPostData, getSortedPostsData } from '@/lib/posts';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -21,7 +22,7 @@ export default async function Post({ params }: Props) {
     <article className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{post.title}</h1>
-        <div className="flex items-center text-gray-600 dark:text-gray-400">
+        <div className="flex items-center text-gray-600 dark:text-gray-400 mb-4">
           <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('pt-BR')}</time>
           {authors.length > 0 && (
             <>
@@ -29,6 +30,17 @@ export default async function Post({ params }: Props) {
               <span>{authors.map(author => author.name).join(', ')}</span>
             </>
           )}
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {post.topics.map((topic) => (
+            <Link
+              key={topic}
+              href={`/topics/${topic}`}
+              className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+            >
+              {topic}
+            </Link>
+          ))}
         </div>
       </header>
       <div className="prose dark:prose-dark prose-lg max-w-none">

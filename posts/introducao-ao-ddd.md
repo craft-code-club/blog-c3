@@ -2,7 +2,7 @@
 title: 'Introdução ao Domain-Driven Design'
 date: '2024-03-21'
 description: 'Aprenda os conceitos fundamentais do Domain-Driven Design (DDD) e como ele pode ajudar você a construir software melhor'
-topic: 'ddd'
+topics: ['ddd', 'architecture', 'software-design']
 authors:
   - name: 'Maria Silva'
     link: 'https://github.com/mariasilva'
