@@ -4,8 +4,6 @@ date: '2024-03-20'
 description: 'Welcome to my blog built with Next.js and TypeScript'
 ---
 
-# Hello World
-
 Welcome to my blog! This is a sample post written in Markdown.
 
 ## Features

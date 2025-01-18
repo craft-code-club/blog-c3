@@ -13,6 +13,10 @@ export type BlogPost = {
   description: string;
   topic: string;
   contentHtml: string;
+  authors?: Array<{
+    name: string;
+    link?: string;
+  }>;
 }
 
 export function getSortedPostsData(): Omit<BlogPost, 'contentHtml'>[] {
@@ -69,5 +73,6 @@ export async function getPostData(id: string): Promise<BlogPost> {
     date: matterResult.data.date,
     description: matterResult.data.description,
     topic: matterResult.data.topic || '',
+    authors: matterResult.data.authors,
   };
 } 

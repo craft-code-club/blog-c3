@@ -5,8 +5,6 @@ description: 'Learn the core concepts of Domain-Driven Design (DDD) and how it c
 topic: 'ddd'
 ---
 
-# Introduction to Domain-Driven Design
-
 Domain-Driven Design (DDD) is a software development approach that focuses on creating a shared understanding between developers and domain experts. It provides a set of patterns and practices that help teams tackle complex domains effectively.
 
 ## Core Concepts
