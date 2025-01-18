@@ -34,7 +34,7 @@ export default async function Post({ params }: Props) {
   const post = await getPostData(resolvedParams.id);
 
   return (
-    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <article className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{post.title}</h1>
         <div className="flex items-center text-gray-600 dark:text-gray-400">
@@ -48,7 +48,7 @@ export default async function Post({ params }: Props) {
         </div>
       </header>
       <div className="prose dark:prose-dark prose-lg max-w-none">
-        {post.contentHtml}
+        <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
       </div>
     </article>
   );
