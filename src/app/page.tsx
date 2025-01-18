@@ -109,56 +109,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Links</h3>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/topics/ddd" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Domain-Driven Design</Link>
-                </li>
-                <li>
-                  <Link href="/topics/algorithms" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Algorithms & Data Structures</Link>
-                </li>
-                <li>
-                  <Link href="/topics/architecture" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Clean Architecture</Link>
-                </li>
-                <li>
-                  <Link href="/about" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About Us</Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Community</h3>
-              <ul className="space-y-3">
-                <li>
-                  <a href="https://discord.gg/V7hQJZSDYu" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    Join Discord
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.meetup.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    Attend Meetups
-                  </a>
-                </li>
-                <li>
-                  <a href="https://github.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    Contribute on GitHub
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-            <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
-              © {new Date().getFullYear()} Craft & Code Club. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
