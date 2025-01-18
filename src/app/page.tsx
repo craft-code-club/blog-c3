@@ -51,18 +51,18 @@ export default function Home() {
 
               {/* Algorithms Card */}
               <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Algoritmos e Estruturas de Dados</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Algoritmos</h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">Domine os fundamentos da ciência da computação e resolução de problemas.</p>
                 <Link href="/topics/algorithms" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
                   Saiba mais →
                 </Link>
               </div>
 
-              {/* Clean Architecture Card */}
+              {/* System Design Card */}
               <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Arquitetura Limpa</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">Construa arquiteturas de software sustentáveis e escaláveis.</p>
-                <Link href="/topics/architecture" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">System Design</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">Construa arquiteturas de software escaláveis e distribuídas.</p>
+                <Link href="/topics/system-design" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
                   Saiba mais →
                 </Link>
               </div>
@@ -81,14 +81,17 @@ export default function Home() {
                 <div className="p-6">
                   <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
                     <time dateTime={post.date}>{post.date}</time>
-                    {post.topic && (
-                      <>
-                        <span>•</span>
-                        <Link href={`/topics/${post.topic}`} className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
-                          {post.topic.toUpperCase()}
-                        </Link>
-                      </>
-                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {post.topics.map((topic) => (
+                      <Link
+                        key={topic}
+                        href={`/topics/${topic}`}
+                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+                      >
+                        {topic.charAt(0).toUpperCase() + topic.slice(1).replace(/-/g, ' ')}
+                      </Link>
+                    ))}
                   </div>
                   <Link href={`/posts/${post.id}`}>
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{post.title}</h3>

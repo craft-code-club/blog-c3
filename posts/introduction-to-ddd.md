@@ -2,7 +2,7 @@
 title: 'Introduction to Domain-Driven Design'
 date: '2024-03-20'
 description: 'Learn the core concepts of Domain-Driven Design (DDD) and how it can help you build better software'
-topic: 'ddd'
+topic: 'DDD'
 ---
 
 Domain-Driven Design (DDD) is a software development approach that focuses on creating a shared understanding between developers and domain experts. It provides a set of patterns and practices that help teams tackle complex domains effectively.

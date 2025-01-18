@@ -2,7 +2,7 @@
 title: 'Algoritmos e Estruturas de Dados Essenciais'
 date: '2024-03-22'
 description: 'Um guia prático sobre as estruturas de dados e algoritmos mais importantes para desenvolvedores'
-topics: ['dsa', 'algorithms', 'programming']
+topics: ['DSA', 'algorithms', 'programming']
 authors:
   - name: 'Pedro Oliveira'
     link: 'https://github.com/pedrooliveira'

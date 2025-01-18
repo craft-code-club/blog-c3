@@ -75,4 +75,17 @@ export async function getPostData(id: string): Promise<BlogPost> {
     topics: matterResult.data.topics || [],
     authors: matterResult.data.authors,
   };
+}
+
+export function getAllTopics(): string[] {
+  const posts = getSortedPostsData();
+  const topicsSet = new Set<string>();
+  
+  posts.forEach(post => {
+    post.topics.forEach(topic => {
+      topicsSet.add(topic);
+    });
+  });
+
+  return Array.from(topicsSet).sort();
 } 
