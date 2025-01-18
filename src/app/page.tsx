@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { getSortedPostsData } from '@/lib/posts';
+import { getSortedPostsData, formatTopicDisplay } from '@/lib/posts';
+import TopicTags from '@/components/TopicTags';
 
 export default function Home() {
   const posts = getSortedPostsData();
@@ -76,39 +77,37 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Últimos Posts</h2>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <article key={post.id} className="flex flex-col bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="p-6">
-                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                    <time dateTime={post.date}>{post.date}</time>
+            {posts.map((post) => {
+              const { visibleTopics, hiddenTopics, hasHidden } = formatTopicDisplay(post.topics);
+              
+              return (
+                <article key={post.id} className="flex flex-col bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
+                      <time dateTime={post.date}>{post.date}</time>
+                    </div>
+                    <TopicTags 
+                      visibleTopics={visibleTopics}
+                      hiddenTopics={hiddenTopics}
+                      hasHidden={hasHidden}
+                    />
+                    <Link href={`/posts/${post.id}`}>
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{post.title}</h3>
+                    </Link>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">{post.description}</p>
+                    <Link 
+                      href={`/posts/${post.id}`}
+                      className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+                    >
+                      Ler mais
+                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
                   </div>
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {post.topics.map((topic) => (
-                      <Link
-                        key={topic}
-                        href={`/topics/${topic}`}
-                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
-                      >
-                        {topic.charAt(0).toUpperCase() + topic.slice(1).replace(/-/g, ' ')}
-                      </Link>
-                    ))}
-                  </div>
-                  <Link href={`/posts/${post.id}`}>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{post.title}</h3>
-                  </Link>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{post.description}</p>
-                  <Link 
-                    href={`/posts/${post.id}`}
-                    className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
-                  >
-                    Ler mais
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         </div>
       </div>

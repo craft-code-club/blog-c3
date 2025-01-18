@@ -19,6 +19,30 @@ export type BlogPost = {
   }>;
 }
 
+// Helper function to format topic display
+export function formatTopicDisplay(topics: string[]) {
+  const MAX_CHARS = 35;
+  let visibleTopics: string[] = [];
+  let hiddenTopics: string[] = [];
+  let currentLength = 0;
+
+  for (const topic of topics) {
+    const formattedTopic = topic.charAt(0).toUpperCase() + topic.slice(1).replace(/-/g, ' ');
+    if (currentLength + formattedTopic.length <= MAX_CHARS) {
+      visibleTopics.push(topic);
+      currentLength += formattedTopic.length;
+    } else {
+      hiddenTopics.push(formattedTopic);
+    }
+  }
+
+  return {
+    visibleTopics,
+    hiddenTopics,
+    hasHidden: hiddenTopics.length > 0
+  };
+}
+
 export function getSortedPostsData(): Omit<BlogPost, 'contentHtml'>[] {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
