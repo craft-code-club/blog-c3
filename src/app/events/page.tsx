@@ -85,12 +85,12 @@ export default async function EventsPage() {
             </a>
           ) : isToday ? (
             // Today's event buttons
-            <div className="space-y-3">
+            <div className="flex gap-3">
               <a
                 href={event.registrationLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center px-4 py-2 rounded-md transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
+                className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
               >
                 Join Meeting Now
               </a>
@@ -98,40 +98,30 @@ export default async function EventsPage() {
                 href="https://discord.gg/V7hQJZSDYu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+                className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
               >
-                Join Discord Community
+                Join Discord
               </a>
             </div>
           ) : (
             // Upcoming event buttons
-            <div className="space-y-3">
+            <div className="flex gap-3">
               <a
-                href={event.registrationLink}
+                href={getCalendarUrl(event)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+                className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
               >
-                Register Now
+                Add to Calendar
               </a>
-              <div className="flex gap-3">
-                <a
-                  href={getCalendarUrl(event)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
-                >
-                  Add to Calendar
-                </a>
-                <a
-                  href="https://discord.gg/V7hQJZSDYu"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
-                >
-                  Join Discord
-                </a>
-              </div>
+              <a
+                href="https://discord.gg/V7hQJZSDYu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+              >
+                Join Discord
+              </a>
             </div>
           )}
         </div>
