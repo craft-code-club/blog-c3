@@ -8,7 +8,6 @@ export default async function EventsPage() {
     const today = new Date().toISOString().split('T')[0];
     const isToday = event.date === today;
 
-    // Function to generate calendar URL
     const getCalendarUrl = (event: Event) => {
       const startDate = new Date(`${event.date}T${event.time.split('-')[0]}`);
       const endDate = new Date(`${event.date}T${event.time.split('-')[1]}`);
@@ -39,7 +38,7 @@ export default async function EventsPage() {
             {isToday && (
               <>
                 <span>•</span>
-                <span className="text-green-600 dark:text-green-400 font-medium animate-pulse">Happening Now!</span>
+                <span className="text-green-600 dark:text-green-400 font-medium animate-pulse">Acontecendo Agora!</span>
               </>
             )}
           </div>
@@ -60,7 +59,7 @@ export default async function EventsPage() {
               
               {event.speakers && event.speakers.length > 0 && (
                 <div className="space-y-2">
-                  <h4 className="font-medium text-gray-900 dark:text-white">Speakers:</h4>
+                  <h4 className="font-medium text-gray-900 dark:text-white">Palestrantes:</h4>
                   <ul className="space-y-1">
                     {event.speakers.map((speaker, index) => (
                       <li key={index} className="text-gray-600 dark:text-gray-300">{speaker}</li>
@@ -74,7 +73,6 @@ export default async function EventsPage() {
         
         <div className="p-6 pt-0 mt-auto space-y-3">
           {isPast && !isToday ? (
-            // Past event button
             <a
               href={event.registrationLink}
               target="_blank"
@@ -84,7 +82,6 @@ export default async function EventsPage() {
               Assistir Gravação
             </a>
           ) : isToday ? (
-            // Today's event buttons
             <div className="flex gap-3">
               <a
                 href={event.registrationLink}
@@ -92,7 +89,7 @@ export default async function EventsPage() {
                 rel="noopener noreferrer"
                 className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
               >
-                Join Meeting Now
+                Participar Agora
               </a>
               <a
                 href="https://discord.gg/V7hQJZSDYu"
@@ -100,11 +97,10 @@ export default async function EventsPage() {
                 rel="noopener noreferrer"
                 className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
               >
-                Join Discord
+                Entrar no Discord
               </a>
             </div>
           ) : (
-            // Upcoming event buttons
             <div className="flex gap-3">
               <a
                 href={getCalendarUrl(event)}
@@ -112,7 +108,7 @@ export default async function EventsPage() {
                 rel="noopener noreferrer"
                 className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-purple-600 dark:bg-purple-500 hover:bg-purple-700 dark:hover:bg-purple-600 text-white"
               >
-                Add to Calendar
+                Adicionar ao Calendário
               </a>
               <a
                 href="https://discord.gg/V7hQJZSDYu"
@@ -120,7 +116,7 @@ export default async function EventsPage() {
                 rel="noopener noreferrer"
                 className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
               >
-                Join Discord
+                Entrar no Discord
               </a>
             </div>
           )}
@@ -133,9 +129,8 @@ export default async function EventsPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="space-y-12">
-          {/* Upcoming Events */}
           <section>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Upcoming Events</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Próximos Eventos</h2>
             {upcoming.length > 0 ? (
               <div className="grid gap-8 md:grid-cols-2">
                 {upcoming.map((event) => (
@@ -143,13 +138,12 @@ export default async function EventsPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-600 dark:text-gray-300">No upcoming events scheduled. Check back soon!</p>
+              <p className="text-gray-600 dark:text-gray-300">Nenhum evento programado. Volte em breve!</p>
             )}
           </section>
 
-          {/* Past Events */}
           <section>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Past Events</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Eventos Anteriores</h2>
             {past.length > 0 ? (
               <div className="grid gap-8 md:grid-cols-2">
                 {past.map((event) => (
@@ -157,7 +151,7 @@ export default async function EventsPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-600 dark:text-gray-300">No past events to display.</p>
+              <p className="text-gray-600 dark:text-gray-300">Nenhum evento anterior para exibir.</p>
             )}
           </section>
         </div>

@@ -9,8 +9,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Craft & Code Club Blog",
-  description: "Deep dives into DDD, algorithms, architecture, and software craftsmanship",
+  title: "Blog do Craft & Code Club",
+  description: "Mergulhe em DDD, algoritmos, arquitetura e artesanato de software",
 };
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${inter.className} bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased min-h-screen flex flex-col`}>
         <ThemeProvider>
           <nav className="sticky top-0 bg-white dark:bg-gray-800 shadow-sm z-50">
@@ -28,7 +28,7 @@ export default function RootLayout({
                 <Link href="/" className="flex items-center space-x-3 py-2">
                   <Image
                     src="/logo.png"
-                    alt="Craft & Code Club Logo"
+                    alt="Logo do Craft & Code Club"
                     width={44}
                     height={44}
                     className="flex-shrink-0"
@@ -38,14 +38,14 @@ export default function RootLayout({
                     <span className="text-xl font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors leading-tight">
                       Craft & Code Club
                     </span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Where coding is our craft</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">Onde o código é nossa arte</span>
                   </div>
                 </Link>
                 <div className="flex items-center space-x-8">
                   <div className="hidden md:flex items-center space-x-8">
                     <Link href="/blog" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Blog</Link>
-                    <Link href="/events" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Events</Link>
-                    <Link href="/about" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">About</Link>
+                    <Link href="/events" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Eventos</Link>
+                    <Link href="/about" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Sobre</Link>
                   </div>
                   <div className="flex items-center space-x-4">
                     <a href="https://github.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
@@ -82,7 +82,7 @@ export default function RootLayout({
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Craft & Code Club</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Where coding is our craft and technology is our canvas.</p>
+                  <p className="text-gray-600 dark:text-gray-300">Onde o código é nossa arte e a tecnologia é nossa tela.</p>
                   <div className="mt-4 flex space-x-4">
                     <a href="https://github.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
                       <span className="sr-only">GitHub</span>
@@ -105,38 +105,38 @@ export default function RootLayout({
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Links</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Links Rápidos</h3>
                   <ul className="space-y-3">
                     <li>
                       <Link href="/topics/ddd" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Domain-Driven Design</Link>
                     </li>
                     <li>
-                      <Link href="/topics/algorithms" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Algorithms & Data Structures</Link>
+                      <Link href="/topics/algorithms" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Algoritmos e Estruturas de Dados</Link>
                     </li>
                     <li>
-                      <Link href="/topics/architecture" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Clean Architecture</Link>
+                      <Link href="/topics/architecture" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Arquitetura Limpa</Link>
                     </li>
                     <li>
-                      <Link href="/about" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About Us</Link>
+                      <Link href="/about" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Sobre Nós</Link>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Community</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Comunidade</h3>
                   <ul className="space-y-3">
                     <li>
                       <a href="https://discord.gg/V7hQJZSDYu" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                        Join Discord
+                        Entrar no Discord
                       </a>
                     </li>
                     <li>
                       <a href="https://www.meetup.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                        Attend Meetups
+                        Participar dos Eventos
                       </a>
                     </li>
                     <li>
                       <a href="https://github.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                        Contribute on GitHub
+                        Contribuir no GitHub
                       </a>
                     </li>
                   </ul>
@@ -144,7 +144,7 @@ export default function RootLayout({
               </div>
               <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
                 <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
-                  © {new Date().getFullYear()} Craft & Code Club. All rights reserved.
+                  © {new Date().getFullYear()} Craft & Code Club. Todos os direitos reservados.
                 </p>
               </div>
             </div>
