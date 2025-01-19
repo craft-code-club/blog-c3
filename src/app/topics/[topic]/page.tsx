@@ -1,4 +1,4 @@
-import { getSortedPostsData, formatTopicDisplay } from '@/lib/posts';
+import {getSortedPostsData, formatTopicDisplay, getAllTopics} from '@/lib/posts';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import TopicTags from '@/components/TopicTags';
@@ -6,6 +6,14 @@ import TopicTags from '@/components/TopicTags';
 interface Props {
   params: Promise<{ topic: string }>;
 }
+
+export async function generateStaticParams() {
+  const topics = getAllTopics();
+  return topics.map((topic) => ({
+    topic: topic.replace(/\s+/g, '-').toLowerCase(),
+  }));
+}
+
 
 export default async function TopicPage({ params }: Props) {
   const resolvedParams = await params;
