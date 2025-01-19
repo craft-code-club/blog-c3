@@ -7,7 +7,8 @@ export default function AboutPage() {
             Sobre o Craft & Code Club
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            Uma comunidade dedicada à excelência em desenvolvimento de software e boas práticas de programação.
+            Uma comunidade dedicada à excelência em engenharia de software e boas práticas.
+            Abordando desde a base com algoritmos e estruturas de dados até a arquitetura de sistemas avançadas.
           </p>
         </header>
 
@@ -15,19 +16,26 @@ export default function AboutPage() {
           <section>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Nossa Missão</h2>
             <p className="text-gray-600 dark:text-gray-300">
-              Criar um espaço colaborativo onde desenvolvedores podem aprender, compartilhar conhecimento e crescer juntos. 
-              Nosso foco está em promover as melhores práticas de desenvolvimento, Domain-Driven Design, e arquitetura limpa.
+              Criar um espaço colaborativo onde desenvolvedores e engenheiros de software podem aprender, compartilhar conhecimento e crescer juntos. 
+              Nosso foco está em promover as melhores práticas de desenvolvimento, Algorítimos, Estruturas de Dados, System Design, Domain-Driven Design, Arquitetura limpa e tópicos avançados.
+              <br />
+              <br />
+              Nosso objetivo é fazer com que nós como comunidade como indivíduos possamos evoluir juntos, ajudarmos uns aos outros a alcancemos o próximo nível e nossos objetivos.
+            </p>
+            <p>
+              Nosso principal objetivo é fazer com que nós como comunidade como indivíduos possamos evoluir juntos, ajudarmos uns aos outros a alcancemos o &quote;próximo nível&quote; e nossos objetivos.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">O Que Fazemos</h2>
             <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
-              <li>Workshops práticos sobre DDD, TDD e Clean Architecture</li>
-              <li>Encontros mensais com palestras técnicas</li>
-              <li>Discussões sobre boas práticas de desenvolvimento</li>
+              <li>Encontros recorrentes para discutirmos sobre as bases com Algorítimos e Estruturas de Dados</li>
+              <li>Encontros recorrentes para discutirmos sobre System Design</li>
+              <li>Clube do Livro</li>
+              <li>Encontros recorrentes para discutirmos sobre Tópicos Avançados</li>
               <li>Projetos colaborativos da comunidade</li>
-              <li>Mentoria e suporte entre membros</li>
+              <li>Comunidade ativa no Discord onde discutimos sobre os tópicos avançados e compartilhamos conhecimento</li>
             </ul>
           </section>
 
