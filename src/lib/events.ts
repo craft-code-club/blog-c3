@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-const eventsDirectory = path.join(process.cwd(), 'events');
+const eventsDirectory = path.join(process.cwd(), '_content', 'events');
 
 export interface Event {
   id: string;
