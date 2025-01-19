@@ -47,19 +47,6 @@ export default function AboutPage() {
               </a>
             </div>
           </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Contato</h2>
-            <p className="text-gray-600 dark:text-gray-300">
-              Tem alguma dúvida ou sugestão? Entre em contato conosco:
-            </p>
-            <a
-              href="mailto:contact@craftcodeclub.com"
-              className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 no-underline"
-            >
-              contact@craftcodeclub.com
-            </a>
-          </section>
         </div>
       </div>
     </div>
