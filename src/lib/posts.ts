@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 
-const postsDirectory = path.join(process.cwd(), 'posts');
+const postsDirectory = path.join(process.cwd(), '_content', 'posts');
 
 export type BlogPost = {
   id: string;
@@ -22,8 +22,8 @@ export type BlogPost = {
 // Helper function to format topic display
 export function formatTopicDisplay(topics: string[]) {
   const MAX_CHARS = 35;
-  let visibleTopics: string[] = [];
-  let hiddenTopics: string[] = [];
+  const visibleTopics: string[] = [];
+  const hiddenTopics: string[] = [];
   let currentLength = 0;
 
   for (const topic of topics) {

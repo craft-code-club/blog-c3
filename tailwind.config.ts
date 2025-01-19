@@ -1,4 +1,6 @@
 import type { Config } from "tailwindcss";
+import { PluginUtils } from "tailwindcss/types/config";
+import typographyPlugin from '@tailwindcss/typography';
 
 const config: Config = {
   darkMode: ["class"],
@@ -56,7 +58,7 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      typography: ({ theme }) => ({
+      typography: ({ theme }: PluginUtils) => ({
         DEFAULT: {
           css: {
             '--tw-prose-body': theme('colors.gray[600]'),
@@ -82,7 +84,7 @@ const config: Config = {
       }),
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [typographyPlugin],
 };
 
 export default config;
