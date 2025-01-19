@@ -15,7 +15,7 @@ export default async function EventsPage() {
       const url = new URL('https://calendar.google.com/calendar/render');
       url.searchParams.append('action', 'TEMPLATE');
       url.searchParams.append('text', event.title);
-      url.searchParams.append('details', event.description);
+      url.searchParams.append('details', `${event.description}\n\n<a href="${event.registrationLink}">Link para o evento (${event.registrationLink})</a>`);
       url.searchParams.append('location', event.location);
       url.searchParams.append('dates', `${startDate.toISOString().replace(/[-:]/g, '').split('.')[0]}Z/${endDate.toISOString().replace(/[-:]/g, '').split('.')[0]}Z`);
       
