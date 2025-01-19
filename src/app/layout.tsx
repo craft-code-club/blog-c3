@@ -9,8 +9,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Blog do Craft & Code Club",
-  description: "Mergulhe em DDD, algoritmos, arquitetura e artesanato de software",
+  title: "Craft & Code Club - Comunidade de Artesãos de Software",
+  description: "Mergulhe em Algoritmos, Estruturas de Dados, System Design, DDD e Tópicos Avançados",
 };
 
 export default function RootLayout({
