@@ -176,11 +176,14 @@ export default function RootLayout({
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Links Rápidos</h3>
                   <ul className="space-y-3">
-                    <li>
-                      <Link href="/topics/ddd" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Domain-Driven Design</Link>
+                  <li>
+                      <Link href="/topics/algoritmos" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Algoritmos e Estruturas de Dados</Link>
                     </li>
                     <li>
-                      <Link href="/topics/algorithms" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Algoritmos e Estruturas de Dados</Link>
+                      <Link href="/topics/system-design" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">System Design</Link>
+                    </li>
+                    <li>
+                      <Link href="/topics/ddd" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Domain-Driven Design</Link>
                     </li>
                     <li>
                       <Link href="/topics/architecture" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Arquitetura Limpa</Link>
@@ -199,9 +202,14 @@ export default function RootLayout({
                       </a>
                     </li>
                     <li>
-                      <a href="https://www.meetup.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                        Participar dos Eventos
+                      <a href="http://www.youtube.com/@CraftCodeClub" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        Assistir no YouTube
                       </a>
+                    </li>
+                    <li>
+                    <Link href="/events" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                      Participar dos Eventos
+                    </Link>
                     </li>
                     <li>
                       <a href="https://github.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
