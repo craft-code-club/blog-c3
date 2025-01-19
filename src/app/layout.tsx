@@ -9,7 +9,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Craft & Code Club - Comunidade de Artesãos de Software",
+  title: "Comunidade Craft & Code Club",
   description: "Mergulhe em Algoritmos, Estruturas de Dados, System Design, DDD e Tópicos Avançados",
 };
 
