@@ -20,10 +20,9 @@ export default function AboutPage() {
               Nosso foco está em promover as melhores práticas de desenvolvimento, Algorítimos, Estruturas de Dados, System Design, Domain-Driven Design, Arquitetura limpa e tópicos avançados.
               <br />
               <br />
-              Nosso objetivo é fazer com que nós como comunidade como indivíduos possamos evoluir juntos, ajudarmos uns aos outros a alcancemos o próximo nível e nossos objetivos.
             </p>
             <p>
-              Nosso principal objetivo é fazer com que nós como comunidade como indivíduos possamos evoluir juntos, ajudarmos uns aos outros a alcancemos o &quote;próximo nível&quote; e nossos objetivos.
+              Nosso principal objetivo é fazer com que nós como comunidade e quanto indivíduos possamos evoluir juntos, ajudando uns aos outros a alcançarmos o próximo nível como engenheiros de software, na carreira, e em nossos objetivos.
             </p>
           </section>
 
