@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   // In case there is no "System Design", "Algorítimos" or "DDD", we add them to the list
   let topicsFromMds = getAllTopics();
   topicsFromMds = topicsFromMds.map(topic => topic.toLowerCase());
-  const defaultTopics = ['ddd', 'algoritimos', 'system design', 'DSA'];
+  const defaultTopics = ['ddd', 'algoritmos', 'system design', 'DSA'];
   const topics = Array.from(new Set([...defaultTopics, ...topicsFromMds]));
 
   // create the pages for the topics
