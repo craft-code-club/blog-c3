@@ -15,7 +15,7 @@ export default function Home() {
               Bem-vindo ao <span className="text-blue-600 dark:text-blue-400">Craft & Code Club</span>
             </h1>
             <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-300 sm:mt-4">
-              Uma comunidade de artesãos de software dedicada a código limpo, domain-driven design e excelência em arquitetura de software.
+              Uma comunidade de artesãos de software dedicada dos fundamentos a t&oacute;picos avançados em engenharia e arquiteturas de software.
             </p>
             <div className="mt-8 flex justify-center space-x-4">
               <a href="https://discord.gg/V7hQJZSDYu" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors">
@@ -35,21 +35,12 @@ export default function Home() {
           <div className="lg:text-center">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Tópicos em Destaque</h2>
             <p className="mt-4 max-w-2xl text-xl text-gray-600 dark:text-gray-300 lg:mx-auto">
-              Explore nossos guias e discussões sobre as melhores práticas de desenvolvimento de software.
+              Explore nossos artigos e discussões sobre as melhores práticas de engenharia de software.
             </p>
           </div>
 
           <div className="mt-10">
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {/* DDD Card */}
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Domain-Driven Design</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">Aprenda a criar software que reflita seu domínio de negócios.</p>
-                <Link href="/topics/ddd" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
-                  Saiba mais →
-                </Link>
-              </div>
-
               {/* Algorithms Card */}
               <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Algoritmos</h3>
@@ -64,6 +55,15 @@ export default function Home() {
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">System Design</h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">Construa arquiteturas de software escaláveis e distribuídas.</p>
                 <Link href="/topics/system-design" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
+                  Saiba mais →
+                </Link>
+              </div>
+    
+              {/* DDD Card */}
+              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Domain-Driven Design</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">Aprenda a criar software que reflita seu domínio de negócios.</p>
+                <Link href="/topics/ddd" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
                   Saiba mais →
                 </Link>
               </div>
