@@ -23,11 +23,11 @@ export async function generateStaticParams() {
 export default async function TopicPage({ params }: Props) {
   const resolvedParams = await params;
   const allPosts = getSortedPostsData();
-  const posts = allPosts.filter(post => post.topics.includes(resolvedParams.topic.toLowerCase()));
+  const posts = allPosts.filter(post => post.topics.filter(topic => topic.toLowerCase() === resolvedParams.topic.toLowerCase()).length > 0);
   const topicTitle = resolvedParams.topic.charAt(0).toUpperCase() + resolvedParams.topic.slice(1).replace(/-/g, ' ');
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="bg-white dark:bg-gray-900 mb-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <header className="mb-12">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{topicTitle}</h1>
