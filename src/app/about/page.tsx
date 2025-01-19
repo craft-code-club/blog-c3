@@ -38,20 +38,12 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="https://discord.gg/V7hQJZSDYu"
+                href="https://discord.gg/cqF9THUfnN"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors no-underline"
               >
                 Entrar no Discord
-              </a>
-              <a
-                href="https://www.meetup.com/craft-code-club"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors no-underline"
-              >
-                Ver Próximos Eventos
               </a>
             </div>
           </section>

@@ -38,7 +38,7 @@ export default async function EventsPage() {
             {isToday && (
               <>
                 <span>•</span>
-                <span className="text-green-600 dark:text-green-400 font-medium animate-pulse">Acontecendo Agora!</span>
+                <span className="text-green-600 dark:text-green-400 font-medium animate-pulse">Acontecendo Hoje!</span>
               </>
             )}
           </div>
@@ -92,7 +92,7 @@ export default async function EventsPage() {
                 Participar Agora
               </a>
               <a
-                href="https://discord.gg/V7hQJZSDYu"
+                href="https://discord.gg/cqF9THUfnN"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
@@ -111,7 +111,7 @@ export default async function EventsPage() {
                 Adicionar ao Calendário
               </a>
               <a
-                href="https://discord.gg/V7hQJZSDYu"
+                href="https://discord.gg/cqF9THUfnN"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"

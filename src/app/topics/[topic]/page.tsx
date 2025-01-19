@@ -8,10 +8,10 @@ interface Props {
 
 export async function generateStaticParams() {
   // all topics + default ones
-  // In case there is no SD, DSA or DDD, we add them to the list
+  // In case there is no "System Design", "Algorítimos" or "DDD", we add them to the list
   let topicsFromMds = getAllTopics();
   topicsFromMds = topicsFromMds.map(topic => topic.toLowerCase());
-  const defaultTopics = ['ddd', 'algoritimos', 'system design', 'wilson'];
+  const defaultTopics = ['ddd', 'algoritimos', 'system design', 'DSA'];
   const topics = Array.from(new Set([...defaultTopics, ...topicsFromMds]));
 
   // create the pages for the topics
