@@ -8,7 +8,14 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const topics = getAllTopics();
+  // all topics + default ones
+  // In case there is no SD, DSA or DDD, we add them to the list
+  let topicsFromMds = getAllTopics();
+  topicsFromMds = topicsFromMds.map(topic => topic.toLowerCase());
+  const defaultTopics = ['ddd', 'algoritimos', 'system design', 'wilson'];
+  const topics = Array.from(new Set([...defaultTopics, ...topicsFromMds]));
+
+  // create the pages for the topics
   return topics.map((topic) => ({
     topic: topic.replace(/\s+/g, '-').toLowerCase(),
   }));
@@ -18,7 +25,7 @@ export async function generateStaticParams() {
 export default async function TopicPage({ params }: Props) {
   const resolvedParams = await params;
   const allPosts = getSortedPostsData();
-  const posts = allPosts.filter(post => post.topics.includes(resolvedParams.topic));
+  const posts = allPosts.filter(post => post.topics.includes(resolvedParams.topic.toLowerCase()));
   const topicTitle = resolvedParams.topic.charAt(0).toUpperCase() + resolvedParams.topic.slice(1).replace(/-/g, ' ');
 
   if (posts.length === 0) {
