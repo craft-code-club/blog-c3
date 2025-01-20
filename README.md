@@ -10,6 +10,12 @@ O Craft & Code Club é uma comunidade de desenvolvedores apaixonados por qualida
 - 🎥 Conteúdo no YouTube
 - 💬 Discussões no Discord
 - 🤝 Eventos e encontros
+- 📖 Clube do Livro
+
+## :rocket: Faça parte da Comunidade
+
+Linkd para participar no Discord: \
+https://discord.gg/V7hQJZSDYu
 
 ## 📋 Usando este Template
 
