@@ -1,5 +1,5 @@
 ---
-title: "Clube do Livro: Sistema de Reservas de Hotel"
+title: "Clube do Livro: Sistema de Reservas de Hotel - System Design"
 description: "Seguindo o livro System Design Interview vol. 2. Vamos entrar no cap. 23 - Hotel Reservation System"
 date: "2025-01-27"
 time: "21:00-22:30"
