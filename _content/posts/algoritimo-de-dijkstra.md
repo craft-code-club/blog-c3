@@ -77,8 +77,6 @@ Armazena todas as arestas do grafo como uma lista de trios (nó de origem, nó d
 
 Representa o grafo como uma matriz 2D, onde a posição (i, j) contém o peso da aresta entre os nós i e j. É eficiente para buscas diretas, mas consome mais memória, especialmente para grafos esparsos.
 
----
-
 ## O Algoritmo em Si
 
 ### Descrição dos Passos
@@ -166,5 +164,5 @@ Junte-se à nossa comunidade para aprender mais sobre algoritmos, estruturas de 
 Compartilhe conhecimento, participe de discussões e expanda suas habilidades junto a outros entusiastas da tecnologia. \
 Estamos esperando por você!
 
-Link para a comunidade no discord: \
-https://discord.gg/cqF9THUfnN
+[Link para a comunidade no discord](https://discord.gg/cqF9THUfnN)
+
