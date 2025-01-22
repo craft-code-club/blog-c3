@@ -1,7 +1,7 @@
 ---
 title: 'Algoritmo de Dijkstra'
 date: '2025-01-22'
-description: 'Um dos algoritmos mais elegantes e influentes da ciência da computação: o Algoritmo de Dijkstra.'
+description: 'Descubra como o algoritmo de Dijkstra revoluciona a resolução de problemas de caminhos mínimos em grafos. Aprenda os fundamentos, aplicações práticas, e veja sua implementação passo a passo!'
 topics: ['algoritimos', 'grafos']
 ---
 
