@@ -5,6 +5,9 @@ description: 'Um dos algoritmos mais elegantes e influentes da ciência da compu
 topics: ['algoritimos', 'grafos']
 ---
 
+> Este artigo foi escrito baseado em nossas discussões no encontro da comunidade focado no Algoritmo de Dijkstra, que ocorreu dia 21 de Janeiro de 2025.
+> Para assistir acesse: [Encontro da Comunidade - Algoritmo de Dijkstra Explicado](https://youtu.be/b4kWEWtCVzA?si=SGQi2ewSz8tVZf7_)
+
 ## O que é o Algoritmo de Dijkstra?
 
 O algoritmo de Dijkstra é um método determinístico e guloso (greed) utilizado para resolver o problema de **SSSP (Single Source Shortest Path)**, ou seja, encontrar o caminho mais curto de um nó de origem para um nó destino ou para todos os outros nós em um grafo. Esse algoritmo é amplamente aplicado em problemas de redes, transporte e sistemas de navegação e distribuição.
@@ -165,4 +168,3 @@ Estamos esperando por você!
 
 Link para a comunidade no discord: \
 https://discord.gg/cqF9THUfnN
-
