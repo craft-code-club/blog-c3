@@ -1,0 +1,41 @@
+version: 2
+updates:
+
+  - package-ecosystem: "github-actions"
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    assignees:
+      - craft-code-club/c3-admins
+    reviewers:
+      - craft-code-club/c3-admins
+    commit-message:
+      prefix: "build"
+      include: "scope"
+    target-branch: "main"
+
+  - package-ecosystem: "npm"
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    assignees:
+      - craft-code-club/c3-admins
+    reviewers:
+      - craft-code-club/c3-admins
+    commit-message:
+      prefix: "build"
+      include: "scope"
+    target-branch: "main"
+
+  - package-ecosystem: "docker"
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    assignees:
+      - craft-code-club/c3-admins
+    reviewers:
+      - craft-code-club/c3-admins
+    commit-message:
+      prefix: "build"
+      include: "scope"
+    target-branch: "main"
