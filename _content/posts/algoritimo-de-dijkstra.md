@@ -41,6 +41,10 @@ Um grafo ponderado é uma estrutura de dados composta por vértices (ou nós) e 
 - Em um mapa, os pesos podem representar a distância entre cidades.
 - Em uma rede de computadores, os pesos podem ser o tempo de latência entre servidores.
 
+Além disso, os pesos podem ser valores compostos, calculados a partir da combinação de diferentes indicadores ou métricas. Por exemplo, em um sistema de logística, o peso de uma aresta pode representar o custo total de uma rota, levando em conta fatores como distância, tempo de transporte e custo de combustível. Esses valores compostos são úteis para modelar problemas complexos onde múltiplos critérios influenciam a escolha do caminho.
+
+É importante destacar que o algoritmo de Dijkstra não é responsável por calcular esses valores. Ele trabalha diretamente com os pesos fornecidos como entrada, assumindo que já representam as métricas ou combinações desejadas. A responsabilidade de definir ou calcular os pesos cabe ao contexto da aplicação que utiliza o algoritmo.
+
 ### Limitações com pesos negativos
 
 O algoritmo de Dijkstra não funciona corretamente em grafos que possuem pesos negativos nas arestas. Isso ocorre porque o algoritmo assume que, ao marcar um nó como processado, sua menor distância já foi encontrada. Com pesos negativos, essa suposição pode ser violada. Para lidar com esses casos, é mais adequado usar o algoritmo de Bellman-Ford, o qual falaremos em breve em um encontro focado nele e também um artigo apenas para ele.
@@ -78,6 +82,176 @@ Armazena todas as arestas do grafo como uma lista de trios (nó de origem, nó d
 Representa o grafo como uma matriz 2D, onde a posição (i, j) contém o peso da aresta entre os nós i e j. É eficiente para buscas diretas, mas consome mais memória, especialmente para grafos esparsos.
 
 ## O Algoritmo em Si
+
+### Passo a Passo Teórico
+
+```mermaid
+graph LR
+  A -->|5| B
+  A -->|1| C
+  B -->|2| D
+  B -->|4| C
+  B -->|4| E
+  C -->|5| E
+  C -->|2| B
+  C -->|5| D
+  D -->|2| E
+```
+
+Uma maneira fácil de explicar o algoritmo de Dijkstra é usar uma tabela para acompanhar a menor distância do nó inicial a cada nó do grafo. Para este exemplo, usaremos o grafo acima.
+
+**Passo 1**
+
+Crie uma tabela com um número de colunas igual ao número de nós no grafo e um número de linhas igual ao número de iterações necessárias para completar o algoritmo. Como o número de iterações é igual ao número de nós no grafo, teremos uma tabela com 5 linhas e 5 colunas.
+
+|         | A   | B   | C   | D   | E   |
+| ------- | --- | --- | --- | --- | --- |
+| 1º It() |     |     |     |     |     |
+| 2º It() |     |     |     |     |     |
+| 3º It() |     |     |     |     |     |
+| 4º It() |     |     |     |     |     |
+| 5º It() |     |     |     |     |     |
+
+**Passo 2**
+
+Primeiro, precisamos selecionar o nó inicial. Neste caso, usaremos o nó 'A' como ponto de partida. Assim, colocaremos o símbolo 'A' na coluna de iteração para indicar que o nó inicial é 'A'. Também colocaremos o número 0 na coluna correspondente ao nó 'A', indicando que a menor distância do nó inicial para ele mesmo é 0, e o nó predecessor para alcançar 'A' é ele próprio (0, A).
+
+|          | A     | B   | C   | D   | E   |
+| -------- | ----- | --- | --- | --- | --- |
+| 1º It(A) | (0,A) |     |     |     |     |
+| 2º It()  |       |     |     |     |     |
+| 3º It()  |       |     |     |     |     |
+| 4º It()  |       |     |     |     |     |
+| 5º It()  |       |     |     |     |     |
+
+**Passo 3**
+
+O primeiro princípio do algoritmo de Dijkstra é que, quando estamos iterando sobre um nó, já determinamos a menor distância do nó inicial até o nó atual. Assim, podemos considerar este nó como imutável, o que equivale a marcá-lo como visitado. Para indicar isso, preencheremos toda a coluna do nó com a mesma distância e nó predecessor '(0, A)'.
+
+|          | A     | B   | C   | D   | E   |
+| -------- | ----- | --- | --- | --- | --- |
+| 1º It(A) | (0,A) |     |     |     |     |
+| 2º It()  | (0,A) |     |     |     |     |
+| 3º It()  | (0,A) |     |     |     |     |
+| 4º It()  | (0,A) |     |     |     |     |
+| 5º It()  | (0,A) |     |     |     |     |
+
+**Passo 4**
+
+Agora, calcularemos a distância para os nós restantes:
+* A -> B = 5
+* A -> C = 1
+* A -> D = Infinito
+* A -> E = Infinito
+
+Observe que a distância de A para D e E é Infinito porque não há caminho direto de A para D ou E.
+
+|          | A     | B     | C     | D   | E   |
+| -------- | ----- | ----- | ----- | --- | --- |
+| 1º It(A) | (0,A) | (5,A) | (1,A) |  ∞  |  ∞  |
+| 2º It()  | (0,A) |       |       |     |     |
+| 3º It()  | (0,A) |       |       |     |     |
+| 4º It()  | (0,A) |       |       |     |     |
+| 5º It()  | (0,A) |       |       |     |     |
+
+**Passo 5**
+
+Finalizada a iteração sobre o nó 'A', precisamos selecionar o próximo nó a iterar. Para isso, escolhemos o nó com a menor distância acumulada até o momento. Neste caso, o nó é 'C', com distância acumulada de 1. Em seguida, repetiremos o passo 2 para identificar o nó atual e a distância para si mesmo.
+
+|          | A     | B     | C     | D   | E   |
+| -------- | ----- | ----- | ----- | --- | --- |
+| 1º It(A) | (0,A) | (5,A) | (1,A) |  ∞  |  ∞  |
+| 2º It(C) | (0,A) |       | (1,A) |     |     |
+| 3º It()  | (0,A) |       |       |     |     |
+| 4º It()  | (0,A) |       |       |     |     |
+| 5º It()  | (0,A) |       |       |     |     |
+
+**Passo 6**
+
+Repita o Passo 3 para marcar o nó 'C' como visitado, pois já determinamos a menor distância do nó inicial até ele.
+
+|          | A     | B     | C     | D   | E   |
+| -------- | ----- | ----- | ----- | --- | --- |
+| 1º It(A) | (0,A) | (5,A) | (1,A) |  ∞  |  ∞  |
+| 2º It(C) | (0,A) |       | (1,A) |     |     |
+| 3º It()  | (0,A) |       | (1,A) |     |     |
+| 4º It()  | (0,A) |       | (1,A) |     |     |
+| 5º It()  | (0,A) |       | (1,A) |     |     |
+
+**Passo 7**
+
+Agora, calcule a distância para os nós restantes, somando a distância acumulada à distância do nó atual para os nós vizinhos. Por exemplo:
+
+* C -> B = 2 + (1,A) = 3 -> min(3, (5,A) ) = 3
+* C -> D = 5 + (1,A) = 6
+* C -> E = 5 + (1,A) = 6
+
+Quando encontramos um nó com uma distância previamente calculada, precisamos comparar a distância anterior com a nova distância calculada (distância acumulada + distância do nó atual para o nó vizinho) e selecionar a menor distância. Isso significa que, se a nova distância for menor que a distância anterior, precisamos atualizar a distância e o nó predecessor.
+
+|          | A     | B     | C     | D     | E     |
+| -------- | ----- | ----- | ----- | ----- |------ |
+| 1º It(A) | (0,A) | (5,A) | (1,A) |   ∞   |   ∞   |
+| 2º It(C) | (0,A) | (3,C) | (1,A) | (6,C) | (6,C) |
+| 3º It()  | (0,A) |       | (1,A) |       |       |
+| 4º It()  | (0,A) |       | (1,A) |       |       |
+| 5º It()  | (0,A) |       | (1,A) |       |       |
+
+**Passo 8**
+
+Continue o processo até que todos os nós tenham sido visitados. Em seguida, selecione o nó 'B':
+
+B -> D = 2 + (3,C) = 5 -> min(5, (6,C) ) = 5
+B -> E = 4 + (3,C) = 7 -> min(7, (6,C) ) = 6
+
+|          | A     | B     | C     | D     | E     |
+| -------- | ----- | ----- | ----- | ----- |------ |
+| 1º It(A) | (0,A) | (5,A) | (1,A) |   ∞   |   ∞   |
+| 2º It(C) | (0,A) | (3,C) | (1,A) | (6,C) | (6,C) |
+| 3º It(B) | (0,A) | (3,C) | (1,A) | (5,B) | (6,C) |
+| 4º It()  | (0,A) | (3,C) | (1,A) |       |       |
+| 5º It()  | (0,A) | (3,C) | (1,A) |       |       |
+
+**Passo 9**
+
+Em seguida, selecione o nó 'D':
+
+D -> E = 2 + (5,B) = 7 -> min(7, (6,C) ) = 6
+
+|          | A     | B     | C     | D     | E     |
+| -------- | ----- | ----- | ----- | ----- |------ |
+| 1º It(A) | (0,A) | (5,A) | (1,A) |   ∞   |   ∞   |
+| 2º It(C) | (0,A) | (3,C) | (1,A) | (6,C) | (6,C) |
+| 3º It(B) | (0,A) | (3,C) | (1,A) | (5,B) | (6,C) |
+| 4º It(D) | (0,A) | (3,C) | (1,A) | (5,B) | (6,C) |
+| 5º It(E) | (0,A) | (3,C) | (1,A) | (5,B) |       |
+
+A distância de D para E foi calculada como 7, mas mantemos a menor distância, que é 6 de C para E. A tabela é atualizada de acordo, e a 5ª iteração ainda precisa ser completada.
+
+**Passo 10**
+
+Na iteração final, selecionamos o nó 'E':
+
+|          | A     | B     | C     | D     | E     |
+| -------- | ----- | ----- | ----- | ----- |------ |
+| 1º It(A) | (0,A) | (5,A) | (1,A) |   ∞   |   ∞   |
+| 2º It(C) | (0,A) | (3,C) | (1,A) | (6,C) | (6,C) |
+| 3º It(B) | (0,A) | (3,C) | (1,A) | (5,B) | (6,C) |
+| 4º It(D) | (0,A) | (3,C) | (1,A) | (5,B) | (6,C) |
+| 5º It(E) | (0,A) | (3,C) | (1,A) | (5,B) | (6,C) |
+
+Com isso, determinamos a menor distância do nó 'A' para todos os outros nós no grafo, como representado na última linha da tabela:
+
+* A -> B = 3
+* A -> C = 1
+* A -> D = 5
+* A -> E = 6
+
+Para determinar o caminho, basta rastrear os nós predecessores a partir do nó de destino até o nó inicial. Por exemplo:
+
+* A -> B = A -> C -> B
+* A -> C = A -> C
+* A -> D = A -> C -> B -> D
+* A -> E = A -> C -> E
 
 ### Descrição dos Passos
 
@@ -150,7 +324,7 @@ def dijkstra(graph, source, target):
 result = dijkstra(graph1, 'A', 'D')
 
 print(result)
-``` 
+```
 
 ## Conclusão
 
@@ -159,10 +333,9 @@ O algoritmo de Dijkstra é uma ferramenta poderosa para resolver problemas de ca
 ## Convite para Participar da Comunidade
 
 Gostou do conteúdo? \
-Junte-se à nossa comunidade para aprender mais sobre algoritmos, estruturas de dados e tecnologias de ponta. 
+Junte-se à nossa comunidade para aprender mais sobre algoritmos, estruturas de dados e tecnologias de ponta.
 
 Compartilhe conhecimento, participe de discussões e expanda suas habilidades junto a outros entusiastas da tecnologia. \
 Estamos esperando por você!
 
 [Link para a comunidade no discord](https://discord.gg/cqF9THUfnN)
-
