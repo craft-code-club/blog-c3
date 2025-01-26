@@ -69,7 +69,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy out --project-name=blog-c3
+          command: pages deploy out --project-name=blog-c3 --branch ${{ github.ref_name }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           
       - name: print wrangler command output
