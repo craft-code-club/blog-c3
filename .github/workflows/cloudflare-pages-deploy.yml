@@ -12,10 +12,6 @@ on:
     types: [submitted, edited]
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-
 jobs:
   # Build job
   build:
