@@ -30,14 +30,14 @@ export default function BlogPage() {
                     hiddenTopics={hiddenTopics}
                     hasHidden={hasHidden}
                   />
-                  <Link href={`/posts/${post.id}`}>
+                  <Link href={`/posts/${encodeURIComponent(post.id)}`}>
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                       {post.title}
                     </h2>
                   </Link>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">{post.description}</p>
                   <Link 
-                    href={`/posts/${post.id}`}
+                    href={`/posts/${encodeURIComponent(post.id)}`}
                     className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
                   >
                     Ler mais
