@@ -2,6 +2,7 @@ import {getSortedPostsData, formatTopicDisplay, getAllTopics} from '@/lib/posts'
 import escapeHtml from 'escape-html';
 import Link from 'next/link';
 import TopicTags from '@/components/TopicTags';
+import { Metadata } from 'next';
 
 interface Props {
   params: Promise<{ topic: string }>;
@@ -19,6 +20,25 @@ export async function generateStaticParams() {
   return topics.map((topic) => ({
     topic: topic.replace(/\s+/g, '-').toLowerCase(),
   }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const topicTitle = resolvedParams.topic.charAt(0).toUpperCase() + resolvedParams.topic.slice(1).replace(/-/g, ' ');
+  
+  return {
+    title: `${topicTitle} | Craft & Code Club`,
+    description: `Artigos e recursos sobre ${topicTitle.toLowerCase()} da comunidade Craft & Code Club.`,
+    keywords: [topicTitle, "Desenvolvimento de Software", "Desenvolvimento", "Software", "Aprendizado", "Comunidade", "Algoritmos", "Estruturas de Dados", "System Design", "DDD"],
+    openGraph: {
+      title: `${topicTitle} | Craft & Code Club`,
+      description: `Artigos e recursos sobre ${topicTitle.toLowerCase()} da comunidade Craft & Code Club.`,
+    },
+    twitter: {
+      title: `${topicTitle} | Craft & Code Club`,
+      description: `Artigos e recursos sobre ${topicTitle.toLowerCase()} da comunidade Craft & Code Club.`,
+    }
+  };
 }
 
 export default async function TopicPage({ params }: Props) {

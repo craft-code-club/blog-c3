@@ -1,5 +1,6 @@
 import { getPostData, getSortedPostsData } from '@/lib/posts';
 import Link from 'next/link';
+import { Metadata } from 'next';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -10,6 +11,29 @@ export async function generateStaticParams() {
   return posts.map((post) => ({
     id: post.id,
   }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const post = await getPostData(resolvedParams.id);
+  
+  return {
+    title: `${post.title} | Craft & Code Club`,
+    description: post.description,
+    keywords: [...post.topics, "Blog", "Artigo", "Desenvolvimento de Software", "Aprendizado", "Comunidade", "Algoritmos", "Estruturas de Dados", "System Design", "DDD"],
+    openGraph: {
+      title: `${post.title} | Craft & Code Club`,
+      description: post.description,
+      type: 'article',
+      publishedTime: post.date,
+      authors: post.authors?.map(author => author.name) || [],
+      tags: post.topics,
+    },
+    twitter: {
+      title: `${post.title} | Craft & Code Club`,
+      description: post.description
+    }
+  };
 }
 
 export default async function Post({ params }: Props) {
