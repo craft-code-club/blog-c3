@@ -16,18 +16,15 @@ jobs:
     name: Build Pages
     steps:
     - name: Checkout
-      if: github.event.pull_request.head.repo.fork == false
       uses: actions/checkout@v4
 
     - name: Setup Node
-      if: github.event.pull_request.head.repo.fork == false
       uses: actions/setup-node@v4
       with:
         node-version: "20"
         cache: npm
 
     - name: Restore cache
-      if: github.event.pull_request.head.repo.fork == false
       uses: actions/cache@v4
       with:
         path: |
@@ -37,11 +34,9 @@ jobs:
           ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
     - name: Install dependencies
-      if: github.event.pull_request.head.repo.fork == false
       run: npm ci
 
     - name: Build with Next.js
-      if: github.event.pull_request.head.repo.fork == false
       run: npm run build
 
     - name: Upload artifact
