@@ -1,4 +1,5 @@
 import {getSortedPostsData, formatTopicDisplay, getAllTopics} from '@/lib/posts';
+import escapeHtml from 'escape-html';
 import Link from 'next/link';
 import TopicTags from '@/components/TopicTags';
 
@@ -70,14 +71,14 @@ export default async function TopicPage({ params }: Props) {
                       hiddenTopics={hiddenTopics}
                       hasHidden={hasHidden}
                     />
-                    <Link href={`/posts/${post.id}`}>
+                    <Link href={`/posts/${escapeHtml(post.id)}`}>
                       <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                         {post.title}
                       </h2>
                     </Link>
                     <p className="text-gray-600 dark:text-gray-300 mb-4">{post.description}</p>
                     <Link 
-                      href={`/posts/${post.id}`}
+                      href={`/posts/${escapeHtml(post.id)}`}
                       className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
                     >
                       Ler mais
