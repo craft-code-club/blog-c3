@@ -58,9 +58,10 @@ jobs:
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}
+          retention-days: 3
           path: ./out
 
   # Deployment job
@@ -73,7 +74,7 @@ jobs:
     name: Deploy to Cloudflare Pages
     steps:
       - name: Download a Build Artifact
-        uses: actions/download-artifact@v4.1.8
+        uses: actions/download-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}
           path: ./out
@@ -83,7 +84,7 @@ jobs:
       - run: ls -lah ./out
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Publish
         uses: cloudflare/pages-action@v1
         with:
