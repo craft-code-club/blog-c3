@@ -1,6 +1,21 @@
 import { getSortedPostsData, formatTopicDisplay } from '@/lib/posts';
 import Link from 'next/link';
 import TopicTags from '@/components/TopicTags';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Blog | Craft & Code Club",
+  description: "Artigos sobre engenharia de software, System Design, Algoritmos, Estruturas de dados, DDD, melhores práticas e aprendizados da comunidade.",
+  keywords: ["Blog", "Artigos", "Desenvolvimento de Software", "Engenharia de Software", "System Design", "Algoritmos", "DDD"],
+  openGraph: {
+    title: "Blog | Craft & Code Club",
+    description: "Artigos sobre engenharia de software, System Design, Algoritmos, Estruturas de dados, DDD, melhores práticas e aprendizados da comunidade.",
+  },
+  twitter: {
+    title: "Blog | Craft & Code Club",
+    description: "Artigos sobre engenharia de software, System Design, Algoritmos, Estruturas de dados, DDD, melhores práticas e aprendizados da comunidade.",
+  }
+};
 
 export default function BlogPage() {
   const posts = getSortedPostsData();
