@@ -83,13 +83,11 @@ jobs:
       - run: ls -lah
       - run: ls -lah ./out
 
-      - name: Checkout
-        uses: actions/checkout@v4
       - name: Publish
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: blog-c3
-          directory: ./out
+          directory: out
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}  
