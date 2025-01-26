@@ -52,6 +52,7 @@ jobs:
     permissions:
       contents: read
       deployments: write
+      pull-requests: write # To can create a comment in PR
     name: Deploy to Cloudflare Pages
     steps:
       - name: Checkout
