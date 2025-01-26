@@ -17,6 +17,7 @@ on:
 jobs:
   markdown-link-check:
     runs-on: ubuntu-latest
+    name: 'Check Markdown links'
 
     steps:
     - name: "Checkout"
