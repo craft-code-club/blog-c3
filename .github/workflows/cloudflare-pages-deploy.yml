@@ -77,6 +77,11 @@ jobs:
         with:
           name: ${{ env.ARTIFACT_NAME }}
           path: ./out
+      
+      - run: pwd
+      - run: ls -lah
+      - run: ls -lah ./out
+
       - name: Checkout
         uses: actions/checkout@v3
       - name: Publish
