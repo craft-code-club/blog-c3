@@ -38,7 +38,7 @@ export default function BlogPage() {
               <article key={post.id} className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="p-6">
                   <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                    <time dateTime={post.date}>{new Date(post.date).toLocaleDateString()}</time>
+                    <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('pt-BR')}</time>
                   </div>
                   <TopicTags 
                     visibleTopics={visibleTopics}

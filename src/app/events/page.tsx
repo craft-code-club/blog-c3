@@ -45,7 +45,7 @@ export default async function EventsPage() {
       }`}>
         <div className="p-6 flex-grow flex flex-col">
           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
-            <time dateTime={event.date}>{new Date(event.date).toLocaleDateString()}</time>
+            <time dateTime={event.date}>{new Date(event.date).toLocaleDateString('pt-BR')}</time>
             <span>•</span>
             <span>{event.time}</span>
             <span>•</span>

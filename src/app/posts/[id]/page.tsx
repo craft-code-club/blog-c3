@@ -46,7 +46,7 @@ export default async function Post({ params }: Props) {
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{post.title}</h1>
         <div className="flex items-center text-gray-600 dark:text-gray-400 mb-4">
-          <time dateTime={post.date}>{new Date(post.date).toLocaleDateString()}</time>
+          <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('pt-BR')}</time>
           {authors.length > 0 && (
             <>
               <span className="mx-2">•</span>
