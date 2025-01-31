@@ -1,0 +1,31 @@
+name: 'Check Markdown links'
+
+
+on:
+  workflow_dispatch: # To can dispatch manually
+
+  # Schedule to run every week on Sunday at 00:00 UTC
+  schedule:
+    - cron: '0 0 * * 0'
+
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+    branches:
+      - main
+
+
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    name: 'Check Markdown links'
+
+    steps:
+    - name: "Checkout"
+      uses: actions/checkout@v4.2.2
+
+    - name: 'Readme analysis'
+      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-verbose-mode: 'yes'
+        base-branch: 'main'
+        config-file: '.github/workflows/markdown-link-check.json'

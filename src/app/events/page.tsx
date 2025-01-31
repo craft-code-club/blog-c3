@@ -1,5 +1,20 @@
 import { getEvents } from '@/lib/events';
 import type { Event } from '@/lib/events';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Eventos | Craft & Code Club",
+  description: "Participe dos nossos encontros sobre engenharia de software, System Design, Algoritmos, e muito mais.",
+  keywords: ["Eventos", "Workshops", "Meetups", "Comunidade", "Desenvolvimento de Software", "Algoritmos", "Estruturas de Dados", "System Design", "DDD"],
+  openGraph: {
+    title: "Eventos | Craft & Code Club",
+    description: "Participe dos nossos encontros sobre engenharia de software, System Design, Algoritmos, e muito mais.",
+  },
+  twitter: {
+    title: "Eventos | Craft & Code Club",
+    description: "Participe dos nossos encontros sobre engenharia de software, System Design, Algoritmos, e muito mais.",
+  }
+};
 
 export default async function EventsPage() {
   const { upcoming, past } = await getEvents();
@@ -30,7 +45,7 @@ export default async function EventsPage() {
       }`}>
         <div className="p-6 flex-grow flex flex-col">
           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
-            <time dateTime={event.date}>{event.date}</time>
+            <time dateTime={event.date}>{new Date(event.date).toLocaleDateString('pt-BR')}</time>
             <span>•</span>
             <span>{event.time}</span>
             <span>•</span>

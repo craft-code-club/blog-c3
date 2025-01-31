@@ -1,6 +1,8 @@
 import {getSortedPostsData, formatTopicDisplay, getAllTopics} from '@/lib/posts';
+import escapeHtml from 'escape-html';
 import Link from 'next/link';
 import TopicTags from '@/components/TopicTags';
+import { Metadata } from 'next';
 
 interface Props {
   params: Promise<{ topic: string }>;
@@ -18,6 +20,25 @@ export async function generateStaticParams() {
   return topics.map((topic) => ({
     topic: topic.replace(/\s+/g, '-').toLowerCase(),
   }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const topicTitle = resolvedParams.topic.charAt(0).toUpperCase() + resolvedParams.topic.slice(1).replace(/-/g, ' ');
+  
+  return {
+    title: `${topicTitle} | Craft & Code Club`,
+    description: `Artigos e recursos sobre ${topicTitle.toLowerCase()} da comunidade Craft & Code Club.`,
+    keywords: [topicTitle, "Desenvolvimento de Software", "Desenvolvimento", "Software", "Aprendizado", "Comunidade", "Algoritmos", "Estruturas de Dados", "System Design", "DDD"],
+    openGraph: {
+      title: `${topicTitle} | Craft & Code Club`,
+      description: `Artigos e recursos sobre ${topicTitle.toLowerCase()} da comunidade Craft & Code Club.`,
+    },
+    twitter: {
+      title: `${topicTitle} | Craft & Code Club`,
+      description: `Artigos e recursos sobre ${topicTitle.toLowerCase()} da comunidade Craft & Code Club.`,
+    }
+  };
 }
 
 export default async function TopicPage({ params }: Props) {
@@ -63,21 +84,21 @@ export default async function TopicPage({ params }: Props) {
                 <article key={post.id} className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
                   <div className="p-6">
                     <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                      <time dateTime={post.date}>{post.date}</time>
+                      <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('pt-BR')}</time>
                     </div>
                     <TopicTags 
                       visibleTopics={visibleTopics}
                       hiddenTopics={hiddenTopics}
                       hasHidden={hasHidden}
                     />
-                    <Link href={`/posts/${post.id}`}>
+                    <Link href={`/posts/${escapeHtml(post.id)}`}>
                       <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                         {post.title}
                       </h2>
                     </Link>
                     <p className="text-gray-600 dark:text-gray-300 mb-4">{post.description}</p>
                     <Link 
-                      href={`/posts/${post.id}`}
+                      href={`/posts/${escapeHtml(post.id)}`}
                       className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
                     >
                       Ler mais
