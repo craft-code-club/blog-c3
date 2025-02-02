@@ -5,6 +5,6 @@ date: "2025-01-27"
 time: "21:00-22:30"
 location: "Online via Zoom"
 type: "online"
-registrationLink: "https://us06web.zoom.us/j/82173062389?pwd=hHBQsKgIup7tqHe0OeFhyToEzXJcko.1"
+registrationLink: "https://www.youtube.com/watch?v=4bc2l1KEt3A"
 ---
 
