@@ -124,7 +124,7 @@ graph LR
   D -->|4| E
   E -->|-5| C
 ```
-![DSA Bellman Ford No Negative Cycles](/posts/dsa-bellman-ford-no-negative-cycles.png)
+![DSA Bellman Ford No Negative Cycles](/public/posts/dsa-bellman-ford-no-negative-cycles.png)
 
 #### Passo 1:
 
@@ -235,7 +235,7 @@ graph LR
   D -->|4| E
   E -->|-9| C
 ```
-![DSA Bellman Ford with Negative Cycles](/posts/dsa-bellman-ford-with-negative-cycles.png)
+![DSA Bellman Ford with Negative Cycles](/public/posts/dsa-bellman-ford-with-negative-cycles.png)
 
 Após **V-1 iterações**, fazemos uma **iteração extra**:
 
