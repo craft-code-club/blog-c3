@@ -58,7 +58,7 @@ Se o grafo não possui pesos negativos e exige uma solução mais rápida, Dijks
 |----------------------------------|-----------------------------------------------------------------|------------------------------------------------------|
 | **Pesos negativos**              | ✅ Funciona corretamente                                        | ❌ Não funciona                                      |
 | **Detecção de ciclos negativos** | ✅ Sim                                                          | ❌ Não                                               |
-| **Complexidade**                 | O(V × E)                                                        | O(V log V + E) (com heap)                            |
+| **Complexidade**                 | `O(V × E)`                                                      | `O(V log V + E)` (com heap)                          |
 | **Melhor para**                  | Grafos com pesos negativos ou necessidade de detecção de ciclos | Grafos sem pesos negativos, onde rapidez é essencial |
 
 **Conclusão**: Use **Dijkstra** para eficiência quando **não houver pesos negativos**. Escolha **Bellman-Ford** se precisar lidar com **pesos negativos ou detectar ciclos negativos**.
@@ -83,10 +83,10 @@ Antes de entender o funcionamento do **Algoritmo de Bellman-Ford**, é essencial
 ### O conceito de relaxamento de arestas
 
 - O **relaxamento** é o processo central do Bellman-Ford. O algoritmo **atualiza repetidamente a menor distância conhecida** para cada vértice, garantindo que o caminho mínimo seja encontrado ao longo do tempo.
-- Se uma aresta **(u → v, peso w)** puder reduzir a distância para **v**, a atualização ocorre:
+- Se uma aresta **(U → V, peso W)** puder reduzir a distância para **V**, a atualização ocorre:
 
 ```math
-dist(v) = min(dist(v), dist(u) + w)
+dist(V) = min(dist(V), dist(U) + W)
 ```
 
 ### Detectando ciclos negativos
@@ -198,7 +198,7 @@ Nesta iteração, observamos uma **nova possibilidade para C**:
 | 3ª It | (0, A) | (3, D) | (1, E) | (2, A) | (6, D) |
 | 4ª It |        |        |        |        |        |
 
-## **Passo 5
+#### Passo 5
 
 - Nenhuma nova atualização ocorre.
 - Propagamos os valores da terceira iteração.
