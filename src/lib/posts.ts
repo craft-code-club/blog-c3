@@ -1,12 +1,12 @@
 import fs from 'fs';
-import path from 'path';
 import matter from 'gray-matter';
-import remarkGfm from 'remark-gfm';
-import {unified} from "unified";
-import remarkParse from "remark-parse";
-import rehypeStringify from 'rehype-stringify'
+import path from 'path';
 import rehypeHighlight from "rehype-highlight";
+import rehypeStringify from 'rehype-stringify';
+import remarkGfm from 'remark-gfm';
+import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
+import { unified } from "unified";
 import '../assets/code-stackoverflow-dark.css';
 
 const postsDirectory = path.join(process.cwd(), '_content', 'posts');
@@ -95,7 +95,10 @@ export async function getPostData(id: string): Promise<BlogPost> {
       .use(rehypeStringify)
       .process(matterResult.content);
 
-  const contentHtml = processedContent.toString();
+  let contentHtml = processedContent.toString();
+
+  // 🔥 Adjust image paths dynamically
+  contentHtml = contentHtml.replace(/<img src="\/public/g, `<img src="`);
 
   return {
     id,
@@ -111,7 +114,7 @@ export async function getPostData(id: string): Promise<BlogPost> {
 export function getAllTopics(): string[] {
   const posts = getSortedPostsData();
   const topicsSet = new Set<string>();
-  
+
   posts.forEach(post => {
     post.topics.forEach(topic => {
       topicsSet.add(topic);
@@ -119,4 +122,4 @@ export function getAllTopics(): string[] {
   });
 
   return Array.from(topicsSet).sort();
-} 
+}
