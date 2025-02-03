@@ -76,7 +76,7 @@ Antes de entender o funcionamento do **Algoritmo de Bellman-Ford**, é essencial
 
 ### Pesos nas arestas (Positivos e Negativos)
 
-- Cada aresta em um grafo pode ter um **peso** (ou custo), representando distância, tempo ou custo financeiro.
+- Cada aresta em um grafo tem um **peso** (ou custo), representando distância, tempo, custo financeiro ou qualquer outra métrica que represente o custo de se mover de um vértice para outro. O que chamamos de **Grafo Ponderado**.
 - O **Dijkstra falha com pesos negativos**, pois assume que encontrar um caminho ótimo mais curto significa apenas **somar pesos**.
 - O **Bellman-Ford resolve esse problema**, permitindo caminhos mínimos **mesmo em grafos com pesos negativos**.
 
@@ -254,7 +254,7 @@ Como **há mudança na iteração extra**, detectamos um **ciclo negativo**.
 
 A eficiência de um algoritmo é medida pela sua **complexidade assintótica**, que nos dá uma ideia de seu desempenho conforme o número de **vértices (V)** e **arestas (E)** do grafo cresce.
 
-### **Pior Caso: O(VE)**
+### **Pior Caso: O(V x E)**
 
 - O algoritmo executa o **relaxamento de todas as arestas V−1 vezes** no pior caso. Como há **E arestas**, o total de operações será:
 
