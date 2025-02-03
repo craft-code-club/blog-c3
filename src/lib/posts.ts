@@ -97,8 +97,10 @@ export async function getPostData(id: string): Promise<BlogPost> {
 
   let contentHtml = processedContent.toString();
 
-  // 🔥 Adjust image paths dynamically
-  contentHtml = contentHtml.replace(/<img src="\/public/g, `<img src="`);
+  // Adjust image paths dynamically
+  contentHtml = contentHtml
+    .replace(/<img src="\/public/g, `<img src="`)
+    .replace(/<img src="\.\.\/\.\.\/public/g, `<img src="`);
 
   return {
     id,
