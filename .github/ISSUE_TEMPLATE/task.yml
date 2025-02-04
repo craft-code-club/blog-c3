@@ -1,0 +1,16 @@
+---
+name: "🔧 Task"
+description: Report a task suggestion or project maintenance
+title: "(Short description)"
+labels: [task]
+
+
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the task
+      description: A clear and concise description of the task.
+    validations:
+      required: true
