@@ -1,0 +1,24 @@
+---
+name: "💊 Support"
+description: "Request support about this project"
+title: "(short issue description)"
+labels: [support]
+
+
+
+body:
+  - type: input
+    id: topic
+    attributes:
+      label: Question title
+      placeholder: Short description of your question
+    validations:
+      required: true
+
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Describe your question
+    validations:
+      required: true
