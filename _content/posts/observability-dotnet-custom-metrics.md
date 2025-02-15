@@ -1,7 +1,7 @@
 ---
 title: 'Métricas Personalizadas em .NET'
 date: '2025-02-15'
-description: 'Aprenda a implementar métricas personalizadas em .NET. Contadores, UpDownCounters, Gauges e Histograms—para aprimorar a observabilidade em suas aplicações.'
+description: 'Aprenda a implementar métricas personalizadas em .NET. Contadores, UpDownCounters, Gauges e Histograms para aprimorar a observabilidade em suas aplicações.'
 tags: ['.NET', 'Observabilidade']
 authors:
   - name: 'Nelson Nobre'
