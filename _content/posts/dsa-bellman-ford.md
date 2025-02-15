@@ -8,6 +8,8 @@ authors:
     link: 'https://github.com/NelsonBN'
   - name: 'Wilson Neto'
     link: 'https://github.com/wilsonneto-dev'
+  - name: 'Giovanny Massuia '
+    link: 'https://github.com/giovannymassuia'
 ---
 
 ## O que é o Algoritmo de Bellman-Ford?
