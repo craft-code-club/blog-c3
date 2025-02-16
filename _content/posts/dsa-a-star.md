@@ -35,7 +35,19 @@ A Lista Fechada contém nós que já foram completamente processados e não prec
 
 ### Heurística
 
-O **A*** faz uso de uma função heurística `h(n)` para estimar o custo restante do caminho até o objetivo, permitindo priorizar caminhos promissores e reduzir o número de nós explorados. Essa função heurística é usada para guiar a pesquisa de forma eficiente.
+**O que é, na realidade, a tal heurística?**
+
+De forma simplificada, podemos dizer que é um palpite do custo necessário para ir do nó A ao nó B.
+
+**Outra pergunta que pode surgir é: "Mas se estamos à procura do caminho, como conseguimos saber o custo desse palpite?"**
+
+A resposta é simples: não sabemos com certeza. A heurística é apenas uma aproximação, um "chute" inteligente que usamos para tentar encontrar o caminho mais curto. E é justamente essa estimativa que torna o algoritmo **A*** mais eficiente.
+
+**Outra dúvida bastante comum é: "O que devemos considerar ao criar uma heurística?"**
+
+Um exemplo simples: se temos um mapa, sabemos as coordenadas geográficas do ponto de partida e do destino. Com base nisso, podemos usar a distância entre esses dois pontos como heurística. Se estivermos a falar de um jogo de tabuleiro, por exemplo, podemos usar as coordenadas cartesianas dos pontos inicial e final para calcular a distância entre eles.
+
+Agora, de forma mais técnica, o algoritmo **A*** utiliza uma função heurística, representada por `h(n)`, para estimar o custo restante até o objetivo. Isso permite priorizar caminhos promissores e reduzir o número de nós explorados. Essa função é fundamental para guiar a pesquisa de maneira eficiente, pois o conceito do **A*** é explorar primeiro os nós com menor custo estimado para alcançar o objetivo.
 
 ```math
 f(n) = g(n) + h(n)
