@@ -10,9 +10,9 @@ authors:
 
 ## O que é o Algoritmo de A* (A-Star)?
 
-O **A*** **(A-Star)** é um algoritmo de pesquisa informada que encontra um caminho de custo mínimo em um grafo. Ele utiliza uma heurística para guiar a pesquisa, tornando-o mais eficiente que métodos de pesquisa não informados como o algoritmo de **Dijkstra**.
-Embora o **A*** compartilhe semelhanças com o algoritmo de **Dijkstra**, ele pode ser considerado um algoritmo de SSSP (Single Source Shortest Path) quando utilizado sem uma heurística informada (ou seja, com `h(n) = 0`, tornando-se equivalente ao algoritmo de **Dijkstra**). No entanto, sua aplicação principal é encontrar o caminho ótimo entre um ponto inicial e um objetivo específico, utilizando uma heurística para guiar a pesquisa, o que faz com que algumas referências não o classifiquem como um algoritmo de **SSSP (Single Source Shortest Path)**.
-Uma das características do **A*** é a capacidade de encontrar o caminho mais curto (se existir), desde que a heurística seja admissível e consistente. Caso contrário, o algoritmo pode não garantir a optimalidade do caminho. Se o caminho até o objetivo estiver bloqueado, o **A*** terminará a pesquisa após explorar todos os nós possíveis, concluindo que não existe um caminho válido.
+O **A*** **(A-Star)** é um algoritmo de pesquisa informada que encontra um caminho de custo mínimo em um grafo. Ele utiliza uma heurística para guiar a pesquisa, tornando-o mais eficiente do que métodos de pesquisa não informados, como o algoritmo de **Dijkstra**.
+Embora o **A*** compartilhe semelhanças com o algoritmo de **Dijkstra**, sua aplicação principal é encontrar o caminho ótimo entre um ponto inicial e um objetivo específico. Isso faz com que algumas referências não o classifiquem como um algoritmo de **SSSP (Single Source Shortest Path)**.
+Uma das características do **A*** é a capacidade de encontrar o caminho mais curto, mesmo na presença de obstáculos no percurso. Se o caminho até o objetivo estiver bloqueado, o **A*** terminará a pesquisa após explorar todos os nós possíveis, concluindo que não existe um caminho válido.
 
 
 ## Aplicabilidade
