@@ -58,7 +58,7 @@ f(n) = g(n) + h(n)
 
 A função heurística `h(n)` é o que torna o **A*** mais inteligente do que outros algoritmos de pesquisa como o **Dijkstra**, porque ele usa uma estimativa do que falta para chegar ao objetivo. Se essa estimativa for boa, o **A*** encontra o caminho ótimo rapidamente.
 
-É importante notar que o custo pode ser qualquer valor que represente o esforço necessário para se mover de um nó para outro. Por ser a distância entre dois pontos, o tempo, o custo monetário, a quantidade de combustível, a combinação de vários fatores, etc.
+É importante notar que o custo pode ser qualquer valor que represente o esforço necessário para se mover de um nó para outro. Assim como a heurística. Por ser a distância entre dois pontos, o tempo, o custo monetário, a quantidade de combustível, a combinação de vários fatores, etc. O importante é termos consciencia de que não é responsabilidade do algoritmo determinar os custos e a heurística. Ele só faz uso delas.
 
 #### Por que usar uma heurística?
 
@@ -107,11 +107,13 @@ h(n) = (dx + dy) + (sqrt(2) - 2) * min(dx, dy)
 | **Distância Diagonal**     | Movimentos ortogonais e diagonais com custo otimizado | Movimentos em grids com diagonais permitidas e custo mais realista   |
 
 
-#### Heurística admissível vs. Heurística inconsistente
+### Heurística admissível vs. Heurística inconsistente
 
 Uma  **heurística é admissível** se, para qualquer nó `n`, `h(n) <= h*(n)`, onde `h*(n)` é o custo real do caminho ótimo de `n` até o objetivo. Isso garante que o **A*** encontre o caminho mais curto, mas não necessariamente de forma eficiente. Podemos então dizer que a função `h(n)` deve ser uma **estimativa otimista** do custo real do caminho e que quanto mais próxima a função `h(n)` for do custo real do caminho, mais eficiente e rápido o algoritmo será.
 
-Por outro lado, uma **heurística inconsistente** pode superestimar ou subestimar o custo para alcançar o objetivo. Nesse caso, o **A*** não é garantido para encontrar o caminho mais curto, mas ainda pode encontrar um caminho válido.
+A admissibilidade **deve ser verificada para todos os nós** do espaço de pesquisa. Isso significa que por exemplo **não basta testar os nós do caminho ótimo**.
+
+Por outro lado, uma **heurística inconsistente** pode superestimar o custo para alcançar o objetivo. Nesse caso, o **A*** não é garantido para encontrar o caminho mais curto, mas ainda pode encontrar um caminho válido.
 
 ### Completude
 
@@ -185,6 +187,174 @@ O(d)
 
 
 ## Como funciona o Algoritmo de A*?
+
+### Passo a Passo Teórico
+
+Vamos imaginar que temos o seguinte grafo que representa um mapa de cidades e suas conexões:
+
+```mermaid
+flowchart LR
+  PT((PT)) --> |6| ES
+  PT --> |12| FR
+  PT --> |21| GB
+
+  ES((ES)) -->|18| DE
+  ES --> |9| FR
+
+  FR((FR)) -->|7| DE
+  FR --> |24| IT
+  FR --> |8| GB
+
+  GB((GB)) --> |12| DE
+  GB((GB)) --> |7| NL((NL))
+
+  IT((IT)) --> |13| DE
+  IT --> |26| FI((FI))
+
+  DE((DE)) --> |19| FI
+  DE --> |6| NL
+
+  style PT stroke:#0AF,stroke-width:2px;
+  style FI stroke:#FA0,stroke-width:2px;
+```
+![Cidades](../../public/posts/dsa-a-star-graph.svg)
+
+**Tabela de heurísticas para chegar ao destino:**
+
+| Origem | Cidade      | `h(n)` |
+|--------|-------------|--------|
+| PT     | Portugal    | 27     |
+| ES     | Espanha     | 19     |
+| FR     | França      | 25     |
+| GB     | Reino Unido | 10     |
+| NL     | Holanda     | 26     |
+| DE     | Alemanha    | 19     |
+| IT     | Itália      | 23     |
+| FI     | Finlândia   | 0      |
+
+**Passo 1:**
+
+Inicializar a Lista Aberta (Open List) e a Lista Fechada (Closed List). Adicionar o nó inicial na Open List com `f(n) = 0`. Neste caso, o nó inicial é `PT`.
+
+```plaintext
+Open List: PT(0)
+Closed List: vazio
+```
+
+**Passo 2:**
+
+Agora vamos buscar o nó que tem o menor valor de `f(n)` na Open List. Neste caso, o nó `PT` é o único nó na Open List e removemos ele da lista. E verificamos se é o nó objetivo. Neste caso, não será, então adicionamos o nó `PT` na Closed List e geramos os sucessores de `PT`.
+
+
+```plaintext
+Open List: vazio
+Closed List: PT(0, 0, -)
+```
+
+**Passo 3:**
+
+Gerar os sucessores de `PT` e definir `PT` como o pai de cada um deles. Para cada sucessor, calcular os valores de custo `g(n)`, `h(n)` e `f(n)`.
+Se um nó com a mesma posição do sucessor já estiver na Open List com um menor valor de `f`, ignorar este sucessor. Se um nó com a mesma posição do sucessor já estiver na Closed List com um menor valor de `f`, ignorar este sucessor. Caso contrário, adicionar o sucessor à Open List de forma ordenada.
+
+- ES: g = 6, h = 19, f = 25
+- FR: g = 12, h = 25, f = 37
+- GB: g = 21, h = 10, f = 31
+
+
+```plaintext
+Open List: ES(25, 6, PT), GB(31, 21, PT), FR(37, 12, PT)
+Closed List: PT(0, 0, -)
+```
+
+**Passo 4:**
+
+Vamos verificar o próximo nó com o menor valor de `f(n)` na Open List. Neste caso, o nó `ES` é o nó com o menor valor de `f(n)`. Removemos o nó `ES` da Open List e verificamos se é o nó objetivo. Neste caso, não será, então adicionamos o nó `ES` na Closed List e geramos os sucessores de `ES`.
+
+- DE: g = (6 + 18) = 24, h = 19, f = 43
+- FR: g = (6 + 9) = 15, h = 25, f = 40
+
+Neste passo, verificamos que o nó `FR` já está na Open List com um valor de `f` menor, então ignoramos o nó `FR`. No entanto, o nó `DE` não está na Open List, então adicionamo-lo.
+
+```plaintext
+Open List: GB(31, 21, PT), FR(37, 12, PT), DE(43, 24, ES)
+Closed List: PT(0, 0, -), ES(25, 6, PT)
+```
+
+**Passo 5:**
+
+O próximo nó com o menor valor na Open List é o `GB` que tem `f(n) = 31`. Também não é o nó objetivo, então adicionamos o nó `GB` na Closed List e geramos os sucessores de `GB`.
+
+- DE: g = (21 + 12) = 33, h = 19, f = 52
+- NL: g = (21 + 7) = 28, h = 26, f = 54
+
+Agora verificamos que o nó `DE` também já está na Open List com um valor de `f(n) = 43` menor, então ignoramos o nó `DE`. No entanto, o nó `NL` não está na Open List, então adicionamo-lo.
+
+```plaintext
+Open List: FR(37, 12, PT), DE(43, 24, ES), NL(54, 28, GB)
+Closed List: PT(0, 0, -), ES(25, 6, PT), GB(31, 21, PT)
+```
+
+**Passo 6:**
+
+O próximo nó com o menor valor é o `FR` que tem `f(n) = 37`. Também não é o nó objetivo, então adicionamos o nó `FR` na Closed List e geramos os sucessores de `FR`.
+
+- DE: g = (12 + 7) = 19, h = 19, f = 38
+- IT: g = (12 + 24) = 36, h = 23, f = 59
+- GB: g = (12 + 8) = 20, h = 10, f = 30
+
+Neste passo temos algumas situações novas:
+
+- O nó `DE` já está na Open List, mas desta vez o novo valor de `f(n) = 38` é menor, então atualizamos o valor de `f(n)` para `38`.
+- O nó `IT` não está na Open List, então adicionamo-lo nem na Closed List.
+- O nó `GB` também já está na Closed List, mas desta vez o novo valor de `f(n) = 30` é menor, então removemos o nó `GB` da Closed List e adicionamos ele na Open List novamente.
+
+```plaintext
+Open List: GB(30, 20, FR), DE(38, 19, FR), NL(54, 28, GB), IT(59, 36, FR)
+Closed List: PT(0, 0, -), ES(25, 6, PT), FR(37, 12, PT)
+```
+
+**Passo 7:**
+
+O próximo nó com o menor valor é o `GB` que tem `f(n) = 30`. Também não é o nó objetivo, então adicionamos o nó `GB` na Closed List e geramos os sucessores de `GB`.
+
+- DE: g = (20 + 12) = 32, h = 19, f = 51
+- NL: g = (20 + 7) = 27, h = 26, f = 53
+
+Neste passo temos as seguintes situações:
+
+- O nó `DE` já está na Open List, mas desta vez o novo valor de `f(n) = 51` é maior, então ignoramos o nó `DE`.
+- O nó `NL` já está na Open List, mas desta vez o novo valor de `f(n) = 53` é menor, então atualizamos o valor de `f(n)` para `53`.
+
+```plaintext
+Open List: DE(38, 19, FR), NL(53, 27, GB), IT(59, 36, FR)
+Closed List: PT(0, 0, -), ES(25, 6, PT), FR(37, 12, PT), GB(30, 20, FR)
+```
+
+**Passo 8:**
+
+O próximo nó com o menor valor é o `DE` que tem `f(n) = 38`. Também não é o nó objetivo, então adicionamos o nó `DE` na Closed List e geramos os sucessores de `DE`.
+
+- FI: g = (19 + 19) = 38, h = 0, f = 38
+- NL: g = (19 + 6) = 25, h = 26, f = 51
+
+Neste passo temos as seguintes situações:
+
+- O nó `FI` não está na Open List nem na Closed List, então adicionamo-lo.
+- O nó `NL` já está na Open List, mas desta vez o novo valor de `f(n) = 51` é menor, então atualizamos o valor de `f(n)` para `51`.
+
+```plaintext
+Open List: FI(38, 38, DE), NL(53, 27, GB), IT(59, 36, FR),
+Closed List: PT(0, 0, -), ES(25, 6, PT), FR(37, 12, PT), GB(30, 20, FR), DE(38, 19, FR)
+```
+
+**Passo 9:**
+
+O próximo nó com o menor valor é o `FI` que tem `f(n) = 38`. E neste caso, o nó `FI` é o nó objetivo, então adicionamos o nó `FI` na Closed List e encerramos a pesquisa.
+
+Temos o seguinte caminho ótimo: de `PT` até `FI` é `PT -> FR -> DE -> FI` com um custo total de `38`.
+
+
+### Pseudocódigo
 
 ```plaintext
 1. Inicializar a Lista Aberta (Open List)
