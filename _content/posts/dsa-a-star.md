@@ -190,7 +190,9 @@ O(d)
 
 ### Passo a Passo Teórico
 
-Vamos imaginar que temos o seguinte grafo que representa um mapa de cidades e suas conexões:
+#### Representação em Grafo
+
+Vamos imaginar que temos o seguinte grafo que representa um mapa e a ligação entre os vários países. O objetivo é encontrar o caminho mais curto de Portugal (PT) até a Finlândia (FI).
 
 ```mermaid
 flowchart LR
@@ -217,7 +219,7 @@ flowchart LR
   style PT stroke:#0AF,stroke-width:2px;
   style FI stroke:#FA0,stroke-width:2px;
 ```
-![Cidades](../../public/posts/dsa-a-star-graph.svg)
+![Cidades](../../public/posts/dsa-a-star-graph-map.svg)
 
 **Tabela de heurísticas para chegar ao destino:**
 
@@ -237,8 +239,11 @@ flowchart LR
 Inicializar a Lista Aberta (Open List) e a Lista Fechada (Closed List). Adicionar o nó inicial na Open List com `f(n) = 0`. Neste caso, o nó inicial é `PT`.
 
 ```plaintext
-Open List: PT(0)
-Closed List: vazio
+Open List:
+  PT[27, 0, -]
+
+Closed List:
+  Vazia
 ```
 
 **Passo 2:**
@@ -247,8 +252,11 @@ Agora vamos buscar o nó que tem o menor valor de `f(n)` na Open List. Neste cas
 
 
 ```plaintext
-Open List: vazio
-Closed List: PT(0, 0, -)
+Open List:
+  Vazia
+
+Closed List:
+  PT[27, 0, -]
 ```
 
 **Passo 3:**
@@ -256,14 +264,19 @@ Closed List: PT(0, 0, -)
 Gerar os sucessores de `PT` e definir `PT` como o pai de cada um deles. Para cada sucessor, calcular os valores de custo `g(n)`, `h(n)` e `f(n)`.
 Se um nó com a mesma posição do sucessor já estiver na Open List com um menor valor de `f`, ignorar este sucessor. Se um nó com a mesma posição do sucessor já estiver na Closed List com um menor valor de `f`, ignorar este sucessor. Caso contrário, adicionar o sucessor à Open List de forma ordenada.
 
-- ES: g = 6, h = 19, f = 25
-- FR: g = 12, h = 25, f = 37
-- GB: g = 21, h = 10, f = 31
+- ES: g = (0 + 6) = 6, h = 19, f = 25
+- FR: g = (0 + 12) = 12, h = 25, f = 37
+- GB: g = (0 + 21) = 21, h = 10, f = 31
 
 
 ```plaintext
-Open List: ES(25, 6, PT), GB(31, 21, PT), FR(37, 12, PT)
-Closed List: PT(0, 0, -)
+Open List:
+  ES[25, 6, PT]
+  GB[31, 21, PT]
+  FR[37, 12, PT]
+
+Closed List:
+  PT[27, 0, -]
 ```
 
 **Passo 4:**
@@ -276,8 +289,14 @@ Vamos verificar o próximo nó com o menor valor de `f(n)` na Open List. Neste c
 Neste passo, verificamos que o nó `FR` já está na Open List com um valor de `f` menor, então ignoramos o nó `FR`. No entanto, o nó `DE` não está na Open List, então adicionamo-lo.
 
 ```plaintext
-Open List: GB(31, 21, PT), FR(37, 12, PT), DE(43, 24, ES)
-Closed List: PT(0, 0, -), ES(25, 6, PT)
+Open List:
+  GB[31, 21, PT]
+  FR[37, 12, PT]
+  DE[43, 24, ES]
+
+Closed List:
+  PT[27, 0, -]
+  ES[25, 6, PT]
 ```
 
 **Passo 5:**
@@ -290,8 +309,15 @@ O próximo nó com o menor valor na Open List é o `GB` que tem `f(n) = 31`. Tam
 Agora verificamos que o nó `DE` também já está na Open List com um valor de `f(n) = 43` menor, então ignoramos o nó `DE`. No entanto, o nó `NL` não está na Open List, então adicionamo-lo.
 
 ```plaintext
-Open List: FR(37, 12, PT), DE(43, 24, ES), NL(54, 28, GB)
-Closed List: PT(0, 0, -), ES(25, 6, PT), GB(31, 21, PT)
+Open List:
+  FR[37, 12, PT]
+  DE[43, 24, ES]
+  NL[54, 28, GB]
+
+Closed List:
+  PT[27, 0, -]
+  ES[25, 6, PT]
+  GB[31, 21, PT]
 ```
 
 **Passo 6:**
@@ -309,8 +335,16 @@ Neste passo temos algumas situações novas:
 - O nó `GB` também já está na Closed List, mas desta vez o novo valor de `f(n) = 30` é menor, então removemos o nó `GB` da Closed List e adicionamos ele na Open List novamente.
 
 ```plaintext
-Open List: GB(30, 20, FR), DE(38, 19, FR), NL(54, 28, GB), IT(59, 36, FR)
-Closed List: PT(0, 0, -), ES(25, 6, PT), FR(37, 12, PT)
+Open List:
+  GB[30, 20, FR]
+  DE[38, 19, FR]
+  NL[54, 28, GB]
+  IT[59, 36, FR]
+
+Closed List:
+  PT[27, 0, -]
+  ES[25, 6, PT]
+  FR[37, 12, PT]
 ```
 
 **Passo 7:**
@@ -326,8 +360,16 @@ Neste passo temos as seguintes situações:
 - O nó `NL` já está na Open List, mas desta vez o novo valor de `f(n) = 53` é menor, então atualizamos o valor de `f(n)` para `53`.
 
 ```plaintext
-Open List: DE(38, 19, FR), NL(53, 27, GB), IT(59, 36, FR)
-Closed List: PT(0, 0, -), ES(25, 6, PT), FR(37, 12, PT), GB(30, 20, FR)
+Open List:
+  DE[38, 19, FR]
+  NL[53, 27, GB]
+  IT[59, 36, FR]
+
+Closed List:
+  PT[27, 0, -]
+  ES[25, 6, PT]
+  FR[37, 12, PT]
+  GB[30, 20, FR]
 ```
 
 **Passo 8:**
@@ -343,8 +385,17 @@ Neste passo temos as seguintes situações:
 - O nó `NL` já está na Open List, mas desta vez o novo valor de `f(n) = 51` é menor, então atualizamos o valor de `f(n)` para `51`.
 
 ```plaintext
-Open List: FI(38, 38, DE), NL(53, 27, GB), IT(59, 36, FR),
-Closed List: PT(0, 0, -), ES(25, 6, PT), FR(37, 12, PT), GB(30, 20, FR), DE(38, 19, FR)
+Open List:
+  FI[38, 38, DE]
+  NL[53, 27, GB]
+  IT[59, 36, FR]
+
+Closed List:
+  PT[27, 0, -]
+  ES[25, 6, PT]
+  FR[37, 12, PT]
+  GB[30, 20, FR]
+  DE[38, 19, FR]
 ```
 
 **Passo 9:**
