@@ -74,37 +74,32 @@ A função heurística `h(n)` é o que torna o **A*** mais inteligente do que ou
 h(n) = |x2 - x1| + |y2 - y1|
 ```
 
-- **Distância Euclidiana**: A distância euclidiana é a distância em linha reta entre dois pontos. Quando precisamos admitir movimentos diagonais, ou os nós são representados por coordenadas no espaço, a distância euclidiana é uma heurística comum.
+- **Distância Euclidiana (ou Distância Direta)**: A distância euclidiana é a distância em linha reta entre dois pontos. Quando precisamos admitir movimentos diagonais, ou os nós são representados por coordenadas no espaço, a distância euclidiana é uma heurística comum.
 
 ```math
 h(n) = sqrt((x2 - x1)^2 + (y2 - y1)^2)
 ```
 
-![Manhattan vs Euclidean](https://i0.wp.com/vivaelsoftwarelibre.com/wp-content/uploads/2021/12/image-75.png?ssl=1)
+![Manhattan vs Euclidean](../../public/posts/dsa-a-star-euclidiana-vs-manhattan.svg)
 
-- **Distância de Chebyshev**: A distância de Chebyshev é a distância entre dois pontos em um grid, movendo-se em qualquer direção (cima, baixo, esquerda, direita, diagonal). A distância de Chebyshev é uma heurística comum para problemas de pesquisa em um grid.
+- **Distância de Chebyshev**: A distância de Chebyshev é definida como a maior diferença entre as coordenadas de dois pontos em um grid, permitindo movimentação em qualquer direção (cima, baixo, esquerda, direita, diagonal) com o mesmo custo.
 
 ```math
 h(n) = max(|x2 - x1|, |y2 - y1|)
 ```
-
-- **Distância diagonal**: A distância diagonal é a distância em linha reta entre dois pontos, movendo-se em qualquer direção (cima, baixo, esquerda, direita, diagonal). A distância diagonal é uma heurística comum para problemas de pesquisa em um grid.
+**Exemplo:**
+- x1: (2, 1)
+- x2: (4, 6)
 
 ```math
-h(n) = (dx + dy) + (sqrt(2) - 2) * min(dx, dy)
+h(n) = max(|4 - 2|, |6 - 1|) = max(2, 5) = 5
 ```
-
-**Onde:**
-- `dx` é a diferença entre as coordenadas x dos dois pontos.
-- `dy` é a diferença entre as coordenadas y dos dois pontos.
-- `sqrt(2)` é a raiz quadrada de 2. Que é `sqrt(2) ≈ 1.41421356237`.
 
 | Heurística                 | Aplicação                                             | Ótima para                                                           |
 |----------------------------|-------------------------------------------------------|----------------------------------------------------------------------|
 | **Distância de Manhattan** | Movimentos ortogonais (sem diagonais)                 | Grades onde apenas movimentos verticais e horizontais são permitidos |
 | **Distância Euclidiana**   | Movimentos livres em qualquer direção                 | Ambientes contínuos ou mapas 2D sem restrições                       |
 | **Distância de Chebyshev** | Movimentos ortogonais e diagonais                     | Movimentos em grids, quando diagonais são permitidas                 |
-| **Distância Diagonal**     | Movimentos ortogonais e diagonais com custo otimizado | Movimentos em grids com diagonais permitidas e custo mais realista   |
 
 
 ### Heurística admissível vs. Heurística inconsistente
@@ -129,7 +124,7 @@ Para garantir a completude, o **A*** deve satisfazer algumas condições:
 
 A consistência (também chamada de monotonicidade) é uma propriedade fundamental das heurísticas usadas em algoritmos de pesquisa como o **A***. Ela garante que a estimativa do custo de um nó até o objetivo nunca supera o custo real de um caminho ótimo.
 
-Uma heurística é considerada consistente (ou monotônica) se, para cada nó `n` e cada sucessor `n'` de `n` gerado por qualquer ação `a`, o custo estimado de alcançar o objetivo a partir de `n` é no máximo o custo real de chegar ao `n'` mais o custo estimado de alcançar o objetivo a partir de `n'`. Em outras palavras, a heurística é consistente se:
+Uma heurística é considerada consistente se, para cada nó `n` e cada sucessor `n'` de `n` gerado por qualquer ação `a`, o custo estimado de alcançar o objetivo a partir de `n` é no máximo o custo real de chegar ao `n'` mais o custo estimado de alcançar o objetivo a partir de `n'`. Em outras palavras, a heurística é consistente se:
 
 ```math
 h(n) ≤ c(n,n') + h(n')
@@ -144,6 +139,54 @@ h(n) ≤ c(n,n') + h(n')
 - **Garante a optimalidade**: Se a heurística for consistente, o **A*** reduz significativamente a necessidade de reexpansão de nós, garantindo que o primeiro caminho encontrado seja ótimo.
 - **Mantém a ordem crescente do custo**: O valor total do custo `f(n) = g(n) + h(n)` nunca diminui ao longo do caminho, garantindo que o primeiro caminho encontrado seja o melhor.
 - **Evita reexpansões desnecessárias**: Isso torna o **A*** mais eficiente, pois não precisa reavaliar nós já processados.
+- **Garante a Admissibilidade**: Se uma heurística é consistente, então ela também é admissível, ou seja, nunca superestima o custo real até o objetivo.
+
+#### Ilustração da Consistência vs. Inconsistência
+
+Vamos imagina o seguinte grafo onde `S` é o nó inicial e `G` é o nó objetivo.
+
+```mermaid
+graph LR
+  S((S)) --> |4| A((A))
+  S --> |2| B((B))
+  A --> |3| G((G))
+  B --> |5| G
+  A --> |1| B
+
+  style S stroke:#0AF,stroke-width:2px;
+  style G stroke:#FA0,stroke-width:2px;
+```
+
+**Tabela de heurísticas para chegar ao destino:**
+| Nó | `h(n)` Consistente | `h(n)` Não-Consistente |
+|----|--------------------|------------------------|
+| S  | 3                  | 5                      |
+| A  | 2                  | 3                      |
+| B  | 4                  | 1                      |
+| G  | 0                  | 0                      |
+
+Primeiro vamos explicar em detalhe a formula `h(n) ≤ c(n,n') + h(n')` e para o exemplo vamos imagina no grafo acima o nó `A` e um dos seus sucessores, que no caso seria o nó `B` e vamos usar a tabela de heurísticas consistentes.
+
+- **n** = A -> Nó atual
+- **n'** = B -> Nó sucessor
+- **h(n)** = 2 -> Heurística do nó atual
+- **h(n')** = 4 -> Heurística do nó sucessor
+- **c(n,n')** = 1 -> Custo real de `A` até `B`
+- `h(n) ≤ c(n,n') + h(n')` -> `2 ≤ 1 + 4` -> `2 ≤ 5` -> Válido ✅
+
+- Com as heurísticas consistentes:
+  - **S -> A**: 3 <= 4 + 2 - válido ✅
+  - **S -> B**: 3 <= 2 + 4 - válido ✅
+  - **A -> G**: 2 <= 3 + 0 - válido ✅
+  - **A -> B**: 2 <= 1 + 4 - válido ✅
+  - **B -> G**: 4 <= 5 + 0 - válido ✅
+- Com as heurísticas não consistentes:
+  - **S -> A**: 5 <= 4 + 3 - válido ✅
+  - **S -> B**: 5 <= 2 + 1 - inválido ❌
+  - **A -> G**: 3 <= 3 + 0 - válido ✅
+  - **A -> B**: 3 <= 1 + 1 - inválido ❌
+  - **B -> G**: 1 <= 5 + 0 - válido ✅
+
 
 ### Optimalidade
 
