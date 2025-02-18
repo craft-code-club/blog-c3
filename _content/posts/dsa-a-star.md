@@ -156,6 +156,7 @@ graph LR
   style S stroke:#0AF,stroke-width:2px;
   style G stroke:#FA0,stroke-width:2px;
 ```
+![Grafo](../../public/posts/dsa-a-star-graph-consistency.svg)
 
 **Tabela de heurísticas para chegar ao destino:**
 | Nó | `h(n)` Consistente | `h(n)` Não-Consistente |
