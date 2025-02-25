@@ -23,7 +23,7 @@ body:
       description: |
         What did you expect to happen?
     validations:
-      required: true
+      required: false
 
 
   - type: textarea
@@ -79,7 +79,7 @@ body:
       label: Targeted lib version
       placeholder: v1.0.0, v1.0.1, etc.
     validations:
-      required: true
+      required: false
 
 
   - type: input
@@ -87,7 +87,7 @@ body:
     attributes:
       label: Targeted Framework version
     validations:
-      required: true
+      required: false
 
 
   - type: input
@@ -96,4 +96,4 @@ body:
       label: Operating System and version
       placeholder: Windows 10, OSX Mojave, Ubuntu, AmazonLinux, etc.
     validations:
-      required: true
+      required: false
