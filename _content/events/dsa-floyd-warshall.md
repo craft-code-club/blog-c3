@@ -5,5 +5,5 @@ date: "2024-03-03"
 time: "21:00-22:30"
 location: "Online via Zoom"
 type: "online"
-registrationLink: "https://www.youtube.com/watch?v=62ZGcXDpbys&list=PLl10TyPY67Jgbh4QdRlRKr-7PjB9i5hWg"
+registrationLink: "https://us06web.zoom.us/j/82173062389?pwd=hHBQsKgIup7tqHe0OeFhyToEzXJcko.1"
 ---
