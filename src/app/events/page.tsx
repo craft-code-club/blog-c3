@@ -24,9 +24,9 @@ export default async function EventsPage() {
     const isToday = event.date === today;
 
     const getCalendarUrl = (event: Event) => {
-      const startDate = new Date(`${event.date}T${event.time.split('-')[0]}`);
-      const endDate = new Date(`${event.date}T${event.time.split('-')[1]}`);
-      
+      const startDate = new Date(`${event.date}T${event.time.split('-')[0]}-03:00`);
+      const endDate = new Date(`${event.date}T${event.time.split('-')[1]}-03:00`);
+
       const url = new URL('https://calendar.google.com/calendar/render');
       url.searchParams.append('action', 'TEMPLATE');
       url.searchParams.append('text', event.title);
