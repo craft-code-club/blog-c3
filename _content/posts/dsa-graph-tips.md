@@ -1,7 +1,7 @@
 ---
 title: 'Grafos: Dicas e Truques'
-date: '2025-02-16'
-description: 'O algoritmo A* (A-Star) é uma abordagem eficiente para encontrar o caminho mais curto em grafos, combinando heurísticas e custo real. Usado em jogos, IA e navegação, garante soluções ótimas quando a heurística é bem definida.'
+date: '2025-03-03'
+description: 'Descubra dicas e truques para dominar grafos e aprimorar seus algoritmos na resolução de problemas complexos de forma prática e eficiente.'
 topics: ['algoritmos', 'grafos']
 authors:
   - name: 'Nelson Nobre'
