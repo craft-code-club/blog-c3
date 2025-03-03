@@ -44,6 +44,7 @@ graph LR
   B <--> D
   C((C)) <--> D
 ```
+![Graph 01](../../public/posts/dsa-graph-tips-graph-01.svg)
 
 |   | A | B | C | D |
 |---|---|---|---|---|
@@ -109,6 +110,7 @@ graph LR
   C --> D
   D((D)) --> C
 ```
+![Graph 02](../../public/posts/dsa-graph-tips-graph-02.svg)
 
 |   | A | B | C | D |
 |---|---|---|---|---|
@@ -179,6 +181,7 @@ graph LR
   C --> |1| D
   D((D)) --> |2| C
 ```
+![Graph 03](../../public/posts/dsa-graph-tips-graph-03.svg)
 ```python
 graph = {
   'A': { 'B': 3, 'D': 2 },
@@ -243,6 +246,7 @@ graph LR
   B <--> |4| D
   C((C)) <--> |2| D((D))
 ```
+![Graph 04](../../public/posts/dsa-graph-tips-graph-04.svg)
 ```python
 edges = [
   (3, 'A', 'B'),
