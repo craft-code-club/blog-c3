@@ -312,4 +312,4 @@ graph.display_edges()
 
 
 ## Referências
-- [Código com exemplos](https://github.com/NelsonBN/algorithms-data-structures-graphs)
+- [Código com exemplos de representação de grafos](https://github.com/NelsonBN/algorithms-data-structures-graphs-representation)
