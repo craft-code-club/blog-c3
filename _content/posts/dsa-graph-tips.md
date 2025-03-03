@@ -296,7 +296,7 @@ graph.display_edges()
 
 | Representação            | Espaço | Inserção | Remoção | pesquicar de Aresta |
 |--------------------------|--------|----------|---------|---------------------|
-| **Matriz de Adjacência** | O(V^2) | O(1)     | O(1)    | O(1)                |
+| **Matriz de Adjacência** | O(V²)  | O(1)     | O(1)    | O(1)                |
 | **Lista de Adjacência**  | O(V+E) | O(1)     | O(E)    | O(1)                |
 | **Lista de Arestas**     | O(E)   | O(1)     | O(E)    | O(E)                |
 
