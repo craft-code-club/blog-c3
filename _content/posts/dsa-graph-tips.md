@@ -6,6 +6,8 @@ topics: ['algoritmos', 'grafos']
 authors:
   - name: 'Nelson Nobre'
     link: 'https://github.com/NelsonBN'
+  - name: 'Giovanny Massuia '
+    link: 'https://github.com/giovannymassuia'
 ---
 
 ## Grafos no dia a dia
