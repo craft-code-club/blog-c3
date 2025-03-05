@@ -88,5 +88,33 @@
   display: flex;
   justify-content: center;
   margin: 2rem 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+:root .mermaid svg {
+  background-color: transparent !important;
+}
+
+.dark .mermaid svg {
+  background-color: transparent !important;
+}
+
+.mermaid .label {
+  font-family: system-ui, sans-serif;
+  font-weight: 500;
+}
+
+.dark .mermaid .label {
+  color: #f9fafb !important;
+}
+
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node polygon,
+.mermaid .node path {
+  stroke-width: 2px;
 }
 
