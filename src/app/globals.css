@@ -83,3 +83,16 @@
 .tippy-box {
   background-color: transparent !important;
 }
+
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.mermaid svg {
+  max-width: 100% !important;
+}
