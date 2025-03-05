@@ -10,11 +10,12 @@ export default function MermaidInitializer() {
 
   const processMermaidDiagrams = async () => {
     try {
-      mermaid.initialize(getMermaidConfig());
       const mermaidCodeBlocks = getMermaidCodeBlocks();
       if (mermaidCodeBlocks.length === 0)
         return;    
       
+      mermaid.initialize(getMermaidConfig());
+
       mermaidCodeBlocks.forEach((codeBlock, index) => {
         const content = codeBlock.textContent || '';
         const preElement = codeBlock.parentElement;
