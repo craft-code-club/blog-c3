@@ -156,7 +156,6 @@ graph LR
   style S stroke:#0AF,stroke-width:2px;
   style G stroke:#FA0,stroke-width:2px;
 ```
-![Grafo](../../public/posts/dsa-a-star-graph-consistency.svg)
 
 **Tabela de heurísticas para chegar ao destino:**
 | Nó | `h(n)` Consistente | `h(n)` Não-Consistente |
@@ -263,7 +262,6 @@ flowchart LR
   style PT stroke:#0AF,stroke-width:2px;
   style FI stroke:#FA0,stroke-width:2px;
 ```
-![Cidades](../../public/posts/dsa-a-star-graph-map.svg)
 
 **Tabela de heurísticas para chegar ao destino:**
 
