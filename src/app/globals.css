@@ -93,28 +93,237 @@
   transition: background-color 0.3s ease;
 }
 
+/* Estilos específicos para tema claro */
 :root .mermaid svg {
   background-color: transparent !important;
+}
+
+:root .mermaid .node rect,
+:root .mermaid .node circle,
+:root .mermaid .node ellipse,
+:root .mermaid .node polygon,
+:root .mermaid .node path {
+  stroke-width: 2px !important;
+  fill: #f3f4f6 !important;
+  stroke: #4338ca !important;
+}
+
+:root .mermaid text {
+  fill: #111827 !important;
+  color: #111827 !important;
+  font-weight: 600 !important;
+  font-family: system-ui, sans-serif !important;
+}
+
+:root .mermaid .nodeLabel {
+  color: #111827 !important;
+  fill: #111827 !important;
+  font-weight: 600 !important;
+}
+
+:root .mermaid .edgeLabel {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: #111827 !important;
+  fill: #111827 !important;
+  font-weight: 600 !important;
+}
+
+:root .mermaid .edgeLabel rect {
+  fill: rgba(255, 255, 255, 0.8) !important;
+  stroke: none !important;
+}
+
+:root .mermaid .edgeLabel span {
+  color: #111827 !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  padding: 2px 4px !important;
+  border-radius: 2px !important;
+}
+
+:root .mermaid .edgePath .path {
+  stroke: #4338ca !important;
+  stroke-width: 2px !important;
+}
+
+:root .mermaid .label {
+  font-family: system-ui, sans-serif !important;
+  font-weight: 600 !important;
+  color: #111827 !important;
+  fill: #111827 !important;
+}
+
+:root .mermaid .marker {
+  fill: #4338ca !important;
+  stroke: #4338ca !important;
+}
+
+:root .mermaid .flowchart-label text {
+  fill: #111827 !important;
+}
+
+:root .mermaid .edgeLabel foreignObject {
+  overflow: visible !important;
+  background-color: transparent !important;
+  z-index: 100 !important;
 }
 
 .dark .mermaid svg {
   background-color: transparent !important;
 }
 
-.mermaid .label {
-  font-family: system-ui, sans-serif;
-  font-weight: 500;
+.dark .mermaid .node rect,
+.dark .mermaid .node circle,
+.dark .mermaid .node ellipse,
+.dark .mermaid .node polygon,
+.dark .mermaid .node path {
+  stroke-width: 2px !important;
+  fill: #1f2937 !important;
+  stroke: #6366f1 !important;
+}
+
+.dark .mermaid text {
+  fill: #f9fafb !important;
+  color: #f9fafb !important;
+  font-weight: 600 !important;
+  font-family: system-ui, sans-serif !important;
+}
+
+.dark .mermaid .nodeLabel {
+  color: #f9fafb !important;
+  fill: #f9fafb !important;
+  font-weight: 600 !important;
+}
+
+.dark .mermaid .edgeLabel {
+  background-color: rgba(31, 41, 55, 0.7) !important;
+  color: #f9fafb !important;
+  fill: #f9fafb !important;
+  font-weight: 600 !important;
+}
+
+.dark .mermaid .edgeLabel rect {
+  fill: rgba(31, 41, 55, 0.7) !important;
+  stroke: none !important;
+}
+
+.dark .mermaid .edgeLabel span {
+  color: #f9fafb !important;
+  background-color: rgba(31, 41, 55, 0.7) !important;
+  padding: 2px 4px !important;
+  border-radius: 2px !important;
+}
+
+.dark .mermaid .edgePath .path {
+  stroke: #6366f1 !important;
+  stroke-width: 2px !important;
 }
 
 .dark .mermaid .label {
+  font-family: system-ui, sans-serif !important;
+  font-weight: 600 !important;
   color: #f9fafb !important;
+  fill: #f9fafb !important;
 }
 
-.mermaid .node rect,
-.mermaid .node circle,
-.mermaid .node ellipse,
-.mermaid .node polygon,
-.mermaid .node path {
-  stroke-width: 2px;
+.dark .mermaid .marker {
+  fill: #6366f1 !important;
+  stroke: #6366f1 !important;
+}
+
+.dark .mermaid .flowchart-label text {
+  fill: #f9fafb !important;
+}
+
+.dark .mermaid .edgeLabel foreignObject {
+  overflow: visible !important;
+  background-color: transparent !important;
+  z-index: 100 !important;
+}
+
+:root .mermaid .node circle + text {
+  fill: #111827 !important;
+  font-weight: 600 !important;
+}
+
+:root .mermaid .node rect + text {
+  fill: #111827 !important;
+  font-weight: 600 !important;
+}
+
+.dark .mermaid .node circle + text {
+  fill: #f9fafb !important;
+  font-weight: 600 !important;
+}
+
+.dark .mermaid .node rect + text {
+  fill: #f9fafb !important;
+  font-weight: 600 !important;
+}
+
+:root .mermaid text {
+  fill: #111827 !important;
+  color: #111827 !important;
+  font-weight: 600 !important;
+  font-family: system-ui, sans-serif !important;
+}
+
+.dark .mermaid text {
+  fill: #f9fafb !important;
+  color: #f9fafb !important;
+  font-weight: 600 !important;
+  font-family: system-ui, sans-serif !important;
+}
+
+:root .mermaid .node text {
+  fill: #111827 !important;
+  color: #111827 !important;
+  font-weight: 600 !important;
+}
+
+.dark .mermaid .node text {
+  fill: #f9fafb !important;
+  color: #f9fafb !important;
+  font-weight: 600 !important;
+}
+
+:root .mermaid .edgeLabel foreignObject div {
+  color: #111827 !important;
+  background-color: #ffffff !important;
+  padding: 3px 6px !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  border: 1px solid #d1d5db !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+  white-space: nowrap !important;
+  display: inline-block !important;
+}
+
+.dark .mermaid .edgeLabel foreignObject div {
+  color: #f9fafb !important;
+  background-color: #1f2937 !important;
+  padding: 3px 6px !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  border: 1px solid #4b5563 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+  white-space: nowrap !important;
+  display: inline-block !important;
+}
+
+/* Regras adicionais para garantir que os textos nas setas sejam sempre visíveis */
+:root .mermaid .edgeLabel {
+  z-index: 10 !important;
+  opacity: 1 !important;
+}
+
+.dark .mermaid .edgeLabel {
+  z-index: 10 !important;
+  opacity: 1 !important;
+}
+
+/* Ajuste para garantir que o texto nas setas tenha um tamanho adequado */
+:root .mermaid .edgeLabel text,
+.dark .mermaid .edgeLabel text {
+  font-size: 14px !important;
 }
 
