@@ -1,8 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function MermaidInitializer() {
+  const pathname = usePathname();
+
   const processMermaidDiagrams = async () => {
     try {
       const mermaid = (await import('mermaid')).default;
@@ -85,7 +88,7 @@ export default function MermaidInitializer() {
     }, 100);
     
     return () => clearTimeout(timer);
-  }, []);
+  }, [pathname]);
 
   return null;
 } 
