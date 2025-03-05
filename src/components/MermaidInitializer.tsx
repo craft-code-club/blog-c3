@@ -49,7 +49,7 @@ export default function MermaidInitializer() {
   useEffect(() => {
     const timer = setTimeout(() => {
       processMermaidDiagrams();
-    }, 50);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, [pathname]);
