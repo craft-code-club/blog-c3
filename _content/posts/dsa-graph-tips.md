@@ -153,6 +153,10 @@ graph LR
 | C | 0 | 1 | 0 | 1 |
 | D | 0 | 0 | 1 | 0 |
 
+**Observações**:
+- Na matriz de adjacência para grafos orientados, a direção da aresta é determinada pela leitura da linha para a coluna. Por exemplo, o valor 1 na posição [A,B] significa que existe uma aresta partindo de A para B.
+- Podemos interpretar como: se `matrix[u][v] = 1`, então existe uma aresta do vértice u para o vértice v.
+
 **Exemplo**:
 ```python
 class GraphMatrix:
