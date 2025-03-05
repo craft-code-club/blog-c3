@@ -20,34 +20,56 @@ No entanto, por se tratar de um tópico mais avançado, muitas vezes é difícil
 
 ## Breve Descrição dos Tipos de Grafos
 
-- **Grafo não Orientado**: Um grafo em que as arestas não possuem direção, ou seja, as arestas podem ser percorridas em ambas as direções.
+### Grafo não Orientado
+
+Um grafo em que as arestas não possuem direção, ou seja, as arestas podem ser percorridas em ambas as direções.
 
 
-- **Grafo orientado**: Este é tipo é o caso contrário ao tipo descritp acima, neste tipo de grafo as arestas tem uma direção definida, sendo representada por `(u, v)` indicando que o caminho só pode ser seguido de `u` para `v`. Também conhecido como grafo direcionado ou dirigido, ou também digrafo (digraph) em alguns artigos.
+### Grafo orientado
+
+Este é tipo é o caso contrário ao tipo descritp acima, neste tipo de grafo as arestas tem uma direção definida, sendo representada por `(u, v)` indicando que o caminho só pode ser seguido de `u` para `v`. Também conhecido como grafo direcionado ou dirigido, ou também digrafo (digraph) em alguns artigos.
 
 
-- **Grafo Ponderado**: Neste tipo de grafo as arestas possuem um valor, que podem ser custo, ganho, resistência, distância, ou qualquer outra ponderação relevante.
+### Grafo Ponderado
+
+Neste tipo de grafo as arestas possuem um valor, que podem ser custo, ganho, resistência, distância, ou qualquer outra ponderação relevante.
 
 
-- **Grafo Completo**: Um grafo onde todos os pares de vértices estão conectados por uma aresta. 
+### Grafo Completo**
+
+Um grafo onde todos os pares de vértices estão conectados por uma aresta.
 
 
-- **Grafo Bipartido**: Um grafo onde os vértices podem ser divididos em dois conjuntos disjuntos, de forma que cada aresta conecta um vértice de um conjunto a um vértice do outro.
+### Grafo Bipartido:
+
+Um grafo onde os vértices podem ser divididos em dois conjuntos disjuntos, de forma que cada aresta conecta um vértice de um conjunto a um vértice do outro.
 
 
-- **Grafo Cíclico**: Contém pelo menos um ciclo, ou seja, um caminho fechado onde um vértice pode ser alcançado a partir de si mesmo.
+### Grafo Cíclico
+
+Contém pelo menos um ciclo, ou seja, um caminho fechado onde um vértice pode ser alcançado a partir de si mesmo.
 
 
-- **Grafo Acíclico**: Não possui ciclos.
+### Grafo Acíclico
+
+Não possui ciclos.
 
 
-- **Árvore**: Um grafo conectado e acíclico que formam uma estrutura hierárquica que tem origem ou destino no que chamamos de nó raíz. Cada nó, exceto o nó raíz possui um único nó pai.
+### Árvore
+
+Um grafo conectado e acíclico que formam uma estrutura hierárquica que tem origem ou destino no que chamamos de nó raíz. Cada nó, exceto o nó raíz possui um único nó pai.
 
 
-- **Grafo Acíclico Direcionado (DAG - Directed Acyclic Graph)**: Um grafo direcionado que não possui ciclos. Muito utilizado em modelos de dependências, sistemas de compilação, e algoritmos de ordenação topológica.
+### Grafo Acíclico Direcionado (DAG - Directed Acyclic Graph)
+
+Um grafo direcionado que não possui ciclos. Muito utilizado em modelos de dependências, sistemas de compilação, e algoritmos de ordenação topológica.
 
 
 Os tipos de grafos citados acima não são os únicos, há inumeros outros tipos, mas estes são os principais e que mais nos deparamos no dia a dia ou em entrevistas.
+
+**Observação**: É também comum ouvir-mos falar em **Arcos** e **Arestas**. Apesar de serem utilizados como sinônimos, existe uma diferença subtil entre eles. A principal diferença é que **Arcos** são utilizados em grafos orientados e **Arestas** em grafos não orientados.
+
+
 
 ## Formas de representação de grafos
 
