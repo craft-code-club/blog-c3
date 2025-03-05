@@ -1,41 +1,34 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useTheme } from 'next-themes';
 
 export default function MermaidInitializer() {
-  const { resolvedTheme } = useTheme();
-
   const processMermaidDiagrams = async () => {
     try {
       const mermaid = (await import('mermaid')).default;
 
-      const isDarkTheme = resolvedTheme === 'dark';
-
       mermaid.initialize({
         startOnLoad: false,
         securityLevel: 'loose',
-        theme: 'neutral',
+        theme: 'base',
         themeVariables: {
-          primaryColor: isDarkTheme ? '#6366f1' : '#4338ca',
-          primaryTextColor: isDarkTheme ? '#f9fafb' : '#111827',
-          primaryBorderColor: isDarkTheme ? '#4f46e5' : '#3730a3',
-          lineColor: isDarkTheme ? '#6366f1' : '#4338ca',
-          secondaryColor: isDarkTheme ? '#4b5563' : '#d1d5db',
-          tertiaryColor: isDarkTheme ? '#1f2937' : '#f3f4f6',
+          primaryColor: '#4f46e5',
+          primaryTextColor: '#1e293b',
+          primaryBorderColor: '#6366f1',
+          lineColor: '#4f46e5',
+          secondaryColor: '#64748b',
+          tertiaryColor: '#e2e8f0',
           fontFamily: 'system-ui, sans-serif',
           fontSize: '16px',
-          nodeBorder: isDarkTheme ? '#6366f1' : '#4338ca',
-          edgeLabelBackground: isDarkTheme ? 'rgba(31, 41, 55, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-          background: isDarkTheme ? '#111827' : '#ffffff',
-          mainBkg: isDarkTheme ? '#1f2937' : '#f3f4f6',
-          textColor: isDarkTheme ? '#f9fafb' : '#111827',
-          arrowheadColor: isDarkTheme ? '#6366f1' : '#4338ca',
-          labelColor: isDarkTheme ? '#f9fafb' : '#111827',
-          labelTextColor: isDarkTheme ? '#f9fafb' : '#111827',
-          edgeColor: isDarkTheme ? '#6366f1' : '#4338ca',
-          nodeTextColor: isDarkTheme ? '#f9fafb' : '#111827',
-          edgeTextColor: isDarkTheme ? '#f9fafb' : '#111827',
+          nodeBorder: '#4f46e5',
+          edgeLabelBackground: 'rgba(255, 255, 255, 0.8)',
+          mainBkg: '#f8fafc',
+          textColor: '#1e293b',
+          arrowheadColor: '#4f46e5',
+          labelColor: '#1e293b',
+          edgeColor: '#4f46e5',
+          nodeTextColor: '#1e293b',
+          edgeTextColor: '#3730a3',
           edgeTextFontWeight: 'bold',
           edgeTextFontSize: '14px',
         },
@@ -50,30 +43,49 @@ export default function MermaidInitializer() {
       });
 
       const mermaidCodeBlocks = document.querySelectorAll('pre > code.language-mermaid');
+      
+      if (mermaidCodeBlocks.length === 0) {
+        return;
+      }
 
       mermaidCodeBlocks.forEach((codeBlock, index) => {
         const content = codeBlock.textContent || '';
-
-        const diagramContainer = document.createElement('div');
-        diagramContainer.className = 'mermaid';
-        diagramContainer.id = `mermaid-diagram-${index}`;
-        diagramContainer.textContent = content;
-
         const preElement = codeBlock.parentElement;
-        if (preElement && preElement.parentElement) {
-          preElement.parentElement.replaceChild(diagramContainer, preElement);
+        const parentElement = preElement?.parentElement;
+        
+        if (preElement && parentElement) {
+          const existingDiagram = parentElement.querySelector('.mermaid');
+          
+          if (existingDiagram) {
+            existingDiagram.remove();
+          }
+          
+          const diagramContainer = document.createElement('div');
+          diagramContainer.className = 'mermaid';
+          diagramContainer.id = `mermaid-diagram-${index}`;
+          
+          mermaid.render(`mermaid-diagram-${index}`, content)
+            .then(({ svg }) => {
+              diagramContainer.innerHTML = svg;
+              parentElement.replaceChild(diagramContainer, preElement);
+            })
+            .catch((error) => {
+              console.error('Erro ao renderizar diagrama Mermaid:', error);
+            });
         }
       });
-
-      mermaid.run();
     } catch (error) {
       console.error('Erro ao processar diagramas Mermaid:', error);
     }
   };
 
   useEffect(() => {
-    processMermaidDiagrams();
-  }, [resolvedTheme]);
+    const timer = setTimeout(() => {
+      processMermaidDiagrams();
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   return null;
 } 
