@@ -6,8 +6,10 @@ topics: ['algoritmos', 'grafos']
 authors:
   - name: 'Nelson Nobre'
     link: 'https://github.com/NelsonBN'
-  - name: 'Giovanny Massuia '
+  - name: 'Giovanny Massuia'
     link: 'https://github.com/giovannymassuia'
+  - name: 'Wilson Neto'
+    link: 'https://github.com/wilsonneto-dev'
 ---
 
 ## Grafos no dia a dia
@@ -16,6 +18,36 @@ Grafos são um dos tópicos mais importantes da ciência da computação, com ap
 
 No entanto, por se tratar de um tópico mais avançado, muitas vezes é difícil identificar ou relacionar os grafos como solução para problemas do dia a dia. Por isso, neste artigo, vamos explorar algumas dicas e truques para facilitar a compreensão e aplicação de grafos em problemas práticos e treinarmos a nossa compreensão abstrata dos problemas e linkar com a opetinizade de uso de grafos.
 
+## Breve Descrição dos Tipos de Grafos
+
+- **Grafo não Orientado**: Um grafo em que as arestas não possuem direção, ou seja, as arestas podem ser percorridas em ambas as direções.
+
+
+- **Grafo orientado**: Este é tipo é o caso contrário ao tipo descritp acima, neste tipo de grafo as arestas tem uma direção definida, sendo representada por `(u, v)` indicando que o caminho só pode ser seguido de `u` para `v`. Também conhecido como grafo direcionado ou dirigido, ou também digrafo (digraph) em alguns artigos.
+
+
+- **Grafo Ponderado**: Neste tipo de grafo as arestas possuem um valor, que podem ser custo, ganho, resistência, distância, ou qualquer outra ponderação relevante.
+
+
+- **Grafo Completo**: Um grafo onde todos os pares de vértices estão conectados por uma aresta. 
+
+
+- **Grafo Bipartido**: Um grafo onde os vértices podem ser divididos em dois conjuntos disjuntos, de forma que cada aresta conecta um vértice de um conjunto a um vértice do outro.
+
+
+- **Grafo Cíclico**: Contém pelo menos um ciclo, ou seja, um caminho fechado onde um vértice pode ser alcançado a partir de si mesmo.
+
+
+- **Grafo Acíclico**: Não possui ciclos.
+
+
+- **Árvore**: Um grafo conectado e acíclico que formam uma estrutura hierárquica que tem origem ou destino no que chamamos de nó raíz. Cada nó, exceto o nó raíz possui um único nó pai.
+
+
+- **Grafo Acíclico Direcionado (DAG - Directed Acyclic Graph)**: Um grafo direcionado que não possui ciclos. Muito utilizado em modelos de dependências, sistemas de compilação, e algoritmos de ordenação topológica.
+
+
+Os tipos de grafos citados acima não são os únicos, há inumeros outros tipos, mas estes são os principais e que mais nos deparamos no dia a dia ou em entrevistas.
 
 ## Formas de representação de grafos
 
