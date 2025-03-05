@@ -6,14 +6,11 @@ export default function MermaidInitializer() {
   useEffect(() => {
     const processMermaidDiagrams = async () => {
       try {
-        // Importar a biblioteca mermaid
         const mermaid = (await import('mermaid')).default;
         
-        // Inicializar mermaid com configurações
         mermaid.initialize({
           startOnLoad: false,
-          theme: 'default',
-          securityLevel: 'loose',
+          securityLevel: 'loose'
         });
         
         // Encontrar todos os blocos de código com classe 'language-mermaid'

@@ -84,33 +84,9 @@
   background-color: transparent !important;
 }
 
-/* Estilos para diagramas Mermaid */
 .mermaid {
   display: flex;
   justify-content: center;
   margin: 2rem 0;
-  overflow-x: auto;
 }
 
-.dark .mermaid .label {
-  color: #f8f8f2;
-  font-family: 'trebuchet ms', verdana, arial, sans-serif;
-}
-
-.dark .mermaid .node rect,
-.dark .mermaid .node circle,
-.dark .mermaid .node ellipse,
-.dark .mermaid .node polygon,
-.dark .mermaid .node path {
-  fill: #282a36;
-  stroke: #ff79c6;
-}
-
-.dark .mermaid .edgePath .path {
-  stroke: #8be9fd;
-}
-
-.dark .mermaid .edgeLabel {
-  background-color: #44475a;
-  color: #f8f8f2;
-}
