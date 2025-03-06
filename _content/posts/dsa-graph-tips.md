@@ -24,46 +24,128 @@ No entanto, por se tratar de um tópico mais avançado, muitas vezes é difícil
 
 Um grafo em que as arestas não possuem direção, ou seja, as arestas podem ser percorridas em ambas as direções.
 
+```mermaid
+graph LR
+  A((A)) <--> B((B))
+```
 
 ### Grafo orientado
 
 Este é tipo é o caso contrário ao tipo descritp acima, neste tipo de grafo as arestas tem uma direção definida, sendo representada por `(u, v)` indicando que o caminho só pode ser seguido de `u` para `v`. Também conhecido como grafo direcionado ou dirigido, ou também digrafo (digraph) em alguns artigos.
 
+```mermaid
+graph LR
+  A((A)) --> B((B))
+```
 
 ### Grafo Ponderado
 
 Neste tipo de grafo as arestas possuem um valor, que podem ser custo, ganho, resistência, distância, ou qualquer outra ponderação relevante.
 
+```mermaid
+graph LR
+  A((A)) --3--> B((B))
+```
 
-### Grafo Completo**
+### Grafo Completo
 
 Um grafo onde todos os pares de vértices estão conectados por uma aresta.
 
+```mermaid
+graph LR
+  A((A)) <---> B((B))
+  A <---> C((C))
+  A <---> E((E))
+  B <---> C((C))
+  B <---> E
+  C <---> E
+```
 
-### Grafo Bipartido:
+### Grafo Bipartido
 
 Um grafo onde os vértices podem ser divididos em dois conjuntos disjuntos, de forma que cada aresta conecta um vértice de um conjunto a um vértice do outro.
 
+```mermaid
+graph LR
+  A --> 1
+  A --> 2
+  B --> 2
+  B --> 3
+  C --> 1
+  C --> 3
+
+  subgraph U [Conjunto U]
+    A
+    B
+    C
+  end
+
+  subgraph V [Conjunto V]
+    1
+    2
+    3
+  end
+```
 
 ### Grafo Cíclico
 
 Contém pelo menos um ciclo, ou seja, um caminho fechado onde um vértice pode ser alcançado a partir de si mesmo.
+
+```mermaid
+graph LR
+  A((A)) <--> B((B))
+  B <--> C((C))
+  C <--> D((D))
+  D <--> A
+```
 
 
 ### Grafo Acíclico
 
 Não possui ciclos.
 
+```mermaid
+graph LR
+  A((A)) --> B((B))
+  A --> C((C))
+  B --> D((D))
+  B --> E((E))
+  C --> F((F))
+  E --> G((G))
+  F --> H((H))
+  D --> I((I))
+  G --> J((J))
+```
 
 ### Árvore
 
 Um grafo conectado e acíclico que formam uma estrutura hierárquica que tem origem ou destino no que chamamos de nó raíz. Cada nó, exceto o nó raíz possui um único nó pai.
 
+```mermaid
+graph TD;
+  A((A)) --> B((B))
+  A --> C((C))
+  B --> D((D))
+  B --> E((E))
+  C --> F((F))
+  C --> G((G))
+```
 
 ### Grafo Acíclico Direcionado (DAG - Directed Acyclic Graph)
 
 Um grafo direcionado que não possui ciclos. Muito utilizado em modelos de dependências, sistemas de compilação, e algoritmos de ordenação topológica.
 
+```mermaid
+graph LR
+  A((A)) --> B((B))
+  A --> C((C))
+  B --> D((D))
+  B --> E((E))
+  C --> F((F))
+  E --> F
+  D --> G((G))
+  F --> G
+```
 
 Os tipos de grafos citados acima não são os únicos, há inumeros outros tipos, mas estes são os principais e que mais nos deparamos no dia a dia ou em entrevistas.
 
