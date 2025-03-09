@@ -448,6 +448,163 @@ graph.display_edges()
 - **Lista de Arestas**: Quando estivermos a trabalhar com **algoritmos de grafos como Kruskal**, onde a lista de arestas é essencial.
 
 
+## Perceber um problema
+
+Uma das coisas mais complicadas quando começamos a estudar algoritmos e estruturas de dados é identificar quando um problema pode ser resolvido com uma determinada estrutura de dados, ou termos a capacidade abstrata de indentificar coisas que a partida parecem não ter relação, mas que podem ser resolvidas com um algoritmo específico.
+
+Vamos excercitar um pouco essa habilidade com um problema prático.
+
+Vamos pensar que temos um labirinto, onde temos um cãozinho que quer chegar até ao osso.
+
+![Labirinto](https://raw.githubusercontent.com/NelsonBN/algorithms-data-structures-graph-traversal/refs/heads/main/media/maze.svg)
+
+A forma mais simples de representar um labirinto é sombre a forma de uma matriz, onde cada célula representa uma posição no plano que o cãozinho pode estar.
+
+**Mas de forma isso se pode relacionar com grafos?**
+
+Vamos imaginar uma matrix onde estamos posicionados na célula (1, 1) e onde podemos mover-nos ortogonalmente (⬅️ ➡️ ⬆️ ⬇️)
+
+![Matrix](https://raw.githubusercontent.com/NelsonBN/algorithms-data-structures-graph-traversal/refs/heads/main/media/matrix.svg)
+
+Os possiveis movimentos que podemos fazer são:
+
+* De (1, 1) para (2, 1) - ➡️ - possivel ✅
+* De (1, 1) para (1, 2) - ⬇️ - possivel ✅
+* De (1, 1) para (0, 1) - ⬅️ - possivel ✅
+* De (1, 1) para (1, 0) - ⬆️ - possivel ✅
+
+Agora vamos representar esses movimentos como um grafo.
+
+```mermaid
+graph TD
+  A(("(1, 1)")) --> B(("(2, 1)"))
+  A --> C(("(1, 2)"))
+  A --> D(("(0, 1)"))
+  A --> E(("(1, 0)"))
+```
+
+Agora imaginando que chegamos a célula (0, 1), os possiveis movimentos que podemos fazer são:
+
+* De (0, 1) para (1, 1) - ➡️ - possivel ✅
+* De (0, 1) para (0, 2) - ⬇️ - possivel ✅
+* De (0, 1) para (-1, 1) - ⬅️ - impossivel ❌ - fora do labirinto
+* De (0, 1) para (0, 0) - ⬆️ - possivel ✅
+
+```mermaid
+graph TD
+  A(("(1, 1)")) --> B(("(2, 1)"))
+  A --> C(("(1, 2)"))
+  A <--> D(("(0, 1)"))
+  A --> E(("(1, 0)"))
+
+  D --> F(("(0, 2)"))
+  D --> G(("(0, 0)"))
+```
+
+Agora chegamos a célula (0, 0), os possiveis movimentos que podemos fazer são:
+
+* De (0, 0) para (1, 0) - ➡️ - possivel ✅
+* De (0, 0) para (0, 1) - ⬇️ - possivel ✅
+* De (0, 0) para (-1, 0) - ⬅️ - impossivel ❌ - fora do labirinto
+* De (0, 0) para (0, -1) - ⬆️ - impossivel ❌ - fora do labirinto
+
+```mermaid
+graph TD
+  A(("(1, 1)")) --> B(("(2, 1)"))
+  A --> C(("(1, 2)"))
+  A <--> D(("(0, 1)"))
+  A --> E(("(1, 0)"))
+
+  D --> F(("(0, 2)"))
+  D --> G(("(0, 0)"))
+
+  G --> E
+```
+
+E assim sucessivamente. Ate chegarmos a algo como:
+
+```mermaid
+graph LR
+  A(("(1, 1)"))
+  B(("(2, 1)"))
+  C(("(1, 2)"))
+  D(("(0, 1)"))
+  E(("(1, 0)"))
+  F(("(0, 2)"))
+  G(("(0, 0)"))
+  H(("(2, 2)"))
+  I(("(2, 0)"))
+
+  G <--> E
+  G <--> D
+
+  E <--> I
+  E <--> A
+
+  I <--> B
+
+  D <--> A
+  D <--> F
+
+  A <--> B
+  A <--> C
+
+  B <--> H
+
+  F <--> C
+
+  C <--> H
+```
+
+Vamos voltar ao exemplo do cãozinho no labirinto. Se pensarmos bem, os movimentos que o cãozinho pode fazer a encontrar o osso podem ser representados da seguinte forma:
+
+```mermaid
+graph LR
+  A((0,0))
+  B((0,1))
+  C((0,2))
+  D((0,3))
+  E((1,1))
+  F((1,3))
+  G((2,0))
+  H((2,1))
+  I((2,2))
+  J((2,3))
+  K((3,0))
+  L((3,3))
+  M((4,1))
+  N((4,2))
+  O((4,3))
+
+  style B stroke:#0AF,stroke-width:2px;
+  style M stroke:#FA0,stroke-width:2px;
+
+  B <--> A
+  B <--> E
+  B <--> C
+  C <--> D
+  D <--> F
+  E <--> H
+  F <--> J
+  H <--> G
+  H <--> I
+  I <--> J
+  J <--> L
+  G <--> K
+  L <--> O
+  O <--> N
+  M <--> N
+```
+
+Agora que temos uma visão do problema de movimentação do cãozinho no labirinto, em forma de grafo, podemos desbloquear o potencial de algoritmos de grafos para resolver o problema, como por exemplo o algoritmo de busca em largura (BFS) ou busca em profundidade (DFS) ou até algoritmos mais sofisticados como o algoritmo de Dijkstra ou A*.
+
+Aqui fica alguns repositorios com exemplos de implementações de algoritmos de grafos:
+
+- [Travessia em Grafos](https://github.com/NelsonBN/algorithms-data-structures-graph-traversal)
+- [Dijkstra](https://github.com/NelsonBN/algorithms-data-structures-dijkstra)
+- [A*](https://github.com/NelsonBN/algorithms-data-structures-a-star)
+
+
 
 ## Referências
 - [Código com exemplos de representação de grafos](https://github.com/NelsonBN/algorithms-data-structures-graphs-representation)
