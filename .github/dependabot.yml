@@ -28,7 +28,8 @@ updates:
     target-branch: "main"
 
   - package-ecosystem: "docker"
-    directory: "/" # Location of package manifests
+    directories:
+      - "**/*" # To specify manifests in the current directory and recursive subdirectories -> https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/controlling-dependencies-updated#defining-multiple-locations-for-manifest-files
     schedule:
       interval: "daily"
     assignees:
