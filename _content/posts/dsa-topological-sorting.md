@@ -229,7 +229,7 @@ graph = {
   'F': ['G']
 }
 
-print(f'Topological Sort: {kahn(graph)}')
+print(f'Topological Sorting: {kahn(graph)}')
 ```
 
 #### Complexidade
@@ -326,7 +326,7 @@ graph = {
   'F': ['G']
 }
 
-print(f'Topological Sort: {topological_sort_dfs(graph)}')
+print(f'Topological Sorting: {topological_sort_dfs(graph)}')
 ```
 
 #### Complexidade
