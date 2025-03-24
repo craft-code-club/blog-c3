@@ -197,12 +197,12 @@ def kahn(graph):
     if in_degree[u] == 0:
       queue.append(u)
 
-  topological_sort = []
+  topological_sorting = []
 
   # Step 3: Process until queue is empty
   while queue: # O(V + E)
     u = queue.popleft() # Remove node from queue (O(1))
-    topological_sort.append(u) # Add to topological order (O(1))
+    topological_sorting.append(u) # Add to topological order (O(1))
 
     # Guard rail to ensure the vertex exists in the graph as a key.
     # This can happen when a node is a leaf node and has no outgoing edges.
@@ -215,10 +215,10 @@ def kahn(graph):
       if in_degree[v] == 0: # If a vertex has no more incoming edges, it can be processed as all its dependencies are satisfied
         queue.append(v)
 
-  if len(topological_sort) != len(in_degree):
+  if len(topological_sorting) != len(in_degree):
     raise Exception("Graph contains at least one cycle - Topological sort is not possible")
 
-  return topological_sort
+  return topological_sorting
 
 graph = {
   'A': ['B'],
