@@ -26,7 +26,7 @@ Um grafo em que as arestas não possuem direção, ou seja, as arestas podem ser
 
 ```mermaid
 graph LR
-  A((A)) <--> B((B))
+  A((A)) --- B((B))
 ```
 
 ### Grafo orientado
