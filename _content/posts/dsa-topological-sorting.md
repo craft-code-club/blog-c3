@@ -164,15 +164,15 @@ O primeiro algoritmo que vamos ver é o **algoritmo de Kahn**. Este algoritmo é
 
 3. Inicializar uma `fila` com todos os vértices que têm grau de entrada 0. Ou seja, todos os vértices que não têm dependências.
 
-4. Inicializar lista `topological_order ` vazia
+4. Inicializar lista `topological_order` vazia
 
 5. Enquanto a `fila` não estiver vazia:
-   1. Retirar o próximo vértice `u` da fila e adicionar `u` à lista `topological_order `
+   1. Retirar o próximo vértice `u` da fila e adicionar `u` à lista `topological_order`
    2. Para cada vértice `v` adjacente a `u`:
       1. Decrementar o grau de entrada de `v` em 1
       2. Se o grau de entrada de `v` for igual a 0, adicionar `v` à fila
 
-6. Se o tamanho da lista `topological_order ` for igual a V:
+6. Se o tamanho da lista `topological_order` for igual a V:
   Retornar topological_order . Senão, significa que o grafo contém um ciclo. Portanto, retornar erro porque não é possível fazer a ordenação topológica.
 
 
