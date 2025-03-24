@@ -147,7 +147,7 @@ graph LR
 
 ## Implementação
 
-A **Ordenação Topológica** pode ser resolvida por algoritmos como o de Kahn e o de pesquisa em profundidade (DFS). Existem outros algoritmos, mas esses são os mais comuns. Neste artigo, é deles que falaremos.
+A **Ordenação Topológica** pode ser resolvida por algoritmos como o de Kahn e o de pesquisa em profundidade (DFS). Existem outros algoritmos, mas estes dois mencionados anteriormente são os comuns. Neste artigo, é deles que falaremos.
 
 
 ### Algoritmo de Kahn
