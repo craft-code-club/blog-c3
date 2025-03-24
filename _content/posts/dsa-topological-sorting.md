@@ -77,6 +77,8 @@ graph LR
   D --> C
   E((E)) --> C
   E --> D
+
+  linkStyle 0,1,2 stroke:#f00
 ```
 > Tem um ciclo
 
