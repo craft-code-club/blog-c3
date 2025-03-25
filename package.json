@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/third-parties": "^15.2.3",
+    "@next/third-parties": "^15.2.4",
     "@tailwindcss/typography": "^0.5.16",
     "@tippyjs/react": "^4.2.6",
     "escape-html": "^1.0.3",
