@@ -1,6 +1,7 @@
 import { getEvents } from '@/lib/events';
 import type { Event } from '@/lib/events';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: "Eventos | Craft & Code Club",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 export default async function EventsPage() {
-  const { upcoming, past } = await getEvents();
+  const { upcoming, past } = await getEvents(6);
 
   const EventCard = ({ event, isPast }: { event: Event; isPast: boolean }) => {
     const today = new Date().toISOString().split('T')[0];
@@ -162,11 +163,21 @@ export default async function EventsPage() {
           <section>
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Eventos Anteriores</h2>
             {past.length > 0 ? (
-              <div className="grid gap-8 md:grid-cols-2">
-                {past.map((event) => (
-                  <EventCard key={event.id} event={event} isPast={true} />
-                ))}
-              </div>
+              <>
+                <div className="grid gap-8 md:grid-cols-2 mb-8">
+                  {past.map((event) => (
+                    <EventCard key={event.id} event={event} isPast={true} />
+                  ))}
+                </div>
+                <div className="flex justify-center">
+                  <Link 
+                    href="/events/past/1" 
+                    className="text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+                  >
+                    Ver todos os eventos anteriores
+                  </Link>
+                </div>
+              </>
             ) : (
               <p className="text-gray-600 dark:text-gray-300">Nenhum evento anterior para exibir.</p>
             )}

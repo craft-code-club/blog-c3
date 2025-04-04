@@ -12,7 +12,7 @@ export interface Event {
   time: string;
   location: string;
   type: string;
-  registrationLink: string;
+  registrationLink?: string;
   recordingLink?: string;
   speakers?: string[];
 }
@@ -20,9 +20,10 @@ export interface Event {
 export interface EventsData {
   upcoming: Event[];
   past: Event[];
+  allEvents: Event[];
 }
 
-export function getEvents(): EventsData {
+export function getEvents(pastLimit?: number): EventsData {
   const fileNames = fs.readdirSync(eventsDirectory);
   const allEvents = fileNames.map((fileName) => {
     const id = fileName.replace(/\.md$/, '');
@@ -54,7 +55,24 @@ export function getEvents(): EventsData {
 
   return {
     upcoming,
-    past,
+    past: pastLimit ? past.slice(0, pastLimit) : past,
+    allEvents,
+  };
+}
+
+export function getPaginatedPastEvents(page: number = 1, limit: number = 20): { events: Event[], total: number, totalPages: number } {
+  const { past } = getEvents();
+  
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  
+  const paginatedEvents = past.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(past.length / limit);
+  
+  return {
+    events: paginatedEvents,
+    total: past.length,
+    totalPages
   };
 }
 
