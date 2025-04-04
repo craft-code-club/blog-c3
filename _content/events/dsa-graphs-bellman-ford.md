@@ -5,5 +5,5 @@ date: "2025-02-03"
 time: "21:00-22:30"
 location: "Online via Zoom"
 type: "online"
-registrationLink: "https://www.youtube.com/watch?v=0GcXgQTpYcE"
+recordingLink: "https://www.youtube.com/watch?v=0GcXgQTpYcE"
 ---
