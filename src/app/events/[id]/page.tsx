@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export async function generateStaticParams() {
@@ -17,7 +17,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const event = await getEvent(params.id);
+  const resolvedParams = await params;
+  const event = await getEvent(resolvedParams.id);
   
   if (!event) {
     return {
@@ -40,7 +41,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function EventPage({ params }: Props) {
-  const event = await getEvent(params.id);
+  const resolvedParams = await params;
+  const event = await getEvent(resolvedParams.id);
   
   if (!event) {
     notFound();

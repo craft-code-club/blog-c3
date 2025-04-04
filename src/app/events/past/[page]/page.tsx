@@ -5,11 +5,12 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 type Props = {
-  params: { page: string };
+  params: Promise<{ page: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const pageNumber = parseInt(params.page, 10);
+  const resolvedParams = await params;
+  const pageNumber = parseInt(resolvedParams.page, 10);
   
   return {
     title: `Eventos Anteriores - Página ${pageNumber} | Craft & Code Club`,
@@ -29,7 +30,8 @@ export async function generateStaticParams() {
 }
 
 export default async function PastEventsPage({ params }: Props) {
-  const currentPage = parseInt(params.page, 10);
+  const resolvedParams = await params;
+  const currentPage = parseInt(resolvedParams.page, 10);
   
   if (isNaN(currentPage) || currentPage < 1) {
     notFound();
