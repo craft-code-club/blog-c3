@@ -5,5 +5,5 @@ date: "2024-08-02"
 time: "20:45-22:45"
 location: "Online via Zoom"
 type: "online"
-registrationLink: "https://www.youtube.com/watch?v=cILrU-dtuEc&list=PLl10TyPY67Jgbh4QdRlRKr-7PjB9i5hWg"
+recordingLink: "https://www.youtube.com/watch?v=cILrU-dtuEc&list=PLl10TyPY67Jgbh4QdRlRKr-7PjB9i5hWg"
 ---

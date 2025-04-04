@@ -13,6 +13,7 @@ export interface Event {
   location: string;
   type: string;
   registrationLink: string;
+  recordingLink?: string;
   speakers?: string[];
 }
 

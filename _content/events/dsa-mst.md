@@ -5,5 +5,5 @@ date: "2025-04-14"
 time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
-registrationLink: "https://us06web.zoom.us/j/82173062389?pwd=hHBQsKgIup7tqHe0OeFhyToEzXJcko.1"
+recordingLink: "https://us06web.zoom.us/j/82173062389?pwd=hHBQsKgIup7tqHe0OeFhyToEzXJcko.1"
 ---
