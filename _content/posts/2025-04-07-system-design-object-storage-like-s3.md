@@ -323,7 +323,7 @@ Mas para guardarmos estes dados precisamos pensar em qual mecanismo de data-stor
 
 ## Durabilidade dos Dados: Replicas ou Erasure Coding?
 
-Um grade desafio neste projeto é quanto a durabilidade dos dados, sabemos que podemos enfretar diversos casos adversos, seja falhas físicas em HDs ou SSDs ou também falhas na escrita ou mesmo memória ou arquivos corrompidos, causando falhas no armazenamento e afetando a durabilidade.
+Um grande desafio neste projeto é quanto a durabilidade dos dados, sabemos que podemos enfretar diversos casos adversos, seja falhas físicas em HDs ou SSDs ou também falhas na escrita ou mesmo memória ou arquivos corrompidos, causando falhas no armazenamento e afetando a durabilidade.
 
 ### Replicação (x3): 
 
