@@ -24,7 +24,7 @@ E também os seguintes requisitos não funcionais:
 - Disponibilidade de 99,99%
 - Eficiência de storage (reduce storage costs)
 
-Dados os requisitos funcionaos e não-funcionais acima, nossa missão é desenhar este sistema de maneira satisfatória demonstrando nossos conhecimentos de system design e principalmente nossas habilidades de reconhecer trade-offs e tomar decisões assertivas, baseadas neles. 
+Dados os requisitos funcionais e não-funcionais acima, nossa missão é desenhar este sistema de maneira satisfatória demonstrando nossos conhecimentos de system design e principalmente nossas habilidades de reconhecer trade-offs e tomar decisões assertivas, baseadas neles. 
 
 Porém, neste artigo, não precisamos seguir a risca o script da entrevista como o autor segue no capítulo, já que para isto, bom... temos o livro e o capítulo. Neste artigo vamos passar por um subset de tópicos importantes e interessantes que são abordados, os quais em caso de acabarmos na situação real em que este desafio seja pedido em uma entrevista ou no dia a dia, estejamos preparados.
 
