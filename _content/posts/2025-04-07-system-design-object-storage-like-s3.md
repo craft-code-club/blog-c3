@@ -76,15 +76,38 @@ Antes de entendermos a fundo como funciona um armazenamento de objetos como o S3
 
 - **Object Storage**: ideal para grandes volumes de dados não estruturados e de acesso eventual. Não há estrutura hierárquica de pastas; tudo é armazenado como “objetos” com metadados e identificadores únicos. Essa abordagem foca em durabilidade e escala, sacrificando performance.
 
-| Tipo de Armazenamento | Armazenamento em Bloco         | Armazenamento em Arquivo                    | Armazenamento em Objeto                                             |
-|------------------------|-------------------------------|---------------------------------------------|---------------------------------------------------------------------|
-| Conteúdo Mutável       | Sim                           | Sim                                         | Não (versões são suportadas, mas não há atualização in-place)      |
-| Custo                  | Alto                          | Médio a alto                                | Baixo                                                               |
-| Performance            | Média a alta, muito alta      | Média a alta                                | Baixa a média                                                       |
-| Consistência           | Consistência forte            | Consistência forte                          | Consistência forte                                                  |
-| Acesso aos Dados       | SAS / iSCSI / FC              | Acesso padrão a arquivos, CIFS/SMB e NFS    | API RESTful                                                         |
-| Escalabilidade         | Escalabilidade média          | Alta escalabilidade                         | Escalabilidade massiva                                              |
-| Indicado para          | Máquinas virtuais (VM), aplicações de alta performance como bancos de dados | Acesso a sistemas de arquivos generalistas | Dados binários, dados não estruturados                             |
+### Comparando os tipos:
+
+#### **Armazenamento em Bloco**
+- **Conteúdo Mutável:** Sim  
+- **Custo:** Alto  
+- **Performance:** Média a alta, muito alta  
+- **Consistência:** Consistência forte  
+- **Acesso aos Dados:** SAS / iSCSI / FC  
+- **Escalabilidade:** Escalabilidade média  
+- **Indicado para:** Máquinas virtuais (VM), aplicações de alta performance como bancos de dados  
+
+---
+
+#### **Armazenamento em Arquivo**
+- **Conteúdo Mutável:** Sim  
+- **Custo:** Médio a alto  
+- **Performance:** Média a alta  
+- **Consistência:** Consistência forte  
+- **Acesso aos Dados:** Acesso padrão a arquivos, CIFS/SMB e NFS  
+- **Escalabilidade:** Alta escalabilidade  
+- **Indicado para:** Acesso a sistemas de arquivos generalistas  
+
+---
+
+#### **Armazenamento em Objeto**
+- **Conteúdo Mutável:** Não (versões são suportadas, mas não há atualização in-place)  
+- **Custo:** Baixo  
+- **Performance:** Baixa a média  
+- **Consistência:** Consistência forte  
+- **Acesso aos Dados:** API RESTful  
+- **Escalabilidade:** Escalabilidade massiva  
+- **Indicado para:** Dados binários, dados não estruturados  
 
 
 ## Terminologia
