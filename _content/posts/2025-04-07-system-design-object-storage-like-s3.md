@@ -45,7 +45,7 @@ Vamos abordar:
 
 ## Índice
 
-- [Os três tipos de sistemas de armazenamento](#os-três-tipos-de-sistemas-de-sistenas-de-armazenamento)
+- [Os três tipos de sistemas de armazenamento](#os-três-tipos-de-sistemas-de-sistemas-de-armazenamento)
 - [Terminologia](#terminologia)
 - [O que é "inode" e como esse conhecimento pode nos ajudar](#o-que-é-inode-e-como-esse-conhecimento-pode-nos-ajudar)
 - [Proposta para Armazenamento: Routing e Placement Services](#proposta-para-armazenamento-routing-e-placement-services)
