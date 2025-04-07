@@ -8,8 +8,6 @@ authors:
     link: 'https://github.com/wilsonneto-dev'
 ---
 
-> Este artigo é um trabalho em progresso
-
 Seguindo com nosso Clube do Livro, chegamos ao cápitulo 25 do livro System Design Interview. Neste cápitulo o desafio proposto é o design de um sistema de storage nos moldes de um Amazon S3, um storage de objetos.
 
 Este capítulo nos traz os seguintes requisitos funcionais:
@@ -44,6 +42,29 @@ Vamos abordar:
 - Versionamento dos objetos
 - Otimizando o upload de grandes objetos
 - Garbage Collection
+
+## Índice
+
+- [Os três tipos de sistemas de armazenamento](#os-três-tipos-de-sistemas-de-sistenas-de-armazenamento)
+- [Terminologia](#terminologia)
+- [O que é "inode" e como esse conhecimento pode nos ajudar](#o-que-é-inode-e-como-esse-conhecimento-pode-nos-ajudar)
+- [Proposta para Armazenamento: Routing e Placement Services](#proposta-para-armazenamento-routing-e-placement-services)
+- [O trade-off entre latência e consistência](#o-trade-off-entre-latência-e-consistência)
+- [Organização dos Dados](#organização-dos-dados)
+- [Durabilidade dos Dados: Replicas ou Erasure Coding?](#durabilidade-dos-dados-replicas-ou-erasure-coding)
+- [Verificação de Integridade dos Dados](#verificação-de-integridade-dos-dados)
+- [Modelo de Dados dos Metadados e Sharding](#modelo-de-dados-dos-metadados-e-sharding)
+- [Versionamento dos Objetos](#versionamento-dos-objetos)
+- [Otimizando o Upload de Grandes Objetos](#otimizando-o-upload-de-grandes-objetos)
+  - [Como funciona o Multipart Upload](#como-funciona-o-multipart-upload)
+  - [Tratamento de partes antigas](#tratamento-de-partes-antigas)
+  - [Multipart Upload é o mesmo que multipartform-data](#multipart-upload-é-o-mesmo-que-multipartform-data)
+- [Garbage Collection](#garbage-collection)
+  - [Quando os dados se tornam lixo](#quando-os-dados-se-tornam-lixo)
+  - [Como o Garbage Collector funciona](#como-o-garbage-collector-funciona)
+  - [Coleta de Lixo e Replicação](#coleta-de-lixo-e-replicação)
+- [Conclusão](#conclusão)
+
 
 ## Os três tipos de sistemas de sistenas de armazenamento
 
@@ -260,29 +281,80 @@ Esses trade-offs são importantes e devem ser alinhados com os requisitos do sis
 
 ## Organização dos Dados
 
-Salvar cada objeto como um arquivo independente pode ser ineficiente (especialmente para objetos pequenos). Para isso, usamos a técnica de agregação:
+Agora vamos pensar em como cada nó de dados gerenciará os objetos. 
 
-Objetos pequenos são gravados sequencialmente em um arquivo grande (estilo WAL).
+Uma solução simples é armazenar cada objeto em um arquivo individual. Embora isso funcione, o desempenho sofre quando há muitos arquivos pequenos. Dois problemas surgem ao ter muitos arquivos pequenos em um sistema de arquivos.
 
-- Um banco de metadados local mapeia UUIDs para offset/tamanho dentro do arquivo.
+- Primeiro, ocorre o desperdício de blocos de dados. Um sistema de arquivos armazena os arquivos em blocos discretos de disco. Esses blocos têm um tamanho fixo, geralmente determinado quando o volume é inicializado, sendo o tamanho típico cerca de 4 KB. Mesmo que um arquivo seja menor que 4 KB, ele ainda consome um bloco de disco inteiro. Portanto, se o sistema tiver muitos arquivos pequenos, uma grande quantidade de blocos será desperdiçada, cada um sendo utilizado parcialmente por um arquivo pequeno.
 
-- Para performance, arquivos “read-write” são rotacionados para “read-only” quando cheios.
+- Segundo, pode exceder a capacidade de inodes do sistema. O sistema de arquivos guarda a localização e outras informações sobre cada arquivo em um tipo especial de bloco chamado inode. Na maioria dos sistemas de arquivos, o número de inodes é fixado na inicialização do disco. Com milhões de arquivos pequenos, corre-se o risco de consumir todos os inodes disponíveis. Além disso, o sistema operacional não lida bem com um grande número de inodes, mesmo com um cache agressivo dos metadados do sistema de arquivos. Por essas razões, armazenar pequenos objetos em arquivos individuais não funciona bem na prática.
+
+Para resolver esses problemas, podemos juntar vários objetos pequenos em um arquivo maior. Conceitualmente, funcionando como um (Write-Ahead Log, WAL).
+
+Nesta estratégia, cada objeto é salvo em um arquivo já existente, mediante uma organização e estratégia. Assim que um arquivo atingir um limite, este arquivo é marcado como somente leitura e um novo arquivo é criado.
+
+Alguns pontos quanto a esta estratégia:
+
+- O acesso de escrita deve ser serializado
+- Podemos ter arquivos dedicados a cada núcleo de processamento, otimizando o paralelismo
+
+Desta maneira, ainda temos mais um desafio, quando um componente externo quiser recuperar um arquivo, os nós de dados precisam ser capazes de retornálos, mas para isto ele precisam ser capazes de localizá-los. Para isto podemos ter um data store em cada nó que tenha o seguinte modelo:
+
+- Object ID
+- Nome do arquivo
+- Offset no arquivo
+- Tamanho do arquivo
+
+Com estes dados o nó será capaz de receber um id e retornar o objeto correspondente de maneira eficiente. 
+
+Mas para guardarmos estes dados precisamos pensar em qual mecanismo de data-store faz mais sentido neste cenário, algumas opções e considerações abaixo;
+
+- Rocks DB
+    - Baseado em SSTable
+    - Rápido para escrita, porém não otimizado para leitura
+    - Para saber mais sobre o Rocks DB acesse o [site oficial](https://rocksdb.org/)
+    - Para saber mais sobre SStable acesse [este artigo sobre SSTable no blog do ScyllaDB](https://www.scylladb.com/glossary/sstable/)
+
+- SQL data base
+    - Normalmente baseados em B-Trees, rápido para leitura
+    - Uma ótima opção dados os requisitos de leitura maior que escrita
+    - Uma opção confiável e light-weight baseada em arquivos, seria o SQLite
 
 
 ## Durabilidade dos Dados: Replicas ou Erasure Coding?
 
-- Replicação (x3): simples de implementar, baixa latência, ~6 noves de durabilidade, mas com 200% de overhead.
+Um grade desafio neste projeto é quanto a durabilidade dos dados, sabemos que podemos enfretar diversos casos adversos, seja falhas físicas em HDs ou SSDs ou também falhas na escrita ou mesmo memória ou arquivos corrompidos, causando falhas no armazenamento e afetando a durabilidade.
 
-- Erasure Coding (ex: 8+4): aumenta durabilidade (~11 noves), reduz overhead (50%), mas adiciona latência e complexidade para leitura e escrita.
+### Replicação (x3): 
 
-Para sistemas sensíveis à latência, replicação ainda é a escolha mais comum.
+Uma solução mais simples de implementar, e que já falamos, seria a replicação dos dados. Isto seria:
+- Simples de implementar
+- Baixa latência
+- ~6 noves de durabilidade
+- mas com 200% de overhead de armazeonamento.
+
+Abaixo vamos falar de uma segunda opção, que se encaixa melhor em nosso requisitos não funcionais.
+
+### Erasure Coding
+
+Comparado aos métodos tradicionais de replicação, o erasure coding oferece o mesmo nível de proteção dos dados com uma sobrecarga de armazenamento significativamente menor. Essa eficiência é alcançada armazenando dados de paridade em vez de múltiplas cópias completas dos dados.
+
+Para entender melhor esta técnica, recomendamos a leitura [deste artigo do Geeks: Erasure Coding in System Design](https://www.geeksforgeeks.org/erasure-coding-in-system-design/) ou assistir [este vídeo do canal da ferramenta MinIO: Overview of MinIO Erasure Coding](https://www.youtube.com/watch?v=QniHMNNmbfI).
+
+- Aumenta durabilidade (~11 noves)
+- Reduz overhead  de armazenamento em 50%
+- Mas adiciona latência e complexidade para leitura e escrita.
+
+Para sistemas sensíveis à latência, replicação ainda é a escolha mais comum. Porém um requisito não funcional muito forte em nosso projeto é otimização de custo de storage, por isto, neste projeto vamos optar por Erasure Coding.
 
 
 ## Verificação de Integridade dos Dados
 
-Mesmo dados replicados podem sofrer corrupção silenciosa. Por isso, o sistema adiciona checksums (ex: MD5) ao final de cada objeto.
+Mesmo dados replicados podem sofrer corrupção silenciosa. Para resolver isso, podemos adicionar a nosso sistema **checksums** (ex: MD5, SHA1, HMAC) ao final de cada objeto.
 
 Antes de retornar um objeto ao cliente, o checksum é recalculado e comparado ao original. Se estiver errado, tenta-se recuperar de outra réplica.
+
+Também podemos adicionar checksums ao final de cada arquivo, para garntir a integridade do arquivo como um todo, assim como também de cada objeto salvo.
 
 
 ## Modelo de Dados dos Metadados e Sharding
@@ -291,46 +363,156 @@ Dois modelos principais:
 
 - Tabela de Buckets: pequena, pode ficar em um único banco com réplicas para leitura.
 
-- Tabela de Objetos: precisa ser particionada. O ideal é usar um hash de (bucket_name, object_name) para sharding, o que distribui bem e permite buscar por URI.
+- Tabela de Objetos: precisa ser particionada. O ideal é usar um hash de (bucket_name, object_name) para sharding, o que distribui bem e permite buscar por URI, já que o bucket e o nome do objeto fazem parte da URI.
+
+- Uma idéia que o livro explora para otimizar a listagem de objetos é utilizar uma tabela desnormalizada focada na listagem, fazendo o sharding por bucket id.
 
 Para listar objetos por prefixo, é necessário agrupar resultados em múltiplos shards, o que complica a paginação. Uma solução é desnormalizar os dados de listagem em outra tabela, focada apenas nisso.
 
 
 ## Versionamento dos Objetos
 
-Com versionamento habilitado:
+A feature de versionamento visa manter diferentes versões de um mesmo arquivo no sistema, desta maneira podemos recuperar arquivos que foram acidentalmente apagamos ou sobre-escritos.
 
-- Toda nova versão insere uma nova linha na tabela de metadados com object_version (TIMEUUID).
+Sem o versionamento, assim que uma nova versão de um arquivo é salva, os metadados são sobre-escritos e os dados anteriores são marcados para remoção.
 
-- Deleções adicionam um delete marker, e não removem dados anteriores.
+Com versionamento, agora as versões anteriores não são apagadas. Para isto, precisamos:
 
-- O GET busca sempre a versão mais recente (maior UUID).
+- **Adicionar configuração de versionamento ao bucket:**
+
+- **Ajustar o esquema da base de metadados:**
+  - Adicionar uma nova coluna `object_version` na tabela de objetos do metadata store.
+  - Essa coluna só será usada se o versionamento estiver habilitado.
+
+- **Alterar o comportamento de upload de objetos:**
+  - Em vez de sobrescrever o registro existente:
+    - **Inserir** um novo registro com o mesmo `bucket_id` e `object_name`.
+    - Gerar um novo `object_id` (UUID) para identificar o novo conteúdo.
+    - Gerar um novo `object_version` (TIMEUUID) para diferenciar as versões.
+
+- **Persistir os dados no data store como um novo objeto:**
+  - Armazenar o conteúdo com um novo identificador (UUID).
+  - Isso garante que cada versão tenha seu próprio dado independente.
+
+- **Atualizar lógica de leitura (GET):**
+  - Retornar a versão mais recente de acordo com o maior `object_version` (TIMEUUID).
+  - Essa será considerada a “versão atual” do objeto.
+
+- **Implementar suporte a delete marker:**
+  - Ao deletar um objeto:
+    - Inserir um novo registro com um `object_version` mais recente.
+    - Marcar como “delete marker” (sem deletar as versões anteriores).
+  - Uma requisição GET que cair sobre um delete marker deve retornar 404.
+
+- **Garantir que o sistema de garbage collection respeite o versionamento:**
+  - Nunca deletar objetos antigos automaticamente se o versionamento estiver habilitado.
+  - Apenas objetos explicitamente excluídos de forma permanente devem ser removidos.
 
 
 ## Otimizando o Upload de Grandes Objetos
 
-Para grandes objetos (multi-GB):
+Em sistemas de armazenamento de objetos, é comum lidarmos com arquivos de diversos tamanhos. Embora a maioria seja relativamente pequena, uma parcela significativa — cerca de 20%, segundo estimativas — pode conter arquivos com vários gigabytes. Fazer o upload de arquivos tão grandes de uma só vez é possível, mas arriscado: qualquer falha na conexão durante a transferência pode exigir o reenvio do arquivo inteiro, resultando em perda de tempo e largura de banda.
 
-- Usa-se Multipart Upload.
+Para lidar com esse problema, entra em cena o **multipart upload**: uma técnica que permite dividir arquivos grandes em partes menores e fazer o upload de cada uma delas separadamente. Essa abordagem traz uma série de benefícios, como tolerância a falhas, paralelização do upload e retomada de partes específicas.
 
-- O cliente quebra o arquivo em partes (ex: 8x200MB), envia cada parte, e depois envia uma requisição de “complete”.
+### Como funciona o Multipart Upload
 
-- O sistema monta o objeto final com base no uploadID.
+O processo de multipart upload é composto pelas seguintes etapas:
+
+1. **Inicialização do upload**:  
+   O cliente faz uma requisição à API do serviço de armazenamento para iniciar um upload multipart. O serviço responde com um `uploadID`, que identifica exclusivamente essa operação.
+
+2. **Divisão do arquivo**:  
+   O cliente divide o arquivo grande em partes menores. Por exemplo, um arquivo de 1.6 GB pode ser dividido em 8 partes de 200 MB cada.
+
+3. **Upload das partes**:  
+   Cada parte é enviada individualmente, acompanhada do `uploadID`. Para cada parte enviada, o serviço retorna um **ETag**, que é um hash (geralmente MD5) usado para verificar a integridade dos dados.
+
+4. **Finalização do upload**:  
+   Quando todas as partes forem enviadas, o cliente faz uma requisição de finalização (`complete multipart upload`), informando o `uploadID`, os números das partes e seus respectivos ETags.
+
+5. **Recomposição do objeto**:  
+   O serviço reagrupa as partes com base na ordem especificada e monta o arquivo completo. Como o processo pode envolver grandes volumes de dados, ele pode levar alguns minutos para ser concluído. Uma vez finalizado, uma mensagem de sucesso é retornada ao cliente.
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant DataStore
+
+    Client->>DataStore: ① Multipart upload initiation
+    DataStore-->>Client: ② uploadID
+
+    Client->>DataStore: ③ Upload Part 1 (with uploadID)
+    DataStore-->>Client: ④ ETag 1
+
+    Client->>DataStore: Upload Part 2 (with uploadID)
+    DataStore-->>Client: ETag 2
+
+    Client->>DataStore: Upload Part 8 (with uploadID)
+    DataStore-->>Client: ETag 8
+
+    Client->>DataStore: ⑤ Multipart upload completion\n(with uploadID + all ETags)
+    DataStore-->>Client: ⑥ Success
+
+```
+
+### Tratamento de partes antigas
+
+Após o objeto ser reconstituído com sucesso, as partes individuais usadas no processo perdem sua utilidade. Para evitar acúmulo desnecessário de dados no armazenamento, recomenda-se a implementação de um **serviço de coleta de lixo** (garbage collection), responsável por liberar o espaço ocupado por essas partes obsoletas.
+
+### Multipart Upload é o mesmo que `multipart/form-data`?
+
+Embora os nomes sejam parecidos, é importante não confundir o **multipart upload** com o tipo de conteúdo `multipart/form-data`, utilizado em formulários HTML para envio de arquivos. Enquanto `multipart/form-data` serve para enviar formulários e arquivos em uma única requisição, o **multipart upload** foi projetado especificamente para gerenciar uploads de **arquivos grandes**, com **resiliência e paralelização**, em sistemas de armazenamento de objetos como o Amazon S3, Google Cloud Storage ou serviços compatíveis.
 
 
 ## Garbage Collection
 
-O sistema marca objetos como deletados (ou versões antigas) mas não os remove de imediato.
+Em sistemas de armazenamento de objetos, nem todos os dados permanecem úteis para sempre. Objetos deletados, uploads incompletos ou dados corrompidos ocupam espaço desnecessário e precisam ser removidos — é aí que entra o **garbage collector**, ou coletor de lixo.
 
-A garbage collection periodicamente:
+A coleta de lixo é o processo responsável por **recuperar automaticamente espaço de armazenamento que não está mais em uso**. Esse processo é fundamental para manter o sistema eficiente e evitar desperdício de recursos.
 
-- Reescreve arquivos com objetos válidos em novos arquivos compactados.
+### Quando os dados se tornam lixo?
 
-- Atualiza os offsets no banco de metadados.
+Existem diversas situações em que os dados deixam de ser úteis:
 
-- Remove partes antigas de multipart uploads ou uploads abandonados.
+- **Deleção preguiçosa (Lazy deletion)**:  
+  O objeto é marcado como deletado, mas não é removido imediatamente do armazenamento.
+
+- **Dados órfãos**:  
+  Fragmentos de dados resultantes de uploads interrompidos (por exemplo, partes de um multipart upload que nunca foi finalizado).
+
+- **Dados corrompidos**:  
+  Objetos que falharam na verificação de integridade (checksum inválido).
+
+### Como o Garbage Collector funciona?
+
+O coletor de lixo **não remove imediatamente os objetos deletados**. Em vez disso, ele opera de forma periódica, realizando limpezas através de um processo chamado **compactação**.
+
+Durante a compactação:
+
+1. O garbage collector copia os objetos válidos de um arquivo antigo (ex: `/data/b`) para um novo arquivo (ex: `/data/d`).
+2. Objetos marcados como deletados são ignorados durante a cópia.
+3. Após a cópia, o sistema atualiza a tabela `object_mapping` com as novas informações:
+   - O `obj_id` e `object_size` permanecem os mesmos.
+   - Os campos `file_name` e `start_offset` são atualizados para refletir a nova localização.
+4. Para garantir a consistência dos dados, essa atualização deve ser feita dentro de uma transação no banco de dados.
+
+Esse processo reduz o tamanho físico dos arquivos, já que os objetos excluídos são eliminados permanentemente. Como medida de otimização, o garbage collector espera acumular um número significativo de arquivos somente leitura antes de iniciar a compactação. Assim, ele consegue **juntar vários arquivos pequenos em poucos arquivos grandes**, o que melhora a eficiência do armazenamento.
+
+### Coleta de Lixo e Replicação
+
+O coletor de lixo também é responsável por liberar espaço em ambientes com replicação:
+
+- Em modelos com **replicação simples**, o objeto deve ser removido tanto do nó primário quanto dos nós secundários.
+- No caso de **erasure coding** (por exemplo, uma configuração 8+4), o objeto precisa ser removido dos 12 nós envolvidos na codificação.
+
+Esse processo ajuda a manter o sistema limpo, eficiente e resiliente. Em serviços de larga escala, a **coleta de lixo é tão importante quanto o próprio processo de escrita e leitura de dados**, garantindo que o armazenamento não cresça indefinidamente com dados obsoletos.
 
 
 ## Conclusão
 
-[WIP]
+Neste capítulo abordamos um desafio recorrente em entrevistas de sistem design, que não apenas nos prepara para entrevistas como também nos tráz aprendizados valiosos sobre técnicas avançadas de engenharia. Exploramos desde como sistemas Unix gerenciam seus arquivos, usando a estrutura de dados inode como base para nosso sistema e sua divisão entre dados e metadados. 
+
+Também fomos a fundo em estratégias rebuscadas para minimizar custos de storage com estratégias como Erasure Coding e garbage Collector.
+
+Esperamos que tenha gostado do artigo, e como sempre, deixamos aqui o convite também para fazer parte desta comunidade, dos encontros, das discussões no Discord, e muito mais!
