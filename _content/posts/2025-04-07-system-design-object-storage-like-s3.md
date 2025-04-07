@@ -331,7 +331,7 @@ Uma solução mais simples de implementar, e que já falamos, seria a replicaç�
 - Simples de implementar
 - Baixa latência
 - ~6 noves de durabilidade
-- mas com 200% de overhead de armazeonamento.
+- mas com 200% de overhead de armazenamento.
 
 Abaixo vamos falar de uma segunda opção, que se encaixa melhor em nosso requisitos não funcionais.
 
