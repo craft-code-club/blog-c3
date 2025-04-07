@@ -110,7 +110,7 @@ Essa separação permite escalar e otimizar cada componente de forma independent
 
 Alguns pontos interessantes sobre os inodes:
 
-- Inodes são estruturas de dados que armaznão todas as informações de um arquivo exceto seu nome e seus dados de fato
+- Inodes são estruturas de dados que armazenam todas as informações de um arquivo exceto seu nome e seus dados de fato
 
 - Os inodes arnazenam: Tamanho, Permissão, Owner/Grupo, Localização no disco, data, entre outras informações
 
