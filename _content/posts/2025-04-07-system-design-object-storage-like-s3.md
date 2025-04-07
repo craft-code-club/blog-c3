@@ -372,7 +372,7 @@ Para listar objetos por prefixo, é necessário agrupar resultados em múltiplos
 
 ## Versionamento dos Objetos
 
-A feature de versionamento visa manter diferentes versões de um mesmo arquivo no sistema, desta maneira podemos recuperar arquivos que foram acidentalmente apagamos ou sobre-escritos.
+A feature de versionamento visa manter diferentes versões de um mesmo arquivo no sistema, desta maneira podemos recuperar arquivos que foram acidentalmente apagados ou sobre-escritos.
 
 Sem o versionamento, assim que uma nova versão de um arquivo é salva, os metadados são sobre-escritos e os dados anteriores são marcados para remoção.
 
