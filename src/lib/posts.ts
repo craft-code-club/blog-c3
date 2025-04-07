@@ -8,6 +8,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import '../assets/code-stackoverflow-dark.css';
+import rehypeSlug from 'rehype-slug';
 
 const postsDirectory = path.join(process.cwd(), '_content', 'posts');
 
@@ -91,6 +92,7 @@ export async function getPostData(id: string): Promise<BlogPost> {
       .use(remarkParse)
       .use(remarkGfm)
       .use(remarkRehype)
+      .use(rehypeSlug) 
       .use(rehypeHighlight)
       .use(rehypeStringify)
       .process(matterResult.content);
