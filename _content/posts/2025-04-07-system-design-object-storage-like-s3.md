@@ -13,7 +13,7 @@ Seguindo com nosso Clube do Livro, chegamos ao cápitulo 25 do livro System Desi
 Este capítulo nos traz os seguintes requisitos funcionais:
 
 - Criação de buckets
-- Upload e download de onjetos
+- Upload e download de objetos
 - Versionamento de objetos
 - Listar objetos em um bucket
 
