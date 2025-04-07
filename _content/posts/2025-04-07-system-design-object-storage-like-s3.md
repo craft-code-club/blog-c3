@@ -1,7 +1,7 @@
 ---
 title: 'Desenhando um Storage do Objetos como o S3'
 date: '2025-04-07T12:00:00'
-description: 'Artigo baseado no cápitulo 25 do Livro System Design Interview. Desenhando um sistema de Object Storage como o s3.'
+description: 'Artigo baseado no capítulo  25 do Livro System Design Interview. Desenhando um sistema de Object Storage como o s3.'
 topics: ['system-design', 'clube-do-livro']
 authors:
   - name: 'Wilson Neto'
