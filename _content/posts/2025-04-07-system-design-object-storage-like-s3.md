@@ -66,7 +66,7 @@ Vamos abordar:
 - [Conclusão](#conclusão)
 
 
-## Os três tipos de sistemas de sistenas de armazenamento
+## Os três tipos de sistemas de sistemas de armazenamento
 
 Antes de entendermos a fundo como funciona um armazenamento de objetos como o S3, é fundamental conhecermos os três tipos principais de sistemas de armazenamento:
 
