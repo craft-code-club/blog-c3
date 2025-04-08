@@ -28,22 +28,8 @@ Dados os requisitos funcionais e não-funcionais acima, nossa missão é desenha
 
 Porém, neste artigo, não precisamos seguir a risca o script da entrevista como o autor segue no capítulo, já que para isto, bom... temos o livro e o capítulo. Neste artigo vamos passar por um subset de tópicos importantes e interessantes que são abordados, os quais em caso de acabarmos na situação real em que este desafio seja pedido em uma entrevista ou no dia a dia, estejamos preparados.
 
-Vamos abordar:
 
-- Os três tipos de sistemas de armazenamento (storage),
-- Terminologia
-- O que é "inode" e como este conhecimento pode nos ajudar
-- Proposta para armazenamento (Routing e Placement services)
-- O trade-off entre latência e consistência referente a quando o dado é considerado salvo com sucesso
-- Organização dos dados
-- Durabilidade dos dados (Replicas ou Erasure)
-- Verificação de integridade dos dados
-- Modelo de dados dos meta dados e sharding
-- Versionamento dos objetos
-- Otimizando o upload de grandes objetos
-- Garbage Collection
-
-## Índice
+## Índice do que iremos abordar
 
 - [Os três tipos de sistemas de armazenamento](#os-três-tipos-de-sistemas-de-sistemas-de-armazenamento)
 - [Terminologia](#terminologia)
@@ -66,7 +52,7 @@ Vamos abordar:
 - [Conclusão](#conclusão)
 
 
-## Os três tipos de sistemas de sistemas de armazenamento
+## Os três tipos de sistemas de armazenamento
 
 Antes de entendermos a fundo como funciona um armazenamento de objetos como o S3, é fundamental conhecermos os três tipos principais de sistemas de armazenamento:
 
@@ -87,8 +73,6 @@ Antes de entendermos a fundo como funciona um armazenamento de objetos como o S3
 - **Escalabilidade:** Escalabilidade média  
 - **Indicado para:** Máquinas virtuais (VM), aplicações de alta performance como bancos de dados  
 
----
-
 #### **Armazenamento em Arquivo**
 - **Conteúdo Mutável:** Sim  
 - **Custo:** Médio a alto  
@@ -97,8 +81,6 @@ Antes de entendermos a fundo como funciona um armazenamento de objetos como o S3
 - **Acesso aos Dados:** Acesso padrão a arquivos, CIFS/SMB e NFS  
 - **Escalabilidade:** Alta escalabilidade  
 - **Indicado para:** Acesso a sistemas de arquivos generalistas  
-
----
 
 #### **Armazenamento em Objeto**
 - **Conteúdo Mutável:** Não (versões são suportadas, mas não há atualização in-place)  
