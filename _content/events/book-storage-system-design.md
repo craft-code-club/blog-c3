@@ -5,5 +5,5 @@ date: "2025-04-07"
 time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
-registrationLink: "https://www.youtube.com/watch?v=E1oETLSeD3w"
+recordingLink: "https://www.youtube.com/watch?v=E1oETLSeD3w"
 ---
