@@ -1,7 +1,7 @@
 ---
 title: "Clube do Livro: Payment System — Como Projetar Sistemas de Pagamento Escaláveis e Seguros"
 description: "Explore os bastidores dos sistemas de pagamento usados em grandes plataformas como Amazon e Stripe. Vamos discutir design de sistemas, reconciliação, segurança, consistência, idempotência e muito mais."
-date: "2025-05-12"
+date: "2025-05-05"
 time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
