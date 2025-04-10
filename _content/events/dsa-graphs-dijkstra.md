@@ -6,4 +6,5 @@ time: "21:00-22:30"
 location: "Online via Zoom"
 type: "online"
 recordingLink: "https://www.youtube.com/watch?v=b4kWEWtCVzA&list=PLl10TyPY67Jgbh4QdRlRKr-7PjB9i5hWg"
+postLink: "https://craftcodeclub.io/posts/dsa-dijkstra"
 ---

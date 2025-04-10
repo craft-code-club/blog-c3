@@ -6,4 +6,5 @@ time: "21:00-22:30"
 location: "Online via Zoom"
 type: "online"
 recordingLink: "https://www.youtube.com/watch?v=0GcXgQTpYcE"
+postLink: "https://craftcodeclub.io/posts/dsa-bellman-ford"
 ---
