@@ -193,6 +193,9 @@ export default function RootLayout({
                       <Link href="/topics/architecture" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Arquitetura Limpa</Link>
                     </li>
                     <li>
+                      <Link href="/topics" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Todos os Tópicos</Link>
+                    </li>
+                    <li>
                       <Link href="/about" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Sobre Nós</Link>
                     </li>
                   </ul>
