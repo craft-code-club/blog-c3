@@ -2,7 +2,7 @@
 title: 'Livros Essenciais sobre Domain-Driven Design (DDD)'
 date: '2025-04-12T12:00:00'
 description: 'Lista comentada de livros fundamentais para aprender e aplicar Domain-Driven Design em projetos de software.'
-topics: [ 'ddd' ]
+topics: [ 'Domain-Driven Design' ]
 authors:
   - name: 'Wilson Neto'
     link: 'https://github.com/wilsonneto-dev'
