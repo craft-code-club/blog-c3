@@ -2,7 +2,7 @@
 title: 'Desafios no Design de um Agregador de Eventos de Clicks em Ads'
 date: '2025-01-21'
 description: 'Artigo baseado em nossa discussão do Cápitulo 22 do Livro System Design Interview. Desenhando um sistema de Ad Click Event Aggregation'
-topics: ['system-design', 'clube-do-livro']
+topics: ['System Design', 'Clube do Livro']
 ---
 
 > Este artigo foi escrito baseado em nossas discussões no último encontro do clube do livro da comunidade, que ocorreu dia 13 de Janeiro de 2025.

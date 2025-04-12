@@ -42,7 +42,7 @@ export default async function TopicPage({ params }: Props) {
 
   const topic = getTopicBySlug(resolvedParams.topic);
   const allPosts = getSortedPostsData();
-  const posts = allPosts.filter(post => post.topics.filter(topic => topic.slug === topic.slug).length > 0);
+  const posts = allPosts.filter(post => post.topics.filter(filterTopic => filterTopic.key === topic.key).length > 0);
   const topicTitle = topic.name;
   const topicDescription = topic.description ?? `Artigos e recursos sobre ${topicTitle} da comunidade Craft & Code Club.`;
 

@@ -2,7 +2,7 @@
 title: 'Grafos: Ordenação Topológica'
 date: '2025-03-24'
 description: 'Ideal para resolver tarefas com dependências, essa técnica organiza processos em grafos sem ciclos, usada em compiladores, planners e mais. Vamos aprender como os algoritmos de Kahn e DFS tornam possível alcançar uma ordem topológica.'
-topics: ['algoritmos', 'grafos']
+topics: ['Algoritmos', 'Grafos']
 authors:
   - name: 'Nelson Nobre'
     link: 'https://github.com/NelsonBN'

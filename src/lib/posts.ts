@@ -94,17 +94,16 @@ export async function getPostData(id: string): Promise<BlogPost> {
   };
 }
 
-export function getAllPostsTopicsAsRawStringsSet(): string[] {
-  const posts = getSortedPostsData();
-  const topicsSet = new Set<string>();
-
-  posts.forEach(post => {
+export function getPostsTopics(): Topic[] {
+  const seenSlugs = new Set<string>();
+  return getSortedPostsData().reduce((topics, post) => {
     post.topics.forEach(topic => {
-      topicsSet.add(topic.slug);
+      if (seenSlugs.has(topic.slug)) return;
+      topics.push(topic);
+      seenSlugs.add(topic.slug);
     });
-  });
-
-  return Array.from(topicsSet).sort();
+    return topics;
+  }, [] as Topic[]);
 }
 
 function mountTopics(topics: string[], topicsMetadata: Record<string, Topic>): Topic[] {
