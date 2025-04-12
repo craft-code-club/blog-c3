@@ -1,5 +1,5 @@
 ---
-title: 'Livros Importantes sobre Domain-Driven Design (DDD)'
+title: 'Livros Essenciais sobre Domain-Driven Design (DDD)'
 date: '2025-04-12T12:00:00'
 description: 'Lista comentada de livros fundamentais para aprender e aplicar Domain-Driven Design em projetos de software.'
 topics: [ 'ddd' ]
