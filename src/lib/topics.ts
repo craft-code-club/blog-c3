@@ -23,7 +23,7 @@ export class Topic {
   }
 
   private static slugify(name: string): string {
-    return name.toLowerCase().replace(/ /g, '-');
+    return name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
   }
 }
 
@@ -37,18 +37,28 @@ export function getTopicsMetadataAsDictionary(): Record<string, Topic> {
   }, {} as Record<string, Topic>);
 }
 
-export function getSortedTopicList(): Topic[] {
+function getAllTopicsFromMetadataAndPostsAsDictionary(): Record<string, Topic> {
   const topics = getTopicsMetadataAsDictionary();
   const topicsFromPosts = getAllPostsTopicsAsRawStringsSet();
+
   topicsFromPosts.forEach(topic => {
     if (!topics[topic]) {
       topics[topic] = new Topic(topic);
     }
   });
+  return topics;
+}
 
+export function getSortedTopicList(): Topic[] {
+  const topics = getAllTopicsFromMetadataAndPostsAsDictionary();
   const topicsList = Object.values(topics);
   const sortedTopicsList = sortTopics(topicsList);
   return sortedTopicsList;
+}
+
+export function getTopicBySlug(slug: string): Topic {
+  const topics = getAllTopicsFromMetadataAndPostsAsDictionary();
+  return topics[slug.toLowerCase()];
 }
 
 function sortTopics(topics: Topic[]) {
