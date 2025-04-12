@@ -19,20 +19,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const topic = getTopicBySlug(resolvedParams.topic);
   const topicTitle = topic.name;
-  const topicDescription = topic.description;
+  const topicDescription = topic.description ?? `Artigos e recursos sobre ${topicTitle} da comunidade Craft & Code Club.`;
   const topicKeywords = [topicTitle, "Desenvolvimento de Software", "Desenvolvimento", "Software", "Aprendizado", "Comunidade", "Algoritmos", "Estruturas de Dados", "System Design", "DDD"];
 
   return {
     title: `${topicTitle} | Craft & Code Club`,
-    description: `Artigos e recursos sobre ${topicTitle} da comunidade Craft & Code Club.`,
+    description: topicDescription,
     keywords: topicKeywords,
     openGraph: {
       title: `${topicTitle} | Craft & Code Club`,
-      description: `Artigos e recursos sobre ${topicTitle} da comunidade Craft & Code Club.`,
+      description: topicDescription,
     },
     twitter: {
       title: `${topicTitle} | Craft & Code Club`,
-      description: `Artigos e recursos sobre ${topicTitle} da comunidade Craft & Code Club.`,
+      description: topicDescription,
     }
   };
 }

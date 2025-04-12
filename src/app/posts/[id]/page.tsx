@@ -20,14 +20,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${post.title} | Craft & Code Club`,
     description: post.description,
-    keywords: [...post.topics, "Blog", "Artigo", "Desenvolvimento de Software", "Aprendizado", "Comunidade", "Algoritmos", "Estruturas de Dados", "System Design", "DDD"],
+    keywords: [...post.topics.map(topic => topic.name), "Blog", "Artigo", "Desenvolvimento de Software", "Aprendizado", "Comunidade", "Algoritmos", "Estruturas de Dados", "System Design", "DDD"],
     openGraph: {
       title: `${post.title} | Craft & Code Club`,
       description: post.description,
       type: 'article',
       publishedTime: post.date,
       authors: post.authors?.map(author => author.name) || [],
-      tags: post.topics,
+      tags: post.topics.map(topic => topic.name),
     },
     twitter: {
       title: `${post.title} | Craft & Code Club`,

@@ -1,4 +1,4 @@
-import { getPostsTopics, getSortedPostsData } from './posts';
+import { getPostsTopics } from './posts';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
