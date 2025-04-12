@@ -108,5 +108,9 @@ export function getAllPostsTopicsAsRawStringsSet(): string[] {
 }
 
 function mountTopics(topics: string[], topicsMetadata: Record<string, Topic>): Topic[] {
-  return topics.map(topic => topicsMetadata[topic] ?? new Topic(topic));
+  return topics.map(topic => {
+    const newTopic = new Topic(topic);
+    const topicMetadata = topicsMetadata[newTopic.key];
+    return topicMetadata ?? newTopic;
+  });
 }
