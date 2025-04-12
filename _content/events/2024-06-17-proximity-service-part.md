@@ -6,5 +6,5 @@ date: "2024-06-17"
 time: "20:30-22:00"
 location: "Online via Zoom"
 type: "online"
-registrationLink: "https://www.youtube.com/watch?v=JjUar4A8sJE"
+recordingLink: "https://www.youtube.com/watch?v=JjUar4A8sJE"
 ---
