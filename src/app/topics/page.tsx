@@ -29,7 +29,7 @@ export default function TopicsPage() {
           </p>
         </header>
 
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-3">
           {topics.map((topic) => <TopicCard key={topic.key} topic={topic} />)}
         </div>
       </div>
