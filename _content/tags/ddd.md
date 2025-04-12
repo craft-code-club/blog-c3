@@ -1,6 +1,6 @@
 ---
 name: "Domain-Driven Design"
-key: "ddd"
+key: "domain-driven-design"
 description: "Aprenda a criar software que reflita seu domínio de negócios."
 featured: true
 order: 3
