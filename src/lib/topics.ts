@@ -1,4 +1,4 @@
-import { getSortedPostsData } from './posts';
+import { getAllPostsTopicsAsRawStringsSet, getSortedPostsData } from './posts';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -29,9 +29,26 @@ export class Topic {
 
 const topicsDirectory = path.join(process.cwd(), '_content/tags');
 
-export function getSortedTopics(): Topic[] {
+export function getTopicsMetadataAsDictionary(): Record<string, Topic> {
   const topics = getTopicsMetadataFiles();
-  return sortTopics(topics);
+  return topics.reduce((topics, topic) => {
+    topics[topic.key] = topic;
+    return topics;
+  }, {} as Record<string, Topic>);
+}
+
+export function getSortedTopicList(): Topic[] {
+  const topics = getTopicsMetadataAsDictionary();
+  const topicsFromPosts = getAllPostsTopicsAsRawStringsSet();
+  topicsFromPosts.forEach(topic => {
+    if (!topics[topic]) {
+      topics[topic] = new Topic(topic);
+    }
+  });
+
+  const topicsList = Object.values(topics);
+  const sortedTopicsList = sortTopics(topicsList);
+  return sortedTopicsList;
 }
 
 function sortTopics(topics: Topic[]) {
