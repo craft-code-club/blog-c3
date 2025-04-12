@@ -57,11 +57,11 @@ export default async function Post({ params }: Props) {
         <div className="flex flex-wrap gap-2">
           {post.topics.map((topic) => (
             <Link
-              key={topic}
-              href={`/topics/${topic}`}
+              key={topic.slug}
+              href={`/topics/${topic.slug}`}
               className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
             >
-              {topic.charAt(0).toUpperCase() + topic.slice(1).replace(/-/g, ' ')}
+              {topic.name}
             </Link>
           ))}
         </div>

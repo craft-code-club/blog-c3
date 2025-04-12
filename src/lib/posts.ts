@@ -9,6 +9,7 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import '../assets/code-stackoverflow-dark.css';
 import rehypeSlug from 'rehype-slug';
+import { getTopicsMetadataAsDictionary, Topic } from './topics';
 
 const postsDirectory = path.join(process.cwd(), '_content', 'posts');
 
@@ -17,7 +18,7 @@ export type BlogPost = {
   title: string;
   date: string;
   description: string;
-  topics: string[];
+  topics: Topic[];
   contentHtml: string;
   authors?: Array<{
     name: string;
@@ -25,33 +26,10 @@ export type BlogPost = {
   }>;
 }
 
-// Helper function to format topic display
-export function formatTopicDisplay(topics: string[]) {
-  const MAX_CHARS = 35;
-  const visibleTopics: string[] = [];
-  const hiddenTopics: string[] = [];
-  let currentLength = 0;
-
-  for (const topic of topics) {
-    const formattedTopic = topic.charAt(0).toUpperCase() + topic.slice(1).replace(/-/g, ' ');
-    if (currentLength + formattedTopic.length <= MAX_CHARS) {
-      visibleTopics.push(topic);
-      currentLength += formattedTopic.length;
-    } else {
-      hiddenTopics.push(formattedTopic);
-    }
-  }
-
-  return {
-    visibleTopics,
-    hiddenTopics,
-    hasHidden: hiddenTopics.length > 0
-  };
-}
-
 export function getSortedPostsData(): Omit<BlogPost, 'contentHtml'>[] {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
+  const topicsMetadata = getTopicsMetadataAsDictionary();
   const allPostsData = fileNames.map((fileName) => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, '');
@@ -61,15 +39,15 @@ export function getSortedPostsData(): Omit<BlogPost, 'contentHtml'>[] {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
 
     // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
+    const { data } = matter(fileContents);
 
     // Combine the data with the id
     return {
       id,
-      title: matterResult.data.title,
-      date: matterResult.data.date,
-      description: matterResult.data.description,
-      topics: matterResult.data.topics || [],
+      title: data.title,
+      date: data.date,
+      description: data.description,
+      topics: mountTopics(data.topics, topicsMetadata),
     };
   });
   // Sort posts by date
@@ -85,8 +63,7 @@ export function getSortedPostsData(): Omit<BlogPost, 'contentHtml'>[] {
 export async function getPostData(id: string): Promise<BlogPost> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-  const matterResult = matter(fileContents);
+  const { data, content } = matter(fileContents);
 
   const processedContent = await unified()
       .use(remarkParse)
@@ -95,7 +72,7 @@ export async function getPostData(id: string): Promise<BlogPost> {
       .use(rehypeSlug) 
       .use(rehypeHighlight)
       .use(rehypeStringify)
-      .process(matterResult.content);
+      .process(content);
 
   let contentHtml = processedContent.toString();
 
@@ -104,26 +81,32 @@ export async function getPostData(id: string): Promise<BlogPost> {
     .replace(/<img src="\/public/g, `<img src="`)
     .replace(/<img src="\.\.\/\.\.\/public/g, `<img src="`);
 
+  const topicsMetadata = getTopicsMetadataAsDictionary();
+
   return {
     id,
     contentHtml,
-    title: matterResult.data.title,
-    date: matterResult.data.date,
-    description: matterResult.data.description,
-    topics: matterResult.data.topics || [],
-    authors: matterResult.data.authors,
+    title: data.title,
+    date: data.date,
+    description: data.description,
+    topics: mountTopics(data.topics, topicsMetadata),
+    authors: data.authors,
   };
 }
 
-export function getAllTopics(): string[] {
+export function getAllPostsTopicsAsRawStringsSet(): string[] {
   const posts = getSortedPostsData();
   const topicsSet = new Set<string>();
 
   posts.forEach(post => {
     post.topics.forEach(topic => {
-      topicsSet.add(topic);
+      topicsSet.add(topic.name);
     });
   });
 
   return Array.from(topicsSet).sort();
+}
+
+function mountTopics(topics: string[], topicsMetadata: Record<string, Topic>): Topic[] {
+  return topics.map(topic => topicsMetadata[topic] ?? new Topic(topic));
 }

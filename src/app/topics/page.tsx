@@ -1,4 +1,4 @@
-import { getSortedTopics, Topic } from "@/lib/topics";
+import { getSortedTopicList, Topic } from "@/lib/topics";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default function TopicsPage() {
-  const topics = getSortedTopics();
+  const topics = getSortedTopicList();
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">

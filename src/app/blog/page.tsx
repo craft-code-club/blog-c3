@@ -1,4 +1,4 @@
-import { getSortedPostsData, formatTopicDisplay } from '@/lib/posts';
+import { getSortedPostsData } from '@/lib/posts';
 import Link from 'next/link';
 import TopicTags from '@/components/TopicTags';
 import { Metadata } from 'next';
@@ -32,19 +32,13 @@ export default function BlogPage() {
 
         <div className="grid gap-8 md:grid-cols-2">
           {posts.map((post) => {
-            const { visibleTopics, hiddenTopics, hasHidden } = formatTopicDisplay(post.topics);
-            
             return (
               <article key={post.id} className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="p-6">
                   <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
                     <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('pt-BR')}</time>
                   </div>
-                  <TopicTags 
-                    visibleTopics={visibleTopics}
-                    hiddenTopics={hiddenTopics}
-                    hasHidden={hasHidden}
-                  />
+                  <TopicTags topics={post.topics} />
                   <Link href={`/posts/${encodeURIComponent(post.id)}`}>
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                       {post.title}
