@@ -2,7 +2,7 @@
 title: 'Grafos: Dicas e Truques'
 date: '2025-03-03'
 description: 'Descubra dicas e truques para dominar grafos e aprimorar seus algoritmos na resolução de problemas complexos de forma prática e eficiente.'
-topics: ['algoritmos', 'grafos']
+topics: ['Algoritmos', 'Grafos']
 authors:
   - name: 'Nelson Nobre'
     link: 'https://github.com/NelsonBN'

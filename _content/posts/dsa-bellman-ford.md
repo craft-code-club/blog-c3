@@ -2,7 +2,7 @@
 title: 'Algoritmo de Bellman-Ford'
 date: '2025-02-02'
 description: 'Descubra como o algoritmo de Bellman-Ford resolve o problema do caminho mínimo em grafos, mesmo na presença de pesos negativos. Aprenda seus fundamentos teóricos, aplicações práticas e veja sua implementação passo a passo!'
-topics: ['algoritmos', 'grafos']
+topics: ['Algoritmos', 'Grafos']
 authors:
   - name: 'Nelson Nobre'
     link: 'https://github.com/NelsonBN'

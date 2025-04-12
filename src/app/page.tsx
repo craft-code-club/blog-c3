@@ -2,9 +2,11 @@ import Link from 'next/link';
 import { getSortedPostsData } from '@/lib/posts';
 import TopicTags from '@/components/TopicTags';
 import escapeHtml from 'escape-html';
-
+import { getFeaturedTopicsSorted } from '@/lib/topics';
+import TopicCard from '@/components/TopicCard';
 export default function Home() {
   const posts = getSortedPostsData();
+  const featuredTopics = getFeaturedTopicsSorted();
 
   return (
     <div className="min-h-screen">
@@ -42,32 +44,7 @@ export default function Home() {
 
           <div className="mt-10">
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {/* Algorithms Card */}
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Algoritmos</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">Domine os fundamentos da ciência da computação e resolução de problemas.</p>
-                <Link href="/topics/algoritmos" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
-                  Saiba mais →
-                </Link>
-              </div>
-
-              {/* System Design Card */}
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">System Design</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">Construa arquiteturas de software escaláveis e distribuídas.</p>
-                <Link href="/topics/system-design" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
-                  Saiba mais →
-                </Link>
-              </div>
-    
-              {/* DDD Card */}
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Domain-Driven Design</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">Aprenda a criar software que reflita seu domínio de negócios.</p>
-                <Link href="/topics/ddd" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
-                  Saiba mais →
-                </Link>
-              </div>
+              { featuredTopics.map((topic) => <TopicCard key={topic.key} topic={topic} />) }
             </div>
           </div>
         </div>

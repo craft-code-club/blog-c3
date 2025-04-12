@@ -1,4 +1,4 @@
-import { getAllPostsTopicsAsRawStringsSet, getSortedPostsData } from './posts';
+import { getPostsTopics, getSortedPostsData } from './posts';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -39,11 +39,11 @@ export function getTopicsMetadataAsDictionary(): Record<string, Topic> {
 
 function getAllTopicsFromMetadataAndPostsAsDictionary(): Record<string, Topic> {
   const topics = getTopicsMetadataAsDictionary();
-  const topicsFromPosts = getAllPostsTopicsAsRawStringsSet();
+  const topicsFromPosts = getPostsTopics();
 
   topicsFromPosts.forEach(topic => {
-    if (!topics[topic]) {
-      topics[topic] = new Topic(topic);
+    if (!topics[topic.key]) {
+      topics[topic.key] = topic;
     }
   });
   return topics;
@@ -54,6 +54,11 @@ export function getSortedTopicList(): Topic[] {
   const topicsList = Object.values(topics);
   const sortedTopicsList = sortTopics(topicsList);
   return sortedTopicsList;
+}
+
+export function getFeaturedTopicsSorted(): Topic[] {
+  const topics = getSortedTopicList();
+  return topics.filter(topic => topic.featured);
 }
 
 export function getTopicBySlug(slug: string): Topic {

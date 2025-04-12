@@ -2,7 +2,7 @@
 title: 'Algoritmo de Dijkstra'
 date: '2025-01-22'
 description: 'Descubra como o algoritmo de Dijkstra revoluciona a resolução de problemas de caminhos mínimos em grafos. Aprenda os fundamentos, aplicações práticas, e veja sua implementação passo a passo!'
-topics: ['algoritmos', 'grafos']
+topics: ['Algoritmos', 'Grafos']
 authors:
   - name: 'Nelson Nobre'
     link: 'https://github.com/NelsonBN'

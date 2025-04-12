@@ -2,7 +2,7 @@
 title: 'Algoritmo de A*'
 date: '2025-02-16'
 description: 'O algoritmo A* (A-Star) é uma abordagem eficiente para encontrar o caminho mais curto em grafos, combinando heurísticas e custo real. Usado em jogos, IA e navegação, garante soluções ótimas quando a heurística é bem definida.'
-topics: ['algoritmos', 'grafos']
+topics: ['Algoritmos', 'Grafos']
 authors:
   - name: 'Nelson Nobre'
     link: 'https://github.com/NelsonBN'
