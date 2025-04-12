@@ -100,7 +100,7 @@ export function getAllPostsTopicsAsRawStringsSet(): string[] {
 
   posts.forEach(post => {
     post.topics.forEach(topic => {
-      topicsSet.add(topic.name);
+      topicsSet.add(topic.slug);
     });
   });
 

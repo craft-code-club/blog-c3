@@ -1,45 +1,50 @@
-import {getSortedPostsData, getAllPostsTopicsAsRawStringsSet} from '@/lib/posts';
+import { getSortedPostsData } from '@/lib/posts';
 import escapeHtml from 'escape-html';
 import Link from 'next/link';
 import TopicTags from '@/components/TopicTags';
 import { Metadata } from 'next';
+import { getSortedTopicList, getTopicBySlug } from '@/lib/topics';
 
 interface Props {
   params: Promise<{ topic: string }>;
 }
 
 export async function generateStaticParams() {
-  let topics = getAllPostsTopicsAsRawStringsSet();
-
-  return topics.map((topic) => ({
-    topic: topic.replace(/\s+/g, '-').toLowerCase(),
+  return getSortedTopicList().map((topic) => ({
+    topic: topic.slug
   }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  const topicTitle = resolvedParams.topic.charAt(0).toUpperCase() + resolvedParams.topic.slice(1).replace(/-/g, ' ');
-  
+  const topic = getTopicBySlug(resolvedParams.topic);
+  const topicTitle = topic.name;
+  const topicDescription = topic.description;
+  const topicKeywords = [topicTitle, "Desenvolvimento de Software", "Desenvolvimento", "Software", "Aprendizado", "Comunidade", "Algoritmos", "Estruturas de Dados", "System Design", "DDD"];
+
   return {
     title: `${topicTitle} | Craft & Code Club`,
-    description: `Artigos e recursos sobre ${topicTitle.toLowerCase()} da comunidade Craft & Code Club.`,
-    keywords: [topicTitle, "Desenvolvimento de Software", "Desenvolvimento", "Software", "Aprendizado", "Comunidade", "Algoritmos", "Estruturas de Dados", "System Design", "DDD"],
+    description: `Artigos e recursos sobre ${topicTitle} da comunidade Craft & Code Club.`,
+    keywords: topicKeywords,
     openGraph: {
       title: `${topicTitle} | Craft & Code Club`,
-      description: `Artigos e recursos sobre ${topicTitle.toLowerCase()} da comunidade Craft & Code Club.`,
+      description: `Artigos e recursos sobre ${topicTitle} da comunidade Craft & Code Club.`,
     },
     twitter: {
       title: `${topicTitle} | Craft & Code Club`,
-      description: `Artigos e recursos sobre ${topicTitle.toLowerCase()} da comunidade Craft & Code Club.`,
+      description: `Artigos e recursos sobre ${topicTitle} da comunidade Craft & Code Club.`,
     }
   };
 }
 
 export default async function TopicPage({ params }: Props) {
   const resolvedParams = await params;
+
+  const topic = getTopicBySlug(resolvedParams.topic);
   const allPosts = getSortedPostsData();
-  const posts = allPosts.filter(post => post.topics.filter(topic => topic.slug === resolvedParams.topic.toLowerCase()).length > 0);
-  const topicTitle = resolvedParams.topic.charAt(0).toUpperCase() + resolvedParams.topic.slice(1).replace(/-/g, ' ');
+  const posts = allPosts.filter(post => post.topics.filter(topic => topic.slug === topic.slug).length > 0);
+  const topicTitle = topic.name;
+  const topicDescription = topic.description ?? `Artigos e recursos sobre ${topicTitle} da comunidade Craft & Code Club.`;
 
   return (
     <div className="bg-white dark:bg-gray-900 mb-20">
@@ -47,7 +52,7 @@ export default async function TopicPage({ params }: Props) {
         <header className="mb-12">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{topicTitle}</h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            Artigos relacionados a {topicTitle.toLowerCase()}.
+            {topicDescription}
           </p>
         </header>
 
