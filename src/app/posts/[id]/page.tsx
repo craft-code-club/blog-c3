@@ -1,6 +1,7 @@
 import { getPostData, getSortedPostsData } from '@/lib/posts';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import FocusModeWrapper from '@/components/FocusModeWrapper';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -42,7 +43,7 @@ export default async function Post({ params }: Props) {
   const authors = post.authors || [];
 
   return (
-    <article className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <FocusModeWrapper>
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{post.title}</h1>
         <div className="flex items-center text-gray-600 dark:text-gray-400 mb-4">
@@ -98,6 +99,6 @@ export default async function Post({ params }: Props) {
           </div>
         </footer>
       )}
-    </article>
+    </FocusModeWrapper>
   );
 } 
