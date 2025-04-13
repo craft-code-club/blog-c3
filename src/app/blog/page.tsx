@@ -2,6 +2,7 @@ import { getSortedPostsData } from '@/lib/posts';
 import Link from 'next/link';
 import TopicTags from '@/components/TopicTags';
 import { Metadata } from 'next';
+import ArrowIcon from '@/components/ArrowIcon';
 
 export const metadata: Metadata = {
   title: "Blog | Craft & Code Club",
@@ -50,9 +51,7 @@ export default function BlogPage() {
                     className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
                   >
                     Ler mais
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                    <ArrowIcon />
                   </Link>
                 </div>
               </article>
