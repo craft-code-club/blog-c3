@@ -115,3 +115,17 @@ html[data-focus-mode='true'] footer {
   position: absolute !important;
   z-index: -1 !important;
 }
+
+html[data-focus-mode='true'] main {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-grow: 1 !important;
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+html[data-focus-mode='true'] article {
+  line-height: 1.8 !important;
+  font-size: 1.125rem !important;
+}
