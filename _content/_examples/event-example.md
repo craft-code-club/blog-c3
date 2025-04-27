@@ -6,6 +6,8 @@ time: "21:00-22:00"
 location: "Google Campus London + Live Stream"
 type: "hybrid"
 registrationLink: "https://www.meetup.com/craft-code-club"
+recordingLink: "https://www.youtube.com/watch?v=E1oETLSeD3w"
+postLink: "https://craftcodeclub.io/posts/2025-04-07-system-design-object-storage-like-s3"
 speakers:
   - "Dr. Rachel Green - AI Research Lead"
   - "Alex Kumar - Senior Developer"
@@ -39,4 +41,4 @@ Take your AI pair programming skills to the next level in this comprehensive wor
 
 ## Workshop Format
 
-The workshop combines lectures, hands-on exercises, and group discussions. Participants will work on real-world scenarios and learn from practical examples. 
+The workshop combines lectures, hands-on exercises, and group discussions. Participants will work on real-world scenarios and learn from practical examples.
