@@ -1,5 +1,5 @@
-import { getEvents } from '@/lib/events';
 import type { Event } from '@/lib/events';
+import { getEvents } from '@/lib/events';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -23,6 +23,7 @@ export default async function EventsPage() {
   const EventCard = ({ event, isPast }: { event: Event; isPast: boolean }) => {
     const today = new Date().toISOString().split('T')[0];
     const isToday = event.date === today;
+    const isYoutubeLink = event.registrationLink?.includes('youtube.com/watch?v=');
 
     const getCalendarUrl = (event: Event) => {
       const startDate = new Date(`${event.date}T${event.time.split('-')[0]}-03:00`);
@@ -34,13 +35,13 @@ export default async function EventsPage() {
       url.searchParams.append('details', `${event.description}\n\n<a href="${event.registrationLink}">Link para o evento (${event.registrationLink})</a>`);
       url.searchParams.append('location', event.location);
       url.searchParams.append('dates', `${startDate.toISOString().replace(/[-:]/g, '').split('.')[0]}Z/${endDate.toISOString().replace(/[-:]/g, '').split('.')[0]}Z`);
-      
+
       return url.toString();
     };
 
     return (
       <article className={`flex flex-col h-full rounded-lg shadow-sm border overflow-hidden transition-all hover:shadow-lg ${
-        isToday 
+        isToday
           ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 ring-2 ring-blue-500 dark:ring-blue-400'
           : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:ring-2 hover:ring-blue-500 dark:hover:ring-blue-400 hover:border-blue-200 dark:hover:border-blue-800'
       }`}>
@@ -58,12 +59,12 @@ export default async function EventsPage() {
               </>
             )}
           </div>
-          
+
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{event.title}</h3>
-          
+
           <div className="flex-grow flex flex-col">
             <p className="text-gray-600 dark:text-gray-300 mb-4">{event.description}</p>
-            
+
             <div className="mt-auto space-y-4">
               <div className="flex items-center text-gray-600 dark:text-gray-300">
                 <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,7 +73,7 @@ export default async function EventsPage() {
                 </svg>
                 <span>{event.location}</span>
               </div>
-              
+
               {event.speakers && event.speakers.length > 0 && (
                 <div className="space-y-2">
                   <h4 className="font-medium text-gray-900 dark:text-white">Palestrantes:</h4>
@@ -86,7 +87,7 @@ export default async function EventsPage() {
             </div>
           </div>
         </div>
-        
+
         <div className="p-6 pt-0 mt-auto space-y-3">
           {isPast && !isToday ? (
             <div className="flex gap-3">
@@ -97,7 +98,7 @@ export default async function EventsPage() {
                 Ver Detalhes
               </Link>
 
-            { event.recordingLink && 
+            { event.recordingLink &&
               <a
                 href={event.recordingLink}
                 target="_blank"
@@ -116,6 +117,25 @@ export default async function EventsPage() {
                 className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
               >
                 Participar Agora
+              </a>
+              <a
+                href="https://discord.gg/cqF9THUfnN"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+              >
+                Entrar no Discord
+              </a>
+            </div>
+          ) : isYoutubeLink ? (
+            <div className="flex gap-3">
+              <a
+                href={event.registrationLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
+              >
+                Agendar Lembrete
               </a>
               <a
                 href="https://discord.gg/cqF9THUfnN"
@@ -178,8 +198,8 @@ export default async function EventsPage() {
                   ))}
                 </div>
                 <div className="flex justify-center">
-                  <Link 
-                    href="/events/past/1" 
+                  <Link
+                    href="/events/past/1"
                     className="text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
                   >
                     Ver todos os eventos anteriores
@@ -194,4 +214,4 @@ export default async function EventsPage() {
       </div>
     </div>
   );
-} 
+}
