@@ -6,4 +6,6 @@ time: "21:00-22:30"
 location: "Live via YouTube"
 type: "online"
 registrationLink: "https://www.youtube.com/watch?v=qW7PDpVAtcE"
+speakers:
+  - "Matheus Freitas"
 ---
