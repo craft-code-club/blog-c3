@@ -23,7 +23,7 @@ export default async function EventsPage() {
   const EventCard = ({ event, isPast }: { event: Event; isPast: boolean }) => {
     const today = new Date().toISOString().split('T')[0];
     const isToday = event.date === today;
-    const isYoutubeLink = event.registrationLink?.includes('youtube.com/watch?v=');
+    const hasYoutubeRegistrationLink = event.registrationLink?.includes('youtube.com/watch?v=');
 
     const getCalendarUrl = (event: Event) => {
       const startDate = new Date(`${event.date}T${event.time.split('-')[0]}-03:00`);
@@ -127,7 +127,7 @@ export default async function EventsPage() {
                 Entrar no Discord
               </a>
             </div>
-          ) : isYoutubeLink ? (
+          ) : hasYoutubeRegistrationLink ? (
             <div className="flex gap-3">
               <a
                 href={event.registrationLink}
