@@ -24,7 +24,7 @@ E também os seguintes requisitos não funcionais:
 - Disponibilidade de 99,99%
 - Eficiência de storage (reduce storage costs)
 
-Dados os requisitos funcionais e não-funcionais acima, nossa missão é desenhar este sistema de maneira satisfatória demonstrando nossos conhecimentos de system design e principalmente nossas habilidades de reconhecer trade-offs e tomar decisões assertivas, baseadas neles. 
+Dados os requisitos funcionais e não-funcionais acima, nossa missão é desenhar este sistema de maneira satisfatória demonstrando nossos conhecimentos de system design e principalmente nossas habilidades de reconhecer trade-offs e tomar decisões assertivas, baseadas neles.
 
 Porém, neste artigo, não precisamos seguir a risca o script da entrevista como o autor segue no capítulo, já que para isto, bom... temos o livro e o capítulo. Neste artigo vamos passar por um subset de tópicos importantes e interessantes que são abordados, os quais em caso de acabarmos na situação real em que este desafio seja pedido em uma entrevista ou no dia a dia, estejamos preparados.
 
@@ -65,31 +65,31 @@ Antes de entendermos a fundo como funciona um armazenamento de objetos como o S3
 ### Comparando os tipos:
 
 #### **Armazenamento em Bloco**
-- **Conteúdo Mutável:** Sim  
-- **Custo:** Alto  
-- **Performance:** Média a alta, muito alta  
-- **Consistência:** Consistência forte  
-- **Acesso aos Dados:** SAS / iSCSI / FC  
-- **Escalabilidade:** Escalabilidade média  
-- **Indicado para:** Máquinas virtuais (VM), aplicações de alta performance como bancos de dados  
+- **Conteúdo Mutável:** Sim
+- **Custo:** Alto
+- **Performance:** Média a alta, muito alta
+- **Consistência:** Consistência forte
+- **Acesso aos Dados:** SAS / iSCSI / FC
+- **Escalabilidade:** Escalabilidade média
+- **Indicado para:** Máquinas virtuais (VM), aplicações de alta performance como bancos de dados
 
 #### **Armazenamento em Arquivo**
-- **Conteúdo Mutável:** Sim  
-- **Custo:** Médio a alto  
-- **Performance:** Média a alta  
-- **Consistência:** Consistência forte  
-- **Acesso aos Dados:** Acesso padrão a arquivos, CIFS/SMB e NFS  
-- **Escalabilidade:** Alta escalabilidade  
-- **Indicado para:** Acesso a sistemas de arquivos generalistas  
+- **Conteúdo Mutável:** Sim
+- **Custo:** Médio a alto
+- **Performance:** Média a alta
+- **Consistência:** Consistência forte
+- **Acesso aos Dados:** Acesso padrão a arquivos, CIFS/SMB e NFS
+- **Escalabilidade:** Alta escalabilidade
+- **Indicado para:** Acesso a sistemas de arquivos generalistas
 
 #### **Armazenamento em Objeto**
-- **Conteúdo Mutável:** Não (versões são suportadas, mas não há atualização in-place)  
-- **Custo:** Baixo  
-- **Performance:** Baixa a média  
-- **Consistência:** Consistência forte  
-- **Acesso aos Dados:** API RESTful  
-- **Escalabilidade:** Escalabilidade massiva  
-- **Indicado para:** Dados binários, dados não estruturados  
+- **Conteúdo Mutável:** Não (versões são suportadas, mas não há atualização in-place)
+- **Custo:** Baixo
+- **Performance:** Baixa a média
+- **Consistência:** Consistência forte
+- **Acesso aos Dados:** API RESTful
+- **Escalabilidade:** Escalabilidade massiva
+- **Indicado para:** Dados binários, dados não estruturados
 
 
 ## Terminologia
@@ -155,10 +155,10 @@ O design dos serviços e componentes ficaria assim:
 C4Container
 
 System_Boundary(s1, "Object Storage") {
-    
+
     Container(dataRouting, "Routing service", "Serviço", "Gerencia os dados recebidos e os direciona para os nós de dados corretos.")
     Container(placement, "Placement service", "Serviço", "Define onde os dados devem ser armazenados e gerencia os sinais de vida (heartbeats) dos nós.")
-    
+
     Container(primaryNode, "Data Node Primário", "Nó de Armazenamento", "Armazena os dados principais e lida com gravações iniciais.")
     Container(secondaryNode1, "Data Node Secundário", "Nó de Armazenamento", "Réplica para redundância.")
     Container(secondaryNode2, "Data Node Secundário", "Nó de Armazenamento", "Outra réplica para redundância.")
@@ -226,7 +226,7 @@ flowchart TD
 
 No tópico acima falamos sobre a replicação dos dados, e isso sempre levanta uma questão: "Quando podemos considerar um dado salvo? Quando salvamos no nó primário? Quando está replicado em todos os nós?"
 
-Esta pergunta depende de como nosso sistema pode lidar com alguns trade-offs, e qual o requisito não funcional mais importante entre latência e consistência. 
+Esta pergunta depende de como nosso sistema pode lidar com alguns trade-offs, e qual o requisito não funcional mais importante entre latência e consistência.
 
 Abaixo alguns níveis de como podemos considerar os dados "salvos com sucesso":
 
@@ -286,7 +286,7 @@ Esses trade-offs são importantes e devem ser alinhados com os requisitos do sis
 
 ## Organização dos Dados
 
-Agora vamos pensar em como cada nó de dados gerenciará os objetos. 
+Agora vamos pensar em como cada nó de dados gerenciará os objetos.
 
 Uma solução simples é armazenar cada objeto em um arquivo individual. Embora isso funcione, o desempenho sofre quando há muitos arquivos pequenos. Dois problemas surgem ao ter muitos arquivos pequenos em um sistema de arquivos.
 
@@ -310,7 +310,7 @@ Desta maneira, ainda temos mais um desafio, quando um componente externo quiser 
 - Offset no arquivo
 - Tamanho do arquivo
 
-Com estes dados o nó será capaz de receber um id e retornar o objeto correspondente de maneira eficiente. 
+Com estes dados o nó será capaz de receber um id e retornar o objeto correspondente de maneira eficiente.
 
 Mas para guardarmos estes dados precisamos pensar em qual mecanismo de data-store faz mais sentido neste cenário, algumas opções e considerações abaixo;
 
@@ -330,7 +330,7 @@ Mas para guardarmos estes dados precisamos pensar em qual mecanismo de data-stor
 
 Um grande desafio neste projeto é quanto a durabilidade dos dados, sabemos que podemos enfretar diversos casos adversos, seja falhas físicas em HDs ou SSDs ou também falhas na escrita ou mesmo memória ou arquivos corrompidos, causando falhas no armazenamento e afetando a durabilidade.
 
-### Replicação (x3): 
+### Replicação (x3):
 
 Uma solução mais simples de implementar, e que já falamos, seria a replicação dos dados. Isto seria:
 - Simples de implementar
@@ -416,7 +416,7 @@ Com versionamento, agora as versões anteriores não são apagadas. Para isto, p
 
 ## Otimizando o Upload de Grandes Objetos
 
-Em sistemas de armazenamento de objetos, é comum lidarmos com arquivos de diversos tamanhos. Embora a maioria seja relativamente pequena, uma parcela significativa — cerca de 20%, segundo estimativas — pode conter arquivos com vários gigabytes. Fazer o upload de arquivos tão grandes de uma só vez é possível, mas arriscado: qualquer falha na conexão durante a transferência pode exigir o reenvio do arquivo inteiro, resultando em perda de tempo e largura de banda.
+Em sistemas de armazenamento de objetos, é comum lidarmos com arquivos de diversos tamanhos. Embora a maioria seja relativamente pequena, uma parcela significativa - cerca de 20%, segundo estimativas - pode conter arquivos com vários gigabytes. Fazer o upload de arquivos tão grandes de uma só vez é possível, mas arriscado: qualquer falha na conexão durante a transferência pode exigir o reenvio do arquivo inteiro, resultando em perda de tempo e largura de banda.
 
 Para lidar com esse problema, entra em cena o **multipart upload**: uma técnica que permite dividir arquivos grandes em partes menores e fazer o upload de cada uma delas separadamente. Essa abordagem traz uma série de benefícios, como tolerância a falhas, paralelização do upload e retomada de partes específicas.
 
@@ -424,19 +424,19 @@ Para lidar com esse problema, entra em cena o **multipart upload**: uma técnica
 
 O processo de multipart upload é composto pelas seguintes etapas:
 
-1. **Inicialização do upload**:  
+1. **Inicialização do upload**:
    O cliente faz uma requisição à API do serviço de armazenamento para iniciar um upload multipart. O serviço responde com um `uploadID`, que identifica exclusivamente essa operação.
 
-2. **Divisão do arquivo**:  
+2. **Divisão do arquivo**:
    O cliente divide o arquivo grande em partes menores. Por exemplo, um arquivo de 1.6 GB pode ser dividido em 8 partes de 200 MB cada.
 
-3. **Upload das partes**:  
+3. **Upload das partes**:
    Cada parte é enviada individualmente, acompanhada do `uploadID`. Para cada parte enviada, o serviço retorna um **ETag**, que é um hash (geralmente MD5) usado para verificar a integridade dos dados.
 
-4. **Finalização do upload**:  
+4. **Finalização do upload**:
    Quando todas as partes forem enviadas, o cliente faz uma requisição de finalização (`complete multipart upload`), informando o `uploadID`, os números das partes e seus respectivos ETags.
 
-5. **Recomposição do objeto**:  
+5. **Recomposição do objeto**:
    O serviço reagrupa as partes com base na ordem especificada e monta o arquivo completo. Como o processo pode envolver grandes volumes de dados, ele pode levar alguns minutos para ser concluído. Uma vez finalizado, uma mensagem de sucesso é retornada ao cliente.
 
 ```mermaid
@@ -472,7 +472,7 @@ Embora os nomes sejam parecidos, é importante não confundir o **multipart uplo
 
 ## Garbage Collection
 
-Em sistemas de armazenamento de objetos, nem todos os dados permanecem úteis para sempre. Objetos deletados, uploads incompletos ou dados corrompidos ocupam espaço desnecessário e precisam ser removidos — é aí que entra o **garbage collector**, ou coletor de lixo.
+Em sistemas de armazenamento de objetos, nem todos os dados permanecem úteis para sempre. Objetos deletados, uploads incompletos ou dados corrompidos ocupam espaço desnecessário e precisam ser removidos - é aí que entra o **garbage collector**, ou coletor de lixo.
 
 A coleta de lixo é o processo responsável por **recuperar automaticamente espaço de armazenamento que não está mais em uso**. Esse processo é fundamental para manter o sistema eficiente e evitar desperdício de recursos.
 
@@ -480,13 +480,13 @@ A coleta de lixo é o processo responsável por **recuperar automaticamente espa
 
 Existem diversas situações em que os dados deixam de ser úteis:
 
-- **Deleção preguiçosa (Lazy deletion)**:  
+- **Deleção preguiçosa (Lazy deletion)**:
   O objeto é marcado como deletado, mas não é removido imediatamente do armazenamento.
 
-- **Dados órfãos**:  
+- **Dados órfãos**:
   Fragmentos de dados resultantes de uploads interrompidos (por exemplo, partes de um multipart upload que nunca foi finalizado).
 
-- **Dados corrompidos**:  
+- **Dados corrompidos**:
   Objetos que falharam na verificação de integridade (checksum inválido).
 
 ### Como o Garbage Collector funciona?
@@ -516,7 +516,7 @@ Esse processo ajuda a manter o sistema limpo, eficiente e resiliente. Em serviç
 
 ## Conclusão
 
-Neste capítulo abordamos um desafio recorrente em entrevistas de sistem design, que não apenas nos prepara para entrevistas como também nos tráz aprendizados valiosos sobre técnicas avançadas de engenharia. Exploramos desde como sistemas Unix gerenciam seus arquivos, usando a estrutura de dados inode como base para nosso sistema e sua divisão entre dados e metadados. 
+Neste capítulo abordamos um desafio recorrente em entrevistas de sistem design, que não apenas nos prepara para entrevistas como também nos tráz aprendizados valiosos sobre técnicas avançadas de engenharia. Exploramos desde como sistemas Unix gerenciam seus arquivos, usando a estrutura de dados inode como base para nosso sistema e sua divisão entre dados e metadados.
 
 Também fomos a fundo em estratégias rebuscadas para minimizar custos de storage com estratégias como Erasure Coding e garbage Collector.
 
