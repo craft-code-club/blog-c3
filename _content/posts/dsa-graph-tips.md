@@ -176,11 +176,11 @@ Uma das primeiras coisas que devemos entender é que existem várias formas de r
 
 ```mermaid
 graph LR
-  A((A)) <--> B
-  A <--> D((D))
-  B((B)) <--> C
-  B <--> D
-  C((C)) <--> D
+  A((A)) --- B
+  A --- D((D))
+  B((B)) --- C
+  B --- D
+  C((C)) --- D
 ```
 
 |   | A | B | C | D |
