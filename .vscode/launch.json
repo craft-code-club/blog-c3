@@ -1,0 +1,39 @@
+{
+    "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "fullstack: react",
+            "configurations": [
+                "server: next",
+                "client: chrome"
+            ],
+            "stopAll": true
+        }
+    ],
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "client: chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/src/*"
+            },
+            "userDataDir": "${workspaceFolder}/.data/chrome-debug-profile",
+            "runtimeArgs": [
+                "--disable-session-crashed-bubble"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "server: next",
+            "outputCapture": "std",
+            "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+            "args": [
+                "dev"
+            ]
+        }
+    ]
+}
