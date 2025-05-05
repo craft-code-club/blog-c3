@@ -1,0 +1,24 @@
+{
+    "recommendations": [
+        // React / JavaScript / TypeScript / Tailwind CSS
+        "Orta.vscode-jest", // Jest Test Explorer
+        "EditorConfig.EditorConfig", // EditorConfig for VS Code
+        "dsznajder.es7-react-js-snippets", // ES7+ React/Redux/React-Native snippets
+        "burkeholland.simple-react-snippets", // Simple React Snippets
+        "dbaeumer.vscode-eslint", // ESLint
+        "ms-vscode.vscode-typescript-next", // TypeScript
+        "ecmel.vscode-html-css", // HTML CSS Support
+        "bradlc.vscode-tailwindcss", // Tailwind CSS IntelliSense
+
+        // CI/CD
+        "github.vscode-github-actions", // GitHub Actions
+        "github.vscode-pull-request-github", // To manage pull requests
+
+        // AI
+        "github.copilot", // GitHub Copilot
+        "github.copilot-chat",// GitHub Copilot Chat
+
+        // Other
+        "redhat.vscode-yaml" // YAML Language Support by Red Hat
+    ]
+}
