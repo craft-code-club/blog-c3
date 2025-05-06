@@ -175,7 +175,7 @@ export default async function EventPage({ params }: Props) {
                           href={event.registrationLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md text transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
+                          className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
                         >
                           Participar Agora
                         </a>
@@ -184,7 +184,7 @@ export default async function EventPage({ params }: Props) {
                           href="https://discord.gg/cqF9THUfnN"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md text transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
+                          className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
                         >
                           Participar via Discord
                         </a>
@@ -193,7 +193,7 @@ export default async function EventPage({ params }: Props) {
                         href="https://discord.gg/cqF9THUfnN"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md text transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+                        className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
                       >
                         Entrar no Discord
                       </a>
@@ -204,7 +204,7 @@ export default async function EventPage({ params }: Props) {
                         href={getCalendarUrl(event)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md text transition-colors bg-purple-600 dark:bg-purple-500 hover:bg-purple-700 dark:hover:bg-purple-600 text-white"
+                        className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-purple-600 dark:bg-purple-500 hover:bg-purple-700 dark:hover:bg-purple-600 text-white"
                       >
                         Adicionar ao Calendário
                       </a>
@@ -212,7 +212,7 @@ export default async function EventPage({ params }: Props) {
                         href="https://discord.gg/cqF9THUfnN"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md text transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+                        className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
                       >
                         Entrar no Discord
                       </a>

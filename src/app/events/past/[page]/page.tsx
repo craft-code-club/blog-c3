@@ -90,7 +90,7 @@ export default async function PastEventsPage({ params }: Props) {
           <div className="flex gap-3">
             <Link
               href={`/events/${event.id}`}
-              className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md text transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+              className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
             >
               Ver Detalhes
             </Link>
@@ -99,7 +99,7 @@ export default async function PastEventsPage({ params }: Props) {
                 href={event.recordingLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md text transition-colors bg-purple-600 dark:bg-purple-500 hover:bg-purple-700 dark:hover:bg-purple-600 text-white"
+                className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-purple-600 dark:bg-purple-500 hover:bg-purple-700 dark:hover:bg-purple-600 text-white"
               >
                 Assistir Gravação
               </a>
