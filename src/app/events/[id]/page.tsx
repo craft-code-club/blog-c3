@@ -1,5 +1,5 @@
-import { getEvent, getEvents } from '@/lib/events';
 import type { Event } from '@/lib/events';
+import { getEvent, getEvents } from '@/lib/events';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -10,7 +10,7 @@ type Props = {
 
 export async function generateStaticParams() {
   const { allEvents } = await getEvents();
-  
+
   return allEvents.map((event: Event) => ({
     id: event.id
   }));
@@ -19,13 +19,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const event = await getEvent(resolvedParams.id);
-  
+
   if (!event) {
     return {
       title: 'Evento não encontrado | Craft & Code Club',
     };
   }
-  
+
   return {
     title: `${event.title} | Craft & Code Club`,
     description: event.description,
@@ -43,25 +43,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function EventPage({ params }: Props) {
   const resolvedParams = await params;
   const event = await getEvent(resolvedParams.id);
-  
+
   if (!event) {
     notFound();
   }
-  
+
   const { upcoming } = await getEvents();
   const nextEvents = upcoming.slice(0, 4);
-  
+
   // Format date to local date string
   const formattedDate = new Date(event.date).toLocaleDateString('pt-BR', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
   });
-  
+
   // Check if the event is today
   const today = new Date().toISOString().split('T')[0];
   const isToday = event.date === today;
-  
+
   // Generate calendar URL
   const getCalendarUrl = (event: Event) => {
     const startDate = new Date(`${event.date}T${event.time.split('-')[0]}-03:00`);
@@ -73,10 +73,10 @@ export default async function EventPage({ params }: Props) {
     url.searchParams.append('details', `${event.description}${event.registrationLink ? `\n\n<a href="${event.registrationLink}">Link para o evento (${event.registrationLink})</a>` : ''}`);
     url.searchParams.append('location', event.location);
     url.searchParams.append('dates', `${startDate.toISOString().replace(/[-:]/g, '').split('.')[0]}Z/${endDate.toISOString().replace(/[-:]/g, '').split('.')[0]}Z`);
-    
+
     return url.toString();
   };
-  
+
   const EventCard = ({ event }: { event: Event }) => {
     return (
       <article className="flex flex-col h-full rounded-lg shadow-sm border overflow-hidden transition-all hover:shadow-lg bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:ring-2 hover:ring-blue-500 dark:hover:ring-blue-400 hover:border-blue-200 dark:hover:border-blue-800">
@@ -86,9 +86,9 @@ export default async function EventPage({ params }: Props) {
             <span>•</span>
             <span>{event.time}</span>
           </div>
-          
+
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{event.title}</h3>
-          
+
           <div className="mt-auto">
             <Link
               href={`/events/${event.id}`}
@@ -115,9 +115,9 @@ export default async function EventPage({ params }: Props) {
             </svg>
             Voltar para Eventos
           </Link>
-          
+
           <div className={`rounded-lg shadow-md border overflow-hidden ${
-            isToday 
+            isToday
               ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800'
               : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700'
           }`}>
@@ -136,9 +136,9 @@ export default async function EventPage({ params }: Props) {
                     </>
                   )}
                 </div>
-                
+
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{event.title}</h1>
-                
+
                 <div className="flex items-center text-gray-600 dark:text-gray-300 mb-6">
                   <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -146,11 +146,11 @@ export default async function EventPage({ params }: Props) {
                   </svg>
                   <span>{event.location}</span>
                 </div>
-                
+
                 <div className="prose prose-lg dark:prose-invert max-w-none mb-8">
                   <p>{event.description}</p>
                 </div>
-                
+
                 {event.speakers && event.speakers.length > 0 && (
                   <div className="mb-8">
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Palestrantes</h2>
@@ -166,7 +166,7 @@ export default async function EventPage({ params }: Props) {
                     </ul>
                   </div>
                 )}
-                
+
                 <div className="space-y-3">
                   {isToday ? (
                     <div className="flex gap-3">
@@ -175,7 +175,7 @@ export default async function EventPage({ params }: Props) {
                           href={event.registrationLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
+                          className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md text transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
                         >
                           Participar Agora
                         </a>
@@ -184,7 +184,7 @@ export default async function EventPage({ params }: Props) {
                           href="https://discord.gg/cqF9THUfnN"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
+                          className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md text transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
                         >
                           Participar via Discord
                         </a>
@@ -193,7 +193,7 @@ export default async function EventPage({ params }: Props) {
                         href="https://discord.gg/cqF9THUfnN"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+                        className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md text transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
                       >
                         Entrar no Discord
                       </a>
@@ -204,7 +204,7 @@ export default async function EventPage({ params }: Props) {
                         href={getCalendarUrl(event)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-purple-600 dark:bg-purple-500 hover:bg-purple-700 dark:hover:bg-purple-600 text-white"
+                        className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md text transition-colors bg-purple-600 dark:bg-purple-500 hover:bg-purple-700 dark:hover:bg-purple-600 text-white"
                       >
                         Adicionar ao Calendário
                       </a>
@@ -212,7 +212,7 @@ export default async function EventPage({ params }: Props) {
                         href="https://discord.gg/cqF9THUfnN"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+                        className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md text transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
                       >
                         Entrar no Discord
                       </a>
@@ -246,7 +246,7 @@ export default async function EventPage({ params }: Props) {
             </div>
           </div>
         </div>
-        
+
         {nextEvents.length > 0 && (
           <div className="mt-12">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Próximos Eventos</h2>
@@ -260,4 +260,4 @@ export default async function EventPage({ params }: Props) {
       </div>
     </div>
   );
-} 
+}
