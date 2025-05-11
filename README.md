@@ -64,24 +64,98 @@ npm run build
 ### Configuração
 
 1. Crie seus posts em Markdown na pasta `_content/posts/`
-2. Configure os metadados do site em `src/app/layout.tsx`
-3. Ajuste as cores e tema em `tailwind.config.js`
-4. Personalize os componentes e páginas em `src/components/` e `src/app/`
+2. Crie seus eventos em Markdown na pasta `_content/events/`
+3. Configure os metadados do site em `src/app/layout.tsx`
+4. Ajuste as cores e tema em `tailwind.config.js`
+5. Personalize os componentes e páginas em `src/components/` e `src/app/`
 
-## 📝 Criando Posts
 
-Os posts devem ser criados na pasta `posts/` seguindo o formato:
+## 📝 Criando conteúdo
+
+Para a ajudar na indexação e SEO, os posts e eventos devem seguir um formato específico dos slugs. O slug é a parte da URL que identifica o post ou evento.
+O slug deve ser escrito em letras minúsculas, com palavras separadas por hífens.
+Para manter a consistência, vamos também seguir um padrão de nomenclatura para os arquivos Markdown. A seguir, mostraremos cada um dos padrões de slug tanto para posts quanto para eventos.
+
+
+### Posts
+
+Os posts devem ser criados na pasta `_content/posts/` seguindo o formato:
 
 ```markdown
 ---
 title: 'Título do Post'
 date: '2024-03-20'
 description: 'Descrição do post que aparecerá na listagem'
-topics: ['ddd', 'arquitetura', 'boas-práticas']
+topics: ['tag1', 'tag2', 'tag3']
+authors:
+  - name: 'Nome do Autor'
+    link: 'https://github.com/nomedautor'
 ---
 
 Conteúdo do post em Markdown...
 ```
+
+[Mais exemplos de posts](docs/examples/post-example.md)
+
+#### Slug
+```
+<context>-<titulo-do-post>
+
+## Exemplo:
+
+`dsa-dijkstra.md`
+```
+- Algoritmos e Estruturas de Dados
+  - `ds-<titulo>.md`
+- System Design
+  - `sd-<titulo>.md`
+  - `sd-<titulo>-<parte>.md`
+- Outros
+  - `<titulo>.md`
+
+
+### Eventos
+
+Os eventos devem ser criados na pasta `_content/events/` seguindo o formato:
+
+```markdown
+---
+title: 'Título do Evento'
+description: 'Descrição do evento que aparecerá na listagem'
+date: '2024-03-20'
+time: '21:00-22:00'
+location: 'Local do Evento'
+type: 'online' # ou 'hybrid'
+registrationLink: 'https://link-de-inscricao.com'
+recordingLink: 'https://link-da-gravacao.com'
+postLink: 'https://link-do-post.com'
+speakers:
+  - 'Nome do Palestrante 1'
+  - 'Nome do Palestrante 2'
+```
+
+[Mais exemplos de eventos](docs/examples/event-example.md)
+
+#### Slug
+
+```
+<context>-<titulo-do-evento>
+
+## Exemplo:
+
+`dsa-<titulo>.md`
+```
+
+- Algoritmos e Estruturas de Dados
+  - `dsa-<titulo>.md`
+- Clube do Livro de System Design
+  - `book-sd-<titulo>.md`
+- Lives
+  - `live-<titulo>.md`
+- Outros
+  - `<titulo>.md`
+
+
 
 ## 🤝 Contribuindo
 
