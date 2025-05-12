@@ -1,7 +1,7 @@
 ---
 title: "Clube do Livro: Real-time Gaming Leaderboard: Desafios e Soluções"
 description: "Descubra os desafios e soluções para criar leaderboards em real-time que medem desempenho e engajamento nos jogos."
-date: "2025-05-12"
+date: "2025-05-19"
 time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
