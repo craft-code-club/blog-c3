@@ -6,5 +6,5 @@ time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
 recordingLink: "https://www.youtube.com/watch?v=E1oETLSeD3w"
-postLink: "https://craftcodeclub.io/posts/2025-04-07-system-design-object-storage-like-s3"
+postLink: "https://craftcodeclub.io/posts/sd-object-storage-like-s3"
 ---
