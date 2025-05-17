@@ -233,7 +233,7 @@ graph LR
   A -- 3 --- C
 ```
 
-- No entanto, o caminho mais curto entre `B` e `D` seria `B - C - D`, com custo de 7, no entanto com a MST para chegar em `B` a partir de `D` teremos o caminho `B - A - C - D` com custo de 8.
+- No entanto, o caminho mais curto entre `B` e `D`, tendo em conta o gráfo original, seria `B - C - D` com custo de 7, no entanto com a MST para chegar em `B` a partir de `D` teremos o caminho `B - A - C - D` com custo de 8.
 - Ou por exemplo de `E` para `D`, onde o caminho mais curto seria `E - D` com custo de 5, mas na MST teríamos que passar por `E - B - A - C - D` com custo de 9.
 
 
