@@ -7,7 +7,7 @@ location: "Google Campus London + Live Stream"
 type: "hybrid"
 registrationLink: "https://www.meetup.com/craft-code-club"
 recordingLink: "https://www.youtube.com/watch?v=E1oETLSeD3w"
-postLink: "https://craftcodeclub.io/posts/2025-04-07-system-design-object-storage-like-s3"
+postLink: "https://craftcodeclub.io/posts/sd-object-storage-like-s3"
 speakers:
   - "Dr. Rachel Green - AI Research Lead"
   - "Alex Kumar - Senior Developer"
