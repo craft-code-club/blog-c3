@@ -80,7 +80,7 @@ Um grafo é uma estrutura composta por vértices (ou nós) e arestas (conexões 
 
 **Grafo genérico pode conter**
 
-- Ciclos (ex.: A — B — C — A);
+- Ciclos (ex.: A - B - C - A);
 - Componentes desconexos;
 - Laços (auto-conexões);
 - Múltiplas arestas entre os mesmos vértices (multigrafo);
@@ -172,7 +172,7 @@ Conectada, acíclica e de custo mínimo. A **árvore geradora mínima** é **uma
 
 ### Grafos não direcionados
 
-Para percebermos este conceito, vamos olhar novamente para o conceito de árvore geradora. Uma árvore geradora é um subconjunto de um grafo que garante conexão entre todos os vértices. Com base nesta definição vamos olhar estes casos. `A — B` (em um grafo não direcionado) versus `A -> B` (em um grafo direcionado). No caso direcionado, temos ligação entre `A` e `B`, mas não temos ligação de `B` para `A`. Ou seja, se o grafo for direcionado, ao partirmos de um vértice arbitrário, podemos não alcançar todos os demais vértices, logo, nem todos estariam conectados. Portanto, não é uma árvore no sentido clássico, pois não há simetria na conexão.
+Para percebermos este conceito, vamos olhar novamente para o conceito de árvore geradora. Uma árvore geradora é um subconjunto de um grafo que garante conexão entre todos os vértices. Com base nesta definição vamos olhar estes casos. `A - B` (em um grafo não direcionado) versus `A -> B` (em um grafo direcionado). No caso direcionado, temos ligação entre `A` e `B`, mas não temos ligação de `B` para `A`. Ou seja, se o grafo for direcionado, ao partirmos de um vértice arbitrário, podemos não alcançar todos os demais vértices, logo, nem todos estariam conectados. Portanto, não é uma árvore no sentido clássico, pois não há simetria na conexão.
 Resumindo, MST só fará sentido em grafos não direcionados.
 
 #### Minimum spanning arborescence
