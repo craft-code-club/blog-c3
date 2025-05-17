@@ -85,7 +85,7 @@ Um grafo é uma estrutura composta por vértices (ou nós) e arestas (conexões 
 - Laços (auto-conexões);
 - Múltiplas arestas entre os mesmos vértices (multigrafo);
 
-**Exemplos**
+**Exemplos:**
 
 ```mermaid
 graph LR
@@ -112,7 +112,7 @@ Uma árvore é um tipo específico de grafo, com restrições adicionais.
 - **Acíclico**: **não possui ciclos**.
 - Se possui V vértices, terá exatamente V-1 arestas.
 
-**Exemplos**
+**Exemplos:**
 
 ```mermaid
 graph LR
@@ -151,6 +151,46 @@ Uma **árvore geradora** de um grafo G é qualquer subconjunto de arestas de G q
 
 **Importante:** Um grafo pode ter **muitas árvores geradoras diferentes**!
 
+**Exemplos:**
+
+```mermaid
+graph LR
+  A --- B
+  A --- C
+  B --- C
+  B --- E
+  C --- D
+  D --- E
+```
+
+**Árvores geradoras possíveis**:
+
+```mermaid
+graph LR
+  A --- B
+  B --- E
+  E --- D
+  D --- C
+```
+
+```mermaid
+graph LR
+  A --- B
+  A --- C
+  B --- E
+  C --- D
+```
+```mermaid
+graph LR
+  A --- C
+  C --- B
+  C --- D
+  D --- E
+```
+
+**Nota:** Mais subconjuntos poderiam ser formados (Árvore geradora).
+
+
 #### Árvore Geradora Mínima (Minimum Spanning Tree – MST)
 
 Conectada, acíclica e de custo mínimo. A **árvore geradora mínima** é **uma árvore geradora específica** que:
@@ -158,7 +198,44 @@ Conectada, acíclica e de custo mínimo. A **árvore geradora mínima** é **uma
 - Conecta todos os vértices,
 - Tem o menor custo total possível (soma dos pesos das arestas).
 
+**Exemplo:**
+
+```mermaid
+graph LR
+  A -- 2 --- B
+  A -- 3 --- C
+  B -- 4 --- C
+  B -- 1 --- E
+  C -- 3 --- D
+  D -- 5 --- E
+```
+
+**Árvore geradora mínima**:
+```mermaid
+graph LR
+  B -- 1 --- E
+  A -- 2 --- B
+  C -- 3 --- D
+  A -- 3 --- C
+```
+**Custo total**: 1 + 2 + 3 + 3 = 9
+
 **Nota:** todas as MSTs são árvores geradoras, mas nem toda árvore geradora é mínima.
+
+##### Uma MST não garante o caminho mais curto entre dois vértices
+
+No exemplo acima, podemos observar que a MST seria:
+```mermaid
+graph LR
+  B -- 1 --- E
+  A -- 2 --- B
+  C -- 3 --- D
+  A -- 3 --- C
+```
+
+- No entanto, o caminho mais curto entre `B` e `D` seria `B - C - D`, com custo de 7, no entanto com a MST para chegar em `B` a partir de `D` teremos o caminho `B - A - C - D` com custo de 8.
+- Ou por exemplo de `E` para `D`, onde o caminho mais curto seria `E - D` com custo de 5, mas na MST teríamos que passar por `E - B - A - C - D` com custo de 9.
+
 
 | Conceito                   | Spanning Tree    | Minimum Spanning Tree (MST)                                |
 | -------------------------- | ---------------- | ---------------------------------------------------------- |
