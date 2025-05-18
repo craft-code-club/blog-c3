@@ -2,14 +2,31 @@ const normalizeSrc = (src: string) => {
   return src.startsWith("/") ? src.slice(1) : src;
 };
 
+// Check if the URL is external (not relative path)
+const isExternalUrl = (src: string) => {
+  return src.startsWith('http://') || src.startsWith('https://');
+};
+
+// Check if URL is from GitHub avatars
+const isGitHubAvatarUrl = (src: string) => {
+  return src.includes('avatars.githubusercontent.com');
+};
+
 export default function cloudflareLoader({
  src,
  width,
  quality,
 }: { src: string; width: number; quality?: number }) {
+  // Return external URLs (especially GitHub avatars) directly without processing
+  if (isExternalUrl(src) && isGitHubAvatarUrl(src)) {
+    return src;
+  }
+  
   if (process.env.NODE_ENV === "development") {
     return src;
   }
+  
+  // Only process non-external URLs with Cloudflare
   const params = [`width=${width}`];
   if (quality) {
     params.push(`quality=${quality}`);
