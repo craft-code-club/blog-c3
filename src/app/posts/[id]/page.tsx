@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import FocusModeWrapper from '@/components/FocusModeWrapper';
 import { FocusModeProvider } from '@/components/FocusModeContext';
+import AuthorAvatar from '@/components/AuthorAvatar';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -76,14 +77,9 @@ export default async function Post({ params }: Props) {
         {authors.length > 0 && (
           <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Sobre os Autores</h2>
-            <div className="flex flex-col space-y-4">
-              {authors.map((author, index) => (
+            <div className="flex flex-col space-y-4">              {authors.map((author, index) => (
                 <div key={index} className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
-                    <span className="text-blue-600 dark:text-blue-400 font-medium text-lg">
-                      {author.name.split(' ').map(n => n[0]).join('')}
-                    </span>
-                  </div>
+                  <AuthorAvatar author={author} />
                   {author.link ? (
                     <a 
                       href={author.link}
