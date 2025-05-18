@@ -1,0 +1,14 @@
+/* Inline code styling */
+.prose code:not([class*="language-"]) {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.25rem;
+  padding: 0.2rem 0.4rem;
+  font-weight: 400;
+  font-size: 0.875em;
+  white-space: nowrap;
+}
+
+.dark .prose code:not([class*="language-"]) {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
