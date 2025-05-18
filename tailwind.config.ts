@@ -57,7 +57,8 @@ const config: Config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-      },      typography: ({ theme }: PluginUtils) => ({
+      },
+      typography: ({ theme }: PluginUtils) => ({
         DEFAULT: {
           css: {
             '--tw-prose-body': theme('colors.gray[600]'),
