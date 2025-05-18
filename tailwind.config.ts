@@ -68,6 +68,19 @@ const config: Config = {
             '--tw-prose-code': theme('colors.gray[900]'),
             '--tw-prose-quotes': theme('colors.gray[900]'),
             '--tw-prose-pre-bg': theme('colors.gray[100]'),
+            'code::before': {
+              content: '""'
+            },
+            'code::after': {
+              content: '""'
+            },
+            'code': {
+              backgroundColor: theme('colors.gray[100]'),
+              borderRadius: '0.25rem',
+              padding: '0.2rem 0.4rem',
+              fontWeight: '400',
+              fontSize: '0.875em',
+            }
           }
         },
         dark: {
@@ -79,6 +92,20 @@ const config: Config = {
             '--tw-prose-code': theme('colors.white'),
             '--tw-prose-quotes': theme('colors.gray[100]'),
             '--tw-prose-pre-bg': theme('colors.gray[800]'),
+            'code::before': {
+              content: '""'
+            },
+            'code::after': {
+              content: '""'
+            },
+            'code': {
+              backgroundColor: theme('colors.gray[800]'),
+              color: theme('colors.white'),
+              borderRadius: '0.25rem',
+              padding: '0.2rem 0.4rem',
+              fontWeight: '400',
+              fontSize: '0.875em',
+            }
           }
         }
       }),
