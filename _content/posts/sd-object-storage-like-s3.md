@@ -1,6 +1,6 @@
 ---
 title: 'Desenhando um Storage do Objetos como o S3'
-date: '2025-04-07T12:00:00'
+date: '2025-04-07'
 description: 'Artigo baseado no capítulo  25 do Livro System Design Interview. Desenhando um sistema de Object Storage como o s3.'
 topics: ['System Design', 'Clube do Livro']
 authors:
@@ -31,23 +31,30 @@ Porém, neste artigo, não precisamos seguir a risca o script da entrevista como
 
 ## Índice do que iremos abordar
 
-- [Os três tipos de sistemas de armazenamento](#os-três-tipos-de-sistemas-de-sistemas-de-armazenamento)
+- [Índice do que iremos abordar](#índice-do-que-iremos-abordar)
+- [Os três tipos de sistemas de armazenamento](#os-três-tipos-de-sistemas-de-armazenamento)
+  - [Comparando os tipos:](#comparando-os-tipos)
+    - [**Armazenamento em Bloco**](#armazenamento-em-bloco)
+    - [**Armazenamento em Arquivo**](#armazenamento-em-arquivo)
+    - [**Armazenamento em Objeto**](#armazenamento-em-objeto)
 - [Terminologia](#terminologia)
 - [O que é "inode" e como esse conhecimento pode nos ajudar](#o-que-é-inode-e-como-esse-conhecimento-pode-nos-ajudar)
 - [Proposta para Armazenamento: Routing e Placement Services](#proposta-para-armazenamento-routing-e-placement-services)
 - [O trade-off entre latência e consistência](#o-trade-off-entre-latência-e-consistência)
 - [Organização dos Dados](#organização-dos-dados)
 - [Durabilidade dos Dados: Replicas ou Erasure Coding?](#durabilidade-dos-dados-replicas-ou-erasure-coding)
+  - [Replicação (x3):](#replicação-x3)
+  - [Erasure Coding](#erasure-coding)
 - [Verificação de Integridade dos Dados](#verificação-de-integridade-dos-dados)
 - [Modelo de Dados dos Metadados e Sharding](#modelo-de-dados-dos-metadados-e-sharding)
 - [Versionamento dos Objetos](#versionamento-dos-objetos)
 - [Otimizando o Upload de Grandes Objetos](#otimizando-o-upload-de-grandes-objetos)
   - [Como funciona o Multipart Upload](#como-funciona-o-multipart-upload)
   - [Tratamento de partes antigas](#tratamento-de-partes-antigas)
-  - [Multipart Upload é o mesmo que multipartform-data](#multipart-upload-é-o-mesmo-que-multipartform-data)
+  - [Multipart Upload é o mesmo que `multipart/form-data`?](#multipart-upload-é-o-mesmo-que-multipartform-data)
 - [Garbage Collection](#garbage-collection)
-  - [Quando os dados se tornam lixo](#quando-os-dados-se-tornam-lixo)
-  - [Como o Garbage Collector funciona](#como-o-garbage-collector-funciona)
+  - [Quando os dados se tornam lixo?](#quando-os-dados-se-tornam-lixo)
+  - [Como o Garbage Collector funciona?](#como-o-garbage-collector-funciona)
   - [Coleta de Lixo e Replicação](#coleta-de-lixo-e-replicação)
 - [Conclusão](#conclusão)
 

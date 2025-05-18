@@ -8,6 +8,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import '../assets/code-stackoverflow-dark.css';
+import '../assets/inline-code.css';
 import rehypeSlug from 'rehype-slug';
 import { getTopicsMetadataAsDictionary, Topic } from './topics';
 
@@ -64,22 +65,26 @@ export async function getPostData(id: string): Promise<BlogPost> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
-
   const processedContent = await unified()
       .use(remarkParse)
       .use(remarkGfm)
-      .use(remarkRehype)
-      .use(rehypeSlug) 
+      .use(remarkRehype, { allowDangerousHtml: true }) // Allow HTML to pass through
+      .use(rehypeSlug)
       .use(rehypeHighlight)
-      .use(rehypeStringify)
+      .use(rehypeStringify, { allowDangerousHtml: true }) // Preserve HTML in the output
       .process(content);
 
   let contentHtml = processedContent.toString();
-
   // Adjust image paths dynamically
   contentHtml = contentHtml
     .replace(/<img src="\/public/g, `<img src="`)
-    .replace(/<img src="\.\.\/\.\.\/public/g, `<img src="`);
+    .replace(/<img src="\.\.\/\.\.\/public/g, `<img src="`)
+    
+  // Fix inline code styling
+  contentHtml = contentHtml
+    .replace(/`([^`]+)`/g, (match, code) => {
+      return `<code>${code}</code>`;
+    });
 
   const topicsMetadata = getTopicsMetadataAsDictionary();
 

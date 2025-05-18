@@ -4,10 +4,10 @@ date: '2024-03-23'
 description: 'Explorando os fundamentos e melhores práticas na construção de sistemas distribuídos escaláveis'
 topics: ['system-design', 'architecture', 'distributed-systems']
 authors:
-  - name: 'Carlos Mendes'
-    link: 'https://github.com/carlosmendes'
-  - name: 'Lucia Santos'
-    link: 'https://github.com/luciasantos'
+  - name: 'John Doe'
+    link: 'https://github.com/johndoe'
+  - name: 'John Smith'
+    link: 'https://github.com/johnsmith'
 ---
 
 A arquitetura de sistemas distribuídos é fundamental para construir aplicações modernas escaláveis. Vamos explorar os principais conceitos e padrões.
@@ -76,4 +76,4 @@ Estratégias de cache:
 - Message Brokers
 - Service Mesh
 
-Participe de nossa comunidade para discutir mais sobre arquitetura de sistemas! 
+Participe de nossa comunidade para discutir mais sobre arquitetura de sistemas!
