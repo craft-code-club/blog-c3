@@ -9,7 +9,12 @@ const isExternalUrl = (src: string) => {
 
 // Check if URL is from GitHub avatars
 const isGitHubAvatarUrl = (src: string) => {
-  return src.includes('avatars.githubusercontent.com');
+  try {
+    const url = new URL(src);
+    return url.host === 'avatars.githubusercontent.com';
+  } catch {
+    return false; // Return false if the URL is invalid
+  }
 };
 
 export default function cloudflareLoader({
