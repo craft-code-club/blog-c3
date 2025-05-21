@@ -1,0 +1,3 @@
+{
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true // Enable the use of instruction files for code generation. File path is '.github/copilot-instructions.md'
+}
