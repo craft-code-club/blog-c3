@@ -161,6 +161,7 @@ Em inglês:
 
 ## Referências
 
+- [Repositorio com exemplos do encontro](https://github.com/giovannymassuia/DS-A/tree/main/node-dsa/backtracking)
 - [Backtracking - Wikipedia](https://en.wikipedia.org/wiki/Backtracking)
 - [Jeff Erickson Algorithms](https://jeffe.cs.illinois.edu/teaching/algorithms/)
   - [Backtracking - Jeff Erickson](https://jeffe.cs.illinois.edu/teaching/algorithms/book/02-backtracking.pdf)
