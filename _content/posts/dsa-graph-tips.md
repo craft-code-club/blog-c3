@@ -8,8 +8,8 @@ authors:
     link: 'https://github.com/NelsonBN'
   - name: 'Giovanny Massuia'
     link: 'https://github.com/giovannymassuia'
-  - name: 'Wilson Neto'
-    link: 'https://github.com/wilsonneto-dev'
+  - name: 'Wilson Gomes'
+    link: 'https://github.com/wilsongomes-swe'
 ---
 
 ## Grafos no dia a dia
