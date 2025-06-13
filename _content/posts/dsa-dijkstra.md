@@ -6,8 +6,8 @@ topics: ['Algoritmos', 'Grafos']
 authors:
   - name: 'Nelson Nobre'
     link: 'https://github.com/NelsonBN'
-  - name: 'Wilson Neto'
-    link: 'https://github.com/wilsonneto-dev'
+  - name: 'Wilson Gomes'
+    link: 'https://github.com/wilsongomes-swe'
   - name: 'Giovanny Massuia '
     link: 'https://github.com/giovannymassuia'
 ---

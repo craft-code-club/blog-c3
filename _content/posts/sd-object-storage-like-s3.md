@@ -4,8 +4,8 @@ date: '2025-04-07'
 description: 'Artigo baseado no capítulo  25 do Livro System Design Interview. Desenhando um sistema de Object Storage como o s3.'
 topics: ['System Design', 'Clube do Livro']
 authors:
-  - name: 'Wilson Neto'
-    link: 'https://github.com/wilsonneto-dev'
+  - name: 'Wilson Gomes'
+    link: 'https://github.com/wilsongomes-swe'
 ---
 
 Seguindo com nosso Clube do Livro, chegamos ao cápitulo 25 do livro System Design Interview. Neste cápitulo o desafio proposto é o design de um sistema de storage nos moldes de um Amazon S3, um storage de objetos.
