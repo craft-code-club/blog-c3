@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://blog.craftcodeclub.com/sitemap.xml
+Sitemap: https://craftcodeclub.io/sitemap.xml
