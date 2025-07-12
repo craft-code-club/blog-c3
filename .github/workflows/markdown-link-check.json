@@ -3,6 +3,9 @@
   "ignorePatterns": [
     {
       "pattern": "https://www.cs.usfca.edu/~galles/visualization/Kruskal.html"
+    },
+    {
+      "pattern": "https://www.scylladb.com/glossary/sstable"
     }
   ]
 }
