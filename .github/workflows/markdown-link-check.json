@@ -1,3 +1,8 @@
 {
-  "aliveStatusCodes": [200, 403, 429]
+  "aliveStatusCodes": [200, 429],
+  "ignorePatterns": [
+    {
+      "pattern": "https://www.cs.usfca.edu/~galles/visualization/Kruskal.html"
+    }
+  ]
 }
