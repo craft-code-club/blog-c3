@@ -1,3 +1,14 @@
 {
-  "aliveStatusCodes": [200, 403, 429]
+  "aliveStatusCodes": [200, 429],
+  "ignorePatterns": [
+    {
+      "pattern": "^https://www.cs.usfca.edu/~galles/visualization/Kruskal.html$"
+    },
+    {
+      "pattern": "^https://www.scylladb.com/glossary/sstable$"
+    },
+    {
+      "pattern": "^https://leetcode.com/problems"
+    }
+  ]
 }
