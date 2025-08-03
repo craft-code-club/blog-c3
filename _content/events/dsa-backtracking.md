@@ -5,5 +5,6 @@ date: "2025-05-26"
 time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
-registrationLink: "https://us06web.zoom.us/j/82173062389?pwd=hHBQsKgIup7tqHe0OeFhyToEzXJcko.1"
+recordingLink: "https://www.youtube.com/watch?v=Vcm6mhLKU5A"
+postLink: "https://craftcodeclub.io/posts/dsa-backtracking"
 ---
