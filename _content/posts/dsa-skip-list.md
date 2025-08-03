@@ -74,7 +74,7 @@ E se fosse possível combinar o acesso eficiente dos arrays, a flexibilidade das
 - Os dados devem ser ordenáveis, ou seja, devem permitir comparações consistentes (`<`, `>`, `==`) com uma ordem total
 - Esta ordenação é fundamental para garantir que a navegação entre níveis seja válida e as pesquisas funcionem correctamente
 
-![Skip List](https://memgraph.com/images/blog//memgraph-skip-lists-indexes-unique-constraints/memgraph-skip-lists-fast-indexes.png)
+![Skip List](https://raw.githubusercontent.com/NelsonBN/algorithms-data-structures-skip-list/refs/heads/main/media/skip-list.svg)
 
 
 
@@ -282,3 +282,29 @@ Numa Skip List com elementos [1, 3, 7, 12, 19, 25, 31] procurando o valor 19:
 3. Se existir:
    - Em cada nível em que o nó aparece, ajusta-se o ponteiro do nó anterior para ignorar o nó a ser removido, apontando directamente para o próximo
 4. Opcionalmente, pode-se reduzir a altura máxima da Skip List, se os níveis superiores ficarem vazios
+
+
+### Implementação
+
+[Segue aqui um exemplo de implementação em Python](https://github.com/NelsonBN/algorithms-data-structures-skip-list)
+
+
+
+## Curiosidades
+
+Algumas curiosidades interessantes sobre Skip Lists:
+
+- **Origem do nome**: O termo "Skip List" refere-se à capacidade de "saltar" (skip) sobre vários elementos de uma vez, graças aos níveis superiores que se comportam como atalhos
+- **Determinismo**: Mesmo que utilizemos os mesmo DataSet de entradas e multiplas execuções, a Skip List pode produzir diferentes estruturas devido à aleatoriedade na altura dos nós. Isso significa que a mesma lista de entrada pode resultar em Skip Lists diferentes em execuções distintas. No entanto, o output final (os elementos ordenados) será sempre o mesmo, pois a ordenação é garantida pela estrutura e o resultado de uma pesquisa também será consistente.
+
+
+
+## Curiosidades
+
+Algumas curiosidades interessantes sobre Skip Lists:
+
+- **Aleatoriedade controlada**: Mesmo usando o mesmo conjunto de dados de entrada, a Skip List pode gerar estruturas internas diferentes a cada execução. Isso ocorre porque a altura dos nós é definida aleatoriamente. Ou seja, o layout da estrutura pode variar, mas:
+  - A **ordem lógica dos elementos** será sempre a mesma
+  - As **operações de pesquisa, inserção e remoção** terão o mesmo resultado final
+  - O **tempo de execução pode variar levemente**, mas continua com desempenho médio logarítmico
+- **Determinismo no resultado, não na forma**: A Skip List é determinística no que diz respeito ao conteúdo e à ordenação dos dados, mas não necessariamente na forma da estrutura em si.
