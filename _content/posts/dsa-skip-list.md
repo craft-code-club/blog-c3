@@ -210,7 +210,7 @@ Numa Skip List com elementos [1, 3, 7, 12, 19, 25, 31] procurando o valor 19:
 
 ## Que tipo de problemas resolve?
 
-- 1. **Pesquisas rápida em dados ordenados**
+- 1. **Pesquisas rápidas em dados ordenados**
   - Quando precisas encontrar rapidamente um valor dentro de uma sequência ordenada
   - **Exemplo**: Procurar um utilizador num sistema que armazena IDs em ordem crescente
 - 2. **Inserções e remoções eficientes mantendo ordem**
