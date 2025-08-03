@@ -325,7 +325,7 @@ Mas para guardarmos estes dados precisamos pensar em qual mecanismo de data-stor
     - Baseado em SSTable
     - Rápido para escrita, porém não otimizado para leitura
     - Para saber mais sobre o Rocks DB acesse o [site oficial](https://rocksdb.org/)
-    - Para saber mais sobre SStable acesse [este artigo sobre SSTable no blog do ScyllaDB](https://www.scylladb.com/glossary/sstable/)
+    - Para saber mais sobre SStable acesse [este artigo sobre SSTable no blog do ScyllaDB](https://www.scylladb.com/glossary/sstable)
 
 - SQL data base
     - Normalmente baseados em B-Trees, rápido para leitura
