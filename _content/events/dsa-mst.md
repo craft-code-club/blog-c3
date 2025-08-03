@@ -5,5 +5,6 @@ date: "2025-04-21"
 time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
-recordingLink: "https://us06web.zoom.us/j/82173062389?pwd=hHBQsKgIup7tqHe0OeFhyToEzXJcko.1"
+recordingLink: "https://www.youtube.com/watch?v=a9iI9N4FLsg"
+postLink: "https://craftcodeclub.io/posts/dsa-mst"
 ---
