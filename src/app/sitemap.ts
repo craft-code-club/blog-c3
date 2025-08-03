@@ -6,7 +6,7 @@ import { getSortedTopicList } from '@/lib/topics'
 export const dynamic = 'force-static'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://craftcodeclub.io'
+  const baseUrl = process.env.SITE_URL || 'https://craftcodeclub.io'
   
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [
