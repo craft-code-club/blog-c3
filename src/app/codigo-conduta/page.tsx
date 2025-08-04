@@ -103,7 +103,7 @@ export default function CodigoCondutaPage() {
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">6. Faça Perguntas de Forma Construtiva</h3>
                 <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                  <li>Não há pergunta &ldquo;tola&rdquo;. No entanto, pesquise antes de questionar. Ferramentas como Google ou ChatGPT podem trazer respostas rápidas.</li>
+                  <li>Não há pergunta “tola”. No entanto, pesquise antes de questionar. Ferramentas como Google ou ChatGPT podem trazer respostas rápidas.</li>
                   <li>Se não quiser ou não puder ajudar, apenas abstenha-se. Desencorajar quem pergunta não contribui para a comunidade.</li>
                 </ul>
               </div>
