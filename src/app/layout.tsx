@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Link from "next/link";
-import Image from "next/image";
+import MermaidInitializer from '@/components/MermaidInitializer';
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleTagManager } from '@next/third-parties/google';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
 import "./globals.css";
-import MermaidInitializer from '@/components/MermaidInitializer';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,7 +48,7 @@ export default function RootLayout({
                       <span className="text-sm text-gray-500 dark:text-gray-400">Onde o código é nossa arte</span>
                     </div>
                   </Link>
-                  
+
                   <label htmlFor="mobile-menu" className="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
                     <span className="sr-only">Open menu</span>
                     <svg
@@ -86,7 +86,7 @@ export default function RootLayout({
                 </div>
 
                 <input type="checkbox" id="mobile-menu" className="hidden peer" />
-                
+
                 {/* Mobile Menu */}
                 <div className="hidden peer-checked:block border-t border-gray-200 dark:border-gray-700">
                   <div className="flex flex-col space-y-4 px-2 py-4">
@@ -187,12 +187,6 @@ export default function RootLayout({
                       <Link href="/topics/system-design" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">System Design</Link>
                     </li>
                     <li>
-                      <Link href="/topics/ddd" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Domain-Driven Design</Link>
-                    </li>
-                    <li>
-                      <Link href="/topics/architecture" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Arquitetura Limpa</Link>
-                    </li>
-                    <li>
                       <Link href="/topics" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Todos os Tópicos</Link>
                     </li>
                     <li>
@@ -223,9 +217,13 @@ export default function RootLayout({
                         Contribuir no GitHub
                       </a>
                     </li>
+                    <li>
+                      <Link href="/codigo-conduta" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Código de Conduta</Link>
+                    </li>
                   </ul>
                 </div>
               </div>
+
               <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
                 <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
                   © {new Date().getFullYear()} Craft & Code Club. Todos os direitos reservados.

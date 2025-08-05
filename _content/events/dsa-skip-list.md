@@ -6,4 +6,5 @@ time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
 registrationLink: "https://www.youtube.com/watch?v=R9sVLuJ7FSg"
+postLink: "https://craftcodeclub.io/posts/dsa-skip-list"
 ---
