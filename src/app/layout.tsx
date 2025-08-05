@@ -186,12 +186,6 @@ export default function RootLayout({
                     <li>
                       <Link href="/topics/system-design" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">System Design</Link>
                     </li>
-                    {/* <li>
-                      <Link href="/topics/ddd" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Domain-Driven Design</Link>
-                    </li> */}
-                    {/* <li>
-                      <Link href="/topics/architecture" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Arquitetura Limpa</Link>
-                    </li> */}
                     <li>
                       <Link href="/topics" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Todos os Tópicos</Link>
                     </li>
