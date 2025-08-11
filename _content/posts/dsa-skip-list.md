@@ -45,7 +45,7 @@ E se fosse possível combinar o acesso eficiente dos arrays, a flexibilidade das
 | Estrutura         | Acesso Direto | Inserção    | Remoção     | Conclusão                                                                  |
 | ----------------- | ------------- | ----------- | ----------- | -------------------------------------------------------------------------- |
 | Array             | `O(1)`        | `O(n)`      | `O(n)`      | Excelente para acesso rápido, fraca para modificações frequentes           |
-| Linked List       | `O(n)`        | `O(1)`      | `O(1)`      | Flexível para inserções e remoções, mas ineficiente para acesso aleatório  |
+| Linked List       | `O(n)`        | `O(n)`      | `O(n)`      | Flexível para inserções e remoções, mas ineficiente para acesso aleatório  |
 | Árvore Balanceada | `O(log n)`    | `O(log n)`  | `O(log n)`  | Desempenho consistente, mas implementação mais complexa                    |
 | Skip List         | `O(log n)`*   | `O(log n)`* | `O(log n)`* | Bom desempenho médio, ordenação automática com simplicidade probabilística |
 
