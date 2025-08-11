@@ -296,15 +296,3 @@ Algumas curiosidades interessantes sobre Skip Lists:
 
 - **Origem do nome**: O termo "Skip List" refere-se à capacidade de "saltar" (skip) sobre vários elementos de uma vez, graças aos níveis superiores que se comportam como atalhos
 - **Determinismo**: Mesmo que utilizemos os mesmo DataSet de entradas e multiplas execuções, a Skip List pode produzir diferentes estruturas devido à aleatoriedade na altura dos nós. Isso significa que a mesma lista de entrada pode resultar em Skip Lists diferentes em execuções distintas. No entanto, o output final (os elementos ordenados) será sempre o mesmo, pois a ordenação é garantida pela estrutura e o resultado de uma pesquisa também será consistente.
-
-
-
-## Curiosidades
-
-Algumas curiosidades interessantes sobre Skip Lists:
-
-- **Aleatoriedade controlada**: Mesmo usando o mesmo conjunto de dados de entrada, a Skip List pode gerar estruturas internas diferentes a cada execução. Isso ocorre porque a altura dos nós é definida aleatoriamente. Ou seja, o layout da estrutura pode variar, mas:
-  - A **ordem lógica dos elementos** será sempre a mesma
-  - As **operações de pesquisa, inserção e remoção** terão o mesmo resultado final
-  - O **tempo de execução pode variar levemente**, mas continua com desempenho médio logarítmico
-- **Determinismo no resultado, não na forma**: A Skip List é determinística no que diz respeito ao conteúdo e à ordenação dos dados, mas não necessariamente na forma da estrutura em si.
