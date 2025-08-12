@@ -233,7 +233,7 @@ Numa Skip List com elementos [1, 3, 7, 12, 19, 25, 31] procurando o valor 19:
 
 
 
-## Complexidade Asintótica
+## Complexidade Assintótica
 
 **Tempo:**
 
