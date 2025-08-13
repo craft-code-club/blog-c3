@@ -233,7 +233,7 @@ Numa Skip List com elementos [1, 3, 7, 12, 19, 25, 31] procurando o valor 19:
 
 
 
-## Complexidade Asintótica
+## Complexidade Assintótica
 
 **Tempo:**
 
@@ -296,3 +296,8 @@ Algumas curiosidades interessantes sobre Skip Lists:
 
 - **Origem do nome**: O termo "Skip List" refere-se à capacidade de "saltar" (skip) sobre vários elementos de uma vez, graças aos níveis superiores que se comportam como atalhos
 - **Determinismo**: Mesmo que utilizemos os mesmo DataSet de entradas e multiplas execuções, a Skip List pode produzir diferentes estruturas devido à aleatoriedade na altura dos nós. Isso significa que a mesma lista de entrada pode resultar em Skip Lists diferentes em execuções distintas. No entanto, o output final (os elementos ordenados) será sempre o mesmo, pois a ordenação é garantida pela estrutura e o resultado de uma pesquisa também será consistente.
+
+
+## Referências
+
+- [Explicação visual](https://cmps-people.ok.ubc.ca/ylucet/DS/SkipList.html)
