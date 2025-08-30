@@ -42,7 +42,7 @@ export default function EventCard({ event, isPast }: { event: Event; isPast: boo
     >
       <div className="p-6 flex-grow flex flex-col">
         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
-          <time dateTime={event.date}>{new Date(event.date).toLocaleDateString('pt-BR')}</time>
+          <time dateTime={`${event.date}T${event.time.split('-')[0]}-03:00`}>{new Date(`${event.date}T${event.time.split('-')[0]}-03:00`).toLocaleDateString('pt-BR')}</time>
           <span>•</span>
           <span>{event.time}</span>
           <span>•</span>
