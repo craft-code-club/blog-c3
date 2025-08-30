@@ -6,4 +6,5 @@ time: "20:00-22:00"
 location: "Online via Youtube"
 type: "online"
 registrationLink: "https://www.youtube.com/watch?v=EDMBQKIg4eo"
+recordingLink: "https://www.youtube.com/watch?v=EDMBQKIg4eo"
 ---
