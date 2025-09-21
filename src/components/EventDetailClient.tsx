@@ -9,11 +9,12 @@ interface Props {
 }
 
 export default function EventDetailClient({ event, nextEvents }: Props) {
-  const formattedDate = new Date(event.date).toLocaleDateString('pt-BR', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
+  const formattedDate = new Date(`${event.date.slice(0, 10)}T${event.time.split('-')[0]}-03:00`)
+    .toLocaleDateString('pt-BR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
 
   const today = new Date().toISOString().split('T')[0];
   const isToday = event.date === today;
