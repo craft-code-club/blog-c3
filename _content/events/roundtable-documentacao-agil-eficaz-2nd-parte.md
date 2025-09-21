@@ -1,5 +1,5 @@
 ---
-title: "RoundTable - Documentação ágil e eficaz - 2ª parte"
+title: "Roundtable - Documentação ágil e eficaz - 2ª parte"
 description: "Documentar não precisa ser pesado. Nesta conversa aberta vamos partilhar experiências, práticas e ferramentas para criar documentação simples, prática e útil no dia a dia da equipa. O suficiente, no momento certo."
 date: "2025-09-23"
 time: "20:00-22:00"
