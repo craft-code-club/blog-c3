@@ -9,7 +9,7 @@ authors:
   - name: 'Giovanny Massuia'
     link: 'https://github.com/giovannymassuia'
   - name: 'Wilson Gomes'
-    link: 'https://github.com/wilsongomes-swe'
+    link: 'https://github.com/wilsonneto-swe'
 ---
 
 ## Grafos no dia a dia
