@@ -5,7 +5,7 @@ description: 'Artigo baseado no capítulo  25 do Livro System Design Interview. 
 topics: ['System Design', 'Clube do Livro']
 authors:
   - name: 'Wilson Gomes'
-    link: 'https://github.com/wilsongomes-swe'
+    link: 'https://github.com/wilsonneto-swe'
 ---
 
 Seguindo com nosso Clube do Livro, chegamos ao cápitulo 25 do livro System Design Interview. Neste cápitulo o desafio proposto é o design de um sistema de storage nos moldes de um Amazon S3, um storage de objetos.
