@@ -5,7 +5,7 @@ description: 'Lista comentada de livros fundamentais para aprender e aplicar Dom
 topics: [ 'Domain-Driven Design' ]
 authors:
   - name: 'Wilson Gomes'
-    link: 'https://github.com/wilsongomes-swe'
+    link: 'https://github.com/wilsonneto-swe'
 ---
 
 Domain-Driven Design (DDD) é uma abordagem que coloca o domínio e a lógica de negócio no centro das decisões de design e arquitetura. Ao adotar DDD, equipes técnicas e de negócio passam a colaborar de forma mais efetiva, reduzindo ruídos de comunicação e construindo soluções que resolvem problemas reais com mais clareza e propósito. Também há a parte mais tática do DDD, na qual ele promove uma modelagem mais coesa do código, facilitando a manutenção, evolução e escalabilidade dos sistemas e principalmente fazendo com que o código também seja uma maneira de expressar o conhecimento do domínio.

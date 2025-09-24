@@ -7,7 +7,7 @@ authors:
   - name: 'Nelson Nobre'
     link: 'https://github.com/NelsonBN'
   - name: 'Wilson Gomes'
-    link: 'https://github.com/wilsongomes-swe'
+    link: 'https://github.com/wilsonneto-swe'
   - name: 'Giovanny Massuia '
     link: 'https://github.com/giovannymassuia'
 ---
