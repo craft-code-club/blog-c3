@@ -5,5 +5,6 @@ date: "2024-08-23"
 time: "21:00-22:30"
 location: "Online via Zoom"
 type: "online"
+banner: "dsa-graphs-dsa-dfs.png"
 recordingLink: "https://www.youtube.com/watch?v=sCT-_EjbVqQ&list=PLl10TyPY67Jgbh4QdRlRKr-7PjB9i5hWg"
 ---

@@ -5,6 +5,7 @@ date: "2025-04-30"
 time: "21:00-22:30"
 location: "Online via YouTube"
 type: "online"
+banner: "live-tips-vscode-copilot-agent-mode.png"
 recordingLink: "https://www.youtube.com/watch?v=qW7PDpVAtcE"
 registrationLink: "https://www.youtube.com/watch?v=qW7PDpVAtcE"
 speakers:

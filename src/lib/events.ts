@@ -12,6 +12,7 @@ export interface Event {
   time: string;
   location: string;
   type: string;
+  banner?: string;
   registrationLink?: string;
   recordingLink?: string;
   postLink?: string;

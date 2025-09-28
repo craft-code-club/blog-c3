@@ -5,6 +5,7 @@ date: "2025-04-07"
 time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
+banner: "book-sd-storage-system-design.png"
 recordingLink: "https://www.youtube.com/watch?v=E1oETLSeD3w"
 postLink: "https://craftcodeclub.io/posts/sd-object-storage-like-s3"
 ---

@@ -5,6 +5,7 @@ date: "2025-08-18"
 time: "20:00-22:00"
 location: "Online via YouTube"
 type: "online"
+banner: "roundtable-documentacao-agil-eficaz.png"
 recordingLink: "https://www.youtube.com/watch?v=gUkJECVOCbg"
 registrationLink: "https://www.youtube.com/watch?v=gUkJECVOCbg"
 speakers:

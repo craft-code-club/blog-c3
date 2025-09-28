@@ -5,6 +5,7 @@ date: "2025-02-03"
 time: "21:00-22:30"
 location: "Online via Zoom"
 type: "online"
+banner: "dsa-bellman-ford.png"
 recordingLink: "https://www.youtube.com/watch?v=0GcXgQTpYcE"
 postLink: "https://craftcodeclub.io/posts/dsa-bellman-ford"
 ---

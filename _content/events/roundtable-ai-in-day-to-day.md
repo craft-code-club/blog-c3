@@ -5,6 +5,7 @@ date: "2025-09-01"
 time: "20:00-22:00"
 location: "Online via Youtube"
 type: "online"
+banner: "roundtable-ai-in-day-to-day.png"
 registrationLink: "https://www.youtube.com/watch?v=lvuu_Wbz8vE"
 recordingLink: "https://www.youtube.com/watch?v=lvuu_Wbz8vE"
 ---
