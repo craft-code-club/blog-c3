@@ -5,5 +5,6 @@ date: "2024-07-29"
 time: "20:30-22:00"
 location: "Online via Zoom"
 type: "online"
+banner: "book-sd-google-map-part2.png"
 recordingLink: "https://www.youtube.com/watch?v=wKuTC5bWNqQ"
 ---

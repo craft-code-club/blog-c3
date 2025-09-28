@@ -5,6 +5,7 @@ date: "2025-01-13"
 time: "21:00-22:30"
 location: "Online via Zoom"
 type: "online"
+banner: "book-sd-ad-click-event-aggregation.png"
 recordingLink: "https://www.youtube.com/watch?v=L4wUa4dXHDk&list=PLl10TyPY67JhWj4Inb0vsz9R-fR197Plg"
 postLink: "https://craftcodeclub.io/posts/sd-ad-click-event-aggregation"
 ---

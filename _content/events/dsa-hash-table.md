@@ -5,5 +5,6 @@ date: "2024-04-12"
 time: "20:30-22:30"
 location: "Online via Zoom"
 type: "online"
+banner: "dsa-hash-table.png"
 recordingLink: "https://www.youtube.com/watch?v=JFhdCBrKTX0&list=PLl10TyPY67Jgbh4QdRlRKr-7PjB9i5hWg"
 ---

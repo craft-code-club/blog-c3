@@ -5,6 +5,7 @@ date: "2025-09-30"
 time: "20:00-22:00"
 location: "Online via Youtube"
 type: "online"
+banner: "live-documentacao-descomplicando-c4-model.png"
 registrationLink: "https://www.youtube.com/watch?v=L9T12eF2-kU"
 recordingLink: "https://www.youtube.com/watch?v=L9T12eF2-kU"
 ---

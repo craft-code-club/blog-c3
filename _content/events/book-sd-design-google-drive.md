@@ -5,5 +5,6 @@ date: "2024-06-03"
 time: "21:00-22:30"
 location: "Online via Zoom"
 type: "online"
+banner: "book-sd-design-google-drive.png"
 recordingLink: "https://www.youtube.com/watch?v=r_y6WkugljI"
 ---

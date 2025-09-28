@@ -6,5 +6,6 @@ date: "2024-06-17"
 time: "20:30-22:00"
 location: "Online via Zoom"
 type: "online"
+banner: "book-sd-proximity-service-part2.png"
 recordingLink: "https://www.youtube.com/watch?v=JjUar4A8sJE"
 ---

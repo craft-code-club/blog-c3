@@ -5,5 +5,6 @@ date: "2024-11-04"
 time: "21:00-22:30"
 location: "Online via Zoom"
 type: "online"
+banner: "book-sd-metrics-monitoring-alerting-system.png"
 recordingLink: "https://www.youtube.com/watch?v=aCuoZqLZ7bI"
 ---
