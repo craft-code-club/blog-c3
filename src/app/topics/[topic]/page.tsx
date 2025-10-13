@@ -1,9 +1,9 @@
-import { getSortedPostsData } from '@/lib/posts';
-import escapeHtml from 'escape-html';
-import Link from 'next/link';
 import TopicTags from '@/components/TopicTags';
-import { Metadata } from 'next';
+import { getSortedPostsData } from '@/lib/posts';
 import { getSortedTopicList, getTopicBySlug } from '@/lib/topics';
+import escapeHtml from 'escape-html';
+import { Metadata } from 'next';
+import Link from 'next/link';
 
 interface Props {
   params: Promise<{ topic: string }>;
@@ -64,7 +64,7 @@ export default async function TopicPage({ params }: Props) {
             <p className="text-gray-600 dark:text-gray-300 mb-8">
               Estamos trabalhando para trazer conteúdo sobre este tópico em breve.
             </p>
-            <Link 
+            <Link
               href="/blog"
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors"
             >
@@ -76,9 +76,9 @@ export default async function TopicPage({ params }: Props) {
           </div>
         ) : (
           <div className="grid gap-8 md:grid-cols-2">
-            {posts.map((post) => {              
+            {posts.map((post) => {
               return (
-                <article key={post.id} className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
+                <article key={post.id} className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-xs border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
                   <div className="p-6">
                     <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
                       <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('pt-BR')}</time>
@@ -90,7 +90,7 @@ export default async function TopicPage({ params }: Props) {
                       </h2>
                     </Link>
                     <p className="text-gray-600 dark:text-gray-300 mb-4">{post.description}</p>
-                    <Link 
+                    <Link
                       href={`/posts/${escapeHtml(post.id)}`}
                       className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
                     >
@@ -108,4 +108,4 @@ export default async function TopicPage({ params }: Props) {
       </div>
     </div>
   );
-} 
+}

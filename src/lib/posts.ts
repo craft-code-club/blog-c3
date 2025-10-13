@@ -79,12 +79,6 @@ export async function getPostData(id: string): Promise<BlogPost> {
   contentHtml = contentHtml
     .replace(/<img src="\/public/g, `<img src="`)
     .replace(/<img src="\.\.\/\.\.\/public/g, `<img src="`)
-    
-  // Fix inline code styling
-  contentHtml = contentHtml
-    .replace(/`([^`]+)`/g, (match, code) => {
-      return `<code>${code}</code>`;
-    });
 
   const topicsMetadata = getTopicsMetadataAsDictionary();
 

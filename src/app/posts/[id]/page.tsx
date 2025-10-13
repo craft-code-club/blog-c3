@@ -70,7 +70,7 @@ export default async function Post({ params }: Props) {
             ))}
           </div>
         </header>
-        <div className="prose dark:prose-dark prose-lg max-w-none">
+        <div className="prose dark:prose-invert prose-lg max-w-none">
           <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
         </div>
         

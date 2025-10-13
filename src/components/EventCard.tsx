@@ -34,7 +34,7 @@ export default function EventCard({ event, isPast }: { event: Event; isPast: boo
 
   return (
     <article
-      className={`flex flex-col h-full rounded-lg shadow-sm border overflow-hidden transition-all hover:shadow-lg ${
+      className={`flex flex-col h-full rounded-lg shadow-xs border overflow-hidden transition-all hover:shadow-lg ${
         isToday
           ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 ring-2 ring-blue-500 dark:ring-blue-400'
           : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:ring-2 hover:ring-blue-500 dark:hover:ring-blue-400 hover:border-blue-200 dark:hover:border-blue-800'

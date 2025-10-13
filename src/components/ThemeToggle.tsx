@@ -18,7 +18,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+      className="rounded-md p-2 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
       aria-label={theme === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro'}
     >
       {theme === 'dark' ? (
@@ -36,4 +36,4 @@ export function ThemeToggle() {
       )}
     </button>
   );
-} 
+}

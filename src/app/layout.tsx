@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased min-h-screen flex flex-col`}>
         <ThemeProvider>
           <MermaidInitializer />
-          <nav className="sticky top-0 bg-white dark:bg-gray-800 shadow-sm z-50">
+          <nav className="sticky top-0 bg-white dark:bg-gray-800 shadow-xs z-50">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               {/* Mobile Header (Two Lines) */}
               <div className="md:hidden">

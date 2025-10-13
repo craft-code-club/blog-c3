@@ -1,78 +1,213 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Configure dark mode to use class strategy */
+@variant dark (&:where(.dark, .dark *));
+
+/* Tailwind CSS v4 Theme Configuration */
+@theme {
+  /* Custom container configuration */
+  --container-center: true;
+  --container-padding: 2rem;
+  --container-screens-2xl: 1400px;
+
+  /* Custom color palette - Light mode (default) */
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(222.2 84% 4.9%);
+
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(222.2 84% 4.9%);
+
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(222.2 84% 4.9%);
+
+  --color-primary: hsl(222.2 47.4% 11.2%);
+  --color-primary-foreground: hsl(210 40% 98%);
+
+  --color-secondary: hsl(210 40% 96.1%);
+  --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
+
+  --color-muted: hsl(210 40% 96.1%);
+  --color-muted-foreground: hsl(215.4 16.3% 46.9%);
+
+  --color-accent: hsl(210 40% 96.1%);
+  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
+
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(210 40% 98%);
+
+  --color-border: hsl(214.3 31.8% 91.4%);
+  --color-input: hsl(214.3 31.8% 91.4%);
+  --color-ring: hsl(222.2 84% 4.9%);
+
+  /* Border radius */
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
+
+  /* Typography plugin customization */
+  /* Light mode prose colors */
+  --color-prose-body: oklch(0.57 0.01 241.8);
+  --color-prose-headings: oklch(0.22 0.01 241.8);
+  --color-prose-lead: oklch(0.44 0.01 241.8);
+  --color-prose-links: oklch(0.52 0.19 256.8);
+  --color-prose-bold: oklch(0.22 0.01 241.8);
+  --color-prose-counters: oklch(0.44 0.01 241.8);
+  --color-prose-bullets: oklch(0.77 0.01 241.8);
+  --color-prose-hr: oklch(0.88 0.01 241.8);
+  --color-prose-quotes: oklch(0.22 0.01 241.8);
+  --color-prose-quote-borders: oklch(0.88 0.01 241.8);
+  --color-prose-captions: oklch(0.44 0.01 241.8);
+  --color-prose-code: oklch(0.22 0.01 241.8);
+  --color-prose-pre-code: oklch(0.88 0.01 241.8);
+  --color-prose-pre-bg: oklch(0.97 0.005 241.8);
+  --color-prose-th-borders: oklch(0.77 0.01 241.8);
+  --color-prose-td-borders: oklch(0.88 0.01 241.8);
+
+  /* Dark mode prose colors (applied via .dark selector) */
+  --color-prose-invert-body: oklch(0.82 0.01 241.8);
+  --color-prose-invert-headings: oklch(0.98 0 0);
+  --color-prose-invert-lead: oklch(0.73 0.01 241.8);
+  --color-prose-invert-links: oklch(0.73 0.19 256.8);
+  --color-prose-invert-bold: oklch(0.98 0 0);
+  --color-prose-invert-counters: oklch(0.82 0.01 241.8);
+  --color-prose-invert-bullets: oklch(0.82 0.01 241.8);
+  --color-prose-invert-hr: oklch(0.35 0.01 241.8);
+  --color-prose-invert-quotes: oklch(0.96 0 0);
+  --color-prose-invert-quote-borders: oklch(0.88 0.01 241.8);
+  --color-prose-invert-captions: oklch(0.82 0.01 241.8);
+  --color-prose-invert-code: oklch(0.98 0 0);
+  --color-prose-invert-pre-code: oklch(0.82 0.01 241.8);
+  --color-prose-invert-pre-bg: oklch(0.25 0.01 241.8);
+  --color-prose-invert-th-borders: oklch(0.5 0.01 241.8);
+  --color-prose-invert-td-borders: oklch(0.35 0.01 241.8);
+}
 
 @layer base {
   :root {
+    /* Additional custom properties for compatibility */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
-
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-
     --radius: 0.5rem;
   }
 
   .dark {
+    /* Dark mode color overrides */
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
-
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+/* Custom prose styles for typography */
+@layer components {
+  .prose code::before,
+  .prose code::after {
+    content: "" !important;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  .prose code {
+    background-color: oklch(0.94 0.005 241.8);
+    color: oklch(0.22 0.01 241.8);
+    border-radius: 0.25rem;
+    padding: 0.2rem 0.4rem;
+    font-weight: 400;
+    font-size: 0.875em;
   }
+
+  .dark .prose code {
+    background-color: oklch(0.25 0.01 241.8);
+    color: oklch(0.98 0 0);
+  }
+}
+
+/* Light mode prose overrides for code blocks - must be outside @layer to have higher specificity */
+.prose pre {
+  background-color: rgb(247, 247, 247) !important;
+  border: 1px solid rgb(229, 231, 235) !important;
+}
+
+.prose pre code {
+  background-color: rgb(247, 247, 247) !important;
+  color: rgb(17, 24, 39) !important;
+}
+
+/* Dark mode prose overrides - must be outside @layer to have higher specificity */
+.dark .prose ul > li::marker,
+.dark .prose ol > li::marker {
+  color: oklch(0.82 0.01 241.8) !important;
+}
+
+.dark .prose a {
+  color: oklch(0.73 0.19 256.8) !important;
+}
+
+.dark .prose blockquote {
+  border-left-color: oklch(0.88 0.01 241.8) !important;
+}
+
+.dark .prose table {
+  border-color: oklch(0.5 0.01 241.8) !important;
+}
+
+.dark .prose thead {
+  border-bottom-color: oklch(0.5 0.01 241.8) !important;
+}
+
+.dark .prose tbody tr {
+  border-bottom-color: oklch(0.35 0.01 241.8) !important;
+}
+
+.dark .prose pre {
+  background-color: rgb(31, 41, 55) !important;
+  border: 0px solid rgb(30, 41, 59) !important;
+}
+
+.dark .prose pre code {
+  background-color: rgb(31, 41, 55) !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 /* Smooth transition for theme changes */
