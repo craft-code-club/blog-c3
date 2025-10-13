@@ -55,7 +55,11 @@ export default function EventCard({ event, isPast }: { event: Event; isPast: boo
           )}
         </div>
 
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{event.title}</h3>
+        <Link href={`/events/${event.id}`} className="group mb-3">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+            {event.title}
+          </h3>
+        </Link>
 
         <div className="flex-grow flex flex-col">
           <p className="text-gray-600 dark:text-gray-300 mb-4">{event.description}</p>

@@ -1,6 +1,7 @@
 'use client';
 
 import type { Event } from '@/lib/events';
+import Image from 'next/image';
 import EventCard from "./EventCard";
 
 interface Props {
@@ -72,6 +73,18 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
               </svg>
               <span>{event.location}</span>
             </div>
+
+            {event.banner && (
+              <div className="mb-8 rounded-lg overflow-hidden">
+                <Image
+                  src={event.banner}
+                  alt={`Banner para ${event.title}`}
+                  width={800}
+                  height={320}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+            )}
 
             <div className="prose prose-lg dark:prose-invert max-w-none mb-8">
               <p>{event.description}</p>

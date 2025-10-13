@@ -1,10 +1,11 @@
 ---
-title: "Round Table - Documentação ágil e eficaz"
+title: "Roundtable - Documentação ágil e eficaz - Parte 1"
 description: "Documentar não precisa ser pesado. Nesta conversa aberta vamos partilhar experiências, práticas e ferramentas para criar documentação simples, prática e útil no dia a dia da equipa. O suficiente, no momento certo"
 date: "2025-08-18"
 time: "20:00-22:00"
 location: "Online via YouTube"
 type: "online"
+banner: "roundtable-documentacao-agil-eficaz-parte1.png"
 recordingLink: "https://www.youtube.com/watch?v=gUkJECVOCbg"
 registrationLink: "https://www.youtube.com/watch?v=gUkJECVOCbg"
 speakers:

@@ -5,6 +5,7 @@ date: "2025-03-24"
 time: "21:00-22:30"
 location: "Online via Zoom"
 type: "online"
+banner: "dsa-topological-sorting.png"
 recordingLink: "https://www.youtube.com/watch?v=4fTjXqcMFtk"
 postLink: "https://craftcodeclub.io/posts/dsa-topological-sorting"
 ---

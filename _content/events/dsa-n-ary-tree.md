@@ -5,5 +5,6 @@ date: "2024-06-07"
 time: "20:45-22:45"
 location: "Online via Zoom"
 type: "online"
+banner: "dsa-n-ary-tree.png"
 recordingLink: "https://www.youtube.com/watch?v=FLZxMQFTqvY&list=PLl10TyPY67Jgbh4QdRlRKr-7PjB9i5hWg"
 ---

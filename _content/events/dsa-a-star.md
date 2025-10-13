@@ -5,6 +5,7 @@ date: "2025-02-17"
 time: "21:00-22:30"
 location: "Online via Zoom"
 type: "online"
+banner: "dsa-a-star.png"
 recordingLink: "https://www.youtube.com/watch?v=0PYx7erkdXo"
 postLink: "https://craftcodeclub.io/posts/dsa-a-star"
 ---

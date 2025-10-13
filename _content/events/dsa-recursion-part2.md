@@ -5,5 +5,6 @@ date: "2024-05-03"
 time: "20:30-22:30"
 location: "Online via Zoom"
 type: "online"
+banner: "dsa-recursion-part2.png"
 recordingLink: "https://www.youtube.com/watch?v=rbEYjJdaIZI&list=PLl10TyPY67Jgbh4QdRlRKr-7PjB9i5hWg"
 ---
