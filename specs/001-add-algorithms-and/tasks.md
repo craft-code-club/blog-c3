@@ -70,7 +70,7 @@ description: "Implementation tasks for DSA Roadmap feature"
 - [ ] T011 [US1] Create CategorySection component in `src/components/roadmap/CategorySection.tsx` (renders RoadmapCategory with heading, timeline dots, items as RoadmapCards)
 - [ ] T012 [US1] Create RoadmapTimeline component in `src/components/roadmap/RoadmapTimeline.tsx` (renders complete Roadmap with vertical timeline line, maps categories to CategorySection components)
 - [ ] T013 [US1] Create DSA roadmap page component at `src/app/roadmap/dsa/page.tsx` (loads roadmap with loadDSARoadmap, renders RoadmapTimeline, includes page metadata)
-- [ ] T014 [US1] Add page metadata (title, description, OpenGraph, Twitter cards) in `src/app/roadmap/dsa/page.tsx`
+- [ ] T014 [US1] Add page metadata (title, description, keywords, OpenGraph, Twitter cards) in `src/app/roadmap/dsa/page.tsx` following existing blog page pattern
 - [ ] T015 [US1] Verify responsive layout (mobile 320px, tablet 768px, desktop 1920px) and dark mode styling for all components
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - roadmap page displays all content with proper styling
@@ -112,7 +112,7 @@ description: "Implementation tasks for DSA Roadmap feature"
 
 - [ ] T020 [US3] Create roadmap content documentation at `_content/roadmap/README.md` (document YAML schema, required fields, validation rules, icon options, example structures)
 - [ ] T021 [US3] Expand `_content/roadmap/dsa.yml` with comprehensive content (aim for 5+ categories, 30+ items total, various link configurations)
-- [ ] T022 [US3] Test build-time validation by intentionally breaking YAML (remove required title field, use invalid URL) and verify clear error messages appear
+- [ ] T022 [US3] Test build-time validation with these invalid scenarios: (1) missing category title, (2) missing item description, (3) invalid URL format without protocol, (4) empty items array in category, (5) invalid target value. Verify each produces clear error message with field path
 - [ ] T023 [US3] Document content authoring workflow in `_content/roadmap/README.md` (how to add categories, how to add items, how to configure links with different targets)
 - [ ] T024 [US3] Verify all edge cases work: items without links, categories with many items (15+), long descriptions (400+ chars), mixed target attributes
 
@@ -130,6 +130,7 @@ description: "Implementation tasks for DSA Roadmap feature"
 - [ ] T028 [P] Performance check: verify page loads under 3s on 3G, bundle size under 200KB, Core Web Vitals green
 - [ ] T029 Update project README.md with roadmap feature documentation (how to access, how to edit content)
 - [ ] T030 Run complete quickstart.md validation checklist to ensure all acceptance criteria met
+- [ ] T031 [P] Add `/roadmap/dsa` URL to sitemap.xml or verify Next.js auto-generation includes App Router pages for SEO discoverability
 
 ---
 
@@ -175,7 +176,7 @@ description: "Implementation tasks for DSA Roadmap feature"
 - **Phase 3 (US1)**: T009 and T010 can run in parallel
 - **Phase 4 (US2)**: T016 and T017 can run in parallel (mobile and desktop nav)
 - **Phase 5 (US3)**: T020 and T021 can run in parallel
-- **Phase 6**: T025, T026, T027, T028 can all run in parallel [P]
+- **Phase 6**: T025, T026, T027, T028, T031 can all run in parallel [P]
 - **Different User Stories**: If team capacity allows, US1 and US3 can be worked on simultaneously (both truly independent)
 
 ---
@@ -249,7 +250,7 @@ Work in priority order:
 
 ## Task Summary
 
-### Total Tasks: 30
+### Total Tasks: 31
 
 **By Phase**:
 - Phase 1 (Setup): 5 tasks
@@ -257,14 +258,14 @@ Work in priority order:
 - Phase 3 (US1 - MVP): 7 tasks 🎯
 - Phase 4 (US2): 4 tasks
 - Phase 5 (US3): 5 tasks
-- Phase 6 (Polish): 6 tasks
+- Phase 6 (Polish): 7 tasks
 
 **By User Story**:
 - User Story 1 (View Roadmap): 7 implementation tasks
 - User Story 2 (Navigation): 4 implementation tasks
 - User Story 3 (Configuration): 5 implementation tasks
 
-**Parallel Opportunities Identified**: 15 tasks marked [P]
+**Parallel Opportunities Identified**: 16 tasks marked [P]
 
 **Independent Test Criteria**:
 - US1: Navigate to `/roadmap/dsa` and verify full rendering
