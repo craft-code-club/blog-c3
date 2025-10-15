@@ -85,7 +85,7 @@ As a blog admin, I want to edit the entire DSA roadmap by modifying a single con
 ### Functional Requirements
 
 - **FR-001**: System MUST display a dedicated roadmap page accessible at URL path `/roadmap/dsa`
-- **FR-002**: System MUST render roadmap content organized by categories, displayed in sequential order
+- **FR-002**: System MUST render roadmap content organized by categories in the order they appear in the YAML file (array index order from top to bottom)
 - **FR-003**: System MUST display each roadmap item with its title and description
 - **FR-004**: System MUST display optional links for each item when they exist, including icon, title, and clickable URL
 - **FR-005**: System MUST read all roadmap content from a single configuration file located at `_content/roadmap/dsa.yml`

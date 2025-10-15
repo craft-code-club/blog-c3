@@ -17,7 +17,7 @@ Create a dedicated Algorithms and Data Structures roadmap page accessible at `/r
 **Framework**: Next.js 15+ with App Router  
 **Styling**: Tailwind CSS 4.x with CSS-first configuration
 **Primary Dependencies**: 
-- Content: gray-matter (for YAML parsing), js-yaml (YAML structure validation), zod (schema validation)
+- Content: js-yaml (YAML parsing and validation), zod (schema validation)
 - UI: next-themes, @tailwindcss/typography
 - Icons: lucide-react (tree-shakeable, TypeScript native)
 **Storage**: File-based YAML at `_content/roadmap/dsa.yml` - NO database
