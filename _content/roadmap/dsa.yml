@@ -1,0 +1,150 @@
+# Roadmap de Algoritmos e Estruturas de Dados
+# DSA Learning Path - Craft & Code Club
+# 
+# Este arquivo define o conteúdo do roadmap de aprendizado de algoritmos
+# e estruturas de dados. Siga o formato YAML para adicionar novas categorias e itens.
+
+categories:
+  - title: "Estruturas de Dados Básicas"
+    items:
+      - title: "Arrays e Listas"
+        description: "Estruturas de dados sequenciais fundamentais para armazenar coleções ordenadas de elementos com acesso por índice."
+        links:
+          - icon: "book"
+            title: "MDN - Arrays JavaScript"
+            url: "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array"
+            target: "_blank"
+          - icon: "video"
+            title: "Arrays na Prática"
+            url: "https://www.youtube.com/watch?v=example"
+            target: "_blank"
+      
+      - title: "Listas Encadeadas"
+        description: "Estrutura de dados linear onde cada elemento aponta para o próximo, permitindo inserção e remoção eficientes."
+        links:
+          - icon: "book"
+            title: "Artigo sobre Linked Lists"
+            url: "https://www.geeksforgeeks.org/data-structures/linked-list/"
+            target: "_blank"
+      
+      - title: "Pilhas (Stack)"
+        description: "Estrutura LIFO (Last In First Out) usada para gerenciar elementos em ordem reversa de inserção."
+        links:
+          - icon: "code"
+            title: "Implementação em TypeScript"
+            url: "https://github.com/trekhleb/javascript-algorithms/tree/master/src/data-structures/stack"
+            target: "_blank"
+      
+      - title: "Filas (Queue)"
+        description: "Estrutura FIFO (First In First Out) para processar elementos na ordem de chegada."
+  
+  - title: "Árvores e Estruturas Hierárquicas"
+    items:
+      - title: "Árvores Binárias"
+        description: "Estrutura hierárquica onde cada nó tem no máximo dois filhos, base para muitas estruturas de dados avançadas."
+        links:
+          - icon: "book"
+            title: "Introdução a Árvores Binárias"
+            url: "https://www.geeksforgeeks.org/binary-tree-data-structure/"
+            target: "_blank"
+          - icon: "video"
+            title: "Tutorial em Vídeo"
+            url: "https://www.youtube.com/watch?v=example"
+            target: "_blank"
+      
+      - title: "Árvores de Busca Binária (BST)"
+        description: "Árvore binária ordenada que permite busca, inserção e remoção eficientes com complexidade O(log n)."
+        links:
+          - icon: "graduation-cap"
+            title: "Curso Interativo"
+            url: "https://visualgo.net/en/bst"
+            target: "_blank"
+      
+      - title: "Árvores AVL e Balanceamento"
+        description: "Árvores binárias auto-balanceadas que garantem altura mínima para operações eficientes."
+
+  - title: "Algoritmos de Ordenação"
+    items:
+      - title: "Bubble Sort"
+        description: "Algoritmo simples de ordenação por comparação e troca de elementos adjacentes. Complexidade O(n²)."
+        links:
+          - icon: "file-text"
+            title: "Explicação Detalhada"
+            url: "https://www.geeksforgeeks.org/bubble-sort/"
+            target: "_blank"
+      
+      - title: "Quick Sort"
+        description: "Algoritmo eficiente de ordenação por divisão e conquista com complexidade média O(n log n)."
+        links:
+          - icon: "code"
+            title: "Implementação"
+            url: "https://github.com/trekhleb/javascript-algorithms/tree/master/src/algorithms/sorting/quick-sort"
+            target: "_blank"
+      
+      - title: "Merge Sort"
+        description: "Algoritmo de ordenação estável usando divisão e conquista, com complexidade garantida O(n log n)."
+      
+      - title: "Heap Sort"
+        description: "Algoritmo de ordenação usando estrutura de heap binário com complexidade O(n log n)."
+
+  - title: "Algoritmos de Busca"
+    items:
+      - title: "Busca Linear"
+        description: "Algoritmo simples que verifica cada elemento sequencialmente até encontrar o valor procurado."
+      
+      - title: "Busca Binária"
+        description: "Algoritmo eficiente para busca em arrays ordenados com complexidade O(log n)."
+        links:
+          - icon: "book"
+            title: "Tutorial de Busca Binária"
+            url: "https://www.geeksforgeeks.org/binary-search/"
+            target: "_blank"
+          - icon: "graduation-cap"
+            title: "Visualização Interativa"
+            url: "https://visualgo.net/en/binarysearch"
+            target: "_blank"
+
+  - title: "Grafos e Algoritmos"
+    items:
+      - title: "Representação de Grafos"
+        description: "Formas de representar grafos em memória: matriz de adjacência e lista de adjacência."
+        links:
+          - icon: "book"
+            title: "Introdução a Grafos"
+            url: "https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/"
+            target: "_blank"
+      
+      - title: "Busca em Profundidade (DFS)"
+        description: "Algoritmo para traversar grafos explorando o mais profundo possível antes de retroceder."
+        links:
+          - icon: "code"
+            title: "Implementação DFS"
+            url: "https://github.com/trekhleb/javascript-algorithms/tree/master/src/algorithms/graph/depth-first-search"
+            target: "_blank"
+      
+      - title: "Busca em Largura (BFS)"
+        description: "Algoritmo para traversar grafos explorando todos os vizinhos antes de avançar para o próximo nível."
+      
+      - title: "Algoritmo de Dijkstra"
+        description: "Encontra o caminho mais curto entre vértices em grafos com pesos não-negativos."
+        links:
+          - icon: "video"
+            title: "Explicação em Vídeo"
+            url: "https://www.youtube.com/watch?v=example-dijkstra"
+            target: "_blank"
+
+  - title: "Programação Dinâmica"
+    items:
+      - title: "Introdução a DP"
+        description: "Técnica de otimização que resolve problemas dividindo em subproblemas sobrepostos."
+      
+      - title: "Problema da Mochila"
+        description: "Problema clássico de otimização combinatória resolvido com programação dinâmica."
+        links:
+          - icon: "book"
+            title: "Knapsack Problem"
+            url: "https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/"
+            target: "_blank"
+      
+      - title: "Subsequência Comum Mais Longa (LCS)"
+        description: "Encontra a maior subsequência comum entre duas sequências usando DP."

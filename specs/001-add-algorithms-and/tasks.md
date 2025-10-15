@@ -29,11 +29,11 @@ description: "Implementation tasks for DSA Roadmap feature"
 
 **Purpose**: Install dependencies and create foundational structure
 
-- [ ] T001 Install required npm dependencies: `js-yaml`, `zod`, `lucide-react`
-- [ ] T002 [P] Install TypeScript type definitions: `@types/js-yaml`
-- [ ] T003 [P] Create roadmap components directory at `src/components/roadmap/`
-- [ ] T004 [P] Create types directory at `src/lib/types/`
-- [ ] T005 [P] Create content directory at `_content/roadmap/`
+- [x] T001 Install required npm dependencies: `js-yaml`, `zod`, `lucide-react`
+- [x] T002 [P] Install TypeScript type definitions: `@types/js-yaml`
+- [x] T003 [P] Create roadmap components directory at `src/components/roadmap/`
+- [x] T004 [P] Create types directory at `src/lib/types/`
+- [x] T005 [P] Create content directory at `_content/roadmap/`
 
 ---
 
@@ -43,9 +43,9 @@ description: "Implementation tasks for DSA Roadmap feature"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Create roadmap type definitions with Zod schemas in `src/lib/types/roadmap.ts` (LinkSchema, RoadmapItemSchema, RoadmapCategorySchema, RoadmapSchema)
-- [ ] T007 Create YAML loader with validation in `src/lib/roadmap.ts` (loadDSARoadmap function with error handling)
-- [ ] T008 Create initial DSA roadmap content file at `_content/roadmap/dsa.yml` with at least 2 categories and 3+ items
+- [x] T006 Create roadmap type definitions with Zod schemas in `src/lib/types/roadmap.ts` (LinkSchema, RoadmapItemSchema, RoadmapCategorySchema, RoadmapSchema)
+- [x] T007 Create YAML loader with validation in `src/lib/roadmap.ts` (loadDSARoadmap function with error handling)
+- [x] T008 Create initial DSA roadmap content file at `_content/roadmap/dsa.yml` with at least 2 categories and 3+ items
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -65,13 +65,13 @@ description: "Implementation tasks for DSA Roadmap feature"
 
 ### Implementation for User Story 1
 
-- [ ] T009 [P] [US1] Create ResourceLink component in `src/components/roadmap/ResourceLink.tsx` (renders Link entity with icon, title, clickable URL, target handling)
-- [ ] T010 [P] [US1] Create RoadmapCard component in `src/components/roadmap/RoadmapCard.tsx` (renders RoadmapItem with title, description, optional links using ResourceLink)
-- [ ] T011 [US1] Create CategorySection component in `src/components/roadmap/CategorySection.tsx` (renders RoadmapCategory with heading, timeline dots, items as RoadmapCards)
-- [ ] T012 [US1] Create RoadmapTimeline component in `src/components/roadmap/RoadmapTimeline.tsx` (renders complete Roadmap with vertical timeline line, maps categories to CategorySection components)
-- [ ] T013 [US1] Create DSA roadmap page component at `src/app/roadmap/dsa/page.tsx` (loads roadmap with loadDSARoadmap, renders RoadmapTimeline, includes page metadata)
-- [ ] T014 [US1] Add page metadata (title, description, keywords, OpenGraph, Twitter cards) in `src/app/roadmap/dsa/page.tsx` following existing blog page pattern
-- [ ] T015 [US1] Verify responsive layout (mobile 320px, tablet 768px, desktop 1920px) and dark mode styling for all components
+- [x] T009 [P] [US1] Create ResourceLink component in `src/components/roadmap/ResourceLink.tsx` (renders Link entity with icon, title, clickable URL, target handling)
+- [x] T010 [P] [US1] Create RoadmapCard component in `src/components/roadmap/RoadmapCard.tsx` (renders RoadmapItem with title, description, optional links using ResourceLink)
+- [x] T011 [US1] Create CategorySection component in `src/components/roadmap/CategorySection.tsx` (renders RoadmapCategory with heading, timeline dots, items as RoadmapCards)
+- [x] T012 [US1] Create RoadmapTimeline component in `src/components/roadmap/RoadmapTimeline.tsx` (renders complete Roadmap with vertical timeline line, maps categories to CategorySection components)
+- [x] T013 [US1] Create DSA roadmap page component at `src/app/roadmap/dsa/page.tsx` (loads roadmap with loadDSARoadmap, renders RoadmapTimeline, includes page metadata)
+- [x] T014 [US1] Add page metadata (title, description, keywords, OpenGraph, Twitter cards) in `src/app/roadmap/dsa/page.tsx` following existing blog page pattern
+- [x] T015 [US1] Verify responsive layout (mobile 320px, tablet 768px, desktop 1920px) and dark mode styling for all components
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - roadmap page displays all content with proper styling
 
@@ -89,10 +89,10 @@ description: "Implementation tasks for DSA Roadmap feature"
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Add roadmap navigation link to mobile menu section in `src/app/layout.tsx` (add Link component after "Eventos" link, before "Sobre" link)
-- [ ] T017 [US2] Add roadmap navigation link to desktop menu section in `src/app/layout.tsx` (add Link component after "Eventos" link, before "Sobre" link)
-- [ ] T018 [US2] Verify navigation link text is "Roadmap DSA" with proper styling classes matching existing links
-- [ ] T019 [US2] Test navigation from homepage, blog page, and events page to roadmap
+- [x] T016 [US2] Add roadmap navigation link to mobile menu section in `src/app/layout.tsx` (add Link component after "Eventos" link, before "Sobre" link)
+- [x] T017 [US2] Add roadmap navigation link to desktop menu section in `src/app/layout.tsx` (add Link component after "Eventos" link, before "Sobre" link)
+- [x] T018 [US2] Verify navigation link text is "Roadmap DSA" with proper styling classes matching existing links
+- [x] T019 [US2] Test navigation from homepage, blog page, and events page to roadmap
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work - roadmap is discoverable and accessible from navigation
 
@@ -110,11 +110,11 @@ description: "Implementation tasks for DSA Roadmap feature"
 
 ### Implementation for User Story 3
 
-- [ ] T020 [US3] Create roadmap content documentation at `_content/roadmap/README.md` (document YAML schema, required fields, validation rules, icon options, example structures)
-- [ ] T021 [US3] Expand `_content/roadmap/dsa.yml` with comprehensive content (aim for 5+ categories, 30+ items total, various link configurations)
-- [ ] T022 [US3] Test build-time validation with these invalid scenarios: (1) missing category title, (2) missing item description, (3) invalid URL format without protocol, (4) empty items array in category, (5) invalid target value. Verify each produces clear error message with field path
-- [ ] T023 [US3] Document content authoring workflow in `_content/roadmap/README.md` (how to add categories, how to add items, how to configure links with different targets)
-- [ ] T024 [US3] Verify all edge cases work: items without links, categories with many items (15+), long descriptions (400+ chars), mixed target attributes
+- [x] T020 [US3] Create roadmap content documentation at `_content/roadmap/README.md` (document YAML schema, required fields, validation rules, icon options, example structures)
+- [x] T021 [US3] Expand `_content/roadmap/dsa.yml` with comprehensive content (aim for 5+ categories, 30+ items total, various link configurations)
+- [x] T022 [US3] Test build-time validation with these invalid scenarios: (1) missing category title, (2) missing item description, (3) invalid URL format without protocol, (4) empty items array in category, (5) invalid target value. Verify each produces clear error message with field path
+- [x] T023 [US3] Document content authoring workflow in `_content/roadmap/README.md` (how to add categories, how to add items, how to configure links with different targets)
+- [x] T024 [US3] Verify all edge cases work: items without links, categories with many items (15+), long descriptions (400+ chars), mixed target attributes
 
 **Checkpoint**: All user stories should now be independently functional - roadmap is viewable, navigable, and maintainable via YAML config
 
@@ -124,13 +124,13 @@ description: "Implementation tasks for DSA Roadmap feature"
 
 **Purpose**: Improvements that affect multiple user stories and overall quality
 
-- [ ] T025 [P] Add YAML validation script at `scripts/validate-roadmap.ts` for local testing before build
-- [ ] T026 [P] Verify all Tailwind classes are properly applied and responsive breakpoints work correctly
-- [ ] T027 [P] Test accessibility: keyboard navigation through all links, screen reader compatibility, proper ARIA labels
-- [ ] T028 [P] Performance check: verify page loads under 3s on 3G, bundle size under 200KB, Core Web Vitals green
-- [ ] T029 Update project README.md with roadmap feature documentation (how to access, how to edit content)
-- [ ] T030 Run complete quickstart.md validation checklist to ensure all acceptance criteria met
-- [ ] T031 [P] Add `/roadmap/dsa` URL to sitemap.xml or verify Next.js auto-generation includes App Router pages for SEO discoverability
+- [x] T025 [P] Add YAML validation script at `scripts/validate-roadmap.ts` for local testing before build
+- [x] T026 [P] Verify all Tailwind classes are properly applied and responsive breakpoints work correctly
+- [x] T027 [P] Test accessibility: keyboard navigation through all links, screen reader compatibility, proper ARIA labels
+- [x] T028 [P] Performance check: verify page loads under 3s on 3G, bundle size under 200KB, Core Web Vitals green
+- [x] T029 Update project README.md with roadmap feature documentation (how to access, how to edit content)
+- [x] T030 Run complete quickstart.md validation checklist to ensure all acceptance criteria met
+- [x] T031 [P] Add `/roadmap/dsa` URL to sitemap.xml or verify Next.js auto-generation includes App Router pages for SEO discoverability
 
 ---
 

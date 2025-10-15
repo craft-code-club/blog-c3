@@ -156,6 +156,69 @@ speakers:
   - `<titulo>.md`
 
 
+### Roadmaps
+
+Os roadmaps são recursos de aprendizado estruturados que ajudam a comunidade a navegar por tópicos complexos de forma organizada. Atualmente, temos o **Roadmap de Algoritmos e Estruturas de Dados** disponível em `/roadmap/dsa`.
+
+#### 📍 Acessando o Roadmap
+
+- **URL**: [https://seu-site.com/roadmap/dsa](https://seu-site.com/roadmap/dsa)
+- **Navegação**: Clique em "Roadmap DSA" no menu principal
+
+#### ✏️ Editando o Roadmap
+
+Os roadmaps são configurados via arquivos YAML na pasta `_content/roadmap/`. Para editar o roadmap DSA:
+
+1. **Arquivo de Conteúdo**: `_content/roadmap/dsa.yml`
+2. **Documentação Completa**: `_content/roadmap/README.md`
+3. **Validação Local**: Execute `npx tsx scripts/validate-roadmap.ts`
+
+**Exemplo de estrutura YAML**:
+
+```yaml
+categories:
+  - title: "Estruturas de Dados Básicas"
+    items:
+      - title: "Arrays e Listas"
+        description: "Estruturas fundamentais para armazenamento sequencial de dados"
+        links:
+          - icon: "book"
+            title: "Artigo - Arrays"
+            url: "https://exemplo.com/arrays"
+            target: "_blank"
+          - icon: "video"
+            title: "Vídeo - Listas Ligadas"
+            url: "https://exemplo.com/listas"
+            target: "_blank"
+```
+
+**Tipos de ícones disponíveis**:
+- `book` - Artigos e documentação
+- `video` - Vídeos e tutoriais
+- `file-text` - Posts do blog
+- `code` - Exercícios e código
+- `external-link` - Links externos
+- `graduation-cap` - Cursos
+- `play-circle` - Demonstrações interativas
+
+**Validação**:
+
+Antes de fazer commit das suas alterações, valide o YAML:
+
+```bash
+npx tsx scripts/validate-roadmap.ts
+```
+
+O script verifica:
+- ✅ Sintaxe YAML correta
+- ✅ Campos obrigatórios presentes
+- ✅ URLs válidas
+- ✅ Tipos de ícone corretos
+- ✅ Valores de `target` válidos (`_blank` ou `_self`)
+
+**Para mais detalhes**, consulte a [documentação completa do roadmap](_content/roadmap/README.md).
+
+
 
 ## 🤝 Contribuindo
 
