@@ -5,6 +5,16 @@
 **Status**: Draft  
 **Input**: User description: "Add Algorithms and Data Structures Roadmap page - Issue #24"
 
+## Clarifications
+
+### Session 2025-10-14
+
+- Q: What is the exact configuration file path and format for the DSA roadmap? → A: `_content/roadmap/dsa.yml` (dedicated roadmap subdirectory with YAML format)
+- Q: What should be the URL path to access the DSA roadmap page? → A: `/roadmap/dsa` (hierarchical structure allowing future roadmaps)
+- Q: How should links within roadmap items open when clicked? → A: User preference (configurable per link in YAML with optional target attribute)
+- Q: What visual style should the roadmap use to display the sequential learning path? → A: Card-based vertical timeline (visual progress flow)
+- Q: What specific validations should trigger build errors when the configuration file is invalid? → A: Required fields missing (category title, item title/description, link title/url) + invalid URL format
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - View DSA Roadmap Page (Priority: P1)
@@ -17,7 +27,7 @@ As a blog reader, I want to access a dedicated Algorithms and Data Structures ro
 
 **Acceptance Scenarios**:
 
-1. **Given** I am on the blog homepage, **When** I navigate to the DSA roadmap page, **Then** I see a visually organized roadmap with categories and items displayed in sequential order
+1. **Given** I am on the blog homepage, **When** I navigate to `/roadmap/dsa`, **Then** I see a visually organized roadmap with categories and items displayed as cards in a vertical timeline showing sequential order
 2. **Given** I am viewing the roadmap, **When** I look at a roadmap item, **Then** I can see its title, description, and associated links (if any)
 3. **Given** I am viewing the roadmap, **When** I scroll through the page, **Then** I can clearly distinguish between different categories and their items
 4. **Given** an item has links, **When** I view that item, **Then** I can see each link with its icon, title, and clickable URL
@@ -56,7 +66,7 @@ As a blog admin, I want to edit the entire DSA roadmap by modifying a single con
 2. **Given** I edit the configuration file to add a new category, **When** I rebuild the blog, **Then** the new category appears on the roadmap page
 3. **Given** I edit the configuration file to add a new item with links, **When** I rebuild the blog, **Then** the new item appears with all its links properly displayed
 4. **Given** I edit the configuration file to change an item's description, **When** I rebuild the blog, **Then** the updated description appears on the roadmap page
-5. **Given** I edit the configuration file with invalid data, **When** I attempt to build the blog, **Then** I receive clear error messages indicating what needs to be fixed
+5. **Given** I edit the configuration file with invalid data (missing required fields or malformed URLs), **When** I attempt to build the blog, **Then** I receive clear error messages indicating which fields are missing or invalid
 
 ---
 
@@ -74,21 +84,21 @@ As a blog admin, I want to edit the entire DSA roadmap by modifying a single con
 
 ### Functional Requirements
 
-- **FR-001**: System MUST display a dedicated roadmap page accessible via a unique URL path
+- **FR-001**: System MUST display a dedicated roadmap page accessible at URL path `/roadmap/dsa`
 - **FR-002**: System MUST render roadmap content organized by categories, displayed in sequential order
 - **FR-003**: System MUST display each roadmap item with its title and description
 - **FR-004**: System MUST display optional links for each item when they exist, including icon, title, and clickable URL
-- **FR-005**: System MUST read all roadmap content from a single configuration file in the content directory
-- **FR-006**: System MUST support YAML or Markdown format for the roadmap configuration file (consistent with existing blog content patterns)
+- **FR-005**: System MUST read all roadmap content from a single configuration file located at `_content/roadmap/dsa.yml`
+- **FR-006**: System MUST parse YAML format for the roadmap configuration file structure
 - **FR-007**: Navigation menu MUST include a visible link to the DSA roadmap page
 - **FR-008**: Roadmap page MUST be responsive and display properly on mobile, tablet, and desktop screens
-- **FR-009**: Roadmap items MUST be visually distinguishable from one another with clear separation
-- **FR-010**: Categories MUST be visually distinguishable with clear headings or section markers
-- **FR-011**: Links within items MUST be clickable and open in the same tab (or new tab based on site's link handling conventions)
+- **FR-009**: Roadmap items MUST be displayed as cards in a vertical timeline layout with clear visual separation between items
+- **FR-010**: Categories MUST be visually distinguishable with clear headings or section markers that group related item cards
+- **FR-011**: Links within items MUST respect the optional target attribute specified in configuration (same tab by default, new tab if configured)
 - **FR-012**: System MUST handle items with no links gracefully (display item without link section)
 - **FR-013**: Roadmap page MUST follow the blog's existing design system and theme (light/dark mode support)
 - **FR-014**: Configuration file MUST be editable without requiring code changes
-- **FR-015**: System MUST validate configuration file structure during build and provide clear error messages for invalid data
+- **FR-015**: System MUST validate configuration file structure during build and provide clear error messages for: missing required fields (category title, item title/description, link title/url) and invalid URL formats
 
 ### Key Entities
 
@@ -96,7 +106,7 @@ As a blog admin, I want to edit the entire DSA roadmap by modifying a single con
 
 - **Roadmap Item**: Represents a single learning topic or concept within a category. Contains: title (required), description (required, brief text), links (optional array of Link objects), sequential position within category.
 
-- **Link**: Represents a reference or resource for a roadmap item. Contains: icon (required, identifier for visual representation), title (required, display text), url (required, valid URL string).
+- **Link**: Represents a reference or resource for a roadmap item. Contains: icon (required, identifier for visual representation), title (required, display text), url (required, valid URL string), target (optional, values: "_blank" for new tab or omitted for same tab).
 
 - **Roadmap Configuration**: The complete roadmap data structure stored in a single file. Contains: array of categories, each containing an array of items, each potentially containing an array of links.
 
@@ -119,6 +129,6 @@ As a blog admin, I want to edit the entire DSA roadmap by modifying a single con
 - Link icons will use existing icon libraries available in the project or can be added as simple SVG assets
 - The initial roadmap structure shown in the issue's mermaid diagram will serve as the first version of content
 - Roadmap items are intended for sequential learning (displayed in order), not as an interactive graph with connections
-- The configuration file will follow similar patterns to existing content files (`_content/posts/`, `_content/events/`)
-- Standard Markdown/YAML frontmatter conventions will be used for structured data
+- The configuration file will follow similar patterns to existing content files (`_content/posts/`, `_content/events/`) and be located at `_content/roadmap/dsa.yml`
+- YAML format will be used for structured data (categories, items, links hierarchy)
 - Roadmap content will be in Portuguese (primary blog language)
