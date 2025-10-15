@@ -162,7 +162,7 @@ Os roadmaps são recursos de aprendizado estruturados que ajudam a comunidade a 
 
 #### 📍 Acessando o Roadmap
 
-- **URL**: [https://seu-site.com/roadmap/dsa](https://seu-site.com/roadmap/dsa)
+- **URL**: [https://craftcodeclub.io/roadmap/dsa](https://craftcodeclub.io/roadmap/dsa)
 - **Navegação**: Clique em "Roadmap DSA" no menu principal
 
 #### ✏️ Editando o Roadmap
@@ -215,8 +215,6 @@ O script verifica:
 - ✅ URLs válidas
 - ✅ Tipos de ícone corretos
 - ✅ Valores de `target` válidos (`_blank` ou `_self`)
-
-**Para mais detalhes**, consulte a [documentação completa do roadmap](_content/roadmap/README.md).
 
 
 
