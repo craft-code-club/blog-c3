@@ -15,12 +15,15 @@ interface ResourceLinkProps {
 // Map icon names to lucide-react components
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   book: Icons.Book,
+  'book-open': Icons.BookOpen,
   video: Icons.Video,
   'file-text': Icons.FileText,
   code: Icons.Code,
   'external-link': Icons.ExternalLink,
   'graduation-cap': Icons.GraduationCap,
   'play-circle': Icons.PlayCircle,
+  github: Icons.Github,
+  calendar: Icons.Calendar,
 };
 
 /**

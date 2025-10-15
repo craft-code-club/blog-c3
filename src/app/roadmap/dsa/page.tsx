@@ -25,10 +25,10 @@ export default function DSARoadmapPage() {
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-4xl mx-auto px-4 py-8">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">
-            Roadmap de Algoritmos e Estruturas de Dados
+            Algoritmos e Estruturas de Dados
           </h1>
           <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
-            Trilha de aprendizado sequencial com recursos organizados
+            From Zero to Hero - Roadmap organizado para uma aprendizagem fluida
           </p>
         </div>
       </header>
