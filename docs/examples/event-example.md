@@ -5,7 +5,7 @@ date: "2025-01-18"
 time: "21:00-22:00"
 location: "Google Campus London + Live Stream"
 type: "hybrid"
-registrationLink: "https://www.meetup.com/craft-code-club"
+registrationLink: "https://www.meetup.com/platform-engineers-nyc"
 recordingLink: "https://www.youtube.com/watch?v=E1oETLSeD3w"
 postLink: "https://craftcodeclub.io/posts/sd-object-storage-like-s3"
 speakers:
