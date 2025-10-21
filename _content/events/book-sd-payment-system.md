@@ -1,7 +1,7 @@
 ---
 title: "Clube do Livro: Sistema de Pagamentos"
 description: "Vamos projetar um Sistema de Pagamentos para e‑commerce: pay‑in e pay‑out, integração com PSPs (Stripe/PayPal), ledger de dupla entrada e wallet, idempotência e execução exatamente‑uma‑vez, filas de retry e DLQ, webhooks e reconciliação, além de segurança (HTTPS, PCI, tokenização) e estratégias para alta confiabilidade e consistência."
-date: "2025-10-21"
+date: "2025-10-28"
 time: "20:00-22:00"
 location: "Online via YouTube"
 type: "online"
