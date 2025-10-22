@@ -2,6 +2,9 @@
   "aliveStatusCodes": [200, 429],
   "ignorePatterns": [
     {
+      "pattern": "^https://www.w3.org/WAI/standards-guidelines/wcag/$"
+    },
+    {
       "pattern": "^https://www.cs.usfca.edu/~galles/visualization/Kruskal.html$"
     },
     {
