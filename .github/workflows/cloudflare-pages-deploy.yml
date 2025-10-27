@@ -44,7 +44,7 @@ jobs:
 
     - name: Upload artifact
       if: github.event.pull_request.head.repo.fork == false
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: ${{ env.ARTIFACT_NAME }}
         retention-days: 3
