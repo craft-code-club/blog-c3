@@ -70,7 +70,7 @@ jobs:
 
     - name: Download a Build Artifact
       if: github.event.pull_request.head.repo.fork == false
-      uses: actions/download-artifact@v5
+      uses: actions/download-artifact@v6
       with:
         name: ${{ env.ARTIFACT_NAME }}
         path: ./out
