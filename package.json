@@ -13,7 +13,7 @@
     "@tailwindcss/typography": "^0.5.19",
     "escape-html": "^1.0.3",
     "gray-matter": "^4.0.3",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "lucide-react": "^0.553.0",
     "mermaid": "^11.12.1",
     "next": "16.0.1",
