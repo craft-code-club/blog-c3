@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/third-parties": "^16.0.3",
+    "@next/third-parties": "^16.0.4",
     "@tailwindcss/typography": "^0.5.19",
     "escape-html": "^1.0.3",
     "gray-matter": "^4.0.3",
@@ -38,7 +38,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.0.3",
+    "eslint-config-next": "16.0.5",
     "postcss": "^8",
     "tailwindcss": "^4.1.17",
     "tsx": "^4.20.6",
