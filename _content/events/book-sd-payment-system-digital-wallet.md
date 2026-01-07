@@ -6,6 +6,6 @@ time: "21:00-23:00"
 location: "Online via YouTube"
 type: "online"
 banner: "book-sd-digital-wallet.png"
-# registrationLink: "https://www.youtube.com/watch?v=RKCxVK_cxlw"
-# recordingLink: "https://www.youtube.com/watch?v=RKCxVK_cxlw"
+registrationLink: "https://www.youtube.com/watch?v=szG4FUquHvE"
+recordingLink: "https://www.youtube.com/watch?v=szG4FUquHvE"
 ---
