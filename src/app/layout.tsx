@@ -45,7 +45,7 @@ export default function RootLayout({
                       <span className="text-xl font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors leading-tight">
                         Craft & Code Club
                       </span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">Onde o código é nossa arte</span>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">Compartilhando Boas Práticas</span>
                     </div>
                   </Link>
 
@@ -113,7 +113,7 @@ export default function RootLayout({
                     <span className="text-xl font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors leading-tight">
                       Craft & Code Club
                     </span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Onde o código é nossa arte</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">Compartilhando Boas Práticas</span>
                   </div>
                 </Link>
 
@@ -157,7 +157,7 @@ export default function RootLayout({
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Craft & Code Club</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Onde o código é nossa arte e a tecnologia é nossa paixão.</p>
+                  <p className="text-gray-600 dark:text-gray-300">Compartilhando Boas Práticas em tecnologia e desenvolvimento.</p>
                   <div className="mt-4 flex space-x-4">
                     <a href="https://github.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
                       <span className="sr-only">GitHub</span>
