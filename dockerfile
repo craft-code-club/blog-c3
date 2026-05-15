@@ -1,4 +1,4 @@
-FROM node:26.0.0 AS build-env
+FROM node:26.1.0 AS build-env
 
 WORKDIR /src
 
@@ -11,7 +11,7 @@ RUN npm run build
 
 
 
-FROM nginx:1.29.8 AS prod-env
+FROM nginx:1.31.0 AS prod-env
 
 RUN rm -rf /usr/share/nginx/html/*
 
