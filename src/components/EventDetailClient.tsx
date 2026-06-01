@@ -3,6 +3,7 @@
 import type { Event } from '@/lib/events';
 import Image from 'next/image';
 import EventCard from "./EventCard";
+import EventTags from "./EventTags";
 
 interface Props {
   event: Event;
@@ -73,6 +74,10 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
               </svg>
               <span>{event.location}</span>
             </div>
+
+            {event.tags && event.tags.length > 0 && (
+              <EventTags tags={event.tags} className="mb-6" />
+            )}
 
             {event.banner && (
               <div className="mb-8 rounded-lg overflow-hidden">
