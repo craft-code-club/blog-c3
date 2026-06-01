@@ -81,7 +81,7 @@ export default async function BookClubPage() {
               Ao longo dos capítulos, o livro percorre modelos de dados, armazenamento e recuperação, codificação e
               evolução de dados, replicação, particionamento (sharding), transações, os desafios dos sistemas
               distribuídos, consistência e consenso, além de processamento em batch e em streaming. É leitura
-              obrigatória para quem quer trabalhar em sistemas de alta escala e dominar System Design.
+              obrigatória para quem trabalha (ou quer trabalhar) em sistemas de alta escala e dominar System Design.
             </p>
           </div>
         </section>
