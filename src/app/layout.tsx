@@ -154,7 +154,7 @@ export default function RootLayout({
 
           <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Craft & Code Club</h3>
                   <p className="text-gray-600 dark:text-gray-300">Compartilhando Boas Práticas em tecnologia e desenvolvimento.</p>
@@ -215,17 +215,22 @@ export default function RootLayout({
                     </Link>
                     </li>
                     <li>
-                      <Link href="/book-club-ddia" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                        Book Club: DDIA
-                      </Link>
-                    </li>
-                    <li>
                       <a href="https://github.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                         Contribuir no GitHub
                       </a>
                     </li>
                     <li>
                       <Link href="/codigo-conduta" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Código de Conduta</Link>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Book Club</h3>
+                  <ul className="space-y-3">
+                    <li>
+                      <Link href="/book-club/designing-data-intensive-applications" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        Designing Data-Intensive Applications
+                      </Link>
                     </li>
                   </ul>
                 </div>
