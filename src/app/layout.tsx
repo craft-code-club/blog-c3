@@ -92,6 +92,7 @@ export default function RootLayout({
                   <div className="flex flex-col space-y-4 px-2 py-4">
                     <Link href="/blog" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Blog</Link>
                     <Link href="/events" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Eventos</Link>
+                    <Link href="/book-club/designing-data-intensive-applications" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Clube do Livro</Link>
                     <Link href="/roadmap/dsa" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Roadmap DSA</Link>
                     <Link href="/about" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Sobre</Link>
                   </div>
@@ -120,6 +121,7 @@ export default function RootLayout({
                 <div className="flex items-center space-x-8">
                   <Link href="/blog" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Blog</Link>
                   <Link href="/events" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Eventos</Link>
+                  <Link href="/book-club/designing-data-intensive-applications" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Clube do Livro</Link>
                   <Link href="/roadmap/dsa" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Roadmap DSA</Link>
                   <Link href="/about" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Sobre</Link>
                   <div className="flex items-center space-x-4">
