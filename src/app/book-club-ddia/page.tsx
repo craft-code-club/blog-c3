@@ -131,7 +131,7 @@ export default async function BookClubPage() {
                 5
               </span>
               <p className="text-gray-700 dark:text-gray-300">
-                <strong>Tudo gravado.</strong> Os encontros são gravados e, depois, publicados no{' '}
+                <strong>Encontros gravados.</strong> Os encontros são gravados e, depois, publicados no{' '}
                 <a
                   href="https://www.youtube.com/@CraftCodeClub"
                   target="_blank"
