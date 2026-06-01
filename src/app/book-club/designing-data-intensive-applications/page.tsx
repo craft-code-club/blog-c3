@@ -142,6 +142,15 @@ export default async function BookClubPage() {
                 </a>.
               </p>
             </li>
+            <li className="flex items-start gap-3">
+              <span className="flex-shrink-0 mt-1 flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 text-sm font-semibold">
+                6
+              </span>
+              <p className="text-gray-700 dark:text-gray-300">
+                <strong>Começamos em 15 de junho de 2026.</strong> O primeiro encontro (Capítulo 1) acontece no dia
+                15 de junho. Marque na agenda e venha desde o início!
+              </p>
+            </li>
           </ul>
         </section>
 
