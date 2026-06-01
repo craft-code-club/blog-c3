@@ -78,7 +78,7 @@ jobs:
     - name: Deploy
       id: deploy
       if: github.event.pull_request.head.repo.fork == false
-      uses: cloudflare/wrangler-action@v3
+      uses: cloudflare/wrangler-action@v4
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
