@@ -51,7 +51,7 @@ export default async function BookClubPage() {
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
             Vamos ler juntos a <strong>2ª edição</strong> do clássico <em>DDIA</em>, capítulo a capítulo,
-            no ritmo da comunidade. Um mergulho profundo em sistemas de dados confiáveis, escaláveis e fáceis de manter.
+            no ritmo da comunidade. Um mergulho profundo em sistemas distribuídos confiáveis, escaláveis e fáceis de manter.
           </p>
         </header>
 
