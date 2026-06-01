@@ -3,6 +3,7 @@
 import type { Event } from '@/lib/events';
 import Link from 'next/link';
 import { useMemo } from 'react';
+import EventTags from './EventTags';
 
 export default function EventCard({ event, isPast }: { event: Event; isPast: boolean }) {
   const today = useMemo(() => new Date().toISOString().split('T')[0], []);
@@ -54,6 +55,10 @@ export default function EventCard({ event, isPast }: { event: Event; isPast: boo
             </>
           )}
         </div>
+
+        {event.tags && event.tags.length > 0 && (
+          <EventTags tags={event.tags} className="mb-3" />
+        )}
 
         <Link href={`/events/${event.id}`} className="group mb-3">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
