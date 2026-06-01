@@ -126,6 +126,22 @@ export default async function BookClubPage() {
                 sobre os trade-offs apresentados em cada capítulo.
               </p>
             </li>
+            <li className="flex items-start gap-3">
+              <span className="flex-shrink-0 mt-1 flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 text-sm font-semibold">
+                5
+              </span>
+              <p className="text-gray-700 dark:text-gray-300">
+                <strong>Tudo gravado.</strong> Os encontros são gravados e, depois, publicados no{' '}
+                <a
+                  href="https://www.youtube.com/@CraftCodeClub"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  YouTube da comunidade
+                </a>.
+              </p>
+            </li>
           </ul>
         </section>
 
