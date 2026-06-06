@@ -1,6 +1,6 @@
 /**
  * ResourceLink Component
- * 
+ *
  * Renders a clickable link to an external resource with an icon.
  * Supports different icon types and target behaviors (same tab or new tab).
  */
@@ -22,7 +22,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   'external-link': Icons.ExternalLink,
   'graduation-cap': Icons.GraduationCap,
   'play-circle': Icons.PlayCircle,
-  github: Icons.Github,
+  github: Icons.GitBranch,
   calendar: Icons.Calendar,
 };
 
@@ -31,16 +31,16 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
  */
 export function ResourceLink({ link }: ResourceLinkProps) {
   const Icon = iconMap[link.icon] || Icons.ExternalLink;
-  
+
   return (
     <a
       href={link.url}
       target={link.target || '_self'}
       rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
-      className="inline-flex items-center gap-2 px-4 py-2 
-                 bg-blue-50 dark:bg-blue-900/20 
-                 hover:bg-blue-100 dark:hover:bg-blue-900/30 
-                 text-blue-700 dark:text-blue-300 
+      className="inline-flex items-center gap-2 px-4 py-2
+                 bg-blue-50 dark:bg-blue-900/20
+                 hover:bg-blue-100 dark:hover:bg-blue-900/30
+                 text-blue-700 dark:text-blue-300
                  rounded-lg transition-colors
                  text-sm font-medium"
     >
