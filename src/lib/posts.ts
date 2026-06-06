@@ -91,7 +91,7 @@ export async function getPostData(id: string): Promise<BlogPost> {
     date: data.date,
     description: data.description,
     topics: mountTopics(data.topics, topicsMetadata),
-    keywords: data.keywords ?? [],
+    keywords: Array.isArray(data.keywords) ? data.keywords : [],
     authors: data.authors,
   };
 }
