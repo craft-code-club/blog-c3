@@ -50,7 +50,7 @@ export function getSortedPostsData(): Omit<BlogPost, 'contentHtml'>[] {
       date: data.date,
       description: data.description,
       topics: mountTopics(data.topics, topicsMetadata),
-      keywords: data.keywords ?? [],
+      keywords: Array.isArray(data.keywords) ? data.keywords : data.keywords ? [data.keywords] : [],
     };
   });
   // Sort posts by date
