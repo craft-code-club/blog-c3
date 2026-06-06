@@ -1,4 +1,4 @@
-FROM node:26.2.0 AS build-env
+FROM node:26.3.0 AS build-env
 
 WORKDIR /src
 
