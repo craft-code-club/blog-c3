@@ -26,7 +26,10 @@ export function buildKeywords(specific: string[], defaults: string[]): string[] 
   const seen = new Set<string>();
   const result: string[] = [];
 
-  for (const keyword of [...specific, ...defaults]) {
+  for (const rawKeyword of [...specific, ...defaults]) {
+    const keyword = rawKeyword.trim();
+    if (!keyword) continue;
+
     const normalized = keyword.toLowerCase();
     if (!seen.has(normalized)) {
       seen.add(normalized);
