@@ -3,6 +3,7 @@ import { getEvent, getEvents } from '@/lib/events';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import EventDetailClient from '@/components/EventDetailClient';
+import { buildKeywords, DEFAULT_EVENT_KEYWORDS } from '@/lib/seo';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -29,6 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${event.title} | Craft & Code Club`,
     description: event.description,
+    keywords: buildKeywords(event.tags ?? [], DEFAULT_EVENT_KEYWORDS),
     openGraph: {
       title: `${event.title} | Craft & Code Club`,
       description: event.description
