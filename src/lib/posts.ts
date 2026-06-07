@@ -20,6 +20,7 @@ export type BlogPost = {
   date: string;
   description: string;
   topics: Topic[];
+  keywords?: string[];
   contentHtml: string;
   authors?: Array<{
     name: string;
@@ -49,6 +50,7 @@ export function getSortedPostsData(): Omit<BlogPost, 'contentHtml'>[] {
       date: data.date,
       description: data.description,
       topics: mountTopics(data.topics, topicsMetadata),
+      keywords: Array.isArray(data.keywords) ? data.keywords : data.keywords ? [data.keywords] : [],
     };
   });
   // Sort posts by date
@@ -89,6 +91,7 @@ export async function getPostData(id: string): Promise<BlogPost> {
     date: data.date,
     description: data.description,
     topics: mountTopics(data.topics, topicsMetadata),
+    keywords: Array.isArray(data.keywords) ? data.keywords : [],
     authors: data.authors,
   };
 }

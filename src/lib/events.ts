@@ -17,6 +17,7 @@ export interface Event {
   recordingLink?: string;
   postLink?: string;
   speakers?: string[];
+  tags?: string[];
 }
 
 export interface EventsData {
@@ -76,6 +77,16 @@ export function getPaginatedPastEvents(page: number = 1, limit: number = 20): { 
     total: past.length,
     totalPages
   };
+}
+
+export function getEventsByTags(tags: string[]): Event[] {
+  const { allEvents } = getEvents();
+  const wanted = tags.map(tag => tag.toLowerCase());
+
+  return allEvents.filter(event => {
+    const eventTags = (event.tags ?? []).map(tag => tag.toLowerCase());
+    return wanted.every(tag => eventTags.includes(tag));
+  });
 }
 
 export function getEvent(id: string): Event | null {
