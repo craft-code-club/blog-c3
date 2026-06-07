@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import FocusModeWrapper from '@/components/FocusModeWrapper';
 import { FocusModeProvider } from '@/components/FocusModeContext';
 import AuthorAvatar from '@/components/AuthorAvatar';
+import { buildKeywords, DEFAULT_POST_KEYWORDS } from '@/lib/seo';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -19,11 +20,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const post = await getPostData(resolvedParams.id);
-  
+
   return {
     title: `${post.title} | Craft & Code Club`,
     description: post.description,
-    keywords: [...post.topics.map(topic => topic.name), "Blog", "Artigo", "Desenvolvimento de Software", "Aprendizado", "Comunidade", "Algoritmos", "Estruturas de Dados", "System Design", "DDD"],
+    keywords: buildKeywords([...(post.keywords ?? []), ...post.topics.map(topic => topic.name)], DEFAULT_POST_KEYWORDS),
     openGraph: {
       title: `${post.title} | Craft & Code Club`,
       description: post.description,
@@ -73,7 +74,7 @@ export default async function Post({ params }: Props) {
         <div className="prose dark:prose-invert prose-lg max-w-none">
           <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
         </div>
-        
+
         {authors.length > 0 && (
           <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Sobre os Autores</h2>
@@ -81,10 +82,10 @@ export default async function Post({ params }: Props) {
                 <div key={index} className="flex items-center space-x-3">
                   <AuthorAvatar author={author} />
                   {author.link ? (
-                    <a 
+                    <a
                       href={author.link}
                       target="_blank"
-                      rel="noopener noreferrer" 
+                      rel="noopener noreferrer"
                       className="text-gray-900 dark:text-white font-medium hover:text-blue-600 dark:hover:text-blue-400"
                     >
                       {author.name}
@@ -100,4 +101,4 @@ export default async function Post({ params }: Props) {
       </FocusModeWrapper>
     </FocusModeProvider>
   );
-} 
+}
