@@ -30,7 +30,15 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
  * ResourceLink component displays a link with an icon
  */
 export function ResourceLink({ link }: ResourceLinkProps) {
-  const Icon = iconMap[link.icon] || Icons.ExternalLink;
+  const mappedIcon = iconMap[link.icon];
+
+  if (link.icon && !mappedIcon && process.env.NODE_ENV !== 'production') {
+    console.warn(
+      `[ResourceLink] Unknown icon "${link.icon}". Falling back to "external-link". Valid icons: ${Object.keys(iconMap).join(', ')}`
+    );
+  }
+
+  const Icon = mappedIcon || Icons.ExternalLink;
 
   return (
     <a
