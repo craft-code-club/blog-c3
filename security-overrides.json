@@ -1,0 +1,44 @@
+{
+  "overrides": [
+    {
+      "package": "brace-expansion",
+      "override-type": "transitive",
+      "advisory": "GHSA-f886-m6hf-6m8v",
+      "pulled-by": "minimatch >= 3.1.5",
+      "fixed-version": "1.1.15 | 2.0.3 | 5.0.6",
+      "reason": "Denial of service via zero-step sequence expansion causing process hang and memory exhaustion; explicit range-specific overrides force safe transitive versions for the installed minimatch majors."
+    },
+    {
+      "package": "brace-expansion",
+      "override-type": "transitive",
+      "advisory": "GHSA-jxxr-4gwj-5jf2",
+      "pulled-by": "minimatch >= 10.2.5",
+      "fixed-version": "5.0.6",
+      "reason": "Denial of service via large numeric ranges defeating documented max protection; explicit override forces the safe transitive version for the minimatch 10.x branch."
+    },
+    {
+      "package": "picomatch",
+      "override-type": "transitive",
+      "advisory": "GHSA-3v7f-55p6-f55p",
+      "pulled-by": "tinyglobby >= 0.2.13",
+      "fixed-version": "4.0.4",
+      "reason": "Method injection in POSIX character classes can cause incorrect glob matching; explicit override forces the safe transitive version."
+    },
+    {
+      "package": "picomatch",
+      "override-type": "transitive",
+      "advisory": "GHSA-c2c7-rcm5-vvqj",
+      "pulled-by": "tinyglobby >= 0.2.13",
+      "fixed-version": "4.0.4",
+      "reason": "Regular expression denial of service via extglob quantifiers; explicit override forces the safe transitive version."
+    },
+    {
+      "package": "postcss",
+      "override-type": "transitive",
+      "advisory": "GHSA-qx2v-qp2m-jg93",
+      "pulled-by": "next >= 16.2.9",
+      "fixed-version": "8.5.10",
+      "reason": "Cross-site scripting via unescaped style tags in CSS stringify output; explicit override forces Next's nested PostCSS dependency to a patched version while staying on the current stable Next release."
+    }
+  ]
+}
