@@ -5,6 +5,8 @@ date: "2026-06-15"
 time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
+isLive: true
+youtubeTitle: "#01 Trade-Offs in Data Systems Architecture | 2nd DDIA Book Club"
 banner: "book-club-ddia.png"
 registrationLink: "https://discord.gg/cqF9THUfnN"
 tags:
