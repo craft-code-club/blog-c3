@@ -5,10 +5,11 @@ date: "2026-06-29"
 time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
-isLive: true
-youtubeTitle: "#02 Defining Nonfunctional Requirements | 2nd DDIA Book Club"
 banner: "book-club-ddia.png"
 registrationLink: "https://discord.gg/cqF9THUfnN"
+isLive: true
+youtubeTitle: "#02 Defining Nonfunctional Requirements | 2nd DDIA Book Club"
+sessionLink: "https://us06web.zoom.us/j/81900343896"
 tags:
   - "book-club"
   - "ddia"
