@@ -2,7 +2,8 @@
 title: 'Não existem soluções, só trade-offs: o que aprendemos no Capítulo 1 de DDIA'
 date: '2026-06-15'
 description: 'Notas do primeiro encontro do Clube do Livro da Craft Code Club sobre Designing Data-Intensive Applications (2ª edição): trade-offs, OLTP vs. OLAP, nuvem vs. self-hosting, sistemas distribuídos, serverless e privacidade.'
-topics: ['book-club', 'ddia', 'high-scalability', 'system-design', 'distributed-systems', 'trade-offs', 'cloud', 'data-privacy']
+topics: ['System Design', 'Clube do Livro']
+keywords: ['DDIA', 'Designing Data-Intensive Applications', 'Martin Kleppmann', 'Trade-offs', 'OLTP', 'OLAP', 'Sistemas Distribuídos', 'Cloud vs Self-hosting', 'Serverless', 'Privacidade de Dados', 'LGPD', 'High Scalability', 'Data Lake', 'Data Warehouse']
 authors: []
 ---
 
