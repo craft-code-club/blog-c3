@@ -104,7 +104,7 @@ Comportamento da pagina de detalhe
 
 ## Discord Bot
 
-Os eventos tambem sao processados pelo discordbot.
+Os eventos tambem sao processados por um bot do Discord (fora deste repositorio).
 
 ### YouTube event scheduling
 
