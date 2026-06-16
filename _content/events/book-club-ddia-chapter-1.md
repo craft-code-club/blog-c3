@@ -10,7 +10,7 @@ youtubeTitle: "#01 Trade-Offs in Data Systems Architecture | 2nd DDIA Book Club"
 banner: "book-club-ddia.png"
 registrationLink: "https://discord.gg/cqF9THUfnN"
 recordingLink: "https://youtu.be/53TFZSe-IGw"
-tags:
+postLink: "https://craftcodeclub.io/posts/ddia-trade-offs-arquitetura-de-sistemas"
   - "book-club"
   - "ddia"
 ---
