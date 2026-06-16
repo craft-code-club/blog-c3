@@ -2,7 +2,8 @@
 title: 'Não existem soluções, só trade-offs: o que aprendemos no Capítulo 1 de DDIA'
 date: '2026-06-15'
 description: 'Notas do primeiro encontro do Clube do Livro da Craft Code Club sobre Designing Data-Intensive Applications (2ª edição): trade-offs, OLTP vs. OLAP, nuvem vs. self-hosting, sistemas distribuídos, serverless e privacidade.'
-topics: ['book-club', 'ddia', 'high-scalability', 'system-design', 'distributed-systems', 'trade-offs', 'cloud', 'data-privacy']
+topics: ['System Design', 'Clube do Livro']
+keywords: ['DDIA', 'Designing Data-Intensive Applications', 'Martin Kleppmann', 'Trade-offs', 'OLTP', 'OLAP', 'Sistemas Distribuídos', 'Cloud vs Self-hosting', 'Serverless', 'Privacidade de Dados', 'LGPD', 'High Scalability', 'Data Lake', 'Data Warehouse']
 authors: []
 ---
 
@@ -263,23 +264,23 @@ Traga sua leitura, suas discordâncias e seus exemplos. A melhor parte nunca est
 
 **O livro**
 
-- **Designing Data-Intensive Applications**, Martin Kleppmann e Chris Riccomini (2ª edição). Capítulo 1: *Trade-offs in Data Systems Architecture*. Site oficial: https://dataintensive.net/
+- **Designing Data-Intensive Applications**, Martin Kleppmann e Chris Riccomini (2ª edição). Capítulo 1: *Trade-offs in Data Systems Architecture*. [Site oficial](https://dataintensive.net/).
 
 **Gravação do encontro**
-- https://youtu.be/53TFZSe-IGw
+- [Assista no YouTube](https://youtu.be/53TFZSe-IGw)
 
 
 **Links compartilhados na discussão**
 
-- **Quadro da discussão (Excalidraw)**: https://link.excalidraw.com/l/ADMgGFVWISx/9G9VQCCv2rL
-- **The Sushi Principle** (*raw data is better than cooked data*): https://www.datasapiens.co.uk/blog/the-sushi-principle
-- **Postgres for Everything**: https://postgresforeverything.com/ · https://www.amazingcto.com/postgres-for-everything/
-- **PaaS vs. IaaS vs. SaaS** (Google Cloud): https://cloud.google.com/learn/paas-vs-iaas-vs-saas
+- [Quadro da discussão (Excalidraw)](https://link.excalidraw.com/l/ADMgGFVWISx/9G9VQCCv2rL)
+- [The Sushi Principle](https://www.datasapiens.co.uk/blog/the-sushi-principle) (*raw data is better than cooked data*)
+- [Postgres for Everything](https://postgresforeverything.com/) · [artigo no amazingcto](https://www.amazingcto.com/postgres-for-everything/)
+- [PaaS vs. IaaS vs. SaaS](https://cloud.google.com/learn/paas-vs-iaas-vs-saas) (Google Cloud)
 
 **Para aprofundar (conceitos citados)**
 
-- **Event Sourcing** (Martin Fowler): https://martinfowler.com/eaaDev/EventSourcing.html
-- **CQRS** (Martin Fowler): https://martinfowler.com/bliki/CQRS.html
-- **Teorema CAP**: https://en.wikipedia.org/wiki/CAP_theorem
-- **Crypto-shredding**: https://en.wikipedia.org/wiki/Crypto-shredding
+- [Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) (Martin Fowler)
+- [CQRS](https://martinfowler.com/bliki/CQRS.html) (Martin Fowler)
+- [Teorema CAP](https://en.wikipedia.org/wiki/CAP_theorem)
+- [Crypto-shredding](https://en.wikipedia.org/wiki/Crypto-shredding)
 - Outros termos para pesquisar: HTAP, Data Lakehouse, CapEx/OpEx, Spot Instances, back-of-the-envelope estimation, LGPD/GDPR/CCPA.
