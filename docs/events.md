@@ -18,9 +18,9 @@ Campos suportados hoje:
 - `postLink` (string, opcional): link de artigo relacionado.
 - `speakers` (string[], opcional): lista de palestrantes.
 - `tags` (string[], opcional): tags do evento.
-- `isLive` (boolean, opcional): usado pelo bot para decidir se agenda live no YouTube.
-- `youtubeTitle` (string, opcional): titulo customizado para live no YouTube (bot).
-- `sessionLink` (string, opcional): link de participacao em tempo real (exemplo: Zoom, Google Meet) usado para eventos online.
+- `isLive` (boolean, opcional): campo extra (nao usado pelo site hoje); usado por automacoes externas (ex.: bot do Discord).
+- `youtubeTitle` (string, opcional): campo extra (nao usado pelo site hoje); usado por automacoes externas (ex.: bot do Discord).
+- `sessionLink` (string, opcional): campo extra (nao usado pelo site hoje); usado por automacoes externas (ex.: bot do Discord).
 
 Tags encontradas hoje em `_content/events/*.md`:
 
