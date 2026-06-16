@@ -1,4 +1,4 @@
-# Eventos: configuracao
+# Eventos: configuração
 
 Este documento explica como configurar eventos em `_content/events/*.md` e como esses dados sao usados no site e no bot do Discord.
 
