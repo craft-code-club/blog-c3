@@ -106,7 +106,7 @@ Comportamento da pagina de detalhe
 
 Os eventos tambem sao processados pelo discordbot.
 
-### Youtube event sechulining
+### YouTube event scheduling
 
 Agendamento de live no YouTube
 
