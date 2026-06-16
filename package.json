@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4.3.0",
+    "@tailwindcss/postcss": "^4.3.1",
     "@types/escape-html": "^1.0.4",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^25",
@@ -40,8 +40,25 @@
     "eslint": "^10",
     "eslint-config-next": "16.2.9",
     "postcss": "^8",
-    "tailwindcss": "^4.3.0",
+    "tailwindcss": "^4.3.1",
     "tsx": "^4.22.4",
     "typescript": "^6"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "8.5.10"
+    },
+    "tinyglobby": {
+      "picomatch": "4.0.4"
+    },
+    "minimatch@3": {
+      "brace-expansion": "1.1.15"
+    },
+    "minimatch@9": {
+      "brace-expansion": "2.0.3"
+    },
+    "minimatch@10": {
+      "brace-expansion": "5.0.6"
+    }
   }
 }
