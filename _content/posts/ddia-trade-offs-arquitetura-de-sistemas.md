@@ -267,6 +267,10 @@ Traga sua leitura, suas discordâncias e seus exemplos. A melhor parte nunca est
 
 - **Designing Data-Intensive Applications**, Martin Kleppmann e Chris Riccomini (2ª edição). Capítulo 1: *Trade-offs in Data Systems Architecture*. Site oficial: https://dataintensive.net/
 
+**Gravação do encontro**
+- https://youtu.be/53TFZSe-IGw
+
+
 **Links compartilhados na discussão**
 
 - **Quadro da discussão (Excalidraw)**: https://link.excalidraw.com/l/ADMgGFVWISx/9G9VQCCv2rL
