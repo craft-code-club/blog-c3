@@ -116,44 +116,10 @@ Conteúdo do post em Markdown...
 
 ### Eventos
 
-Os eventos devem ser criados na pasta `_content/events/` seguindo o formato:
+Documentação completa de configuração de eventos:
 
-```markdown
----
-title: 'Título do Evento'
-description: 'Descrição do evento que aparecerá na listagem'
-date: '2024-03-20'
-time: '21:00-22:00'
-location: 'Local do Evento'
-type: 'online' # ou 'hybrid'
-registrationLink: 'https://link-de-inscricao.com'
-recordingLink: 'https://link-da-gravacao.com'
-postLink: 'https://link-do-post.com'
-speakers:
-  - 'Nome do Palestrante 1'
-  - 'Nome do Palestrante 2'
-```
-
-[Mais exemplos de eventos](docs/examples/event-example.md)
-
-#### Slug
-
-```
-<context>-<titulo-do-evento>
-
-## Exemplo:
-
-`dsa-<titulo>.md`
-```
-
-- Algoritmos e Estruturas de Dados
-  - `dsa-<titulo>.md`
-- Clube do Livro de System Design
-  - `book-sd-<titulo>.md`
-- Lives
-  - `live-<titulo>.md`
-- Outros
-  - `<titulo>.md`
+- [docs/events.md](docs/events.md)
+- [Mais exemplos de eventos](docs/examples/event-example.md)
 
 
 ### Roadmaps
