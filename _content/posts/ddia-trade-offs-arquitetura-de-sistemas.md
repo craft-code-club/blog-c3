@@ -6,8 +6,6 @@ topics: ['book-club', 'ddia', 'high-scalability', 'system-design', 'distributed-
 authors: []
 ---
 
-# Não existem soluções, só trade-offs
-
 *Este post é um resumo da discussão do encontro do Clube do Livro da [Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications) sobre o Capítulo 1 de Designing Data-Intensive Applications.*
 
 > *There are no solutions, only trade-offs.*
