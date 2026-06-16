@@ -129,7 +129,7 @@ Notificacoes no canal de eventos
   - quando `recordingLink` existe, mostra o link da live (exemplo: YouTube)
   - Mostra sempre o link de detalhes do evento no site (`https://craftcodeclub.io/events/<slug>`)
 
-### Discord event sechulining
+### Discord event scheduling
 
 Agendamento de evento no Discord
 
