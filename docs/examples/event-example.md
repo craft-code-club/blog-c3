@@ -5,8 +5,8 @@ date: "2025-01-18"
 time: "21:00-22:00"
 location: "Google Campus London + Live Stream"
 type: "hybrid"
-isLive: true # Campo aceito no frontmatter atual (nao usado na UI hoje)
-youtubeTitle: "Event Title for YouTube" # Campo aceito no frontmatter atual (nao usado na UI hoje)
+isLive: true # Campo aceito no frontmatter atual (não usado na UI hoje)
+youtubeTitle: "Event Title for YouTube" # Campo aceito no frontmatter atual (não usado na UI hoje)
 banner: "event-banner.png" # Opcional
 registrationLink: "https://www.meetup.com/platform-engineers-nyc"
 recordingLink: "https://www.youtube.com/watch?v=E1oETLSeD3w"
