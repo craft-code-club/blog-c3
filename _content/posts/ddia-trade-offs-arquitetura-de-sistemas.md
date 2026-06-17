@@ -123,7 +123,7 @@ Esse tópico gerou um bom debate, inclusive sobre se o capítulo já nasceu data
 
 Um lado argumentou que **envelheceu mal**: a regra histórica era "a nuvem começa barata e termina cara; servidor próprio começa caro e termina barato". Só que hardware hoje está caro. O resultado é que infra própria **começa cara e termina cara também**, ou seja, a comparação mudou em relação a alguns anos atrás.
 
-O contraponto foi igualmente forte: essa visão olha o mundo pela **lente de sistemas web, escaláveis e online**. Mas ainda existe (e é forte) todo um universo de **chão de fábrica, sensores e sistemas internos** que não são públicos e não rodam na nuvem *by design*. Some a isso restrições de **compliance e regulação**, em que a empresa simplesmente **não tem escolha** a não ser self-hosting. Às vezes o self-hosting sai mais barato, as vezes viabiliza uma certificação que mantém a empresa competitiva.
+O contraponto foi igualmente forte: essa visão olha o mundo pela **lente de sistemas web, escaláveis e online**. Mas ainda existe (e é forte) todo um universo de **chão de fábrica, sensores e sistemas internos** que não são públicos e não rodam na nuvem *by design*. Some a isso restrições de **compliance e regulação**, em que a empresa simplesmente **não tem escolha** a não ser self-hosting. Às vezes o self-hosting sai mais barato, às vezes viabiliza uma certificação que mantém a empresa competitiva.
 
 Alguns vetores que apareceram para guiar a decisão:
 
