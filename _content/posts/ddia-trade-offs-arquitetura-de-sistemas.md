@@ -66,7 +66,7 @@ Uma das definições mais elogiadas do capítulo separa o mundo dos dados em doi
 - **System of Record** (sistema de registro): a *golden source*, o dono da informação, onde mora a última versão da verdade.
 - **Derived Data Systems** (dados derivados): tudo que pode ser **reconstruído** a partir do system of record. Se você perder, tudo bem, você regenera.
 
-O **cache** é o exemplo canônico de dado derivado (e o livro coloca ele exatamente nessa categoria). Mas o poder dessa distinção não é meramente acadêmica: na hora de desenhar a arquitetura, **categorizar cada dado** em "fonte da verdade" ou "derivado" melhora a comunicação do time e melhora o próprio design.
+O **cache** é o exemplo canônico de dado derivado (e o livro coloca ele exatamente nessa categoria). Mas o poder dessa distinção não é meramente acadêmico: na hora de desenhar a arquitetura, **categorizar cada dado** em "fonte da verdade" ou "derivado" melhora a comunicação do time e melhora o próprio design.
 
 E vale o lembrete do livro: **um banco de dados não é intrinsecamente um nem outro**. Depende de como você o usa. O mesmo Postgres pode ser system of record num contexto e fonte derivada em outro. É aquele exercício de "voltar à base do conceito": assim como um *Application Load Balancer*, lá no fundo, ainda é só um load balancer.
 
