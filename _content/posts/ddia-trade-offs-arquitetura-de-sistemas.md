@@ -250,7 +250,7 @@ Toda decisão tem um lado bom *e* um lado ruim. Se você só enxerga benefícios
 
 ## Quer participar do próximo?
 
-Este foi só o **Capítulo 1**. Os encontros acontecem *a cada quinze dias**.
+Este foi só o **Capítulo 1**. Os encontros acontecem **a cada quinze dias**.
 
 O clube é aberto, descontraído e feito **da comunidade para a comunidade**: sem aula, sem cobrança, só gente que vive esses problemas trocando ideia (e cicatrizes de produção). Não precisa ter lido tudo nem ser especialista.
 
