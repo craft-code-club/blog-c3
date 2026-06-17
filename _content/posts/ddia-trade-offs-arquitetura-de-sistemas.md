@@ -11,7 +11,7 @@ authors: []
 
 > *There are no solutions, only trade-offs.*
 
-É com essa frase (literalmente a primeira do livro) que começa **Designing Data-Intensive Applications** (DDIA), de Martin Kleppmann, e foi também por ela que começou a primeira conversa do nosso **Clube do Livro** na [Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications).
+É com essa frase (literalmente a primeira do livro) que começa **Designing Data-Intensive Applications** (DDIA), de Martin Kleppmann, e foi também por ela que começou a primeira conversa do nosso **Clube do Livro** da comunidade [Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications).
 
 A proposta do clube é simples: a cada quinze dias, um capítulo. Sem aula, sem palestra, sem ninguém "dono da razão". A ideia é juntar gente que vive esses problemas no dia a dia e **trocar impressões**: concordar, discordar, trazer cicatrizes de produção e rir um pouco das gambiarras que todo mundo já fez. Este post é um apanhado das melhores discussões do encontro sobre o Capítulo 1, *Trade-offs in Data Systems Architecture*. Para organizar a conversa, a turma montou um [quadro no Excalidraw](https://link.excalidraw.com/l/ADMgGFVWISx/9G9VQCCv2rL) com os tópicos do capítulo.
 
@@ -185,11 +185,11 @@ Mas veio o contraponto sincero: serverless também é uma **pegadinha**. É como
 
 Tem ainda o paradoxo do **cold start**: para a função responder rápido, você liga *provisioned concurrency* / instâncias provisionadas, mantém tudo "quente" o tempo todo e, no fim, **voltou a ser servidor**. Uma falsa sensação de engenharia sofisticada.
 
-### Microsserviço escala TIME, não tecnologia
+### Microsserviço escala equipes, não tecnologia
 
-O ponto que mais ressoou: **microsserviços foram criados para escalar times, não para resolver problema técnico.** É um problema de **pessoas** que resolvemos de forma técnica. Quem já tentou colocar vinte equipes cuidando de um monolito sabe a dor: agendar quem sobe deploy primeiro, esperar dias para ver se não quebra, descobrir que o que quebrou era "o de menor risco". Microsserviço veio dar a essas equipes a chance de escalar **rápido e independente**.
+O ponto que mais ressoou: **microsserviços foram criados para escalar equipes, não para resolver problema técnico.** É um problema de **pessoas** que resolvemos de forma técnica. Quem já tentou colocar vinte equipes cuidando de um monolito sabe a dor: agendar quem sobe deploy primeiro, esperar dias para ver se não quebra, descobrir que o que quebrou era "o de menor risco". Microsserviço veio dar a essas equipes a chance de escalar **rápido e independente**.
 
-E é exatamente aí que mora um ótimo **termômetro de maturidade**: se, para entregar uma feature no *seu* serviço, você precisa **alinhar roadmap com quatro ou cinco outros times**, a independência que justificava os microsserviços evaporou. Virou um Tetris de roadmap, e, não raro, vem a reorg de times atrás. Consultar a doc de outro serviço, dar um toque em alguém, tudo bem; depender da entrega alheia para andar, não.
+E é exatamente aí que mora um ótimo **termômetro de maturidade**: se, para entregar uma feature no *seu* serviço, você precisa **alinhar roadmap com quatro ou cinco outras equipes**, a independência que justificava os microsserviços evaporou. Virou um Tetris de roadmap.
 
 O irmão gêmeo do problema é o **distribuído falso**: o "monolito distribuído", distribuído **sem resiliência**. Se cair um serviço e cair o sistema inteiro, você só aumentou a sua superfície de falha. **Distribuído tem que ser distribuído com resiliência**; senão, vá de nó único, que resolve o seu problema: se cai, cai tudo; se está de pé, está tudo de pé.
 
