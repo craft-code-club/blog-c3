@@ -13,7 +13,7 @@ authors: []
 
 É com essa frase (literalmente a primeira do livro) que começa **Designing Data-Intensive Applications** (DDIA), de Martin Kleppmann, e foi também por ela que começou a primeira conversa do nosso **Clube do Livro** da comunidade [Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications).
 
-A proposta do clube é simples: a cada quinze dias, um capítulo. Sem aula, sem palestra, sem ninguém "dono da razão". A ideia é juntar gente que vive esses problemas no dia a dia e **trocar impressões**: concordar, discordar, trazer cicatrizes de produção e rir um pouco das gambiarras que todo mundo já fez. Este post é um apanhado das melhores discussões do encontro sobre o Capítulo 1, *Trade-offs in Data Systems Architecture*. Para organizar a conversa, a turma montou um [quadro no Excalidraw](https://link.excalidraw.com/l/ADMgGFVWISx/9G9VQCCv2rL) com os tópicos do capítulo.
+A proposta do clube é simples: a cada quinze dias, um capítulo. Sem aula, sem palestra, sem ninguém "dono da razão". A ideia é juntar gente que vive esses problemas no dia a dia e **trocar experiências**: concordar, discordar, trazer cicatrizes de produção. Este post é um apanhado das melhores discussões do encontro sobre o Capítulo 1, *Trade-offs in Data Systems Architecture*. Para organizar a conversa, a turma montou um [quadro no Excalidraw](https://link.excalidraw.com/l/ADMgGFVWISx/9G9VQCCv2rL) com os tópicos do capítulo.
 
 Se você curte sistemas de alta escala, vai sair daqui com um bom mapa mental e, quem sabe, com vontade de aparecer no próximo encontro.
 
@@ -25,7 +25,7 @@ A segunda edição do livro veio **repaginada**: terminologia atualizada, vocabu
 
 E talvez seja justamente aí que esteja o maior valor: Kleppmann fala de **conceitos**, não de ferramentas. Ele descreve o *como pensar*, não o *como fazer*. Em quase nenhum momento ele diz "use a tecnologia X". Ele cita o conceito o tempo todo e deixa as decisões (e os trade-offs) na sua mão.
 
-Esse foi um fio condutor da noite inteira: **a gente não estava discutindo sistemas ou ferramentas, estava discutindo conceitos.** [Postgres](https://postgresforeverything.com/) pode ser system of record, pode ser cache, pode servir relatório analítico. O conceito é o que importa; a ferramenta é só o instrumento que você escolhe para materializá-lo.
+Esse foi um fio condutor da noite inteira: **a gente não estava discutindo sistemas ou ferramentas, estava discutindo conceitos.** O conceito é o que importa; a ferramenta é só o instrumento que você escolhe para materializá-lo.
 
 ---
 
@@ -39,7 +39,7 @@ O exemplo clássico (e dolorosamente real) apareceu logo:
 
 A história se repete em toda empresa: o time decide que "está lento, vamos aumentar o poder de processamento", mistura carga transacional e analítica **na mesma base, no mesmo lugar**, e aí o cliente fica minutos esperando um relatório sair enquanto o sistema operacional sofre. Faltou dar dois passos atrás e enxergar que ali existem **duas demandas completamente diferentes** competindo pelos mesmos recursos:
 
-- **OLTP**: muitas escritas, leituras por `id` ou por pequenos conjuntos, baixa latência, transações confiáveis. Precisa de dado **agora**.
+- **OLTP**: muitas escritas, leituras por `id` ou por pequenos conjuntos, baixa latência, transações confiáveis. Precisa de dado **atual**.
 - **OLAP**: varre o mês inteiro para agregar em uma média, uma mediana, um ticket médio. Pode esperar dez minutos se o resultado for bom. Quase nunca precisa de tempo real; um retrato de ontem, do último mês ou do último ano resolve.
 
 São, na prática, "parafuso e prego": parecem servir para a mesma coisa, mas a mecânica por baixo é outra.
@@ -66,7 +66,7 @@ Uma das definições mais elogiadas do capítulo separa o mundo dos dados em doi
 - **System of Record** (sistema de registro): a *golden source*, o dono da informação, onde mora a última versão da verdade.
 - **Derived Data Systems** (dados derivados): tudo que pode ser **reconstruído** a partir do system of record. Se você perder, tudo bem, você regenera.
 
-O **cache** é o exemplo canônico de dado derivado (e o livro coloca ele exatamente nessa categoria). Mas o poder dessa distinção não é acadêmico: na hora de desenhar a arquitetura, **categorizar cada dado** em "fonte da verdade" ou "derivado" melhora a comunicação do time e melhora o próprio design. Você passa a saber o que pode jogar fora e o que precisa proteger com a vida.
+O **cache** é o exemplo canônico de dado derivado (e o livro coloca ele exatamente nessa categoria). Mas o poder dessa distinção não é meramente acadêmica: na hora de desenhar a arquitetura, **categorizar cada dado** em "fonte da verdade" ou "derivado" melhora a comunicação do time e melhora o próprio design.
 
 E vale o lembrete do livro: **um banco de dados não é intrinsecamente um nem outro**. Depende de como você o usa. O mesmo Postgres pode ser system of record num contexto e fonte derivada em outro. É aquele exercício de "voltar à base do conceito": assim como um *Application Load Balancer*, lá no fundo, ainda é só um load balancer.
 
@@ -108,8 +108,8 @@ E por que isso acontece tanto? Muitas vezes por uma **divisão errada de micross
 
 Existe o movimento legítimo de levar dados **do warehouse de volta para a aplicação**, e a turma separou bem os dois casos:
 
-- **Bom**: a parte transacional gerou muito dado, o analítico trabalhou em cima dele e devolveu algo útil, como um **modelo treinado para detectar fraude**, uma recomendação do tipo "quem comprou isso também comprou aquilo". A análise virou *output* que gera valor de volta no operacional.
-- **Mau**: usar o warehouse como **atalho** porque dá menos trabalho. Ali é *bad request* na certa.
+- **Bom**: a parte transacional gerou muito dado, o analítico trabalhou em cima dele e devolveu algo útil, como um **modelo treinado para detectar fraude**, ou um modelo de recomendação do tipo "quem comprou isso também, usualmente, compra aquilo". O *output* da camada analítica pode se tornar um artefato incluído e usado na camada operacional.
+- **Mau**: usar o warehouse como **atalho** porque dá menos trabalho. Isto com certeza vai gerar problemas adiante.
 
 ### A defesa: engenharia forte
 
@@ -123,13 +123,13 @@ Esse tópico gerou um bom debate, inclusive sobre se o capítulo já nasceu data
 
 Um lado argumentou que **envelheceu mal**: a regra histórica era "a nuvem começa barata e termina cara; servidor próprio começa caro e termina barato". Só que hardware hoje está caro. O resultado é que infra própria **começa cara e termina cara também**, ou seja, a comparação mudou em relação a alguns anos atrás.
 
-O contraponto foi igualmente forte: essa visão olha o mundo pela **lente de sistemas web, escaláveis e online**. Mas ainda existe (e é forte) todo um universo de **chão de fábrica, sensores e sistemas internos** que não são públicos e não rodam na nuvem *by design*. Some a isso restrições de **compliance e regulação**, em que a empresa simplesmente **não tem escolha** a não ser self-hosting. Às vezes o self-hosting sai mais barato e ainda viabiliza a certificação que mantém a empresa competitiva.
+O contraponto foi igualmente forte: essa visão olha o mundo pela **lente de sistemas web, escaláveis e online**. Mas ainda existe (e é forte) todo um universo de **chão de fábrica, sensores e sistemas internos** que não são públicos e não rodam na nuvem *by design*. Some a isso restrições de **compliance e regulação**, em que a empresa simplesmente **não tem escolha** a não ser self-hosting. Às vezes o self-hosting sai mais barato, as vezes viabiliza uma certificação que mantém a empresa competitiva.
 
 Alguns vetores que apareceram para guiar a decisão:
 
 - **CapEx vs. OpEx**: comprar servidor é CapEx alto e OpEx menor; a nuvem inverte: CapEx quase zero, OpEx maior ao longo do tempo.
 - **Know-how e ociosidade**: nem toda empresa tem gente para atualizar SO, trocar hardware que se degrada em ~2 anos, manter time de infra. Recurso ocioso e máquina desatualizada custam.
-- **Estabilidade da carga**: se o número de servidores é sempre 2, sempre 3 (carga linear, sem picos), talvez você **não precise** da elasticidade da nuvem, e on-premise faz sentido.
+- **Estabilidade da carga**: se a carga é linear, sem picos, talvez você **não precise** da elasticidade da nuvem, e on-premise faz sentido.
 - **Capacity planning**: o ponto não é só o tamanho da empresa, é a capacidade de **crescer rápido**. Carga estável e pequena? Faz em casa, bem feito, e sustenta. Precisa escalar do dia para a noite? A nuvem brilha.
 
 ### "Construir o seu ouro": build vs. buy
@@ -173,7 +173,7 @@ Contraintuitivo, mas verdadeiro: **uma única máquina pode ser muito mais rápi
 - **Rede é sempre gargalo.** Não importa quão perto estejam os servidores; na nuvem, você nem sabe ao certo *onde* eles estão. Você nunca terá a latência de dentro da própria CPU. (Aqui vale resgatar o exercício de *back-of-the-envelope estimation*: o custo de um byte no cache, na CPU e na rede é de ordens de grandeza diferentes.)
 - **Escala vertical tem teto.** Em algum ponto, adicionar memória fica caríssimo, e pode até **piorar**. Um exemplo real contado na conversa: uma máquina com 64 GB de RAM que, ao receber 120 GB, ficou *mais lenta*, porque passou a depender de swap para o resto. Memória, CPU e rede de um nó só sempre vão topar em algum limite.
 
-A analogia que ficou: é mais fácil fazer um **Audi A4** passar dos 30 km/h ou um **Ferrari topo de linha**? Escala não é só "quanto", é "para quê".
+A analogia que ficou: é mais fácil fazer um carro simples correr mais rápido ou um Ferrari topo de linha?
 
 ---
 
@@ -250,11 +250,11 @@ Toda decisão tem um lado bom *e* um lado ruim. Se você só enxerga benefícios
 
 ## Quer participar do próximo?
 
-Este foi só o **Capítulo 1**. O próximo encontro acontece **daqui a quinze dias**, sobre o **Capítulo 2: Defining Nonfunctional Requirements** (definindo requisitos não-funcionais).
+Este foi só o **Capítulo 1**. Os encontros acontecem *a cada quinze dias**.
 
-O clube é aberto, descontraído e feito **da comunidade para a comunidade**: sem aula, sem cobrança, só gente que vive esses problemas trocando ideia (e cicatrizes de produção). Não precisa ter lido tudo nem ser especialista; o primeiro capítulo do livro, inclusive, costuma estar disponível de graça para você degustar.
+O clube é aberto, descontraído e feito **da comunidade para a comunidade**: sem aula, sem cobrança, só gente que vive esses problemas trocando ideia (e cicatrizes de produção). Não precisa ter lido tudo nem ser especialista.
 
-👉 **Entre no Clube do Livro:** [Designing Data-Intensive Applications na Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications)
+👉 **Participe do Clube do Livro:** [Designing Data-Intensive Applications da comunidade Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications)
 
 Traga sua leitura, suas discordâncias e seus exemplos. A melhor parte nunca está só no livro, está na conversa em cima dele.
 
