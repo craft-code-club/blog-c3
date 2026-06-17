@@ -173,7 +173,7 @@ Contraintuitivo, mas verdadeiro: **uma única máquina pode ser muito mais rápi
 - **Rede é sempre gargalo.** Não importa quão perto estejam os servidores; na nuvem, você nem sabe ao certo *onde* eles estão. Você nunca terá a latência de dentro da própria CPU. (Aqui vale resgatar o exercício de *back-of-the-envelope estimation*: o custo de um byte no cache, na CPU e na rede é de ordens de grandeza diferentes.)
 - **Escala vertical tem teto.** Em algum ponto, adicionar memória fica caríssimo, e pode até **piorar**. Um exemplo real contado na conversa: uma máquina com 64 GB de RAM que, ao receber 120 GB, ficou *mais lenta*, porque passou a depender de swap para o resto. Memória, CPU e rede de um nó só sempre vão topar em algum limite.
 
-A analogia que ficou: é mais fácil fazer um carro simples correr mais rápido ou um Ferrari topo de linha?
+A analogia que ficou: é mais fácil fazer um carro simples correr mais rápido ou uma Ferrari topo de linha?
 
 ---
 
