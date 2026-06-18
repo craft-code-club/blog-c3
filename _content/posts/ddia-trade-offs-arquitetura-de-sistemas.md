@@ -183,7 +183,8 @@ A analogia que ficou: é mais fácil fazer um carro simples correr mais rápido 
 
 Mas veio o contraponto sincero: serverless também é uma **pegadinha**. É como a promoção da picanha pela metade do preço: você entra por causa dela e sai com o carrinho cheio de coisa cara. O princípio é rodar **em momentos pontuais, sob demanda**; mas é comum ver gente quebrando tudo em "nanosserviços" que ficam rodando 100% do tempo (um serverless para Pix que está girando o tempo inteiro já fere o princípio). E o custo real costuma estar **em volta**: para conectar numa função você acaba pagando o secret manager, a observabilidade (um CloudWatch da vida), o gateway... Te dão um milhão de lambdas "de graça" e cobram o rim no entorno.
 
-Tem ainda o paradoxo do **cold start**: para a função responder rápido, você liga *provisioned concurrency* / instâncias provisionadas, mantém tudo "quente" o tempo todo e, no fim, **voltou a ser servidor**. Uma falsa sensação de engenharia sofisticada.
+Tem ainda o paradoxo do **cold start**: para a função responder rapidamente, acabamos por criar vários workarounds para a manter sempre hot. No fim, estamos a manter recursos permanentemente ativos para evitar o cold start, e acabamos por voltar ao mesmo modelo de um servidor sempre ligado. Uma falsa sensação de engenharia sofisticada.
+
 
 ### Microsserviço escala equipes, não tecnologia
 
