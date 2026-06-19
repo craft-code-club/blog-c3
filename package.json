@@ -34,7 +34,7 @@
     "@tailwindcss/postcss": "^4.3.1",
     "@types/escape-html": "^1.0.4",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^25",
+    "@types/node": "^26",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^10",
