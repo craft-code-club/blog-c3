@@ -1,6 +1,6 @@
 ---
 title: "Book Club DDIA: Capítulo 3. Data Models e Query Languages"
-description: "Terceiro encontro do Book Club do livro Designing Data-Intensive Applications (2ª edição), de Martin Kleppmann e Chris Riccomini. No Capítulo 3, 'Data Models and Query Languages', exploramos modelos relacional, documental, de grafos e event sourcing: quando usar cada um e como essa escolha molda o sistema."
+description: "Quarto encontro do Book Club do livro Designing Data-Intensive Applications (2ª edição), de Martin Kleppmann e Chris Riccomini. No Capítulo 3, 'Data Models and Query Languages', exploramos modelos relacional, documental, de grafos e event sourcing: quando usar cada um e como essa escolha molda o sistema."
 date: "2026-07-13"
 time: "20:00-21:30"
 location: "Online via Zoom"
