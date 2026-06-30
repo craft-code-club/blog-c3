@@ -1,8 +1,7 @@
 ---
 title: "Book Club DDIA: Capítulo 2. Definindo Requisitos Não Funcionais - Parte 2"
 description: "Terceiro encontro do Book Club do livro Designing Data-Intensive Applications (2ª edição), de Martin Kleppmann e Chris Riccomini. No Capítulo 2, 'Defining Nonfunctional Requirements', vamos para a segunda parte de performance, confiabilidade, escalabilidade e manutenibilidade: como medir, modelar carga e lidar com falhas."
-date: "2026-07-06"
-time: "20:00-21:30"
+date: "2026-07-06"time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
 isLive: true
