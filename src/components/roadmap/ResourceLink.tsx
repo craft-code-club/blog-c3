@@ -25,12 +25,23 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   github: Icons.GitBranch,
   calendar: Icons.Calendar,
 };
+const validIcons = Object.keys(iconMap).join(', ');
+const warnedIcons = new Set<string>();
 
 /**
  * ResourceLink component displays a link with an icon
  */
 export function ResourceLink({ link }: ResourceLinkProps) {
-  const Icon = iconMap[link.icon] || Icons.ExternalLink;
+  const mappedIcon = iconMap[link.icon];
+
+  if (link.icon && !mappedIcon && process.env.NODE_ENV !== 'production' && !warnedIcons.has(link.icon)) {
+    warnedIcons.add(link.icon);
+    console.warn(
+      `[ResourceLink] Unknown icon "${link.icon}". Falling back to "external-link". Valid icons: ${validIcons}`
+    );
+  }
+
+  const Icon = mappedIcon || Icons.ExternalLink;
 
   return (
     <a

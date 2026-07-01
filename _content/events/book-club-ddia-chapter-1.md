@@ -5,8 +5,12 @@ date: "2026-06-15"
 time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
+isLive: true
+youtubeTitle: "Clube do Livro DDIA: Capítulo 1 - Trade-offs em Arquitetura de Sistemas de Alta Escala"
 banner: "book-club-ddia.png"
 registrationLink: "https://discord.gg/cqF9THUfnN"
+recordingLink: "https://youtu.be/53TFZSe-IGw"
+postLink: "https://craftcodeclub.io/posts/ddia-trade-offs-arquitetura-de-sistemas"
 tags:
   - "book-club"
   - "ddia"
