@@ -40,5 +40,22 @@
       "fixed-version": "8.5.10",
       "reason": "Cross-site scripting via unescaped style tags in CSS stringify output; explicit override forces Next's nested PostCSS dependency to a patched version while staying on the current stable Next release."
     }
+  ,
+    {
+      "package": "@babel/core",
+      "override-type": "transitive",
+      "advisory": "GHSA-4x5r-pxfx-6jf8",
+      "pulled-by": "eslint-config-next >= 16.2.9 via eslint-plugin-react-hooks >= 7.0.1",
+      "fixed-version": "7.29.7",
+      "reason": "Arbitrary file read via sourceMappingURL comment allows an attacker to read any source map file from the system running Babel; explicit override forces the safe transitive version."
+    },
+    {
+      "package": "js-yaml",
+      "override-type": "transitive",
+      "advisory": "GHSA-h67p-54hq-rp68",
+      "pulled-by": "gray-matter >= 4.0.3",
+      "fixed-version": "3.15.0",
+      "reason": "Quadratic-complexity denial of service via repeated YAML merge-key aliases causes CPU exhaustion; explicit override forces gray-matter's nested js-yaml dependency to the patched version."
+    }
   ]
 }
