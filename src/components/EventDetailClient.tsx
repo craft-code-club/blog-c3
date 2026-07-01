@@ -21,6 +21,16 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
   const today = new Date().toISOString().split('T')[0];
   const isToday = event.date === today;
 
+  // Banners are stored in `public/events/`. Frontmatter only holds the file
+  // name, so we resolve it to an absolute path. Otherwise the relative URL is
+  // resolved against the current page URL, which breaks on client-side
+  // navigation and 404s (see issue #796). Absolute/external URLs pass through.
+  const bannerSrc = event.banner
+    ? /^(https?:\/\/|\/)/.test(event.banner)
+      ? event.banner
+      : `/events/${event.banner}`
+    : undefined;
+
   const getCalendarUrl = (event: Event) => {
     const startDate = new Date(`${event.date}T${event.time.split('-')[0]}-03:00`);
     const endDate = new Date(`${event.date}T${event.time.split('-')[1]}-03:00`);
@@ -79,10 +89,10 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
               <EventTags tags={event.tags} className="mb-6" />
             )}
 
-            {event.banner && (
+            {bannerSrc && (
               <div className="mb-8 rounded-lg overflow-hidden">
                 <Image
-                  src={event.banner}
+                  src={bannerSrc}
                   alt={`Banner para ${event.title}`}
                   width={800}
                   height={320}
@@ -162,13 +172,13 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
                   </a>
                 </div>
               ) : (
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   {event.recordingLink && (
                     <a
                       href={event.recordingLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block w-full text-center px-4 py-2 rounded-md transition-colors bg-purple-600 dark:bg-purple-500 hover:bg-purple-700 dark:hover:bg-purple-600 text-white"
+                      className="sm:flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-purple-600 dark:bg-purple-500 hover:bg-purple-700 dark:hover:bg-purple-600 text-white"
                     >
                       Assistir Gravação
                     </a>
@@ -178,9 +188,19 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
                       href={event.postLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block w-full text-center px-4 py-2 rounded-md transition-colors bg-purple-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+                      className="sm:flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-purple-600 dark:bg-purple-500 hover:bg-purple-700 dark:hover:bg-purple-600 text-white"
                     >
                       Ler Artigo
+                    </a>
+                  )}
+                  {event.excalidrawLink && (
+                    <a
+                      href={event.excalidrawLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="sm:flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-purple-600 dark:bg-purple-500 hover:bg-purple-700 dark:hover:bg-purple-600 text-white"
+                    >
+                      Abrir Excalidraw
                     </a>
                   )}
                 </div>
