@@ -261,7 +261,7 @@ Como saber se o seu sistema é *de fato* tolerante a falhas? Você **quebra ele 
 
 ## O que vem na Parte 2
 
-Paramos no meio do Capítulo 2 de propósito — tinha muita coisa boa e a conversa render ia madrugada adentro. Ficou para o próximo encontro o restante de **confiabilidade** (erros de software, o fator **humano** e cultura), além de **escalabilidade** e **manutenibilidade**. É o tipo de assunto que fica "quente na cabeça" quando discutido logo em seguida — por isso a decisão de dividir em dois, com apenas uma semana de intervalo.
+Paramos no meio do Capítulo 2 de propósito — tinha muita coisa boa e a conversa renderia madrugada adentro. Ficou para o próximo encontro o restante de **confiabilidade** (erros de software, o fator **humano** e cultura), além de **escalabilidade** e **manutenibilidade**. É o tipo de assunto que fica "quente na cabeça" quando discutido logo em seguida — por isso a decisão de dividir em dois, com apenas uma semana de intervalo.
 
 ---
 
