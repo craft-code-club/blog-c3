@@ -8,7 +8,7 @@
  */
 
 import fs from 'fs';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import path from 'path';
 import { RoadmapSchema, type Roadmap } from './types/roadmap';
 import { ZodError } from 'zod';
