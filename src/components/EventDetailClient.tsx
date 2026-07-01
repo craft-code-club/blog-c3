@@ -21,6 +21,16 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
   const today = new Date().toISOString().split('T')[0];
   const isToday = event.date === today;
 
+  // Banners are stored in `public/events/`. Frontmatter only holds the file
+  // name, so we resolve it to an absolute path. Otherwise the relative URL is
+  // resolved against the current page URL, which breaks on client-side
+  // navigation and 404s (see issue #796). Absolute/external URLs pass through.
+  const bannerSrc = event.banner
+    ? /^(https?:\/\/|\/)/.test(event.banner)
+      ? event.banner
+      : `/events/${event.banner}`
+    : undefined;
+
   const getCalendarUrl = (event: Event) => {
     const startDate = new Date(`${event.date}T${event.time.split('-')[0]}-03:00`);
     const endDate = new Date(`${event.date}T${event.time.split('-')[1]}-03:00`);
@@ -79,10 +89,10 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
               <EventTags tags={event.tags} className="mb-6" />
             )}
 
-            {event.banner && (
+            {bannerSrc && (
               <div className="mb-8 rounded-lg overflow-hidden">
                 <Image
-                  src={event.banner}
+                  src={bannerSrc}
                   alt={`Banner para ${event.title}`}
                   width={800}
                   height={320}
