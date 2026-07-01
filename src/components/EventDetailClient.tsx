@@ -162,7 +162,7 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
                   </a>
                 </div>
               ) : (
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   {event.recordingLink && (
                     <a
                       href={event.recordingLink}
@@ -181,6 +181,16 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
                       className="block w-full text-center px-4 py-2 rounded-md transition-colors bg-purple-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
                     >
                       Ler Artigo
+                    </a>
+                  )}
+                  {event.excalidrawLink && (
+                    <a
+                      href={event.excalidrawLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full text-center px-4 py-2 rounded-md transition-colors bg-orange-600 dark:bg-orange-500 hover:bg-orange-700 dark:hover:bg-orange-600 text-white"
+                    >
+                      Abrir Excalidraw
                     </a>
                   )}
                 </div>
