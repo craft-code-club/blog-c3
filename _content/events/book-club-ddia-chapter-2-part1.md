@@ -11,6 +11,7 @@ banner: "book-club-ddia.png"
 registrationLink: "https://discord.gg/cqF9THUfnN"
 recordingLink: "https://youtube.com/live/1FyvJh315Xk"
 sessionLink: "https://us06web.zoom.us/j/81900343896"
+postLink: "https://craftcodeclub.io/posts/ddia-requisitos-nao-funcionais-parte-1"
 excalidrawLink: "https://link.excalidraw.com/l/ADMgGFVWISx/1ncjQemuKVK"
 tags:
   - "book-club"
