@@ -19,6 +19,7 @@ type: "online"
 banner: "banner-file-name.png"
 recordingLink: "https://www.youtube.com/watch?v=XXXXXXXXXXX"
 postLink: "https://craftcodeclub.io/posts/post-slug"
+excalidrawLink: "https://link.excalidraw.com/l/XXXXXXXXXXX"
 registrationLink: "https://link-to-registration.com"
 speakers:
   - name: "Speaker Name"
@@ -37,6 +38,7 @@ speakers:
 ## Optional Properties:
 - **recordingLink**: Link to the event recording on YouTube (string)
 - **postLink**: Link to the related blog post (string)
+- **excalidrawLink**: Link to the related Excalidraw board (string)
 - **registrationLink**: Link to the event registration page (string)
 - **speakers**: List of speakers, each with a `name` property (array of objects)
 

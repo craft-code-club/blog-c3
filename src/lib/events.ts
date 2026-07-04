@@ -16,6 +16,7 @@ export interface Event {
   registrationLink?: string;
   recordingLink?: string;
   postLink?: string;
+  excalidrawLink?: string;
   speakers?: string[];
   tags?: string[];
 }
