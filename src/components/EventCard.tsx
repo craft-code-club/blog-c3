@@ -5,9 +5,10 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import EventTags from './EventTags';
 
-export default function EventCard({ event, isPast, compact = false }: { event: Event; isPast: boolean; compact?: boolean }) {
+export default function EventCard({ event, isPast: isPastProp, compact = false }: { event: Event; isPast?: boolean; compact?: boolean }) {
   const today = useMemo(() => new Date().toISOString().split('T')[0], []);
   const isToday = event.date === today;
+  const isPast = isPastProp ?? event.date < today;
   const hasYoutubeRegistrationLink = event.registrationLink?.includes('youtube.com/watch?v=');
 
   const getCalendarUrl = (event: Event) => {
