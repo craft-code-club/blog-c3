@@ -1,15 +1,12 @@
 import ArrowIcon from "@/components/ArrowIcon";
 import EventCard from "@/components/EventCard";
-import TopicCard from "@/components/TopicCard";
 import TopicTags from "@/components/TopicTags";
 import { getEvents } from "@/lib/events";
 import { getSortedPostsData } from "@/lib/posts";
-import { getFeaturedTopicsSorted } from "@/lib/topics";
 import escapeHtml from "escape-html";
 import Link from "next/link";
 export default function Home() {
   const posts = getSortedPostsData().slice(0, 6);
-  const featuredTopics = getFeaturedTopicsSorted();
   const upcomingEvents = getEvents().upcoming.slice(0, 2);
 
   return (
@@ -38,12 +35,12 @@ export default function Home() {
                 Entrar no Discord
               </a>
               <a
-                href="https://github.com/craft-code-club"
+                href="https://www.youtube.com/@CraftCodeClub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
-                Ver no GitHub
+                Ver no YouTube
               </a>
             </div>
           </div>
@@ -98,9 +95,27 @@ export default function Home() {
 
           <div className="mt-10">
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {featuredTopics.map((topic) => (
-                <TopicCard key={topic.key} topic={topic} />
-              ))}
+              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Algoritmos</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">Domine os fundamentos da ciência da computação e resolução de problemas.</p>
+                <Link href="/roadmap/dsa" aria-label="Saiba mais sobre Algoritmos" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
+                  Saiba mais <ArrowIcon />
+                </Link>
+              </div>
+              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">System Design</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">Construa arquiteturas de software escaláveis e distribuídas.</p>
+                <Link href="/topics/system-design" aria-label="Saiba mais sobre System Design" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
+                  Saiba mais <ArrowIcon />
+                </Link>
+              </div>
+              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Book Club</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">Leitura guiada de referências essenciais em engenharia de software.</p>
+                <Link href="/book-clubs/designing-data-intensive-applications" aria-label="Saiba mais sobre o Book Club" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
+                  Saiba mais <ArrowIcon />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -145,6 +160,14 @@ export default function Home() {
                 </article>
               );
             })}
+          </div>
+          <div className="mt-6 lg:text-center">
+            <Link
+              href="/blog"
+              className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline font-medium"
+            >
+              Ver todos os posts →
+            </Link>
           </div>
         </div>
       </div>

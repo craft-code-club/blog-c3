@@ -1,13 +1,39 @@
 ---
-title: 'Os requisitos que o negócio não pede: o Capítulo 2 de DDIA (Parte 1)'
-date: '2026-06-29'
-description: 'Notas do segundo encontro do Clube do Livro da Craft Code Club sobre Designing Data-Intensive Applications (2ª edição): requisitos não funcionais, o estudo de caso da rede social, fan-out, views materializadas, performance (response time vs. throughput), percentis, SLO/SLA e o começo da conversa sobre confiabilidade.'
-topics: ['System Design', 'Clube do Livro']
-keywords: ['DDIA', 'Designing Data-Intensive Applications', 'Martin Kleppmann', 'Requisitos não funcionais', 'Performance', 'Confiabilidade', 'Response Time', 'Throughput', 'Latência', 'Percentis', 'SLO', 'SLA', 'SLI', 'Fan-out', 'View Materializada', 'Cache', 'Circuit Breaker', 'Backoff Exponencial', 'Load Shedding', 'Rate Limiting', 'Retry Storm', 'Fault Tolerance', 'SPOF', 'Chaos Engineering']
+title: "Os requisitos que o negócio não pede: o Capítulo 2 de DDIA (Parte 1)"
+date: "2026-06-29"
+description: "Notas do segundo encontro do Clube do Livro da Craft Code Club sobre Designing Data-Intensive Applications (2ª edição): requisitos não funcionais, o estudo de caso da rede social, fan-out, views materializadas, performance (response time vs. throughput), percentis, SLO/SLA e o começo da conversa sobre confiabilidade."
+topics: ["System Design", "Clube do Livro"]
+keywords:
+  [
+    "DDIA",
+    "Designing Data-Intensive Applications",
+    "Martin Kleppmann",
+    "Requisitos não funcionais",
+    "Performance",
+    "Confiabilidade",
+    "Response Time",
+    "Throughput",
+    "Latência",
+    "Percentis",
+    "SLO",
+    "SLA",
+    "SLI",
+    "Fan-out",
+    "View Materializada",
+    "Cache",
+    "Circuit Breaker",
+    "Backoff Exponencial",
+    "Load Shedding",
+    "Rate Limiting",
+    "Retry Storm",
+    "Fault Tolerance",
+    "SPOF",
+    "Chaos Engineering",
+  ]
 authors: []
 ---
 
-*Este post é um resumo da discussão do Clube do Livro da [Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications) sobre o Capítulo 2 de Designing Data-Intensive Applications.*
+_Este post é um resumo da discussão do Clube do Livro da [Craft Code Club](https://craftcodeclub.io/book-clubs/designing-data-intensive-applications) sobre o Capítulo 2 de Designing Data-Intensive Applications._
 
 ---
 
@@ -38,7 +64,7 @@ Alguns fios que apareceram na discussão:
 
 - **Nem todo usuário pesa igual.** Existe aquele cliente que compra com frequência e gasta muito na plataforma. Ele tem muitos dados, mas são dados "quentes": a jornada dele precisa ser rápida e fluida, porque é ele que sustenta o MRR. Vale priorizar a experiência dessas estrelas.
 - **Picos sazonais são o teste real.** Varejo em Black Friday, e-commerce na época de Natal ou Copa do Mundo, são momentos em que "não pensei em performance" vira aplicação caindo e venda perdida. É o oposto de otimização prematura: é conhecer o seu negócio.
-- **O MVP traz o usuário; a experiência o mantém.** A aplicação inicial atrai; o que segura o usuário dentro da plataforma (o *lifetime* dele) é a experiência. eE experiência, aqui, é justamente o conjunto de requisitos não funcionais que a gente vai lapidando depois que o sistema já está no ar.
+- **O MVP traz o usuário; a experiência o mantém.** A aplicação inicial atrai; o que segura o usuário dentro da plataforma (o _lifetime_ dele) é a experiência. eE experiência, aqui, é justamente o conjunto de requisitos não funcionais que a gente vai lapidando depois que o sistema já está no ar.
 
 > Requisitos não funcionais são tão importantes quanto os funcionais, só que ficam escondidos. Não são visíveis para produto, e muitas vezes nem para pessoas técnicas a princípio. Leva anos de experiência para enxergá-los bem e fazer os julgamentos certos.
 
@@ -60,7 +86,7 @@ O primeiro rascunho é o óbvio: três tabelas num banco relacional (usuários, 
 
 Aqui entrou um conceito que a primeira edição do livro nomeava explicitamente como **métrica-chave**: entre as várias métricas do sistema, algumas puxam a decisão arquitetural inteira. Neste caso, a chave é a **read ratio**, a proporção entre leituras e escritas.
 
-E ela é brutalmente desequilibrada: **lê-se muito mais do que se escreve.** Isso muda tudo. Se a leitura é o gargalo e a escrita é rara, faz todo sentido **pagar mais caro na escrita** para deixar a leitura barata. É o *capacity planning* guiando a arquitetura.
+E ela é brutalmente desequilibrada: **lê-se muito mais do que se escreve.** Isso muda tudo. Se a leitura é o gargalo e a escrita é rara, faz todo sentido **pagar mais caro na escrita** para deixar a leitura barata. É o _capacity planning_ guiando a arquitetura.
 
 ### View materializada: pré-computar a timeline
 
@@ -89,10 +115,10 @@ Se a view materializada guarda algo pronto, qual a diferença para um **cache**?
 
 O consenso: **os dois são conceitos, não ferramentas**, e têm interseção, mas não são a mesma coisa.
 
-- A **view materializada** é sobre **pré-computar** uma operação cara e deixá-la pronta para leitura. Você paga o custo *antes*, de propósito.
+- A **view materializada** é sobre **pré-computar** uma operação cara e deixá-la pronta para leitura. Você paga o custo _antes_, de propósito.
 - O **cache** normalmente atua **no momento da leitura**: o dado é processado, guardado, e a próxima leitura bate nele. É expor barato aquilo que é muito acessado.
 
-E eles se **complementam**: você pré-computa a timeline (view materializada) e ainda coloca um cache na frente para não onerar o banco. Em camadas, fica mais rápido ainda. Aliás, "cache" também é palavra guarda-chuva, falamos de pelo menos quatro nesse encontro: cache de banco, cache da aplicação, [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) e browser. E há duas leituras do próprio termo: o cache "cru" (pré-computar uma operação cara e salvar) e o cache "implementado", com todas as suas estratégias (TTL, ordem de escrita, invalidação, *eviction*).
+E eles se **complementam**: você pré-computa a timeline (view materializada) e ainda coloca um cache na frente para não onerar o banco. Em camadas, fica mais rápido ainda. Aliás, "cache" também é palavra guarda-chuva, falamos de pelo menos quatro nesse encontro: cache de banco, cache da aplicação, [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) e browser. E há duas leituras do próprio termo: o cache "cru" (pré-computar uma operação cara e salvar) e o cache "implementado", com todas as suas estratégias (TTL, ordem de escrita, invalidação, _eviction_).
 
 Um detalhe fino sobre por que, **neste caso**, a view materializada bate o cache puro: o cache pode ser pego de surpresa. Imagine 8h da manhã, todo mundo acordando e pegando o celular ao mesmo tempo, 20 milhões de requisições num piscar de olhos batendo num cache frio. Com a timeline já materializada, você não depende de "esquentar" nada na hora do pico. E o cache ainda te obrigaria a lidar com a dança da invalidação. Como sempre: cache tem ônus e bônus; comece pelo simples e vá complicando só quando precisar.
 
@@ -110,7 +136,7 @@ Por que fan-out on write costuma vencer aqui? **Controle de throughput.** Você 
 E o conceito de fan-out extrapola a rede social, vale a pena guardar (inclusive para entrevistas):
 
 - **Comunicação síncrona:** uma request na sua API que, para responder, dispara muitas requests internos.
-- **Mensageria:** uma mensagem chega num ponto (o *exchange* do RabbitMQ, por exemplo) e é roteada para vários consumidores.
+- **Mensageria:** uma mensagem chega num ponto (o _exchange_ do RabbitMQ, por exemplo) e é roteada para vários consumidores.
 - **Grafos:** a interação de um nó dispara N interações para outros nós adiante.
 
 Fechamos o estudo de caso com um link para o Capítulo 1: cada timeline pré-computada é um **dado derivado** da base principal (o **system of record**), onde os posts realmente moram. A view materializada é derivada; a fonte da verdade continua sendo o storage primário.
@@ -133,14 +159,14 @@ O ponto mais rico dessa parte é entender que **response time não é um número
 E é aqui que entra um alerta de vocabulário que pega muita gente (confissão coletiva na sala): **latência não é sinônimo de response time.** O livro diferencia:
 
 - **Response time** é a experiência ponta a ponta, do cliente.
-- **Latência** é, especificamente, o **tempo de rede**, o tempo que a request leva para sair do cliente e *chegar* ao serviço.
+- **Latência** é, especificamente, o **tempo de rede**, o tempo que a request leva para sair do cliente e _chegar_ ao serviço.
 - No meio ainda tem o **tempo de fila** (esperando ser processada), o **tempo de serviço** (processando de fato) e mais uma fila na volta.
 
 Falar "minha latência está em 1 segundo" quase sempre é impreciso. O problema costuma estar só numa delas. Muitas vezes a latência não é o problema (latência baixíssima) e o vilão real é a **fila** ou o **serviço**.
 
 Ferramentas que ajudam a enxergar isso:
 
-- [**Distributed tracing**](https://opentelemetry.io/docs/concepts/observability-primer/#distributed-traces) e **spans**: dentro de um mesmo código você cria spans para ver *exatamente* onde a operação está lenta, se é network, se é espera, se é banco, se é lógica, se está travando no event loop do JavaScript, se é CPU.
+- [**Distributed tracing**](https://opentelemetry.io/docs/concepts/observability-primer/#distributed-traces) e **spans**: dentro de um mesmo código você cria spans para ver _exatamente_ onde a operação está lenta, se é network, se é espera, se é banco, se é lógica, se está travando no event loop do JavaScript, se é CPU.
 - **A métrica certa para escalar é a fila**, não a CPU nem a memória. Se a fila de requisições está crescendo, é sinal para escalar antes que o response time desande.
 
 E os números certos guiam a solução: **network** alta? Talvez a infra esteja deployada na região errada, pense em CDN ou numa nova região. **Fila** subindo? Escala horizontal do serviço. **Processamento** alto? Talvez o problema seja algorítmico, e a otimização é no código. Talvez as dependências externas estejam sendo o problema.
@@ -162,8 +188,7 @@ E nada disso é novo, aliás. O **[TCP](https://en.wikipedia.org/wiki/TCP_conges
 
 > A internet foi tão bem feita que ninguém tem noção da complexidade que ela é.
 
-E, saindo um pouquinho do livro, tem a **fila virtual** (a "sala de espera"), aquela tela de "você está na posição X" em lançamento de Black Friday, ingresso de show, ou GTA 6. Não é *user-friendly* e não é recomendada como padrão, mas em casos raros de pico extremo é uma boa estratégia para cadenciar a galera e não derrubar tudo. (Bônus: costuma ter randomização, para não privilegiar quem está mais perto do servidor, e teve até quem lembrasse do sorteio de ingressos da Copa, que virou um fan-out só para os sorteados comprarem.)
-
+E, saindo um pouquinho do livro, tem a **fila virtual** (a "sala de espera"), aquela tela de "você está na posição X" em lançamento de Black Friday, ingresso de show, ou GTA 6. Não é _user-friendly_ e não é recomendada como padrão, mas em casos raros de pico extremo é uma boa estratégia para cadenciar a galera e não derrubar tudo. (Bônus: costuma ter randomização, para não privilegiar quem está mais perto do servidor, e teve até quem lembrasse do sorteio de ingressos da Copa, que virou um fan-out só para os sorteados comprarem.)
 
 ## A média mente: a história dos percentis
 
@@ -196,11 +221,10 @@ Para trabalhar percentil em produção, a ferramenta são os [**histogramas**](h
 E tudo isso desemboca no trio que formaliza "o que é performance boa" para o seu sistema:
 
 - **SLI (Service Level Indicator):** o **indicador** que você mede, por exemplo, o próprio response time.
-- **[SLO (Service Level Objective)](https://sre.google/sre-book/service-level-objectives/):** o **objetivo** que você define em cima do indicador. Por exemplo, "99% das requisições abaixo de 200 ms". Serve de *guard rail* para a evolução do software: te empurra a pensar em observabilidade, otimizar banco, escalar horizontal ou verticalmente.
+- **[SLO (Service Level Objective)](https://sre.google/sre-book/service-level-objectives/):** o **objetivo** que você define em cima do indicador. Por exemplo, "99% das requisições abaixo de 200 ms". Serve de _guard rail_ para a evolução do software: te empurra a pensar em observabilidade, otimizar banco, escalar horizontal ou verticalmente.
 - **SLA (Service Level Agreement):** o **acordo** com o cliente, com dinheiro e obrigações no meio. Estourou o SLA? A fatura vem, pode virar crédito ou multa para o cliente.
 
 Num provedor de cartões, por exemplo, esses números **ditam o sucesso do serviço**. E é exatamente essa ciência dos números que orienta a arquitetura, implementar um cache, partir para microsserviços, escalar horizontalmente, com um **norte bem definido**, em vez de no chute.
-
 
 ## Confiabilidade: falta (fault) vs. falha (failure)
 
@@ -210,7 +234,7 @@ A analogia que fixou o conceito (em plena época de Copa) foi a do **futebol**: 
 
 Daí vem o **fault tolerant**: um sistema que continua servindo o usuário **mesmo com faults acontecendo**. Um sistema tolerante a falhas é robusto e continua entregando valor; um que não tolera cai por inteiro ao menor problema, tem um ponto frágil. Mecanismos clássicos: **[RAID](https://en.wikipedia.org/wiki/RAID)** para discos (um disco falha, os outros seguem) e **múltiplas instâncias** para sistemas distribuídos (uma cai, as outras continuam).
 
-*(Parêntese divertido: ninguém lembrou de bons termos em português para fault e failure, em PT tudo vira "falha". A Novatec está traduzindo a 2ª edição, então em breve saberemos a escolha oficial. Até lá, ficamos no inglês mesmo, melhor do que arriscar traduzir "pipeline" para "tubo" ou "shorts" para "bermudas".)*
+_(Parêntese divertido: ninguém lembrou de bons termos em português para fault e failure, em PT tudo vira "falha". A Novatec está traduzindo a 2ª edição, então em breve saberemos a escolha oficial. Até lá, ficamos no inglês mesmo, melhor do que arriscar traduzir "pipeline" para "tubo" ou "shorts" para "bermudas".)_
 
 ### SPOF: o ponto único de falha
 
@@ -226,10 +250,9 @@ O e-commerce ilustra bem: em vez de fazer tudo síncrono (onde qualquer tropeço
 
 ### Injeção de falhas e engenharia do caos
 
-Como saber se o seu sistema é *de fato* tolerante a falhas? Você **quebra ele de propósito**. [**Fault injection**](https://en.wikipedia.org/wiki/Fault_injection) é induzir falhas deliberadas para avaliar a tolerância; a [**chaos engineering**](https://principlesofchaos.org/) (engenharia do caos) é a disciplina que faz isso de forma sistemática. Você bagunça as coisas para descobrir, no controlado, o que aconteceria no caos real: se um cloud provider cai, se o gateway de pagamento para, meu sistema cai junto ou continua funcionando minimamente? Isso reforça o valor de ter **mais de um fornecedor**, [**injeção de dependência**](https://martinfowler.com/articles/injection.html) para chavear qual serviço está em uso, e redundâncias físicas como o RAID.
+Como saber se o seu sistema é _de fato_ tolerante a falhas? Você **quebra ele de propósito**. [**Fault injection**](https://en.wikipedia.org/wiki/Fault_injection) é induzir falhas deliberadas para avaliar a tolerância; a [**chaos engineering**](https://principlesofchaos.org/) (engenharia do caos) é a disciplina que faz isso de forma sistemática. Você bagunça as coisas para descobrir, no controlado, o que aconteceria no caos real: se um cloud provider cai, se o gateway de pagamento para, meu sistema cai junto ou continua funcionando minimamente? Isso reforça o valor de ter **mais de um fornecedor**, [**injeção de dependência**](https://martinfowler.com/articles/injection.html) para chavear qual serviço está em uso, e redundâncias físicas como o RAID.
 
 > Esse livro é profundo: ele traz muita coisa de forma transversal. Um tópico bate no outro e faz o conhecimento se distribuir, um fan-out no grafo de conceitos.
-
 
 ## Os trade-offs até aqui
 
@@ -247,7 +270,6 @@ Como saber se o seu sistema é *de fato* tolerante a falhas? Você **quebra ele 
 
 - **Degradar com fault vs. arriscar failure total:** degradar entrega valor parcial de forma previsível, mas exige circuit breaker, load shedding e assincronismo. Arriscar mantém o sistema mais simples de construir, mas quando quebra, quebra inteiro.
 
-
 ## O que vem na Parte 2
 
 Paramos no meio do Capítulo 2 de propósito, tinha muita coisa boa e a conversa renderia madrugada adentro. Ficou para o próximo encontro o restante de **confiabilidade** (erros de software, o fator **humano** e cultura), além de **escalabilidade** e **manutenibilidade**.
@@ -258,7 +280,7 @@ Este foi só o **Capítulo 2, Parte 1**. Os encontros acontecem **a cada quinze 
 
 O clube é aberto, descontraído e feito **da comunidade para a comunidade**: sem aula, sem cobrança, só gente que vive esses problemas trocando ideia (e cicatrizes de produção). Não precisa ter lido tudo nem ser especialista.
 
-**Participe do Clube do Livro:** [Designing Data-Intensive Applications da comunidade Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications)
+**Participe do Clube do Livro:** [Designing Data-Intensive Applications da comunidade Craft Code Club](https://craftcodeclub.io/book-clubs/designing-data-intensive-applications)
 
 Traga sua leitura, suas discordâncias e seus exemplos. A melhor parte nunca está só no livro, está na conversa em cima dele.
 
@@ -266,7 +288,7 @@ Traga sua leitura, suas discordâncias e seus exemplos. A melhor parte nunca est
 
 **O livro**
 
-- **Designing Data-Intensive Applications**, Martin Kleppmann e Chris Riccomini (2ª edição). Capítulo 2: *Defining Nonfunctional Requirements*. [Site oficial](https://dataintensive.net/).
+- **Designing Data-Intensive Applications**, Martin Kleppmann e Chris Riccomini (2ª edição). Capítulo 2: _Defining Nonfunctional Requirements_. [Site oficial](https://dataintensive.net/).
 
 **Post anterior da série**
 
@@ -287,5 +309,5 @@ Traga sua leitura, suas discordâncias e seus exemplos. A melhor parte nunca est
 - [Token Bucket](https://en.wikipedia.org/wiki/Token_bucket) · rate limiting
 - [Load Shedding](https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload/) (Amazon Builders' Library)
 - [SLIs, SLOs, SLAs](https://sre.google/sre-book/service-level-objectives/) (Google SRE Book)
-- [Latency vs. Throughput](https://en.wikipedia.org/wiki/Latency_(engineering))
+- [Latency vs. Throughput](<https://en.wikipedia.org/wiki/Latency_(engineering)>)
 - [Chaos Engineering](https://principlesofchaos.org/)

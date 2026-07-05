@@ -1,19 +1,35 @@
 ---
-title: 'Não existem soluções, só trade-offs: o que aprendemos no Capítulo 1 de DDIA'
-date: '2026-06-15'
-description: 'Notas do primeiro encontro do Clube do Livro da Craft Code Club sobre Designing Data-Intensive Applications (2ª edição): trade-offs, OLTP vs. OLAP, nuvem vs. self-hosting, sistemas distribuídos, serverless e privacidade.'
-topics: ['System Design', 'Clube do Livro']
-keywords: ['DDIA', 'Designing Data-Intensive Applications', 'Martin Kleppmann', 'Trade-offs', 'OLTP', 'OLAP', 'Sistemas Distribuídos', 'Cloud vs Self-hosting', 'Serverless', 'Privacidade de Dados', 'LGPD', 'High Scalability', 'Data Lake', 'Data Warehouse']
+title: "Não existem soluções, só trade-offs: o que aprendemos no Capítulo 1 de DDIA"
+date: "2026-06-15"
+description: "Notas do primeiro encontro do Clube do Livro da Craft Code Club sobre Designing Data-Intensive Applications (2ª edição): trade-offs, OLTP vs. OLAP, nuvem vs. self-hosting, sistemas distribuídos, serverless e privacidade."
+topics: ["System Design", "Clube do Livro"]
+keywords:
+  [
+    "DDIA",
+    "Designing Data-Intensive Applications",
+    "Martin Kleppmann",
+    "Trade-offs",
+    "OLTP",
+    "OLAP",
+    "Sistemas Distribuídos",
+    "Cloud vs Self-hosting",
+    "Serverless",
+    "Privacidade de Dados",
+    "LGPD",
+    "High Scalability",
+    "Data Lake",
+    "Data Warehouse",
+  ]
 authors: []
 ---
 
-*Este post é um resumo da discussão do encontro do Clube do Livro da [Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications) sobre o Capítulo 1 de Designing Data-Intensive Applications.*
+_Este post é um resumo da discussão do encontro do Clube do Livro da [Craft Code Club](https://craftcodeclub.io/book-clubs/designing-data-intensive-applications) sobre o Capítulo 1 de Designing Data-Intensive Applications._
 
-> *There are no solutions, only trade-offs.*
+> _There are no solutions, only trade-offs._
 
-É com essa frase (literalmente a primeira do livro) que começa **Designing Data-Intensive Applications** (DDIA), de Martin Kleppmann, e foi também por ela que começou a primeira conversa do nosso **Clube do Livro** da comunidade [Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications).
+É com essa frase (literalmente a primeira do livro) que começa **Designing Data-Intensive Applications** (DDIA), de Martin Kleppmann, e foi também por ela que começou a primeira conversa do nosso **Clube do Livro** da comunidade [Craft Code Club](https://craftcodeclub.io/book-clubs/designing-data-intensive-applications).
 
-A proposta do clube é simples: a cada quinze dias, um capítulo. Sem aula, sem palestra, sem ninguém "dono da razão". A ideia é juntar gente que vive esses problemas no dia a dia e **trocar experiências**: concordar, discordar, trazer cicatrizes de produção. Este post é um apanhado das melhores discussões do encontro sobre o Capítulo 1, *Trade-offs in Data Systems Architecture*. Para organizar a conversa, a turma montou um [quadro no Excalidraw](https://link.excalidraw.com/l/ADMgGFVWISx/9G9VQCCv2rL) com os tópicos do capítulo.
+A proposta do clube é simples: a cada quinze dias, um capítulo. Sem aula, sem palestra, sem ninguém "dono da razão". A ideia é juntar gente que vive esses problemas no dia a dia e **trocar experiências**: concordar, discordar, trazer cicatrizes de produção. Este post é um apanhado das melhores discussões do encontro sobre o Capítulo 1, _Trade-offs in Data Systems Architecture_. Para organizar a conversa, a turma montou um [quadro no Excalidraw](https://link.excalidraw.com/l/ADMgGFVWISx/9G9VQCCv2rL) com os tópicos do capítulo.
 
 Se você curte sistemas de alta escala, vai sair daqui com um bom mapa mental e, quem sabe, com vontade de aparecer no próximo encontro.
 
@@ -23,7 +39,7 @@ Se você curte sistemas de alta escala, vai sair daqui com um bom mapa mental e,
 
 A segunda edição do livro veio **repaginada**: terminologia atualizada, vocabulário dos dias de hoje e dezenas de referências bibliográficas para quem quiser se aprofundar. O Capítulo 1 não tenta resolver nada: ele **organiza o vocabulário** e prepara o leitor para o resto da obra.
 
-E talvez seja justamente aí que esteja o maior valor: Kleppmann fala de **conceitos**, não de ferramentas. Ele descreve o *como pensar*, não o *como fazer*. Em quase nenhum momento ele diz "use a tecnologia X". Ele cita o conceito o tempo todo e deixa as decisões (e os trade-offs) na sua mão.
+E talvez seja justamente aí que esteja o maior valor: Kleppmann fala de **conceitos**, não de ferramentas. Ele descreve o _como pensar_, não o _como fazer_. Em quase nenhum momento ele diz "use a tecnologia X". Ele cita o conceito o tempo todo e deixa as decisões (e os trade-offs) na sua mão.
 
 Esse foi um fio condutor da noite inteira: **a gente não estava discutindo sistemas ou ferramentas, estava discutindo conceitos.** O conceito é o que importa; a ferramenta é só o instrumento que você escolhe para materializá-lo.
 
@@ -35,7 +51,7 @@ O primeiro grande tema do capítulo é a diferença entre sistemas **transaciona
 
 O exemplo clássico (e dolorosamente real) apareceu logo:
 
-> *A equipe inteira clica em 'gerar relatório' e o sistema fica lento.*
+> _A equipe inteira clica em 'gerar relatório' e o sistema fica lento._
 
 A história se repete em toda empresa: o time decide que "está lento, vamos aumentar o poder de processamento", mistura carga transacional e analítica **na mesma base, no mesmo lugar**, e aí o cliente fica minutos esperando um relatório sair enquanto o sistema operacional sofre. Faltou dar dois passos atrás e enxergar que ali existem **duas demandas completamente diferentes** competindo pelos mesmos recursos:
 
@@ -51,11 +67,11 @@ Uma crítica afiada surgiu na conversa: o livro vai direto do banco transacional
 - **Read replicas** para rodar os relatórios fora do banco principal.
 - **Views materializadas** e **agregações pré-computadas** no próprio banco.
 
-Você não precisa de maturidade de big tech para isso. Esse intermediário segura as pontas até você *de fato* precisar de uma stack só para o analítico, com toda a complexidade e os trade-offs que ela carrega.
+Você não precisa de maturidade de big tech para isso. Esse intermediário segura as pontas até você _de fato_ precisar de uma stack só para o analítico, com toda a complexidade e os trade-offs que ela carrega.
 
 ### HTAP: o híbrido que não substitui ninguém
 
-O livro menciona o **HTAP** (*Hybrid Transactional/Analytical Processing*), e a turma foi certeira na leitura: **ele não substitui** ter a ferramenta certa para cada coisa. Por baixo dos panos continuam existindo **duas estruturas e duas mecânicas**: uma performada para transacionar, outra para agregar petabytes. O híbrido existe mais para **simplificar** a vida de quem está começando do que para ser a resposta final. O ideal continua sendo "uma coisa para cada coisa".
+O livro menciona o **HTAP** (_Hybrid Transactional/Analytical Processing_), e a turma foi certeira na leitura: **ele não substitui** ter a ferramenta certa para cada coisa. Por baixo dos panos continuam existindo **duas estruturas e duas mecânicas**: uma performada para transacionar, outra para agregar petabytes. O híbrido existe mais para **simplificar** a vida de quem está começando do que para ser a resposta final. O ideal continua sendo "uma coisa para cada coisa".
 
 ---
 
@@ -63,12 +79,12 @@ O livro menciona o **HTAP** (*Hybrid Transactional/Analytical Processing*), e a 
 
 Uma das definições mais elogiadas do capítulo separa o mundo dos dados em dois pacotinhos:
 
-- **System of Record** (sistema de registro): a *golden source*, o dono da informação, onde mora a última versão da verdade.
+- **System of Record** (sistema de registro): a _golden source_, o dono da informação, onde mora a última versão da verdade.
 - **Derived Data Systems** (dados derivados): tudo que pode ser **reconstruído** a partir do system of record. Se você perder, tudo bem, você regenera.
 
 O **cache** é o exemplo canônico de dado derivado (e o livro coloca ele exatamente nessa categoria). Mas o poder dessa distinção não é meramente acadêmico: na hora de desenhar a arquitetura, **categorizar cada dado** em "fonte da verdade" ou "derivado" melhora a comunicação do time e melhora o próprio design.
 
-E vale o lembrete do livro: **um banco de dados não é intrinsecamente um nem outro**. Depende de como você o usa. O mesmo Postgres pode ser system of record num contexto e fonte derivada em outro. É aquele exercício de "voltar à base do conceito": assim como um *Application Load Balancer*, lá no fundo, ainda é só um load balancer.
+E vale o lembrete do livro: **um banco de dados não é intrinsecamente um nem outro**. Depende de como você o usa. O mesmo Postgres pode ser system of record num contexto e fonte derivada em outro. É aquele exercício de "voltar à base do conceito": assim como um _Application Load Balancer_, lá no fundo, ainda é só um load balancer.
 
 Esses conceitos conversam diretamente com padrões que a comunidade já discutiu bastante:
 
@@ -81,14 +97,14 @@ Esses conceitos conversam diretamente com padrões que a comunidade já discutiu
 
 Subindo um nível, o capítulo entra em **onde** os dados analíticos vivem e traz um princípio com nome engraçado, mas ideia séria:
 
-> **[O princípio do sushi](https://www.datasapiens.co.uk/blog/the-sushi-principle)**: *raw data is better than cooked data.* Dado cru é melhor do que dado cozido.
+> **[O princípio do sushi](https://www.datasapiens.co.uk/blog/the-sushi-principle)**: _raw data is better than cooked data._ Dado cru é melhor do que dado cozido.
 
 A interpretação que prevaleceu: guarde o dado **no estado mais cru possível**, do jeitinho que ele chegou. Recebeu um arquivo, um relatório, um JSON? Persista a versão bruta. Assim, no futuro, você pode fazer **quantas transformações quiser, sempre a partir da origem**. Descobriu que uma projeção foi calculada errada? Volta ao dado cru e refaz a transformação inteira. A reversibilidade fica garantida porque o original está sempre lá. (Teve também a leitura bem-humorada da "esteira de sushi", em que dados de vários tipos vão entrando sem categorização rígida, e, no fundo, as duas imagens se encaixam.)
 
 Daí saem as duas figuras clássicas:
 
 - **Data Lake**: mais livre, schema-on-read, guarda qualquer coisa (arquivos, JSON, o que for). É onde o dado cru mora.
-- **Data Warehouse**: mais estruturado, fácil de consultar para BI e análise de negócio (pense num Power BI conectado fazendo *queries* complexas).
+- **Data Warehouse**: mais estruturado, fácil de consultar para BI e análise de negócio (pense num Power BI conectado fazendo _queries_ complexas).
 
 ### Por que centralizar?
 
@@ -100,7 +116,7 @@ Um ponto sutil mas importante: por que os dados analíticos tendem a ser **centr
 
 Aqui a discussão esquentou e rendeu um dos melhores trechos da noite.
 
-O Data Lake parece perfeito: todas as bases a um `SELECT` de distância. Até que alguém de negócio aponta para lá e fala *"mas o dado está bem aqui, ó"*, e começa a usar o data warehouse como **base operacional, para consulta em tempo real**. Quando você vê, o DW virou a fonte da verdade de toda a empresa, e aí começam as dores. Aquele banco, que existe para consultas pesadas, passa a impactar diretamente a aplicação do outro lado, porque os dois sistemas têm demandas opostas competindo entre si. **É o problema que gerou a separação, refeito ao contrário.**
+O Data Lake parece perfeito: todas as bases a um `SELECT` de distância. Até que alguém de negócio aponta para lá e fala _"mas o dado está bem aqui, ó"_, e começa a usar o data warehouse como **base operacional, para consulta em tempo real**. Quando você vê, o DW virou a fonte da verdade de toda a empresa, e aí começam as dores. Aquele banco, que existe para consultas pesadas, passa a impactar diretamente a aplicação do outro lado, porque os dois sistemas têm demandas opostas competindo entre si. **É o problema que gerou a separação, refeito ao contrário.**
 
 E por que isso acontece tanto? Muitas vezes por uma **divisão errada de microsserviços**: o serviço não tem os dados que deveria ter, ninguém quer "duplicar dado porque é muita informação", e quando você percebe não tem microsserviço, tem um **monolito distribuído** com o DW fazendo papel de banco operacional.
 
@@ -108,7 +124,7 @@ E por que isso acontece tanto? Muitas vezes por uma **divisão errada de micross
 
 Existe o movimento legítimo de levar dados **do warehouse de volta para a aplicação**, e a turma separou bem os dois casos:
 
-- **Bom**: a parte transacional gerou muito dado, o analítico trabalhou em cima dele e devolveu algo útil, como um **modelo treinado para detectar fraude**, ou um modelo de recomendação do tipo "quem comprou isso também, usualmente, compra aquilo". O *output* da camada analítica pode se tornar um artefato incluído e usado na camada operacional.
+- **Bom**: a parte transacional gerou muito dado, o analítico trabalhou em cima dele e devolveu algo útil, como um **modelo treinado para detectar fraude**, ou um modelo de recomendação do tipo "quem comprou isso também, usualmente, compra aquilo". O _output_ da camada analítica pode se tornar um artefato incluído e usado na camada operacional.
 - **Mau**: usar o warehouse como **atalho** porque dá menos trabalho. Isto com certeza vai gerar problemas adiante.
 
 ### A defesa: engenharia forte
@@ -123,7 +139,7 @@ Esse tópico gerou um bom debate, inclusive sobre se o capítulo já nasceu data
 
 Um lado argumentou que **envelheceu mal**: a regra histórica era "a nuvem começa barata e termina cara; servidor próprio começa caro e termina barato". Só que hardware hoje está caro. O resultado é que infra própria **começa cara e termina cara também**, ou seja, a comparação mudou em relação a alguns anos atrás.
 
-O contraponto foi igualmente forte: essa visão olha o mundo pela **lente de sistemas web, escaláveis e online**. Mas ainda existe (e é forte) todo um universo de **chão de fábrica, sensores e sistemas internos** que não são públicos e não rodam na nuvem *by design*. Some a isso restrições de **compliance e regulação**, em que a empresa simplesmente **não tem escolha** a não ser self-hosting. Às vezes o self-hosting sai mais barato, às vezes viabiliza uma certificação que mantém a empresa competitiva.
+O contraponto foi igualmente forte: essa visão olha o mundo pela **lente de sistemas web, escaláveis e online**. Mas ainda existe (e é forte) todo um universo de **chão de fábrica, sensores e sistemas internos** que não são públicos e não rodam na nuvem _by design_. Some a isso restrições de **compliance e regulação**, em que a empresa simplesmente **não tem escolha** a não ser self-hosting. Às vezes o self-hosting sai mais barato, às vezes viabiliza uma certificação que mantém a empresa competitiva.
 
 Alguns vetores que apareceram para guiar a decisão:
 
@@ -138,7 +154,7 @@ Surgiu um exemplo concreto e revelador: empresas grandes que tentaram **reinvent
 
 Do outro lado, o movimento inverso: organizações que crescem tanto numa plataforma gerenciada (tipo Databricks) que o **custo explode** e passa a compensar internalizar, contratar gente de altíssimo nível e construir o próprio. Bancos, por exemplo, não gostam de "dividir o ouro": quando os dados viram ativo central, faz sentido trazer tudo para dentro.
 
-A síntese: **não existe certo ou errado, existem momentos diferentes.** Uma empresa de longo prazo fica trafegando entre *build* e *buy* a vida inteira. Saber se adaptar é a habilidade.
+A síntese: **não existe certo ou errado, existem momentos diferentes.** Uma empresa de longo prazo fica trafegando entre _build_ e _buy_ a vida inteira. Saber se adaptar é a habilidade.
 
 ### O espectro IaaS → PaaS → SaaS e o conceito de "core"
 
@@ -159,7 +175,7 @@ Isso puxa o **teorema CAP**: a **partição** é a parte com que você não cons
 
 Veio também uma das imagens mais bonitas da noite, parafraseando o próprio livro: **a internet foi tão bem feita que as pessoas a enxergam como algo natural** (quase como o Oceano Pacífico) em vez de algo construído por humanos. A gente nem cogita que a rede pode cair e derrubar tudo. Por baixo dos panos, porém, tem pacote falhando, retry rolando solto, servidor caindo, só que é tudo tão bem amarrado que não vemos.
 
-E é por aí que o capítulo nos lembra de **apreciar as abstrações**. Conceitos que tomamos como resolvidos (CPU, memória, banda, pacotes, TCP/UDP, HTTP) são camadas e camadas de engenharia que a gente nem pensa mais. Fica a provocação: *você já agradeceu seu framework hoje?* Vai lá traduzir pacote TCP na mão, transformar em HTTP, resolver a rota e chamar seu código, depois reclama que o framework é opinativo demais. É a abstração do carro: você gira a chave, quer que o motor ligue e o carro ande; o resto fica embaixo do capô.
+E é por aí que o capítulo nos lembra de **apreciar as abstrações**. Conceitos que tomamos como resolvidos (CPU, memória, banda, pacotes, TCP/UDP, HTTP) são camadas e camadas de engenharia que a gente nem pensa mais. Fica a provocação: _você já agradeceu seu framework hoje?_ Vai lá traduzir pacote TCP na mão, transformar em HTTP, resolver a rota e chamar seu código, depois reclama que o framework é opinativo demais. É a abstração do carro: você gira a chave, quer que o motor ligue e o carro ande; o resto fica embaixo do capô.
 
 O alerta que fecha o tema: **distribuído parece mais simples hoje** por causa da familiaridade e das abstrações, mas adotar distribuído é **comprar um pacote de problemas** (retry, timeout, tratamento de falha) que você não tem quando a memória vai direto de um processo para o outro.
 
@@ -170,8 +186,8 @@ O alerta que fecha o tema: **distribuído parece mais simples hoje** por causa d
 Contraintuitivo, mas verdadeiro: **uma única máquina pode ser muito mais rápida que vinte máquinas horizontais**, dependendo do que você faz. A gente tem o vício de "ir colocando máquina, colocando máquina" quando, às vezes, **reduzir** traria benefício.
 
 - Em sistemas de **baixíssima latência** (um sistema de trading, por exemplo), um **single thread** pode bater o multi thread, porque o custo de a CPU coordenar paralelismo não compensa quando você controla até o nível do core.
-- **Rede é sempre gargalo.** Não importa quão perto estejam os servidores; na nuvem, você nem sabe ao certo *onde* eles estão. Você nunca terá a latência de dentro da própria CPU. (Aqui vale resgatar o exercício de *back-of-the-envelope estimation*: o custo de um byte no cache, na CPU e na rede é de ordens de grandeza diferentes.)
-- **Escala vertical tem teto.** Em algum ponto, adicionar memória fica caríssimo, e pode até **piorar**. Um exemplo real contado na conversa: uma máquina com 64 GB de RAM que, ao receber 120 GB, ficou *mais lenta*, porque passou a depender de swap para o resto. Memória, CPU e rede de um nó só sempre vão topar em algum limite.
+- **Rede é sempre gargalo.** Não importa quão perto estejam os servidores; na nuvem, você nem sabe ao certo _onde_ eles estão. Você nunca terá a latência de dentro da própria CPU. (Aqui vale resgatar o exercício de _back-of-the-envelope estimation_: o custo de um byte no cache, na CPU e na rede é de ordens de grandeza diferentes.)
+- **Escala vertical tem teto.** Em algum ponto, adicionar memória fica caríssimo, e pode até **piorar**. Um exemplo real contado na conversa: uma máquina com 64 GB de RAM que, ao receber 120 GB, ficou _mais lenta_, porque passou a depender de swap para o resto. Memória, CPU e rede de um nó só sempre vão topar em algum limite.
 
 A analogia que ficou: é mais fácil fazer um carro simples correr mais rápido ou uma Ferrari topo de linha?
 
@@ -185,22 +201,21 @@ Mas veio o contraponto sincero: serverless também é uma **pegadinha**. É como
 
 Tem ainda o paradoxo do **cold start**: para a função responder rapidamente, acabamos por criar vários workarounds para a manter sempre hot. No fim, estamos a manter recursos permanentemente ativos para evitar o cold start, e acabamos por voltar ao mesmo modelo de um servidor sempre ligado. Uma falsa sensação de engenharia sofisticada.
 
-
 ### Microsserviço escala equipes, não tecnologia
 
 O ponto que mais ressoou: **microsserviços foram criados para escalar equipes, não para resolver problema técnico.** É um problema de **pessoas** que resolvemos de forma técnica. Quem já tentou colocar vinte equipes cuidando de um monolito sabe a dor: agendar quem sobe deploy primeiro, esperar dias para ver se não quebra, descobrir que o que quebrou era "o de menor risco". Microsserviço veio dar a essas equipes a chance de escalar **rápido e independente**.
 
-E é exatamente aí que mora um ótimo **termômetro de maturidade**: se, para entregar uma feature no *seu* serviço, você precisa **alinhar roadmap com quatro ou cinco outras equipes**, a independência que justificava os microsserviços evaporou. Virou um Tetris de roadmap.
+E é exatamente aí que mora um ótimo **termômetro de maturidade**: se, para entregar uma feature no _seu_ serviço, você precisa **alinhar roadmap com quatro ou cinco outras equipes**, a independência que justificava os microsserviços evaporou. Virou um Tetris de roadmap.
 
 O irmão gêmeo do problema é o **distribuído falso**: o "monolito distribuído", distribuído **sem resiliência**. Se cair um serviço e cair o sistema inteiro, você só aumentou a sua superfície de falha. **Distribuído tem que ser distribuído com resiliência**; senão, vá de nó único, que resolve o seu problema: se cai, cai tudo; se está de pé, está tudo de pé.
 
 ### Nem tudo é ciência de foguete
 
-Um tempero saudável de ceticismo fechou o tema. Muita coisa que a gente imagina ser "do outro mundo" é, na real, **simples**: a diferença é que alguém teve coragem de fazer acontecer. Isolamento multi-tenant que parece um inferno de gerenciar pode ser, no fundo, um campo com o `id` do usuário replicado por containers. E muito do que está em produção por aí é mais **gambiarra** do que obra de arte (o caso citado: um serviço de *streaming* que era, por baixo, um *service bus* falando protocolo de Kafka).
+Um tempero saudável de ceticismo fechou o tema. Muita coisa que a gente imagina ser "do outro mundo" é, na real, **simples**: a diferença é que alguém teve coragem de fazer acontecer. Isolamento multi-tenant que parece um inferno de gerenciar pode ser, no fundo, um campo com o `id` do usuário replicado por containers. E muito do que está em produção por aí é mais **gambiarra** do que obra de arte (o caso citado: um serviço de _streaming_ que era, por baixo, um _service bus_ falando protocolo de Kafka).
 
-Isso não é elogio à bagunça, é reconhecimento de que **validar a hipótese pela via mais simples** é, muitas vezes, a melhor engenharia. Soltar o produto "mascarado", ver se tem demanda e gente pagando, e *depois* investir em fazer redondo. A fronteira entre "gambiarra" e "decisão consciente" é uma só: **conhecer o trade-off**. A diferença entre júnior e sênior não é não errar, é **saber quando está fazendo o atalho e por quê**. O perigo mora em fazer errado sem saber, e ficar perdido quando dá ruim. Como diz o início do livro: trade-off é você **saber**. Se você só enxerga vantagens, tem algo escondido ali.
+Isso não é elogio à bagunça, é reconhecimento de que **validar a hipótese pela via mais simples** é, muitas vezes, a melhor engenharia. Soltar o produto "mascarado", ver se tem demanda e gente pagando, e _depois_ investir em fazer redondo. A fronteira entre "gambiarra" e "decisão consciente" é uma só: **conhecer o trade-off**. A diferença entre júnior e sênior não é não errar, é **saber quando está fazendo o atalho e por quê**. O perigo mora em fazer errado sem saber, e ficar perdido quando dá ruim. Como diz o início do livro: trade-off é você **saber**. Se você só enxerga vantagens, tem algo escondido ali.
 
-E, para fechar com um clássico de praticidade: **spot instances**, ou seja, leilão de máquina ociosa, bem mais barata, mas que pode cair a qualquer momento. Ótima para *jobs* que toleram interrupção; para APIs que precisam responder, mantenha um percentual de máquinas garantidas fora do modelo spot. (Fargate trabalha numa linha parecida.)
+E, para fechar com um clássico de praticidade: **spot instances**, ou seja, leilão de máquina ociosa, bem mais barata, mas que pode cair a qualquer momento. Ótima para _jobs_ que toleram interrupção; para APIs que precisam responder, mantenha um percentual de máquinas garantidas fora do modelo spot. (Fargate trabalha numa linha parecida.)
 
 ---
 
@@ -212,15 +227,15 @@ E aí mora uma tensão deliciosa de engenharia: muitos sistemas foram construíd
 
 - **Não persistir o dado sensível** no evento; guardar só um `id`/referência.
 - **Crypto-shredding**: uma **chave de criptografia por usuário**. O dado trafega e repousa criptografado; quando o usuário quer ir embora, você **apaga a chave privada** e o dado vira lixo anonimizado para sempre. Elegante, mas com trade-offs reais: precisa criptografar/descriptografar muitas vezes (cache, latência conforme o volume) e ainda tem o problema dos **backups** (como garantir que a chave sumiu de todas as cópias?).
-- **Anonimização / desassociação**: muitas vezes "esquecer" não é deletar tudo, é **desassociar a pessoa do dado**. Numa instituição financeira, a transação **não pode** sumir (o *general ledger* precisa continuar consolidado, e há leis que obrigam a guardar por anos), o que se apaga é o vínculo com a pessoa física.
+- **Anonimização / desassociação**: muitas vezes "esquecer" não é deletar tudo, é **desassociar a pessoa do dado**. Numa instituição financeira, a transação **não pode** sumir (o _general ledger_ precisa continuar consolidado, e há leis que obrigam a guardar por anos), o que se apaga é o vínculo com a pessoa física.
 
 Dois princípios atravessaram a discussão:
 
 1. **Data minimization vs. Big Data.** O instinto histórico do Big Data é "guarde tudo, em algum momento a gente tira ouro disso". As leis empurram para o lado oposto: **guarde só o que você realmente precisa**. Por que perguntar a idade da pessoa se você não vai usar? É um ideal em tensão eterna com a realidade (todo mundo guarda tudo) e com a briga clássica entre **UX** (quer o cadastro mais simples) e **Segurança** (quer o mínimo de exposição).
 
-2. **Consentimento *e* finalidade.** Não basta a pessoa consentir com a coleta de um dado; você só pode usá-lo para o **propósito declarado**. Coletou a idade para uma análise preditiva específica? Legalmente, não pode reaproveitar o mesmo dado para outra finalidade. (Na prática, nem toda empresa cumpre, e todo mundo tem um palpite de quais.)
+2. **Consentimento _e_ finalidade.** Não basta a pessoa consentir com a coleta de um dado; você só pode usá-lo para o **propósito declarado**. Coletou a idade para uma análise preditiva específica? Legalmente, não pode reaproveitar o mesmo dado para outra finalidade. (Na prática, nem toda empresa cumpre, e todo mundo tem um palpite de quais.)
 
-O exemplo que fez a sala parar foi o de um **app de mobilidade**: guardar para onde a pessoa foi pode virar um problemão se esse dado vazar: pense em alguém que foi a uma clínica em uma situação sensível, ilegal ou estigmatizada em certos lugares. Conclusão de design: às vezes você **nem precisa** desse dado. Quer saber *quantas* pessoas fizeram tal rota? Colete a contagem sem **linkar à entidade**. O melhor dado pessoal é o que você decidiu **não guardar**.
+O exemplo que fez a sala parar foi o de um **app de mobilidade**: guardar para onde a pessoa foi pode virar um problemão se esse dado vazar: pense em alguém que foi a uma clínica em uma situação sensível, ilegal ou estigmatizada em certos lugares. Conclusão de design: às vezes você **nem precisa** desse dado. Quer saber _quantas_ pessoas fizeram tal rota? Colete a contagem sem **linkar à entidade**. O melhor dado pessoal é o que você decidiu **não guardar**.
 
 E há o pano de fundo incômodo: parte das empresas simplesmente **assume o risco da multa** ("se der ruim, a gente paga"), porque fiscalizar milhões de empresas é quase impossível. Pior ainda quando há **leis conflitantes** (uma obriga a reter, outra obriga a apagar) e você precisa decidir qual prevalece. Tudo isso deveria estar previsto desde a **modelagem do sistema**, não remendado depois.
 
@@ -232,20 +247,20 @@ Se há uma lição única que atravessa todos esses temas (OLTP vs. OLAP, lake v
 
 > **Não existem soluções, só trade-offs.**
 
-Toda decisão tem um lado bom *e* um lado ruim. Se você só enxerga benefícios, provavelmente ainda não achou o custo escondido. Engenharia sênior não é evitar o atalho, é **escolher o atalho sabendo exatamente o que está pagando por ele**.
+Toda decisão tem um lado bom _e_ um lado ruim. Se você só enxerga benefícios, provavelmente ainda não achou o custo escondido. Engenharia sênior não é evitar o atalho, é **escolher o atalho sabendo exatamente o que está pagando por ele**.
 
 ### Trade-offs recorrentes (para consultar depois)
 
-| Decisão | De um lado | Do outro lado |
-|---|---|---|
-| OLTP vs. OLAP | Latência baixa, muita escrita, leitura pontual | Agregação pesada, tolera espera, varre tudo |
-| Caminho do meio (view materializada/read replica) | Simples, atende por mais tempo | Não substitui stack analítica dedicada na escala |
-| System of record vs. derivado | Fonte da verdade, proteja | Reconstruível, pode descartar |
-| Data Lake (raw) vs. Warehouse | Flexível, schema-on-read | Estruturado, fácil para BI |
-| Nuvem vs. self-hosting | CapEx ~0, elástica, OpEx maior | CapEx alto, controle, compliance, OpEx menor |
-| Distribuído vs. nó único | Escala e isolamento | Sem rede no meio, menor latência, menos problemas |
-| Serverless | Paga pelo uso, conceito elegante | Custo no entorno, cold start, vira servidor se mal usado |
-| Guardar dado vs. minimizar | Mais "ouro" potencial | Menos risco legal e de vazamento |
+| Decisão                                           | De um lado                                     | Do outro lado                                            |
+| ------------------------------------------------- | ---------------------------------------------- | -------------------------------------------------------- |
+| OLTP vs. OLAP                                     | Latência baixa, muita escrita, leitura pontual | Agregação pesada, tolera espera, varre tudo              |
+| Caminho do meio (view materializada/read replica) | Simples, atende por mais tempo                 | Não substitui stack analítica dedicada na escala         |
+| System of record vs. derivado                     | Fonte da verdade, proteja                      | Reconstruível, pode descartar                            |
+| Data Lake (raw) vs. Warehouse                     | Flexível, schema-on-read                       | Estruturado, fácil para BI                               |
+| Nuvem vs. self-hosting                            | CapEx ~0, elástica, OpEx maior                 | CapEx alto, controle, compliance, OpEx menor             |
+| Distribuído vs. nó único                          | Escala e isolamento                            | Sem rede no meio, menor latência, menos problemas        |
+| Serverless                                        | Paga pelo uso, conceito elegante               | Custo no entorno, cold start, vira servidor se mal usado |
+| Guardar dado vs. minimizar                        | Mais "ouro" potencial                          | Menos risco legal e de vazamento                         |
 
 ---
 
@@ -255,7 +270,7 @@ Este foi só o **Capítulo 1**. Os encontros acontecem **a cada quinze dias**.
 
 O clube é aberto, descontraído e feito **da comunidade para a comunidade**: sem aula, sem cobrança, só gente que vive esses problemas trocando ideia (e cicatrizes de produção). Não precisa ter lido tudo nem ser especialista.
 
-👉 **Participe do Clube do Livro:** [Designing Data-Intensive Applications da comunidade Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications)
+👉 **Participe do Clube do Livro:** [Designing Data-Intensive Applications da comunidade Craft Code Club](https://craftcodeclub.io/book-clubs/designing-data-intensive-applications)
 
 Traga sua leitura, suas discordâncias e seus exemplos. A melhor parte nunca está só no livro, está na conversa em cima dele.
 
@@ -265,16 +280,16 @@ Traga sua leitura, suas discordâncias e seus exemplos. A melhor parte nunca est
 
 **O livro**
 
-- **Designing Data-Intensive Applications**, Martin Kleppmann e Chris Riccomini (2ª edição). Capítulo 1: *Trade-offs in Data Systems Architecture*. [Site oficial](https://dataintensive.net/).
+- **Designing Data-Intensive Applications**, Martin Kleppmann e Chris Riccomini (2ª edição). Capítulo 1: _Trade-offs in Data Systems Architecture_. [Site oficial](https://dataintensive.net/).
 
 **Gravação do encontro**
-- [Assista no YouTube](https://youtu.be/53TFZSe-IGw)
 
+- [Assista no YouTube](https://youtu.be/53TFZSe-IGw)
 
 **Links compartilhados na discussão**
 
 - [Quadro da discussão (Excalidraw)](https://link.excalidraw.com/l/ADMgGFVWISx/9G9VQCCv2rL)
-- [The Sushi Principle](https://www.datasapiens.co.uk/blog/the-sushi-principle) (*raw data is better than cooked data*)
+- [The Sushi Principle](https://www.datasapiens.co.uk/blog/the-sushi-principle) (_raw data is better than cooked data_)
 - [Postgres for Everything](https://postgresforeverything.com/) · [artigo no amazingcto](https://www.amazingcto.com/postgres-for-everything/)
 - [PaaS vs. IaaS vs. SaaS](https://cloud.google.com/learn/paas-vs-iaas-vs-saas) (Google Cloud)
 
