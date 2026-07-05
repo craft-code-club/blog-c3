@@ -8,7 +8,7 @@ import ArrowIcon from '@/components/ArrowIcon';
 import { getEvents } from '@/lib/events';
 import EventCard from '@/components/EventCard';
 export default function Home() {
-  const posts = getSortedPostsData();
+  const posts = getSortedPostsData().slice(0, 3);
   const featuredTopics = getFeaturedTopicsSorted();
   const upcomingEvents = getEvents().upcoming.slice(0, 2);
 
