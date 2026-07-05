@@ -40,7 +40,7 @@ Alguns fios que apareceram na discussão:
 - **Picos sazonais são o teste real.** Varejo em Black Friday, e-commerce na época de Natal ou Copa do Mundo, são momentos em que "não pensei em performance" vira aplicação caindo e venda perdida. É o oposto de otimização prematura: é conhecer o seu negócio.
 - **O MVP traz o usuário; a experiência o mantém.** A aplicação inicial atrai; o que segura o usuário dentro da plataforma (o *lifetime* dele) é a experiência. eE experiência, aqui, é justamente o conjunto de requisitos não funcionais que a gente vai lapidando depois que o sistema já está no ar.
 
-> Requisitos não funcionais são tão importantes quanto os funcionais, só que ficam escondidos. Não são visíveis para produto, e muitas vezes nem para pessoas técnicas a princípio. Leva anos de ecperiência para enxergá-los bem e fazer os julgamentos certos.
+> Requisitos não funcionais são tão importantes quanto os funcionais, só que ficam escondidos. Não são visíveis para produto, e muitas vezes nem para pessoas técnicas a princípio. Leva anos de experiência para enxergá-los bem e fazer os julgamentos certos.
 
 ---
 
@@ -54,7 +54,7 @@ Os números que ancoram o exemplo:
 - Picos que passam de **150 mil posts por segundo**.
 - Cada usuário **segue ~200 pessoas** e **é seguido por ~200**.
 
-O primeiro rascunho é o óbvio: três tabelas num banco relacional (usuários, posts, quem-segue-quem) e, como o negócio quer algo "ao vivo", um **polling** a cada poucos segundos batendo na API para montar a timeline. Funciona no papel, e explode na escala. Fazendo a [conta de padeiro](https://gist.github.com/jboner/2841832), uma abordagem ingênua chega à casa de **centenas de milhões de lookups por segundo** (algo como 2 milhões de leituras de timeline por segundo, cada uma cruzando ~200 usuários que aquele user segue). Insustentável.
+O primeiro rascunho é o óbvio: três tabelas num banco relacional (usuários, posts, quem-segue-quem) e, como o negócio quer algo "ao vivo", um **polling** a cada poucos segundos batendo na API para montar a timeline. Funciona no papel, e explode na escala. Fazendo a [conta de padeiro](https://gist.github.com/jboner/2841832) (back of the envelope estimation), uma abordagem ingênua chega à casa de **centenas de milhões de lookups por segundo** (algo como 2 milhões de leituras de timeline por segundo, cada uma cruzando ~200 usuários que aquele user segue). Insustentável.
 
 ### A métrica-chave: a proporção de leitura
 
@@ -73,7 +73,7 @@ O trade-off fica explícito:
 - **Ganho:** economiza um oceano de operações de leitura. A timeline chega pronta.
 - **Custo:** cada novo post obriga a **recomputar** a timeline de cada seguidor. Você penaliza a escrita.
 
-E é aí que mora a beleza da análise: **será que penalizar a escrita é mesmo um problema?** Neste domínio, não muito. Escrita mais lenta é aceitável, e o fato de um seguidor não ver o post no mesmo milissegundo (uma [**consistência eventual**](https://en.wikipedia.org/wiki/Eventual_consistency)) também é aceitável para uma timeline. Ou seja: o "trade-off" de penalizar a escrita, neste caso, quase não dói. Como diz o livro, tudo é trade-off, a graça é perceber **qual lado você pode pagar sem sentir dor.**
+E a pergunta que segue é: **será que penalizar a escrita é mesmo um problema?** Neste domínio, não muito. Escrita mais lenta é aceitável, e o fato de um seguidor não ver o post no mesmo milissegundo (uma [**consistência eventual**](https://en.wikipedia.org/wiki/Eventual_consistency)) também é aceitável para uma timeline. Ou seja: o "trade-off" de penalizar a escrita, neste caso, quase não dói. Como diz o livro, tudo é trade-off, a graça é perceber **qual lado você pode pagar sem sentir dor.**
 
 ### O problema da celebridade (e a solução híbrida)
 
@@ -81,11 +81,11 @@ A view materializada tem um calcanhar de Aquiles: e quando alguém tem **10 milh
 
 Mas a turma foi certeira: **isso é exceção, não regra.** A esmagadora maioria dos usuários não tem milhões de seguidores. A estratégia é trabalhar onde se ganha mais resultado, pré-computar para o caso comum é tratar a celebridade **à parte**, com uma abordagem **híbrida**: o post da celebridade não é distribuído por escrita; ele é buscado sob demanda (fan-out on read) e mesclado na hora. Quase todas as soluções boas aqui acabam híbridas.
 
-Ainda dá para ir além do livro com um insight de **regionalização**: uma celebridade brasileira não precisa escalar para o mundo inteiro ver. Quem segue a Anita está aqui, não tem um chinês do outro lado do mundo esperando aquela timeline. Você distribui o esforço por região e, olhando esse mesmo conceito no agregado, escala a nível mundo sem desperdiçar recurso guardado à toa.
+Vale pensar também em **regionalização**: uma celebridade brasileira não precisa escalar para o mundo inteiro ver. Quem segue a Anita está aqui, não tem um chinês do outro lado do mundo esperando aquela timeline. Você distribui o esforço por região e, olhando esse mesmo conceito no agregado, escala a nível mundo sem desperdiçar recurso guardado à toa.
 
 ### View materializada é a mesma coisa que cache?
 
-Pergunta ótima que rendeu discussão: se a view materializada guarda algo pronto, qual a diferença para um **cache**?
+Se a view materializada guarda algo pronto, qual a diferença para um **cache**?
 
 O consenso: **os dois são conceitos, não ferramentas**, e têm interseção, mas não são a mesma coisa.
 
@@ -113,7 +113,7 @@ E o conceito de fan-out extrapola a rede social, vale a pena guardar (inclusive 
 - **Mensageria:** uma mensagem chega num ponto (o *exchange* do RabbitMQ, por exemplo) e é roteada para vários consumidores.
 - **Grafos:** a interação de um nó dispara N interações para outros nós adiante.
 
-Fechamos o estudo de caso e com um link para o Capítulo 1: cada timeline pré-computada é um **dado derivado** da base principal (o **system of record**), onde os posts realmente moram. A view materializada é derivada; a fonte da verdade continua sendo o storage primário.
+Fechamos o estudo de caso com um link para o Capítulo 1: cada timeline pré-computada é um **dado derivado** da base principal (o **system of record**), onde os posts realmente moram. A view materializada é derivada; a fonte da verdade continua sendo o storage primário.
 
 ## Performance: response time vs. throughput
 
@@ -136,7 +136,7 @@ E é aqui que entra um alerta de vocabulário que pega muita gente (confissão c
 - **Latência** é, especificamente, o **tempo de rede**, o tempo que a request leva para sair do cliente e *chegar* ao serviço.
 - No meio ainda tem o **tempo de fila** (esperando ser processada), o **tempo de serviço** (processando de fato) e mais uma fila na volta.
 
-Falar "minha latência está em 1 segundo" quase sempre é impreciso. O problema costuma estar só numa delas. Muitas vezes a seta da rede está quase reta (latência baixíssima) e o vilão real é a **fila** ou o **serviço**.
+Falar "minha latência está em 1 segundo" quase sempre é impreciso. O problema costuma estar só numa delas. Muitas vezes a latência não é o problema (latência baixíssima) e o vilão real é a **fila** ou o **serviço**.
 
 Ferramentas que ajudam a enxergar isso:
 
@@ -158,7 +158,7 @@ Um arsenal de estratégias apareceu para lidar com isso:
 - **[Rate limiting](https://en.wikipedia.org/wiki/Token_bucket):** imagine um balde enchendo de fichas, com limite de, digamos, 10. O cliente gasta as fichas nas requisições; quando o balde esvazia, ele espera reencher. Distribui melhor a carga entre os usuários. Token bucket é só **uma** das várias estratégias de rate limit.
 - **[Lock de idempotência](https://en.wikipedia.org/wiki/Idempotence):** antes de enfileirar, você "loca" o processamento (por exemplo, de um SKU). Se a mesma request chegar de novo enquanto a primeira está na fila, você **descarta**, já está sendo processada. Solta o lock ao terminar. Um relato de produção contou que isso levou a fila "da água para o vinho": de centenas de milhares para, no pior caso, algumas centenas.
 
-Um lembrete elegante que o livro faz: nada disso é novo. O **[TCP](https://en.wikipedia.org/wiki/TCP_congestion_control)** já implementa controle de tráfego e de carga internamente, sem a gente perceber. A internet inteira está calcada nisso, decisões que a galera dos anos 80 e 90 já tomou por nós.
+E nada disso é novo, aliás. O **[TCP](https://en.wikipedia.org/wiki/TCP_congestion_control)** já implementa controle de tráfego e de carga internamente, sem a gente perceber. A internet inteira está calcada nisso, decisões que a galera dos anos 80 e 90 já tomou por nós.
 
 > A internet foi tão bem feita que ninguém tem noção da complexidade que ela é.
 
@@ -220,7 +220,7 @@ E o SPOF não é só interno. Um **gateway de pagamento** único num e-commerce 
 
 ### Gerar uma falta para evitar uma falha
 
-O insight mais elegante da seção: às vezes você provoca um **fault de propósito para prevenir um failure**. Circuit breaker e load shedding fazem exatamente isso, "não vou conectar nessa API agora e já retorno um erro" ou "vou descartar esse processamento porque não consigo lidar com ele agora". É melhor um setor indisponível do que amarrar todos os outros e derrubar o sistema inteiro sem entregar valor nenhum.
+Às vezes você provoca um **fault de propósito para prevenir um failure**. Circuit breaker e load shedding fazem exatamente isso, "não vou conectar nessa API agora e já retorno um erro" ou "vou descartar esse processamento porque não consigo lidar com ele agora". É melhor um setor indisponível do que amarrar todos os outros e derrubar o sistema inteiro sem entregar valor nenhum.
 
 O e-commerce ilustra bem: em vez de fazer tudo síncrono (onde qualquer tropeço vira uma **compra perdida**, o pior pesadelo do varejo), eles te dão o "compra feita, pode ficar tranquilo" na hora e jogam o resto para **background**. Fazem o fan-out do processamento: e-mail, aprovação de cartão, logística. Se a logística tropeça, remarcam a entrega para dois ou três dias e te avisam. Fazem de tudo para a venda se efetivar, transformando o que seria uma **falha** síncrona em uma **falta** controlada e assíncrona.
 
@@ -233,24 +233,24 @@ Como saber se o seu sistema é *de fato* tolerante a falhas? Você **quebra ele 
 
 ## Os trade-offs até aqui
 
-**Requisito Funcional vs. não funcional.** O funcional entrega valor visível ao negócio e é fácil de justificar. O não funcional sustenta esse valor a longo prazo, mas é invisível e precisa ser "vendido".
+- **Funcional vs. não funcional:** o funcional entrega valor visível ao negócio e é fácil de justificar. O não funcional sustenta esse valor a longo prazo, mas é invisível e precisa ser vendido.
 
-**Fan-out on write vs. on read.** No write, a leitura é barata e instantânea: a timeline já está pronta. No read, a escrita é barata e o problema das celebridades desaparece, mas a leitura fica cara (na prática, impossível em alta escala).
+- **Fan-out on write vs. on read:** no write, a leitura é barata e instantânea porque a timeline já está pronta. No read, a escrita é barata e o problema das celebridades desaparece, mas a leitura fica impossível em alta escala.
 
-**View materializada vs. cálculo em tempo real.** A view deixa a leitura pronta e resiste a picos. O cálculo em tempo real mantém a escrita simples e o dado sempre fresco, mas a leitura fica cara sob carga.
+- **View materializada vs. cálculo em tempo real:** a view deixa a leitura pronta e resiste a picos. O cálculo em tempo real mantém a escrita simples e o dado sempre fresco, mas a leitura fica cara sob carga.
 
-**View materializada vs. cache.** A view pré-computa na escrita e fica imune ao pico frio. O cache na leitura é mais simples de operar, mas está sujeito a cold start e invalidação.
+- **View materializada vs. cache:** a view pré-computa na escrita e fica imune ao pico frio. O cache é mais simples de operar, mas está sujeito a cold start e invalidação.
 
-**Média vs. percentis.** A média é um número fácil de comunicar, mas esconde outliers. O percentil conta a história real da cauda, mas exige mais tooling.
+- **Média vs. percentis:** a média é um número fácil de comunicar, mas esconde outliers. O percentil conta a história real da cauda, mas exige mais tooling.
 
-**Parar no p99 vs. perseguir p99.99.** Parar no p99 tem bom custo-benefício: cobre quase todos os usuários. Perseguir o p99.99 melhora a cauda, mas o custo é altíssimo para um ganho marginal.
+- **Parar no p99 vs. perseguir p99.99:** parar no p99 tem bom custo-benefício e cobre quase todos os usuários. Perseguir o p99.99 melhora a cauda, mas o custo é altíssimo para um ganho marginal.
 
-**Degradar com fault vs. arriscar failure total.** Degradar entrega valor parcial de forma previsível, mas exige circuit breaker, load shedding e assincronismo. Arriscar mantém o sistema mais simples de construir, mas quando quebra, quebra inteiro.
+- **Degradar com fault vs. arriscar failure total:** degradar entrega valor parcial de forma previsível, mas exige circuit breaker, load shedding e assincronismo. Arriscar mantém o sistema mais simples de construir, mas quando quebra, quebra inteiro.
 
 
 ## O que vem na Parte 2
 
-Paramos no meio do Capítulo 2 de propósito, tinha muita coisa boa e a conversa renderia madrugada adentro. Ficou para o próximo encontro o restante de **confiabilidade** (erros de software, o fator **humano** e cultura), além de **escalabilidade** e **manutenibilidade**. 
+Paramos no meio do Capítulo 2 de propósito, tinha muita coisa boa e a conversa renderia madrugada adentro. Ficou para o próximo encontro o restante de **confiabilidade** (erros de software, o fator **humano** e cultura), além de **escalabilidade** e **manutenibilidade**.
 
 ## Quer participar do próximo?
 
@@ -258,7 +258,7 @@ Este foi só o **Capítulo 2, Parte 1**. Os encontros acontecem **a cada quinze 
 
 O clube é aberto, descontraído e feito **da comunidade para a comunidade**: sem aula, sem cobrança, só gente que vive esses problemas trocando ideia (e cicatrizes de produção). Não precisa ter lido tudo nem ser especialista.
 
-👉 **Participe do Clube do Livro:** [Designing Data-Intensive Applications da comunidade Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications)
+**Participe do Clube do Livro:** [Designing Data-Intensive Applications da comunidade Craft Code Club](https://craftcodeclub.io/book-club/designing-data-intensive-applications)
 
 Traga sua leitura, suas discordâncias e seus exemplos. A melhor parte nunca está só no livro, está na conversa em cima dele.
 
