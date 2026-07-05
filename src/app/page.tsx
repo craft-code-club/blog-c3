@@ -5,9 +5,12 @@ import escapeHtml from 'escape-html';
 import { getFeaturedTopicsSorted } from '@/lib/topics';
 import TopicCard from '@/components/TopicCard';
 import ArrowIcon from '@/components/ArrowIcon';
+import { getEvents } from '@/lib/events';
+import EventCard from '@/components/EventCard';
 export default function Home() {
   const posts = getSortedPostsData();
   const featuredTopics = getFeaturedTopicsSorted();
+  const upcomingEvents = getEvents().upcoming.slice(0, 2);
 
   return (
     <div className="min-h-screen">
@@ -32,6 +35,29 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* Próximos Eventos */}
+      {upcomingEvents.length > 0 && (
+        <div className="py-12 bg-gray-50 dark:bg-gray-900">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="lg:text-center">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Próximos Eventos</h2>
+            </div>
+            <div className="mt-10">
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+                {upcomingEvents.map((event) => (
+                  <EventCard key={event.id} event={event} isPast={false} compact={true} />
+                ))}
+              </div>
+            </div>
+            <div className="mt-6 lg:text-center">
+              <Link href="/events" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                Ver todos os eventos →
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Featured Topics */}
       <div className="py-12 bg-white dark:bg-gray-800">
@@ -68,7 +94,7 @@ export default function Home() {
                       <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{post.title}</h3>
                     </Link>
                     <p className="text-gray-600 dark:text-gray-300 mb-4">{post.description}</p>
-                    <Link 
+                    <Link
                       href={`/posts/${escapeHtml(post.id)}`}
                       className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
                     >
