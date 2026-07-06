@@ -5,9 +5,10 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import EventTags from './EventTags';
 
-export default function EventCard({ event, isPast }: { event: Event; isPast: boolean }) {
+export default function EventCard({ event, isPast: isPastProp, compact = false }: { event: Event; isPast?: boolean; compact?: boolean }) {
   const today = useMemo(() => new Date().toISOString().split('T')[0], []);
   const isToday = event.date === today;
+  const isPast = isPastProp ?? event.date < today;
   const hasYoutubeRegistrationLink = event.registrationLink?.includes('youtube.com/watch?v=');
 
   const getCalendarUrl = (event: Event) => {
@@ -56,7 +57,7 @@ export default function EventCard({ event, isPast }: { event: Event; isPast: boo
           )}
         </div>
 
-        {event.tags && event.tags.length > 0 && (
+        {!compact && event.tags && event.tags.length > 0 && (
           <EventTags tags={event.tags} className="mb-3" />
         )}
 
@@ -78,7 +79,7 @@ export default function EventCard({ event, isPast }: { event: Event; isPast: boo
               <span>{event.location}</span>
             </div>
 
-            {event.speakers && event.speakers.length > 0 && (
+            {!compact && event.speakers && event.speakers.length > 0 && (
               <div className="space-y-2">
                 <h4 className="font-medium text-gray-900 dark:text-white">Palestrantes:</h4>
                 <ul className="space-y-1">
@@ -95,7 +96,14 @@ export default function EventCard({ event, isPast }: { event: Event; isPast: boo
       </div>
 
       <div className="p-6 pt-0 mt-auto space-y-3">
-        {isPast && !isToday ? (
+        {compact ? (
+          <Link
+            href={`/events/${event.id}`}
+            className="flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+          >
+            Ver Detalhes
+          </Link>
+        ) : isPast && !isToday ? (
           <div className="flex gap-3">
             <Link
               href={`/events/${event.id}`}

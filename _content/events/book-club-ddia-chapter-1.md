@@ -11,6 +11,7 @@ banner: "book-club-ddia.png"
 registrationLink: "https://discord.gg/cqF9THUfnN"
 recordingLink: "https://youtu.be/53TFZSe-IGw"
 postLink: "https://craftcodeclub.io/posts/ddia-trade-offs-arquitetura-de-sistemas"
+excalidrawLink: "https://link.excalidraw.com/l/ADMgGFVWISx/9G9VQCCv2rL"
 tags:
   - "book-club"
   - "ddia"

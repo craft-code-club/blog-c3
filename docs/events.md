@@ -16,6 +16,7 @@ Campos suportados hoje:
 - `registrationLink` (string, opcional): link de inscricao/participacao.
 - `recordingLink` (string, opcional): link da gravação ou live do evento.
 - `postLink` (string, opcional): link de artigo relacionado.
+- `excalidrawLink` (string, opcional): link do quadro Excalidraw relacionado ao evento.
 - `speakers` (string[], opcional): lista de palestrantes.
 - `tags` (string[], opcional): tags do evento.
 - `isLive` (boolean, opcional): campo extra (nao usado pelo site hoje); usado por automacoes externas (ex.: bot do Discord).
@@ -91,6 +92,7 @@ Comportamento da pagina de detalhe
 
 - Mostra `Assistir Gravacao` quando `recordingLink` existe.
 - Mostra `Ler Artigo` quando `postLink` existe.
+- Mostra `Abrir Excalidraw` quando `excalidrawLink` existe; o link abre em nova aba.
 
 #### Evento hoje
 
