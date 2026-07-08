@@ -12,6 +12,7 @@ registrationLink: "https://discord.gg/cqF9THUfnN"
 recordingLink: "https://youtube.com/live/YEmTPYwv5NY"
 sessionLink: "https://us06web.zoom.us/j/88382249800?pwd=YjBFJCuD084OsefOjQEdXVFtemWanw.1"
 postLink: "https://craftcodeclub.io/posts/ddia-requisitos-nao-funcionais-parte-2"
+excalidrawLink: "https://app.excalidraw.com/s/ADMgGFVWISx/1ncjQemuKVK"
 tags:
   - "book-club"
   - "ddia"
