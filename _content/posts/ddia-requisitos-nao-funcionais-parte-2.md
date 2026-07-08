@@ -302,7 +302,7 @@ Traga sua leitura, suas discordâncias e seus exemplos. A melhor parte nunca est
 
 **Gravação do encontro**
 
-- _Transmitido ao vivo no canal do YouTube da Craft Code Club, link direto da gravação em breve._
+- [Assista no YouTube](https://youtu.be/YEmTPYwv5NY)
 
 **Links compartilhados na discussão**
 
