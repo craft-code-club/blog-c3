@@ -210,7 +210,7 @@ E o ciclo vicioso que todo mundo conhece: a empresa quer **comportamento** (feat
 
 ### Simplicidade: complexidade essencial vs. acidental
 
-O que sinaliza um código degradado? Quando fica **difícil de entender**; quando o negócio não é intuitivo; quando você precisa entrar em três módulos para entender um. É o caminho para a **big ball of mud**, a grande bola de lama. E o vilão do prazo/custo empurra contra a **[Regra do Escoteiro](https://en.wikipedia.org/wiki/Robert_C._Martin)** (deixar o código melhor do que você pegou).
+O que sinaliza um código degradado? Quando fica **difícil de entender**; quando o negócio não é intuitivo; quando você precisa entrar em três módulos para entender um. É o caminho para a **big ball of mud**, a grande bola de lama. E o vilão do prazo/custo empurra contra a Regra do Escoteiro (deixar o código melhor do que você pegou), como popularizada por [Robert C. Martin](https://en.wikipedia.org/wiki/Robert_C._Martin).
 
 A chave é gerenciar complexidade, e a turma separou os tipos:
 
