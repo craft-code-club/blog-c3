@@ -252,16 +252,16 @@ Nem toda duplicação precisa ser abstraída, às vezes ela é **intencional**, 
 
 ## Os trade-offs desta metade (para consultar depois)
 
-| Decisão | De um lado | Do outro lado |
-|---|---|---|
-| Gerar falta vs. arriscar falha | Degrada de forma controlada, mantém o serviço | Exige circuit breaker/backpressure/fila e desenho cuidadoso |
-| Tolerância a falhas | Continua servindo mesmo com panes | Custo e complexidade; nunca cobre *todas* as falhas |
-| Ter um Disaster Recovery testado | Recuperação rápida de catástrofes | Caro e trabalhoso de manter e exercitar |
-| Escala vertical vs. horizontal | Vertical é simples de manter | Horizontal escala melhor + tolerância de brinde, mas exige sharding e complexidade |
-| Escalar (mais máquina) vs. otimizar | Resolve rápido o pico/SLA | Otimizar é mais barato a longo prazo; máquina tem teto e custo |
-| Comportamento vs. estrutura | Entrega valor/valida hipótese rápido | Sem estrutura vira dívida técnica; estrutura demais vira over-engineering |
-| Padronizar a stack | Menos ruído, onboarding rápido, menos CVEs | Menos liberdade individual; risco de lib adotada virar armadilha |
-| Abstrair vs. duplicar | Menos repetição | A abstração errada custa mais que a duplicação; espere a 3ª ocorrência |
+Um apanhado das escolhas que apareceram na conversa, cada uma com o que se ganha de um lado e o que se paga do outro:
+
+- **Gerar falta vs. arriscar falha:** de um lado, degrada de forma controlada e mantém o serviço; do outro, exige circuit breaker, backpressure ou fila e um desenho cuidadoso.
+- **Tolerância a falhas:** de um lado, continua servindo mesmo com panes; do outro, custa complexidade e nunca cobre *todas* as falhas.
+- **Ter um Disaster Recovery testado:** de um lado, recuperação rápida de catástrofes; do outro, é caro e trabalhoso de manter e exercitar.
+- **Escala vertical vs. horizontal:** a vertical é simples de manter; a horizontal escala melhor e traz tolerância a falhas de brinde, mas exige sharding e adiciona complexidade.
+- **Escalar (mais máquina) vs. otimizar:** escalar resolve rápido o pico e o SLA; otimizar é mais barato a longo prazo, e máquina tem teto e custo.
+- **Comportamento vs. estrutura:** priorizar comportamento entrega valor e valida hipótese rápido; sem estrutura vira dívida técnica, e estrutura demais vira over-engineering.
+- **Padronizar a stack:** de um lado, menos ruído, onboarding rápido e menos CVEs; do outro, menos liberdade individual e o risco de uma lib adotada virar armadilha.
+- **Abstrair vs. duplicar:** abstrair reduz repetição; mas a abstração errada custa mais que a duplicação, então espere a terceira ocorrência antes de abstrair.
 
 ---
 
