@@ -10,6 +10,7 @@ youtubeTitle: "Clube do Livro DDIA: Capítulo 2 - Definição de Requisitos Não
 banner: "book-club-ddia.png"
 registrationLink: "https://discord.gg/cqF9THUfnN"
 sessionLink: "https://us06web.zoom.us/j/88382249800?pwd=YjBFJCuD084OsefOjQEdXVFtemWanw.1"
+postLink: "https://craftcodeclub.io/posts/ddia-requisitos-nao-funcionais-parte-2"
 tags:
   - "book-club"
   - "ddia"
