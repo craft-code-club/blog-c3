@@ -1,7 +1,7 @@
 ---
 title: "Escala destrói sonhos: o Capítulo 2 de DDIA (Parte 2)"
 date: "2026-07-06"
-description: "Notas do terceiro encontro do Clube do Livro da Craft Code Club sobre Designing Data-Intensive Applications (2ª edição): o fecho do Capítulo 2 com confiabilidade (fault vs. failure, tolerância a falhas, SPOF, chaos engineering), o fator humano, escalabilidade (vertical vs. horizontal, shared-nothing, o gargalo que só muda de lugar) e manutenibilidade (simplicidade, complexidade acidental, padrões e evolvability)."
+description: "Notas do terceiro encontro do Clube do Livro da comunidade Craft Code Club sobre Designing Data-Intensive Applications (2ª edição): o fecho do Capítulo 2 com confiabilidade (fault vs. failure, tolerância a falhas, SPOF, chaos engineering), o fator humano, escalabilidade (vertical vs. horizontal, shared-nothing, o gargalo que só muda de lugar) e manutenibilidade (simplicidade, complexidade acidental, padrões e evolvability)."
 topics: ["System Design", "Clube do Livro"]
 keywords:
   [
@@ -31,7 +31,7 @@ keywords:
 authors: []
 ---
 
-*Este post é um resumo da discussão do terceiro encontro do Clube do Livro da [Craft Code Club](https://craftcodeclub.io/book-clubs/designing-data-intensive-applications) sobre Designing Data-Intensive Applications. É a segunda metade do Capítulo 2, a continuação direta da [Parte 1](https://craftcodeclub.io/posts/ddia-requisitos-nao-funcionais-parte-1).*
+*Este post é um resumo da discussão do terceiro encontro do Clube do Livro da comunidade [Craft Code Club](https://craftcodeclub.io/book-clubs/designing-data-intensive-applications) sobre Designing Data-Intensive Applications. É a segunda metade do Capítulo 2, a continuação direta da [Parte 1](https://craftcodeclub.io/posts/ddia-requisitos-nao-funcionais-parte-1).*
 
 O Capítulo 2 de **Designing Data-Intensive Applications** (DDIA), de Martin Kleppmann, rendeu tanto que a turma decidiu quebrá-lo em dois encontros. Na [Parte 1](https://craftcodeclub.io/posts/ddia-requisitos-nao-funcionais-parte-1) a gente passou por requisitos não funcionais, o estudo de caso da rede social e **performance**. Neste terceiro encontro fechamos o capítulo com os outros três pilares: **confiabilidade**, **escalabilidade** e **manutenibilidade** (e, no meio do caminho, o fator humano).
 
@@ -114,7 +114,7 @@ O **[TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol)** é o ex
 
 E com a **cloud** a abstração aumenta ainda mais, muita gente nem sabe o que são as quatro letras de RAID. Mas a nuvem não fez a física desaparecer: ela organiza **zonas de disponibilidade** (data centers fisicamente separados, mas próximos o suficiente para não perder latência) e **regiões** (distantes o bastante para tolerar um desastre natural). A interface esconde uma complexidade gigante, e é por isso que ainda vale entender esses conceitos: é o que permite arquitetar direito lá em cima.
 
-E tem o lado frágil de toda essa dependência, capturado pela [tirinha xkcd 2347](https://xkcd.com/2347/): boa parte da infraestrutura digital moderna se apoia, sem a gente perceber, em algum projeto minúsculo mantido de graça por uma única pessoa. As abstrações que a gente venera escondem tanto a complexidade quanto os pontos únicos de falha embaixo delas, é aquela camada OSI inteira funcionando em silêncio até o dia em que não funciona.
+E tem o lado frágil de toda essa dependência, capturado pelo [blog xkcd](https://xkcd.com/2347/): boa parte da infraestrutura digital moderna se apoia, sem a gente perceber, em algum projeto minúsculo mantido de graça por uma única pessoa. As abstrações que a gente venera escondem tanto a complexidade quanto os pontos únicos de falha embaixo delas, é aquela camada OSI inteira funcionando em silêncio até o dia em que não funciona.
 
 O contraponto honesto: **"tolerante a falhas" é vago**. Não dá para dizer que o seu sistema é tolerante a falhas e ponto, sempre existe uma *fault* que ele não vai tolerar. Se um **cabo submarino** for cortado (um peixe grande mordeu o cabo, vá saber), nenhum retry salva. A gente é tolerante **até certas** *faults*, nunca a todas. O próprio livro brinca: se a catástrofe for grande, "é só botar tudo no espaço".
 
