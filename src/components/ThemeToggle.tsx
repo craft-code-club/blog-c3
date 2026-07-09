@@ -8,6 +8,10 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
+    // Hydration guard for next-themes: the active theme is only known on the
+    // client, so we render nothing until mounted to avoid a hydration mismatch.
+    // This one-shot setState in an effect is intentional.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

@@ -48,12 +48,13 @@ function validateRoadmapFile(filePath: string): boolean {
     const fileContent = fs.readFileSync(filePath, 'utf8');
     
     // Parse YAML
-    let parsedData: any;
+    let parsedData: unknown;
     try {
       parsedData = yaml.load(fileContent);
-    } catch (yamlError: any) {
+    } catch (yamlError: unknown) {
+      const message = yamlError instanceof Error ? yamlError.message : String(yamlError);
       log(`✗ YAML Syntax Error:`, colors.red);
-      log(`  ${yamlError.message}`, colors.red);
+      log(`  ${message}`, colors.red);
       return false;
     }
 
@@ -88,9 +89,10 @@ function validateRoadmapFile(filePath: string): boolean {
     
     return true;
 
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
     log(`✗ Unexpected Error:`, colors.red);
-    log(`  ${error.message}`, colors.red);
+    log(`  ${message}`, colors.red);
     return false;
   }
 }
