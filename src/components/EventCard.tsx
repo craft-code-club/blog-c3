@@ -60,13 +60,13 @@ export default function EventCard({
     >
       {featured && (
         <div className="hidden lg:block lg:w-1/2 shrink-0 p-6">
-          <div className="relative w-full h-full bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
+          <div className="relative w-full h-full rounded-lg overflow-hidden">
             {event.banner && (
               <Image
                 src={`/events/${event.banner}`}
                 alt={event.title}
                 fill
-                className="object-cover"
+                className="object-contain"
               />
             )}
           </div>
