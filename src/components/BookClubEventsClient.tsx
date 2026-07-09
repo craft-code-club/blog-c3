@@ -1,6 +1,7 @@
 'use client';
 
 import type { Event } from '@/lib/events';
+import { getTodayInSaoPaulo } from '@/lib/date';
 import { useMemo } from 'react';
 import EventCard from './EventCard';
 
@@ -9,7 +10,7 @@ interface Props {
 }
 
 export default function BookClubEventsClient({ events }: Props) {
-  const today = useMemo(() => new Date().toISOString().split('T')[0], []);
+  const today = useMemo(() => getTodayInSaoPaulo(), []);
 
   // Next encounters: closest date first
   const upcoming = useMemo(() =>

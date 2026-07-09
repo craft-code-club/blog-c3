@@ -1,6 +1,7 @@
 "use client";
 
 import type { Event } from "@/lib/events";
+import { getTodayInSaoPaulo } from "@/lib/date";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -17,7 +18,7 @@ export default function EventCard({
   compact?: boolean;
   featured?: boolean;
 }) {
-  const today = useMemo(() => new Date().toISOString().split("T")[0], []);
+  const today = useMemo(() => getTodayInSaoPaulo(), []);
   const isToday = event.date === today;
   const isPast = isPastProp ?? event.date < today;
   const hasYoutubeRegistrationLink = event.registrationLink?.includes(
