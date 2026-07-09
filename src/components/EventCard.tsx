@@ -184,14 +184,23 @@ export default function EventCard({
             </div>
           ) : isToday ? (
             <div className="flex gap-3">
-              <a
-                href={event.registrationLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
-              >
-                Participar Agora
-              </a>
+              {event.registrationLink ? (
+                <a
+                  href={event.registrationLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
+                >
+                  Participar Agora
+                </a>
+              ) : (
+                <Link
+                  href={`/events/${event.id}`}
+                  className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+                >
+                  Ver Detalhes
+                </Link>
+              )}
               <a
                 href="https://discord.gg/cqF9THUfnN"
                 target="_blank"
