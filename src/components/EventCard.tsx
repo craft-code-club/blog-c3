@@ -35,7 +35,9 @@ export default function EventCard({
     url.searchParams.append("text", event.title);
     url.searchParams.append(
       "details",
-      `${event.description}\n\n<a href="${event.registrationLink}">Link para o evento (${event.registrationLink})</a>`,
+      event.registrationLink
+        ? `${event.description}\n\n<a href="${event.registrationLink}">Link para o evento (${event.registrationLink})</a>`
+        : event.description,
     );
     url.searchParams.append("location", event.location);
     url.searchParams.append(
