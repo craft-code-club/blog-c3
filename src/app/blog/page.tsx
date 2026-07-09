@@ -1,8 +1,7 @@
-import { getSortedPostsData } from '@/lib/posts';
-import Link from 'next/link';
-import TopicTags from '@/components/TopicTags';
+import { getPaginatedPosts } from '@/lib/posts';
 import { Metadata } from 'next';
-import ArrowIcon from '@/components/ArrowIcon';
+import PostCard from '@/components/PostCard';
+import Pagination from '@/components/Pagination';
 
 export const metadata: Metadata = {
   title: "Blog | Craft & Code Club",
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const posts = getSortedPostsData();
+  const { posts, totalPages } = getPaginatedPosts(1);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
@@ -32,33 +31,13 @@ export default function BlogPage() {
         </header>
 
         <div className="grid gap-8 md:grid-cols-2">
-          {posts.map((post) => {
-            return (
-              <article key={post.id} className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="p-6">
-                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                    <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('pt-BR')}</time>
-                  </div>
-                  <TopicTags topics={post.topics} />
-                  <Link href={`/posts/${encodeURIComponent(post.id)}`}>
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                      {post.title}
-                    </h2>
-                  </Link>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{post.description}</p>
-                  <Link 
-                    href={`/posts/${encodeURIComponent(post.id)}`}
-                    className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
-                  >
-                    Ler mais
-                    <ArrowIcon />
-                  </Link>
-                </div>
-              </article>
-            );
-          })}
+          {posts.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
         </div>
+
+        <Pagination currentPage={1} totalPages={totalPages} basePath="/blog" />
       </div>
     </div>
   );
-} 
+}
