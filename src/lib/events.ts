@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { getTodayInSaoPaulo } from '@/lib/date';
 
 const eventsDirectory = path.join(process.cwd(), '_content', 'events');
 
@@ -41,7 +42,7 @@ export function getEvents(pastLimit?: number): EventsData {
     };
   });
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = getTodayInSaoPaulo();
 
   // Filter events first
   const upcomingEvents = allEvents.filter(event => event.date >= today);

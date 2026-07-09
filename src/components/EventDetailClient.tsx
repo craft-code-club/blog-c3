@@ -1,6 +1,7 @@
 'use client';
 
 import type { Event } from '@/lib/events';
+import { getTodayInSaoPaulo } from '@/lib/date';
 import Image from 'next/image';
 import EventCard from "./EventCard";
 import EventTags from "./EventTags";
@@ -18,7 +19,7 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
       year: 'numeric'
     });
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = getTodayInSaoPaulo();
   const isToday = event.date === today;
 
   // Banners are stored in `public/events/`. Frontmatter only holds the file

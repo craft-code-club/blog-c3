@@ -1,6 +1,7 @@
 'use client';
 
 import type { Event } from '@/lib/events';
+import { getTodayInSaoPaulo } from '@/lib/date';
 import { useMemo } from 'react';
 import Link from 'next/link';
 import EventCard from './EventCard';
@@ -11,7 +12,7 @@ interface Props {
 }
 
 export default function EventsListClient({ events, pastLimit = 6 }: Props) {
-  const today = useMemo(() => new Date().toISOString().split('T')[0], []);
+  const today = useMemo(() => getTodayInSaoPaulo(), []);
 
   const upcoming = useMemo(() =>
     events
