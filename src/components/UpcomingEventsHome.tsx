@@ -1,6 +1,7 @@
 'use client';
 
 import type { Event } from '@/lib/events';
+import { getTodayInSaoPaulo } from '@/lib/date';
 import { useMemo } from 'react';
 import Link from 'next/link';
 import EventCard from './EventCard';
@@ -14,7 +15,7 @@ interface Props {
 }
 
 export default function UpcomingEventsHome({ events, limit = 2 }: Props) {
-  const today = useMemo(() => new Date().toISOString().split('T')[0], []);
+  const today = useMemo(() => getTodayInSaoPaulo(), []);
 
   const upcoming = useMemo(() =>
     events
@@ -31,24 +32,33 @@ export default function UpcomingEventsHome({ events, limit = 2 }: Props) {
   return (
     <div className="py-12 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:text-center">
+        <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
             Próximos Eventos
           </h2>
         </div>
         <div className="mt-10">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
-            {upcoming.map((event) => (
-              <EventCard
-                key={event.id}
-                event={event}
-                isPast={false}
-                compact={true}
-              />
-            ))}
-          </div>
+          {upcoming.length === 1 ? (
+            <EventCard
+              event={upcoming[0]}
+              isPast={false}
+              compact={true}
+              featured={true}
+            />
+          ) : (
+            <div className="grid gap-8 grid-cols-1 sm:grid-cols-2">
+              {upcoming.map((event) => (
+                <EventCard
+                  key={event.id}
+                  event={event}
+                  isPast={false}
+                  compact={true}
+                />
+              ))}
+            </div>
+          )}
         </div>
-        <div className="mt-6 lg:text-center">
+        <div className="mt-6 text-center">
           <Link
             href="/events"
             className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline font-medium"
