@@ -196,7 +196,7 @@ export default function EventCard({
               ) : (
                 <Link
                   href={`/events/${event.id}`}
-                  className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
+                  className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white font-medium"
                 >
                   Ver Detalhes
                 </Link>
