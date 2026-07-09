@@ -63,6 +63,43 @@ export function getSortedPostsData(): Omit<BlogPost, 'contentHtml'>[] {
   });
 }
 
+export const POSTS_PER_PAGE = 8;
+
+export interface PaginatedPosts {
+  posts: Omit<BlogPost, 'contentHtml'>[];
+  total: number;
+  totalPages: number;
+}
+
+function paginatePosts(posts: Omit<BlogPost, 'contentHtml'>[], page: number, limit: number): PaginatedPosts {
+  // Guard the public `limit` param: a non-positive value would make totalPages
+  // Infinity/NaN and blow up array allocation downstream.
+  const safeLimit = limit > 0 ? Math.floor(limit) : POSTS_PER_PAGE;
+  const total = posts.length;
+  // An empty list is still "one (empty) page", so page 1 always exists and its
+  // canonical redirect keeps working under output: export.
+  const totalPages = Math.max(1, Math.ceil(total / safeLimit));
+  const startIndex = (page - 1) * safeLimit;
+
+  return {
+    posts: posts.slice(startIndex, startIndex + safeLimit),
+    total,
+    totalPages,
+  };
+}
+
+export function getPaginatedPosts(page: number = 1, limit: number = POSTS_PER_PAGE): PaginatedPosts {
+  return paginatePosts(getSortedPostsData(), page, limit);
+}
+
+export function getPostsByTopic(topicKey: string): Omit<BlogPost, 'contentHtml'>[] {
+  return getSortedPostsData().filter((post) => post.topics.some((topic) => topic.key === topicKey));
+}
+
+export function getPaginatedPostsByTopic(topicKey: string, page: number = 1, limit: number = POSTS_PER_PAGE): PaginatedPosts {
+  return paginatePosts(getPostsByTopic(topicKey), page, limit);
+}
+
 export async function getPostData(id: string): Promise<BlogPost> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
