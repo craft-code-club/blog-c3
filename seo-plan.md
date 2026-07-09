@@ -300,12 +300,12 @@ padrão desde jul/2025** — verificar o painel; RSS ajuda descoberta de conteú
 
 ### P0 — Fundação (destrava tudo)
 
-- [ ] **SEO-P0-01** — `metadataBase` + `title.template` + OG defaults (`siteName`,
+- [ ] **SEO-P0-01** ([#824](https://github.com/craft-code-club/blog-c3/issues/824)) — `metadataBase` + `title.template` + OG defaults (`siteName`,
   `locale: 'pt_BR'`) + `alternates.canonical` em todas as páginas + `robots` com
   `max-image-preview: large` (Google Discover). Canônicas, sitemap e links internos na
   mesma forma **sem barra final** que o Cloudflare serve.
   _Onde: `src/app/layout.tsx` + páginas._
-- [ ] **SEO-P0-02** — JSON-LD: `BlogPosting` (autores como `Person` com url,
+- [ ] **SEO-P0-02** ([#825](https://github.com/craft-code-club/blog-c3/issues/825)) — JSON-LD: `BlogPosting` (autores como `Person` com url,
   `datePublished`/`dateModified`) + `BreadcrumbList` nos posts; `Organization` (com
   `sameAs`: GitHub, YouTube, Discord) + `WebSite` na home; `Event` nos eventos, enriquecido
   com a gravação como `VideoObject` (`recordingLink` — 78 eventos) e `speakers` →
@@ -313,7 +313,7 @@ padrão desde jul/2025** — verificar o painel; RSS ajuda descoberta de conteú
   no Server Component. **Pré-requisito:** preencher os `authors` vazios nos 3 posts
   (ddia-requisitos…, ddia-trade-offs…, sd-ad-click…).
   _Onde: `posts/[id]/page.tsx`, `layout.tsx`, `events/[id]/page.tsx` + 3 posts._
-- [ ] **SEO-P0-03** — og:image em 3 fases: **(a)** imagem padrão 1200×630 como fallback
+- [ ] **SEO-P0-03** ([#826](https://github.com/craft-code-club/blog-c3/issues/826)) — og:image em 3 fases: **(a)** imagem padrão 1200×630 como fallback
   explícito em cada `generateMetadata` (o merge de metadata do Next é raso — definir só no
   layout não propaga); **(b)** campo `image` opcional no frontmatter como override manual
   + ligar o `banner` dos eventos (1280×720) no `openGraph.images`; **(c)** geração
@@ -322,20 +322,20 @@ padrão desde jul/2025** — verificar o painel; RSS ajuda descoberta de conteú
   `og:image:width/height` lidos do arquivo no build (`image-size`). PNG/JPEG ≤300 KB
   (limite silencioso do WhatsApp) + `twitter: summary_large_image`.
   _Onde: layout + `generateMetadata` + frontmatter; (c) script de build._
-- [ ] **SEO-P0-04** — Sitemap: `lastmod` real (campo no frontmatter + datas reais nas
+- [ ] **SEO-P0-04** ([#827](https://github.com/craft-code-club/blog-c3/issues/827)) — Sitemap: `lastmod` real (campo no frontmatter + datas reais nas
   rotas estáticas), remover `changefreq`/`priority`. Cobertura (auditada: 111/118):
   adicionar `/codigo-conduta` e `/events/past/1..N` (programático); `/events/past` é stub
   de redirect — fora do sitemap, 301 no `_redirects` (`SEO-P1-02`). Regra permanente: o
   sitemap cresce com o plano (autores `SEO-P2-01`, hubs `SEO-P2-03`).
   _Onde: `src/app/sitemap.ts`._
-- [ ] **SEO-P0-05** — Mermaid fora do bundle global: renderizar em build time
+- [ ] **SEO-P0-05** ([#828](https://github.com/craft-code-club/blog-c3/issues/828)) — Mermaid fora do bundle global: renderizar em build time
   (rehype-mermaid) ou `import()` dinâmico só em páginas com diagrama.
   _Onde: `MermaidInitializer.tsx` / pipeline markdown._
-- [ ] **SEO-P0-06** — Operacional: verificar Google Search Console + Bing Webmaster Tools
+- [ ] **SEO-P0-06** ([#829](https://github.com/craft-code-club/blog-c3/issues/829)) — Operacional: verificar Google Search Console + Bing Webmaster Tools
   (importa do GSC), configuração de AI crawlers no Cloudflare, indexação de `*.pages.dev`,
   e URLs do blog anterior (v1): 404s e backlinks antigos no GSC → 301 no `_redirects`.
   _Onde: painéis GSC/Bing/Cloudflare._
-- [ ] **SEO-P0-07** — Criar a skill de validação de SEO (`.claude/skills/seo-check`):
+- [ ] **SEO-P0-07** ([#830](https://github.com/craft-code-club/blog-c3/issues/830)) — Criar a skill de validação de SEO (`.claude/skills/seo-check`):
   obrigatória antes de publicar post, evento ou página nova; ajusta a avaliação ao tipo de
   conteúdo (post: título 30–65, description 120–165, headings a partir de `##`, alt text,
   links internos, autor, imagem; evento: banner, datas; página: metadata, canonical, H1).
@@ -345,38 +345,38 @@ padrão desde jul/2025** — verificar o painel; RSS ajuda descoberta de conteú
 
 ### P1 — Conteúdo, distribuição e padrão colaborativo
 
-- [ ] **SEO-P1-01** — Feed RSS (`app/rss.xml/route.ts` com `force-static`) + descoberta
+- [ ] **SEO-P1-01** ([#831](https://github.com/craft-code-club/blog-c3/issues/831)) — Feed RSS (`app/rss.xml/route.ts` com `force-static`) + descoberta
   via `alternates.types`.
-- [ ] **SEO-P1-02** — `_redirects` (301: `book-club→book-clubs` e
+- [ ] **SEO-P1-02** ([#832](https://github.com/craft-code-club/blog-c3/issues/832)) — `_redirects` (301: `book-club→book-clubs` e
   `/events/past→/events/past/1` — hoje ambos redirects fracos client-side/meta-refresh) +
   `_headers` (cache imutável em `/_next/static/*`, `X-Robots-Tag: noindex` em
   `*.pages.dev`, security headers) + redirect www→apex na zona Cloudflare.
-- [ ] **SEO-P1-03** — Validação de frontmatter no CI com zod (title 30–65, description
+- [ ] **SEO-P1-03** ([#833](https://github.com/craft-code-club/blog-c3/issues/833)) — Validação de frontmatter no CI com zod (title 30–65, description
   120–165, authors obrigatório, datas válidas, todo tópico referenciado por slug existente
   em `_content/tags/` — habilitado pelo `SEO-P1-12`; `image` obrigatório quando a fase (c)
   do `SEO-P0-03` entrar) — nos moldes do `validate-roadmap.ts`.
-- [ ] **SEO-P1-04** — Guia editorial `docs/writing-posts.md` + template de post +
+- [ ] **SEO-P1-04** ([#834](https://github.com/craft-code-club/blog-c3/issues/834)) — Guia editorial `docs/writing-posts.md` + template de post +
   checklist no PR template — incluindo GEO (citar fontes/estatísticas), 1–2 links internos,
   slug descritivo, e a regra pós-publicação: **linkar o post na descrição do vídeo do
   YouTube a que pertence** (e o vídeo no post).
-- [ ] **SEO-P1-05** — "Posts sugeridos" no fim de cada post: os 3 com melhor match de tags,
+- [ ] **SEO-P1-05** ([#835](https://github.com/craft-code-club/blog-c3/issues/835)) — "Posts sugeridos" no fim de cada post: os 3 com melhor match de tags,
   em ordem cronológica do mais recente, excluindo o próprio post; + navegação de série.
-- [ ] **SEO-P1-06** — Detalhe de evento: "Próximos eventos" excluindo o evento aberto; sem
+- [ ] **SEO-P1-06** ([#836](https://github.com/craft-code-club/blog-c3/issues/836)) — Detalhe de evento: "Próximos eventos" excluindo o evento aberto; sem
   próximos, mostrar os 2 eventos mais recentes (do mais recente para o anterior).
-- [ ] **SEO-P1-07** — IndexNow no deploy (chave em `public/` + POST com URLs alteradas no
+- [ ] **SEO-P1-07** ([#837](https://github.com/craft-code-club/blog-c3/issues/837)) — IndexNow no deploy (chave em `public/` + POST com URLs alteradas no
   workflow; ou Crawler Hints no painel).
-- [ ] **SEO-P1-08** — Migrar imagens de `raw.githubusercontent.com` para
+- [ ] **SEO-P1-08** ([#838](https://github.com/craft-code-club/blog-c3/issues/838)) — Migrar imagens de `raw.githubusercontent.com` para
   `/public/posts/<slug>/` + plugin rehype para `width/height` + `loading="lazy"`.
-- [ ] **SEO-P1-09** — Favicon quadrado ≥48px + ícones 192/512 + `apple-icon` + `manifest.ts`.
-- [ ] **SEO-P1-10** — _Promovido de P2 por impacto:_ reescrever títulos genéricos com a
+- [ ] **SEO-P1-09** ([#839](https://github.com/craft-code-club/blog-c3/issues/839)) — Favicon quadrado ≥48px + ícones 192/512 + `apple-icon` + `manifest.ts`.
+- [ ] **SEO-P1-10** ([#840](https://github.com/craft-code-club/blog-c3/issues/840)) — _Promovido de P2 por impacto:_ reescrever títulos genéricos com a
   keyword em português ("Skip List: o que é e como implementar"), encurtar descriptions
   para 140–160 e trocar o H1 da home por keywords reais — o maior alavancador de CTR dos
   14 posts existentes, com esforço de horas.
-- [ ] **SEO-P1-11** — _Off-page:_ adicionar o link do post/evento na descrição das 78
+- [ ] **SEO-P1-11** ([#841](https://github.com/craft-code-club/blog-c3/issues/841)) — _Off-page:_ adicionar o link do post/evento na descrição das 78
   gravações do YouTube (regra permanente no guia `SEO-P1-04`) e republicar posts
   selecionados em dev.to/TabNews com `canonical_url`. Links do YouTube são nofollow — o
   valor é tráfego referral, descoberta e menção de marca.
-- [ ] **SEO-P1-12** — Registro de tópicos obrigatório com referência por **slug** nos
+- [ ] **SEO-P1-12** ([#842](https://github.com/craft-code-club/blog-c3/issues/842)) — Registro de tópicos obrigatório com referência por **slug** nos
   posts (`topics: ['algoritmos', 'grafos']`) — mesmo padrão do registro de autores:
   `mountTopics` deixa de auto-criar tópico sem registro; migração one-shot dos 14 posts
   com slugs atuais preservados (URLs `/topics/<slug>` não mudam). Habilita a validação de
@@ -384,18 +384,18 @@ padrão desde jul/2025** — verificar o painel; RSS ajuda descoberta de conteú
 
 ### P2 — Autoridade e longo prazo
 
-- [ ] **SEO-P2-01** — Registro de autores + páginas internas (`/authors/<slug>`) — modelo
+- [ ] **SEO-P2-01** ([#843](https://github.com/craft-code-club/blog-c3/issues/843)) — Registro de autores + páginas internas (`/authors/<slug>`) — modelo
   híbrido com flag `internal_page`, slug como id universal e `@id` estável no schema.
   **Spec completa na seção 3.**
-- [ ] **SEO-P2-02** — Curadoria de todos os tópicos sobre o registro obrigatório
+- [ ] **SEO-P2-02** ([#844](https://github.com/craft-code-club/blog-c3/issues/844)) — Curadoria de todos os tópicos sobre o registro obrigatório
   (`SEO-P1-12`): description única por tópico + corpo do markdown do registro virando o
   texto introdutório real da página de tópico.
-- [ ] **SEO-P2-03** — Páginas-hub por série (DDIA, System Design Interview, grafos).
-- [ ] **SEO-P2-04** — Sumário (TOC) no topo dos posts — as âncoras já existem via
+- [ ] **SEO-P2-03** ([#845](https://github.com/craft-code-club/blog-c3/issues/845)) — Páginas-hub por série (DDIA, System Design Interview, grafos).
+- [ ] **SEO-P2-04** ([#846](https://github.com/craft-code-club/blog-c3/issues/846)) — Sumário (TOC) no topo dos posts — as âncoras já existem via
   `rehype-slug`; habilita fragment links na SERP.
-- [ ] **SEO-P2-05** — llms.txt gerado no build (aposta barata) + limpeza: remover arquivo
+- [ ] **SEO-P2-05** ([#847](https://github.com/craft-code-club/blog-c3/issues/847)) — llms.txt gerado no build (aposta barata) + limpeza: remover arquivo
   `tatus` do repo.
-- [ ] **SEO-P2-06** — Evolução contínua da skill de SEO (`SEO-P0-07`): a cada item
+- [ ] **SEO-P2-06** ([#848](https://github.com/craft-code-club/blog-c3/issues/848)) — Evolução contínua da skill de SEO (`SEO-P0-07`): a cada item
   entregue, atualizar a skill para validar o novo estado do repo (template → valida contra
   o template; guia → verifica as regras; registro de autores → checa slugs; og:image →
   confere imagem/proporção/peso). **É parte da definição de pronto de cada item do plano.**
