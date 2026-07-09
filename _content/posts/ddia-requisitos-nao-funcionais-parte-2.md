@@ -1,7 +1,7 @@
 ---
 title: "Escala destrói sonhos: o Capítulo 2 de DDIA (Parte 2)"
 date: "2026-07-06"
-description: "Notas do terceiro encontro do Clube do Livro da Craft Code Club sobre Designing Data-Intensive Applications (2ª edição): o fecho do Capítulo 2 com confiabilidade (falta vs. falha, tolerância a falhas, SPOF, chaos engineering), o fator humano, escalabilidade (vertical vs. horizontal, shared-nothing, o gargalo que só muda de lugar) e manutenibilidade (simplicidade, complexidade acidental, padrões e evolvability)."
+description: "Notas do terceiro encontro do Clube do Livro da Craft Code Club sobre Designing Data-Intensive Applications (2ª edição): o fecho do Capítulo 2 com confiabilidade (fault vs. failure, tolerância a falhas, SPOF, chaos engineering), o fator humano, escalabilidade (vertical vs. horizontal, shared-nothing, o gargalo que só muda de lugar) e manutenibilidade (simplicidade, complexidade acidental, padrões e evolvability)."
 topics: ["System Design", "Clube do Livro"]
 keywords:
   [
@@ -50,49 +50,49 @@ Antes de avançar, um recap rápido do que a [Parte 1](https://craftcodeclub.io/
 - **Requisitos não funcionais** (rapidez, confiabilidade, segurança, conformidade, manutenibilidade) são tão importantes quanto os funcionais. De que adianta uma funcionalidade boa se o software é lento ou não é confiável?
 - O **estudo de caso da rede social** (estilo X/Twitter) com ~500 milhões de posts/dia mostrou que, quando **a leitura é muito maior que a escrita**, faz sentido sacrificar recurso na escrita para baratear a leitura: a **view materializada**, pré-computando a timeline na hora do post.
 - Em **performance**, separamos **response time** de **throughput**, e vimos por que a **média aritmética engana** enquanto os **percentis** contam uma história melhor (o p50 é a experiência típica; o p95/p99 revela a cauda).
-- E a gente tinha *começado* a falar de **confiabilidade**, a diferença entre **falta (fault)** e **falha (failure)**, que é exatamente por onde este encontro retomou.
+- E a gente tinha *começado* a falar de **confiabilidade**, a diferença entre **fault** e **failure**, que é exatamente por onde este encontro retomou.
 
 ---
 
-## Confiabilidade: falta (fault) não é falha (failure)
+## Confiabilidade: fault não é failure
 
 O livro trata essa distinção de um jeito mais claro do que qualquer outro que a turma já tinha visto, e vale a pena martelar:
 
-- Uma **falta (fault)** é algo que deu errado num componente, mas o sistema **soube lidar** com aquilo de forma resiliente. Degradou uma parte pequena, mas o todo continua operando.
-- Uma **falha (failure)** é quando o sistema **para de operar** como deveria, ou sai do ar por inteiro, o clássico `503 Service Unavailable`.
+- Uma **fault** é algo que deu errado num componente, mas o sistema **soube lidar** com aquilo de forma resiliente. Degradou uma parte pequena, mas o todo continua operando.
+- Uma **failure** é quando o sistema **para de operar** como deveria, ou sai do ar por inteiro, o clássico `503 Service Unavailable`.
 
-E o ponto mais elegante: muitas vezes a gente **provoca uma falta de propósito para evitar uma falha**. Circuit breaker, backpressure, load shedding, todos preferem degradar um pedacinho a derrubar tudo.
+E o ponto mais elegante: muitas vezes a gente **provoca uma fault de propósito para evitar uma failure**. Circuit breaker, backpressure, load shedding, todos preferem degradar um pedacinho a derrubar tudo.
 
-*(Parêntese das traduções: em português "fault" e "failure" viram as duas "falha". A Novatec, que está traduzindo a 2ª edição, vai manter o termo e diferenciar pelo contexto, então, nas anotações, a galera segue anotando o termo em inglês entre parênteses.)*
+*(Parêntese das traduções: em português, "fault" e "failure" costumam virar as duas "falha", o que apaga justamente a distinção que importa. A Novatec, que está traduzindo a 2ª edição, vai manter os termos e diferenciar pelo contexto, e aqui no post fazemos o mesmo: seguimos com fault e failure em inglês.)*
 
-### "Um erro tratado é uma falta?"
+### "Um erro tratado é uma fault?"
 
 Surgiu uma pergunta ótima: se eu **valido um e-mail** malformado e trato o erro, isso é uma *fault*?
 
 O consenso foi que **depende da perspectiva**, e isso é a cara de arquitetura em alto nível:
 
-- Um input validado é mais um **guard rail** de negócio do que uma falta. A aplicação **esperava** aquilo e tinha um fluxo específico. Se você esperava, quase não era uma falha.
+- Um input validado é mais um **guard rail** de negócio do que uma *fault*. A aplicação **esperava** aquilo e tinha um fluxo específico. Se você esperava, quase não era uma *failure*.
 - Mas troque a lente: se a **sua** API não trata algo robustamente e **outra aplicação depende dela**, o teu erro pode virar uma *fault* para o consumidor. Se ele souber se recuperar, é tolerante a falhas; se não, vira *failure*.
-- E dá para amarrar isso a métrica: dentro do **SLO**, é uma falta tolerável; **fora do SLO**, virou falha. (O livro reforça isso: falha é, em outras palavras, "não cumprir o SLO".)
+- E dá para amarrar isso a métrica: dentro do **SLO**, é uma *fault* tolerável; **fora do SLO**, virou *failure*. (O livro reforça isso: *failure* é, em outras palavras, "não cumprir o SLO".)
 
 A linha entre as definições é turva de propósito, e reconhecer isso é metade da maturidade.
 
 ### Tolerância a falhas e o ponto único de falha
 
-Um dos requisitos não funcionais é a **capacidade do sistema de conviver com faltas**, o *fault tolerant*. Um sistema é tolerante a falhas se **continua fornecendo o serviço mesmo quando algo interno falha**.
+Um dos requisitos não funcionais é a **capacidade do sistema de conviver com faults**, o *fault tolerant*. Um sistema é tolerante a falhas se **continua fornecendo o serviço mesmo quando algo interno falha**.
 
 O exemplo do e-mail ficou didático:
 
 - Sistema que **trava** porque o provedor de e-mail caiu → **não** é tolerante a falhas.
 - Sistema que **detecta** e **chaveia para um segundo provedor**, ou que **joga o envio numa fila** para resolver depois → **é** tolerante a falhas. O fluxo principal não parou.
 
-O oposto disso é o **[SPOF (Single Point of Failure)](https://fidelissauro.dev/single-point-of-failure/)**: aquele componente que, se cair, para tudo. Um banco de dados sem réplica é o exemplo canônico. E aqui entra o trade-off de escala: com **uma máquina só**, uma falha vira *failure*; com **dez máquinas** balanceadas, a mesma pane é só uma *falta*, dá para redistribuir.
+O oposto disso é o **[SPOF (Single Point of Failure)](https://fidelissauro.dev/single-point-of-failure/)**: aquele componente que, se cair, para tudo. Um banco de dados sem réplica é o exemplo canônico. E aqui entra o trade-off de escala: com **uma máquina só**, uma *fault* vira *failure*; com **dez máquinas** balanceadas, a mesma pane é só uma *fault*, dá para redistribuir.
 
-> Boa parte da nossa atribuição como sênior/staff/arquiteto é fazer com que uma **falta não se torne uma falha**. System Design é muito sobre isso: distribuir em vários nós, colocar uma camada de cache que também vira amortecedor do banco, e ir **diminuindo as superfícies de possíveis pontos de falha**.
+> Boa parte da nossa atribuição como sênior/staff/arquiteto é fazer com que uma **fault não se torne uma failure**. System Design é muito sobre isso: distribuir em vários nós, colocar uma camada de cache que também vira amortecedor do banco, e ir **diminuindo as superfícies de possíveis pontos de falha**.
 
 Curioso como os conceitos se entrelaçam: a gente coloca **cache** para melhorar a experiência do usuário, e ele acaba **protegendo o banco** de um volume de acessos que o derrubaria. Em System Design, quase nada serve para uma coisa só.
 
-Uma forma de levar essa ideia adiante é a **[cell-based architecture](https://docs.aws.amazon.com/wellarchitected/latest/reducing-scope-of-impact-with-cell-based-architecture/what-is-a-cell-based-architecture.html)**: em vez de um sistema único onde uma pane se alastra, você particiona tudo em **células** isoladas e independentes, de modo que uma falha fica contida numa célula em vez de derrubar todo mundo. É reduzir o *blast radius* (o raio de impacto) por design, o mesmo espírito de "diminuir as superfícies de falha", só que promovido a princípio de arquitetura.
+Uma forma de levar essa ideia adiante é a **[cell-based architecture](https://docs.aws.amazon.com/wellarchitected/latest/reducing-scope-of-impact-with-cell-based-architecture/what-is-a-cell-based-architecture.html)**: em vez de um sistema único onde uma pane se alastra, você particiona tudo em **células** isoladas e independentes, de modo que uma *failure* fica contida numa célula em vez de derrubar todo mundo. É reduzir o *blast radius* (o raio de impacto) por design, o mesmo espírito de "diminuir as superfícies de falha", só que promovido a princípio de arquitetura.
 
 ### Quebrar de propósito: chaos engineering
 
@@ -104,7 +104,7 @@ E tem a camada física, que a gente esquece: um serviço de storage geralmente e
 
 ---
 
-## A internet é boa demais (e por isso a gente esquece)
+## A internet é boa demais - e por isso a gente esquece que ela falha, muito mais do que vemos
 
 O capítulo começa com uma frase de Alan Kay que a turma adorou:
 
@@ -116,7 +116,7 @@ E com a **cloud** a abstração aumenta ainda mais, muita gente nem sabe o que s
 
 E tem o lado frágil de toda essa dependência, capturado pela [tirinha xkcd 2347](https://xkcd.com/2347/): boa parte da infraestrutura digital moderna se apoia, sem a gente perceber, em algum projeto minúsculo mantido de graça por uma única pessoa. As abstrações que a gente venera escondem tanto a complexidade quanto os pontos únicos de falha embaixo delas, é aquela camada OSI inteira funcionando em silêncio até o dia em que não funciona.
 
-O contraponto honesto: **"tolerante a falhas" é vago**. Não dá para dizer que o seu sistema é tolerante a falhas e ponto, sempre existe uma falha que ele não vai tolerar. Se um **cabo submarino** for cortado (um peixe grande mordeu o cabo, vá saber), nenhum retry salva. A gente é tolerante **até certas** falhas, nunca a todas. O próprio livro brinca: se a catástrofe for grande, "é só botar tudo no espaço".
+O contraponto honesto: **"tolerante a falhas" é vago**. Não dá para dizer que o seu sistema é tolerante a falhas e ponto, sempre existe uma *fault* que ele não vai tolerar. Se um **cabo submarino** for cortado (um peixe grande mordeu o cabo, vá saber), nenhum retry salva. A gente é tolerante **até certas** *faults*, nunca a todas. O próprio livro brinca: se a catástrofe for grande, "é só botar tudo no espaço".
 
 Por que isso importa? Porque **dita quão complexa (e cara) a arquitetura precisa ser**, e isso é uma conversa de negócio. Um sistema que roda das 9h às 18h talvez não sofra com downtime; um SaaS com milhões de usuários que não pode cair está em outra escala. Quanto o negócio perde parado por X tempo? A resposta define quanto vale investir em confiabilidade.
 
@@ -126,13 +126,13 @@ Um tema que o livro tangencia e a turma aprofundou: **Disaster Recovery (DR)**. 
 
 É aí que entra **infra as code**: ter tudo documentado, com **ciclos periódicos** de subir a infra inteira num cluster paralelo, para exercitar o "músculo" de recuperar o sistema a qualquer momento. É caro e trabalhoso, por isso as empresas desviam, mas é um dos melhores exercícios para **descobrir o que você não sabe** sobre a própria infraestrutura (e o quão difícil ela está de manter).
 
-O fecho da seção amarrou com a senioridade: fazer a coisa **funcionar** é metade do problema. A outra metade é **o que pode dar errado depois** que está funcionando. Faltas são, em boa parte, **previsíveis** (dá para saber quando o copo vai encher pela capacidade e pela carga esperada), e a tolerância é o **tratamento pré-definido** para elas, muitas vezes um mecanismo usado para conter uma falta acaba introduzindo outra, e o trabalho vira um malabarismo.
+O fecho da seção amarrou com a senioridade: fazer a coisa **funcionar** é metade do problema. A outra metade é **o que pode dar errado depois** que está funcionando. *Faults* são, em boa parte, **previsíveis** (dá para saber quando o copo vai encher pela capacidade e pela carga esperada), e a tolerância é o **tratamento pré-definido** para elas, muitas vezes um mecanismo usado para conter uma *fault* acaba introduzindo outra, e o trabalho vira um malabarismo.
 
 ---
 
 ## O elo mais fraco (e mais humano)
 
-O capítulo tem uma seção específica, *Humans and Reliability*, sobre o fato de que o ser humano **projeta, constrói e opera** o software. E a operação, mesmo bem-intencionada, causa falhas.
+O capítulo tem uma seção específica, *Humans and Reliability*, sobre o fato de que o ser humano **projeta, constrói e opera** o software. E a operação, mesmo bem-intencionada, causa *failures*.
 
 Os exemplos de produção foram os melhores:
 
@@ -220,9 +220,9 @@ A chave é gerenciar complexidade, e a turma separou os tipos:
 
 > Reduzir complexidade melhora significativamente a manutenção. Um bom código é aquele que, quando quebra em produção, os colegas conseguem olhar o fluxo e **entender o que ele faz sem se aprofundar** em cada detalhe.
 
-A ferramenta contra a complexidade é a **abstração**. O SQL é o exemplo perfeito: você pede os dados e o banco resolve algoritmo, ordenação, memória vs. disco, você não precisa saber. Mas cuidado com a **pattern-itis**: querer aplicar todo padrão de System Design cobra o seu pé depois. Um exemplo real citado: um **Event Sourcing** em que cada mudança obrigava a mexer em um monte de camada, às vezes o **simples resolve**.
+A ferramenta contra a complexidade é a **abstração**. O SQL é o exemplo perfeito: você pede os dados e o banco resolve algoritmo, ordenação, memória vs. disco, você não precisa saber. Mas cuidado com a **pattern-itis**: querer aplicar todo padrão de System Design cobra o seu preço depois. Um exemplo real citado: um **Event Sourcing** em que cada mudança obrigava a mexer em um monte de camada, às vezes o **simples resolve**.
 
-Nelson deu um barômetro afiado para o "quando virou legado": **quando a nossa capacidade de adquirir dívida técnica passa a ser maior do que a de pagá-la.** (Curioso como "legado" só tem conotação ruim em tecnologia, fora dela, deixar um legado é coisa boa.)
+Nelson trouxe um insight afiado para responder a pergunta "Quando virou legado?": **quando a nossa capacidade e velocidade de adquirir dívida técnica passam a ser maiores do que as de pagá-la.** (Curioso como "legado" só tem conotação ruim em tecnologia, fora dela, deixar um legado é coisa boa.)
 
 ### Behavior vs. structure: achar o balanço
 
@@ -234,7 +234,7 @@ A conclusão mais forte da noite: **governança e padronização nunca são dema
 
 Como isso vive numa empresa grande: um **time de plataforma** com evangelistas de padrões e um **guia arquitetural** com quadrantes (**indicado / suportado / desencorajado / pare de usar**) para bibliotecas. Padrão bem-feito te deixa **pular para qualquer sistema da empresa e se sentir em casa**, o que reduz brutalmente a curva de **onboarding** (e onboarding é custo).
 
-O padrão é um **mal necessário**: três times usando três libs de log diferentes = três CVEs para atualizar, três camadas de abstração, três vezes a carga cognitiva. É por isso que existe o **design by committee** / consenso de stack: mesmo que eu prefira PHP e você Node, a gente decide **um** e ganha transições suaves. Menos emoção, mais pragmatismo, pela saúde do time.
+O padrão é um **mal necessário**: três times usando três libs de log diferentes = três CVEs para atualizar, três camadas de abstração, três vezes a carga cognitiva. É por isso que vale o **["Have Backbone; Disagree and Commit"](https://www.amazon.jobs/content/en/our-workplace/leadership-principles)** dos princípios de liderança da Amazon: mesmo que eu prefira PHP e você Node, a gente discute, decide **um** e todo mundo se compromete com a decisão, ganhando transições suaves. Menos emoção, mais pragmatismo, pela saúde do time.
 
 Mas teve o contraponto honesto: **padrão de mercado adotado também pode virar armadilha**. O autor do **MediatR** avisou que a lib vai ser paga; o **FluentAssertions** virou pago do dia para a noite. A defesa é depender de **padrões abertos / protocolos** e abstrair com um **adapter**, para trocar a implementação por baixo sem dor, sem cair no extremo oposto de fazer tudo *in-house*. E vale citar a **[convention over configuration](https://en.wikipedia.org/wiki/Convention_over_configuration)** do Rails (que inspirou o Laravel): stacks opinativas com **um** jeito de formatar e nomear matam o bikeshedding e reduzem o ruído, enquanto ecossistemas mais abertos (o .NET fora do que vem da Microsoft, por exemplo) ganham liberdade e perdem convergência.
 
@@ -254,8 +254,8 @@ Nem toda duplicação precisa ser abstraída, às vezes ela é **intencional**, 
 
 Um apanhado das escolhas que apareceram na conversa, cada uma com o que se ganha de um lado e o que se paga do outro:
 
-- **Gerar falta vs. arriscar falha:** de um lado, degrada de forma controlada e mantém o serviço; do outro, exige circuit breaker, backpressure ou fila e um desenho cuidadoso.
-- **Tolerância a falhas:** de um lado, continua servindo mesmo com panes; do outro, custa complexidade e nunca cobre *todas* as falhas.
+- **Gerar uma fault vs. arriscar uma failure:** de um lado, degrada de forma controlada e mantém o serviço; do outro, exige circuit breaker, backpressure ou fila e um desenho cuidadoso.
+- **Tolerância a falhas:** de um lado, continua servindo mesmo com *faults*; do outro, custa complexidade e nunca cobre *todas* as *faults*.
 - **Ter um Disaster Recovery testado:** de um lado, recuperação rápida de catástrofes; do outro, é caro e trabalhoso de manter e exercitar.
 - **Escala vertical vs. horizontal:** a vertical é simples de manter; a horizontal escala melhor e traz tolerância a falhas de brinde, mas exige sharding e adiciona complexidade.
 - **Escalar (mais máquina) vs. otimizar:** escalar resolve rápido o pico e o SLA; otimizar é mais barato a longo prazo, e máquina tem teto e custo.
@@ -277,7 +277,7 @@ Cada domínio é um domínio, cada empresa é uma empresa. Como na frase que abr
 
 ---
 
-## Quer participar do próximo?
+## Quer participar do próximo encontro?
 
 Com isso a gente **fechou o Capítulo 2**. O próximo encontro é o **Capítulo 3, Data Models and Query Languages** (modelo de documentos vs. relacional, normalização, modelo de grafos, e por aí vai), marcado para **20 de julho**, mantendo a cadência de quinze dias.
 
