@@ -7,7 +7,7 @@ import escapeHtml from "escape-html";
 import Link from "next/link";
 export default function Home() {
   const posts = getSortedPostsData().slice(0, 6);
-  const { allEvents } = getEvents();
+  const { upcoming } = getEvents();
 
   return (
     <div className="min-h-screen">
@@ -47,7 +47,7 @@ export default function Home() {
       </div>
 
       {/* Próximos Eventos */}
-      <UpcomingEventsHome events={allEvents} limit={2} />
+      <UpcomingEventsHome events={upcoming} limit={2} />
 
       {/* Featured Topics */}
       <div className="py-12 bg-white dark:bg-gray-800">

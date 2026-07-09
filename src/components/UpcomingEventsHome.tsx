@@ -6,6 +6,9 @@ import Link from 'next/link';
 import EventCard from './EventCard';
 
 interface Props {
+  // Pass the FULL upcoming list (not pre-sliced): events that have passed since
+  // the static build are filtered out here, and the client backfills up to
+  // `limit` from what remains. Pre-slicing on the server would show fewer.
   events: Event[];
   limit?: number;
 }
