@@ -1,13 +1,13 @@
 import ArrowIcon from "@/components/ArrowIcon";
-import EventCard from "@/components/EventCard";
 import TopicTags from "@/components/TopicTags";
+import UpcomingEventsHome from "@/components/UpcomingEventsHome";
 import { getEvents } from "@/lib/events";
 import { getSortedPostsData } from "@/lib/posts";
 import escapeHtml from "escape-html";
 import Link from "next/link";
 export default function Home() {
   const posts = getSortedPostsData().slice(0, 6);
-  const upcomingEvents = getEvents().upcoming.slice(0, 2);
+  const { allEvents } = getEvents();
 
   return (
     <div className="min-h-screen">
@@ -47,46 +47,7 @@ export default function Home() {
       </div>
 
       {/* Próximos Eventos */}
-      {upcomingEvents.length > 0 && (
-        <div className="py-12 bg-gray-50 dark:bg-gray-900">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-                Próximos Eventos
-              </h2>
-            </div>
-            <div className="mt-10">
-              {upcomingEvents.length === 1 ? (
-                <EventCard
-                  event={upcomingEvents[0]}
-                  isPast={false}
-                  compact={true}
-                  featured={true}
-                />
-              ) : (
-                <div className="grid gap-8 grid-cols-1 sm:grid-cols-2">
-                  {upcomingEvents.map((event) => (
-                    <EventCard
-                      key={event.id}
-                      event={event}
-                      isPast={false}
-                      compact={true}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-            <div className="mt-6 text-center">
-              <Link
-                href="/events"
-                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline font-medium"
-              >
-                Ver todos os eventos →
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
+      <UpcomingEventsHome events={allEvents} limit={2} />
 
       {/* Featured Topics */}
       <div className="py-12 bg-white dark:bg-gray-800">
