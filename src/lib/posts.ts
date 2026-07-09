@@ -63,6 +63,38 @@ export function getSortedPostsData(): Omit<BlogPost, 'contentHtml'>[] {
   });
 }
 
+export const POSTS_PER_PAGE = 8;
+
+export interface PaginatedPosts {
+  posts: Omit<BlogPost, 'contentHtml'>[];
+  total: number;
+  totalPages: number;
+}
+
+function paginatePosts(posts: Omit<BlogPost, 'contentHtml'>[], page: number, limit: number): PaginatedPosts {
+  const total = posts.length;
+  const totalPages = Math.ceil(total / limit);
+  const startIndex = (page - 1) * limit;
+
+  return {
+    posts: posts.slice(startIndex, startIndex + limit),
+    total,
+    totalPages,
+  };
+}
+
+export function getPaginatedPosts(page: number = 1, limit: number = POSTS_PER_PAGE): PaginatedPosts {
+  return paginatePosts(getSortedPostsData(), page, limit);
+}
+
+export function getPostsByTopic(topicKey: string): Omit<BlogPost, 'contentHtml'>[] {
+  return getSortedPostsData().filter((post) => post.topics.some((topic) => topic.key === topicKey));
+}
+
+export function getPaginatedPostsByTopic(topicKey: string, page: number = 1, limit: number = POSTS_PER_PAGE): PaginatedPosts {
+  return paginatePosts(getPostsByTopic(topicKey), page, limit);
+}
+
 export async function getPostData(id: string): Promise<BlogPost> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
