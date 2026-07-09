@@ -56,16 +56,25 @@ export default function Home() {
               </h2>
             </div>
             <div className="mt-10">
-              <div className={`grid gap-8 ${upcomingEvents.length === 1 ? 'grid-cols-1 max-w-lg mx-auto' : 'grid-cols-1 sm:grid-cols-2'}`}>
-                {upcomingEvents.map((event) => (
-                  <EventCard
-                    key={event.id}
-                    event={event}
-                    isPast={false}
-                    compact={true}
-                  />
-                ))}
-              </div>
+              {upcomingEvents.length === 1 ? (
+                <EventCard
+                  event={upcomingEvents[0]}
+                  isPast={false}
+                  compact={true}
+                  featured={true}
+                />
+              ) : (
+                <div className="grid gap-8 grid-cols-1 sm:grid-cols-2">
+                  {upcomingEvents.map((event) => (
+                    <EventCard
+                      key={event.id}
+                      event={event}
+                      isPast={false}
+                      compact={true}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
             <div className="mt-6 text-center">
               <Link
