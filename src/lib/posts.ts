@@ -72,12 +72,17 @@ export interface PaginatedPosts {
 }
 
 function paginatePosts(posts: Omit<BlogPost, 'contentHtml'>[], page: number, limit: number): PaginatedPosts {
+  // Guard the public `limit` param: a non-positive value would make totalPages
+  // Infinity/NaN and blow up array allocation downstream.
+  const safeLimit = limit > 0 ? Math.floor(limit) : POSTS_PER_PAGE;
   const total = posts.length;
-  const totalPages = Math.ceil(total / limit);
-  const startIndex = (page - 1) * limit;
+  // An empty list is still "one (empty) page", so page 1 always exists and its
+  // canonical redirect keeps working under output: export.
+  const totalPages = Math.max(1, Math.ceil(total / safeLimit));
+  const startIndex = (page - 1) * safeLimit;
 
   return {
-    posts: posts.slice(startIndex, startIndex + limit),
+    posts: posts.slice(startIndex, startIndex + safeLimit),
     total,
     totalPages,
   };
