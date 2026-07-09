@@ -1,4 +1,4 @@
-import { getPaginatedPostsByTopic } from '@/lib/posts';
+import { getPaginatedPostsByTopic, getSortedPostsData, POSTS_PER_PAGE } from '@/lib/posts';
 import { getSortedTopicList, getTopicBySlug } from '@/lib/topics';
 import { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
@@ -12,8 +12,13 @@ interface Props {
 export function generateStaticParams() {
   const params: { topic: string; page: string }[] = [];
 
+  // Read/parse all posts once, then derive per-topic page counts in memory,
+  // instead of re-reading the whole posts directory for every topic.
+  const allPosts = getSortedPostsData();
+
   for (const topic of getSortedTopicList()) {
-    const { totalPages } = getPaginatedPostsByTopic(topic.key, 1);
+    const count = allPosts.filter((post) => post.topics.some((t) => t.key === topic.key)).length;
+    const totalPages = Math.max(1, Math.ceil(count / POSTS_PER_PAGE));
     // Pre-render every page. Page 1 redirects to /topics/[topic] (see below);
     // it is kept in the params so output: export always has at least one path.
     for (let page = 1; page <= totalPages; page++) {
