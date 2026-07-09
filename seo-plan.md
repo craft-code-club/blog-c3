@@ -7,7 +7,7 @@
 > (`SEO-P0-01`…`SEO-P2-06`) e checkboxes — marque `[x]` conforme cada item for entregue
 > e anote a data de merge (importante para atribuir impacto nas métricas da seção 9).
 >
-> **Acompanhamento:** 📍 milestone [**Blog SEO Improvement 2026-Q2**](https://github.com/craft-code-club/blog-c3/milestone/1)
+> **Acompanhamento:** 📍 milestone [**Blog SEO Improvement 2026-Q3**](https://github.com/craft-code-club/blog-c3/milestone/1)
 > — todas as issues do plano (`#824`–`#848`) estão nele, com label `seo` (+ `priority: high` nos P0).
 >
 > _Auditoria: 09/07/2026 · Base: Next.js 16 (export estático) · Cloudflare Pages · 14 posts_
