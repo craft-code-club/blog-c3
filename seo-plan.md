@@ -110,7 +110,7 @@ title: 'Algoritmo A* (A-Star): como funciona e quando usar'   # 45–60 chars, k
 description: 'Entenda o algoritmo A* passo a passo: ...'      # 140–160 chars
 date: '2026-07-09'
 lastmod: '2026-07-09'              # atualizar a cada revisão relevante
-topics: ['Algoritmos', 'Grafos']
+topics: ['algoritmos', 'grafos']   # slugs do registro _content/tags/ (como autores)
 image: '/posts/a-star/cover.png'   # opcional — override manual da og:image deste item;
                                    # ideal 1200×630 (16:9 como 1280×720 também funciona),
                                    # PNG/JPEG ≤300 KB, no próprio domínio; sem o campo,
@@ -179,6 +179,24 @@ registro descreve**.
    referenciado pelo `author` de todos os `BlogPosting`.
 7. **Validação no CI** (amarra com `SEO-P1-03`): slug referenciado precisa existir;
    `internal_page: true` exige bio; `false` exige `link`.
+
+### Tópicos seguem o mesmo padrão (`SEO-P1-12`; curadoria em `SEO-P2-02`)
+
+O registro `_content/tags/` já existe, mas é **opcional**: os posts referenciam tópicos
+pelo nome de exibição e, quando não há registro, o código cria o tópico na hora
+(`mountTopics` em `src/lib/posts.ts`) — sem description, sem curadoria. A mudança: posts
+passam a referenciar **por slug** (`topics: ['algoritmos', 'grafos']`) e todo slug precisa
+existir em `_content/tags/<slug>.md`, validado no CI.
+
+Benefícios: mata o tag sprawl (sinônimos criados por contribuidores diferentes dividem
+PageRank em páginas de arquivo duplicadas — o registro obrigatório força a escolha
+consciente entre usar um tópico existente ou criar um novo de propósito); garante que toda
+página de tópico nasce com description curada; e o corpo do markdown do registro vira o
+texto introdutório real da página (`SEO-P2-02`), exatamente como a bio do autor.
+
+Migração one-shot como a de autores: 14 posts num PR, slugs atuais preservados para as
+URLs `/topics/<slug>` não mudarem (mudança de slug exige 301). Extensão natural: as `tags`
+dos eventos podem usar o mesmo registro.
 
 ---
 
@@ -334,8 +352,9 @@ padrão desde jul/2025** — verificar o painel; RSS ajuda descoberta de conteú
   `_headers` (cache imutável em `/_next/static/*`, `X-Robots-Tag: noindex` em
   `*.pages.dev`, security headers) + redirect www→apex na zona Cloudflare.
 - [ ] **SEO-P1-03** — Validação de frontmatter no CI com zod (title 30–65, description
-  120–165, authors obrigatório, datas válidas, tópico existente; `image` obrigatório quando
-  a fase (c) do `SEO-P0-03` entrar) — nos moldes do `validate-roadmap.ts`.
+  120–165, authors obrigatório, datas válidas, todo tópico referenciado por slug existente
+  em `_content/tags/` — habilitado pelo `SEO-P1-12`; `image` obrigatório quando a fase (c)
+  do `SEO-P0-03` entrar) — nos moldes do `validate-roadmap.ts`.
 - [ ] **SEO-P1-04** — Guia editorial `docs/writing-posts.md` + template de post +
   checklist no PR template — incluindo GEO (citar fontes/estatísticas), 1–2 links internos,
   slug descritivo, e a regra pós-publicação: **linkar o post na descrição do vídeo do
@@ -357,14 +376,20 @@ padrão desde jul/2025** — verificar o painel; RSS ajuda descoberta de conteú
   gravações do YouTube (regra permanente no guia `SEO-P1-04`) e republicar posts
   selecionados em dev.to/TabNews com `canonical_url`. Links do YouTube são nofollow — o
   valor é tráfego referral, descoberta e menção de marca.
+- [ ] **SEO-P1-12** — Registro de tópicos obrigatório com referência por **slug** nos
+  posts (`topics: ['algoritmos', 'grafos']`) — mesmo padrão do registro de autores:
+  `mountTopics` deixa de auto-criar tópico sem registro; migração one-shot dos 14 posts
+  com slugs atuais preservados (URLs `/topics/<slug>` não mudam). Habilita a validação de
+  tópicos no CI (`SEO-P1-03`) e mata o tag sprawl. Spec na seção 3.
 
 ### P2 — Autoridade e longo prazo
 
 - [ ] **SEO-P2-01** — Registro de autores + páginas internas (`/authors/<slug>`) — modelo
   híbrido com flag `internal_page`, slug como id universal e `@id` estável no schema.
   **Spec completa na seção 3.**
-- [ ] **SEO-P2-02** — Descriptions curadas para todos os tópicos + texto introdutório real
-  nas páginas de tópico.
+- [ ] **SEO-P2-02** — Curadoria de todos os tópicos sobre o registro obrigatório
+  (`SEO-P1-12`): description única por tópico + corpo do markdown do registro virando o
+  texto introdutório real da página de tópico.
 - [ ] **SEO-P2-03** — Páginas-hub por série (DDIA, System Design Interview, grafos).
 - [ ] **SEO-P2-04** — Sumário (TOC) no topo dos posts — as âncoras já existem via
   `rehype-slug`; habilita fragment links na SERP.
