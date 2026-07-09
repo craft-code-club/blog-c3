@@ -42,7 +42,7 @@
     "postcss": "^8",
     "tailwindcss": "^4.3.2",
     "tsx": "^4.23.0",
-    "typescript": "^6"
+    "typescript": "^7"
   },
   "overrides": {
     "next": {
