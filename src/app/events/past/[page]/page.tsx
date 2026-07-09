@@ -50,7 +50,7 @@ function EventCard({ event }: { event: Event }) {
 
           <div className="mt-auto space-y-4">
             <div className="flex items-center text-gray-600 dark:text-gray-300">
-              <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg aria-hidden="true" focusable="false" className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
@@ -61,8 +61,8 @@ function EventCard({ event }: { event: Event }) {
               <div className="space-y-1">
                 <h4 className="font-medium text-gray-900 dark:text-white">Palestrantes:</h4>
                 <ul className="space-y-1">
-                  {event.speakers.map((speaker, index) => (
-                    <li key={index} className="text-gray-600 dark:text-gray-300">{speaker}</li>
+                  {event.speakers.map((speaker) => (
+                    <li key={speaker} className="text-gray-600 dark:text-gray-300">{speaker}</li>
                   ))}
                 </ul>
               </div>
@@ -99,7 +99,7 @@ function Pagination({ currentPage, totalPages }: { currentPage: number, totalPag
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   // Show at most 5 page numbers, with ellipsis for the rest
-  let pagesToShow: (number | string)[] = pages;
+  let pagesToShow: (number | '...')[] = pages;
   if (totalPages > 7) {
     if (currentPage <= 3) {
       pagesToShow = [...pages.slice(0, 5), '...', totalPages];
@@ -111,7 +111,7 @@ function Pagination({ currentPage, totalPages }: { currentPage: number, totalPag
   }
 
   return (
-    <nav className="flex justify-center mt-8">
+    <nav className="flex justify-center mt-8" aria-label="Paginação">
       <ul className="flex items-center gap-1">
         {currentPage > 1 && (
           <li>
@@ -189,7 +189,7 @@ export default async function PastEventsPage({ params }: Props) {
             href="/events"
             className="text-blue-600 dark:text-blue-400 hover:underline flex items-center"
           >
-            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg aria-hidden="true" focusable="false" className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             Voltar para Eventos
