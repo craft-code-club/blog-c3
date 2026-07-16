@@ -11,7 +11,7 @@ RUN npm run build
 
 
 
-FROM nginx:1.31.2 AS prod-env
+FROM nginx:1.31.3 AS prod-env
 
 RUN rm -rf /usr/share/nginx/html/*
 
