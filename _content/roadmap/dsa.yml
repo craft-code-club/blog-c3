@@ -562,3 +562,29 @@ categories:
             title: "Skip List"
             url: "https://github.com/NelsonBN/algorithms-data-structures-skip-list"
             target: "_blank"
+
+  - title: "Bit Manipulation"
+    items:
+      - title: "Binary Numbers (Números Binários)"
+        description: "O sistema binário é a linguagem por trás de tudo o que os computadores fazem. Fundamentos do sistema binário e conversão de decimal para binário e de binário para decimal."
+        links:
+          - icon: "video"
+            title: "#034: Binary Numbers - YouTube"
+            url: "https://www.youtube.com/watch?v=8VHi44rAVFo"
+            target: "_blank"
+          - icon: "book-open"
+            title: "Binary Numbers"
+            url: "https://nelsonbn.com/blog/binary-numbers/"
+            target: "_blank"
+
+      - title: "Negative Binary Numbers (Números Binários Negativos)"
+        description: "Representação de números negativos em binário: sign-magnitude, One's Complement e Two's Complement, e como o Two's Complement resolve o problema do zero duplicado."
+        links:
+          - icon: "video"
+            title: "#035: Negative Binary Numbers - YouTube"
+            url: "https://www.youtube.com/watch?v=93CpmUXLbzc"
+            target: "_blank"
+          - icon: "book-open"
+            title: "Binary Numbers"
+            url: "https://nelsonbn.com/blog/binary-numbers/"
+            target: "_blank"
