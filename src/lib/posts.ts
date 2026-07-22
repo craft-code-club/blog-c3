@@ -11,6 +11,7 @@ import '../assets/code-stackoverflow-dark.css';
 import '../assets/inline-code.css';
 import rehypeSlug from 'rehype-slug';
 import { getTopicsMetadataAsDictionary, Topic } from './topics';
+import { resolveDiscordLinks } from './discord';
 
 const postsDirectory = path.join(process.cwd(), '_content', 'posts');
 
@@ -41,7 +42,7 @@ export function getSortedPostsData(): Omit<BlogPost, 'contentHtml'>[] {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
 
     // Use gray-matter to parse the post metadata section
-    const { data } = matter(fileContents);
+    const { data } = matter(resolveDiscordLinks(fileContents));
 
     // Combine the data with the id
     return {
@@ -103,7 +104,7 @@ export function getPaginatedPostsByTopic(topicKey: string, page: number = 1, lim
 export async function getPostData(id: string): Promise<BlogPost> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const { data, content } = matter(fileContents);
+  const { data, content } = matter(resolveDiscordLinks(fileContents));
   const processedContent = await unified()
       .use(remarkParse)
       .use(remarkGfm)
