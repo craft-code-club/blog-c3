@@ -8,7 +8,7 @@ type: "online"
 isLive: true
 youtubeTitle: "Clube do Livro DDIA: Capítulo 1 - Trade-offs em Arquitetura de Sistemas de Alta Escala"
 banner: "book-club-ddia.png"
-registrationLink: "https://discord.gg/cqF9THUfnN"
+registrationLink: "{{discord-link}}"
 recordingLink: "https://youtu.be/53TFZSe-IGw"
 postLink: "https://craftcodeclub.io/posts/ddia-trade-offs-arquitetura-de-sistemas"
 excalidrawLink: "https://link.excalidraw.com/l/ADMgGFVWISx/9G9VQCCv2rL"

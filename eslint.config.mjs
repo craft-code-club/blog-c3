@@ -8,7 +8,17 @@ const eslintConfig = [
   ...coreWebVitals,
   ...typescript,
   {
-    ignores: [".next/**", "out/**", "node_modules/**", "next-env.d.ts"],
+    ignores: [
+      ".next/**",
+      "out/**",
+      "node_modules/**",
+      "next-env.d.ts",
+      // Worktrees do Claude Code são cópias de trabalho com o próprio
+      // eslint.config.mjs (e as próprias deps). Lintar daqui quebra a execução.
+      ".claude/**",
+      "playwright-report/**",
+      "test-results/**",
+    ],
   },
 ];
 
