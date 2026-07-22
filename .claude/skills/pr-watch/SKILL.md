@@ -17,14 +17,19 @@ PR=<numero>
 REPO=craft-code-club/blog-c3
 
 # threads de review ainda abertas
-gh api graphql -f query='query { repository(owner:"craft-code-club", name:"blog-c3") {
-  pullRequest(number:'"$PR"') { reviewThreads(first:50) { nodes {
-    id isResolved comments(first:1){nodes{databaseId author{login} path body}} } } } } }' \
+# --paginate é obrigatório: sem ele a query trunca na primeira página e some com
+# thread aberta, o que faria você encerrar achando que não sobrou nada.
+gh api graphql --paginate -f query='query($endCursor:String) {
+  repository(owner:"craft-code-club", name:"blog-c3") {
+  pullRequest(number:'"$PR"') { reviewThreads(first:50, after:$endCursor) {
+    pageInfo { hasNextPage endCursor }
+    nodes { id isResolved comments(first:1){nodes{databaseId author{login} path body}} } } } } }' \
   --jq '.data.repository.pullRequest.reviewThreads.nodes[] | select(.isResolved==false)
         | "[\(.comments.nodes[0].databaseId)] \(.comments.nodes[0].author.login) \(.comments.nodes[0].path)\n\(.comments.nodes[0].body)\n---"'
 
-# comentários soltos, ignorando o bot de preview do Cloudflare
-gh api repos/$REPO/issues/$PR/comments \
+# comentários soltos, ignorando o github-actions[bot], que é quem posta o link de
+# preview do Cloudflare a cada push
+gh api repos/$REPO/issues/$PR/comments --paginate \
   --jq '.[] | select(.user.login != "github-actions[bot]") | "[\(.id)] \(.user.login)\n\(.body)\n---"'
 
 gh pr checks $PR --repo $REPO
@@ -86,8 +91,8 @@ Então, num PR já aprovado, só empurre o que a própria revisão pediu. Trabal
   `git -c credential.helper='!gh auth git-credential' push https://github.com/craft-code-club/blog-c3.git HEAD:<branch>`
 - **Checks obrigatórios:** Build Pages, Deploy to Cloudflare Pages, CodeQL, CodeQL Analyze (javascript).
 - **Antes de empurrar correção:** `npm run build` e `npm run test:e2e`. O `npm run lint` está quebrado na `main` por incompatibilidade do `eslint-plugin-react` com ESLint 10; não é regressão sua.
-- **Commits:** conventional commits, em inglês. Corpo do PR segue `.github/PULL_REQUEST_TEMPLATE.md`, em português.
-- O bot de preview do Cloudflare comenta a cada push. É ruído, ignore.
+- **Commits:** conventional commits, em inglês. O corpo do PR usa o `.github/PULL_REQUEST_TEMPLATE.md`, cujos títulos e checklist são em inglês; o conteúdo que você escreve dentro dele vai em português.
+- O `github-actions[bot]` comenta o link de preview do Cloudflare a cada push. É ruído, ignore.
 
 ## Ao terminar
 
