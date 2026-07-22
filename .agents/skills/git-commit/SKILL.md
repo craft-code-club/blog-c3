@@ -110,7 +110,7 @@ If `!` is used, the `BREAKING CHANGE:` footer MAY be omitted and the subject des
 5. **Describe the staged change in 1–2 sentences** (what + why) before writing the message.
    - If you can't describe it cleanly, the commit is too big or mixed, return to step 2.
 6. **Write the commit message** following the format above.
-   - Choose the type deliberately (see SemVer mapping).
+   - Choose the type deliberately (it controls semantic-release version bumps).
    - Use an editor for multi-line messages: `git commit -v`.
 7. **Run the smallest relevant verification** (fastest meaningful unit test, lint, or build).
 8. **Repeat** for the next commit until the working tree is clean.
