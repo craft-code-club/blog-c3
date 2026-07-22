@@ -194,6 +194,23 @@ Contribuições são bem-vindas! Se você encontrou um bug ou tem uma sugestão 
 4. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
 5. Push para a branch (`git push origin feature/MinhaFeature`)
 6. Abra um Pull Request
+7. Acompanhe o PR até fechar: responda os comentários de review, resolva as threads e deixe os checks verdes
+
+## 🤖 Trabalhando com agentes de IA
+
+Este repositório traz skills em `.claude/skills/`, que agentes como o Claude Code carregam sozinhos quando a tarefa se encaixa.
+
+| Skill | Quando roda |
+|---|---|
+| [`pr-watch`](.claude/skills/pr-watch/SKILL.md) | **Sempre que um PR é aberto**, e quando pedirem para checar ou fechar comentários de PR |
+| [`validacao-visual`](.claude/skills/validacao-visual/SKILL.md) | Quando precisa *ver* uma página renderizada: layout, quebra de texto, contraste, tema, mobile |
+
+**Ao abrir um PR, a `pr-watch` é obrigatória.** Ela cobre o ciclo até o fim: conferir comentários de review e checks de CI, verificar cada alegação antes de agir (bot erra), responder com evidência, resolver as threads e reportar. Alguns pontos que ela fixa:
+
+- todo comentário postado no PR começa com `(Claude Code)`, para quem lê a thread saber que quem respondeu foi um agente;
+- comentar na thread antes de resolver, e depois citar o commit que endereçou o ponto, nunca resolver em silêncio;
+- comentário de bot pode ser fechado na hora; comentário de humano só depois de a pessoa concordar;
+- comentário que questiona o desenho da mudança, e não a implementação, volta para quem abriu o PR decidir.
 
 ## 📄 Licença
 
