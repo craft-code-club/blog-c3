@@ -8,7 +8,7 @@ type: "online"
 isLive: true
 youtubeTitle: "Clube do Livro DDIA: Capítulo 2 - Definição de Requisitos Não Funcionais - Parte 2"
 banner: "book-club-ddia.png"
-registrationLink: "https://discord.gg/cqF9THUfnN"
+registrationLink: "{{discord-link}}"
 recordingLink: "https://youtube.com/live/YEmTPYwv5NY"
 sessionLink: "https://us06web.zoom.us/j/88382249800?pwd=YjBFJCuD084OsefOjQEdXVFtemWanw.1"
 postLink: "https://craftcodeclub.io/posts/ddia-requisitos-nao-funcionais-parte-2"

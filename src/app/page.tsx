@@ -2,6 +2,7 @@ import ArrowIcon from "@/components/ArrowIcon";
 import TopicTags from "@/components/TopicTags";
 import UpcomingEventsHome from "@/components/UpcomingEventsHome";
 import { getEvents } from "@/lib/events";
+import { DISCORD_PAGE_PATH } from "@/lib/discord";
 import { getSortedPostsData } from "@/lib/posts";
 import escapeHtml from "escape-html";
 import Link from "next/link";
@@ -25,14 +26,12 @@ export default function Home() {
               Conhecimento da comunidade para a comunidade
             </p>
             <div className="mt-8 flex justify-center space-x-4">
-              <a
-                href="https://discord.gg/V7hQJZSDYu"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={DISCORD_PAGE_PATH}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors"
               >
                 Entrar no Discord
-              </a>
+              </Link>
               <a
                 href="https://www.youtube.com/@CraftCodeClub"
                 target="_blank"

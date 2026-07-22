@@ -2,6 +2,8 @@
 
 import type { Event } from "@/lib/events";
 import { getTodayInSaoPaulo } from "@/lib/date";
+import { DISCORD_PAGE_PATH } from "@/lib/discord";
+import { absoluteUrl } from "@/lib/site";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -34,9 +36,15 @@ export default function EventCard({
     const url = new URL("https://calendar.google.com/calendar/render");
     url.searchParams.append("action", "TEMPLATE");
     url.searchParams.append("text", event.title);
+    // O link vai para dentro de um convite de calendário, fora do site, então
+    // precisa ser absoluto. Sem `registrationLink` a descrição vai sem link, em
+    // vez de com um href="undefined".
+    const registrationUrl = event.registrationLink
+      ? absoluteUrl(event.registrationLink)
+      : null;
     url.searchParams.append(
       "details",
-      `${event.description}\n\n<a href="${event.registrationLink}">Link para o evento (${event.registrationLink})</a>`,
+      `${event.description}${registrationUrl ? `\n\n<a href="${registrationUrl}">Link para o evento (${registrationUrl})</a>` : ""}`,
     );
     url.searchParams.append("location", event.location);
     url.searchParams.append(
@@ -193,14 +201,12 @@ export default function EventCard({
               >
                 Participar Agora
               </a>
-              <a
-                href="https://discord.gg/cqF9THUfnN"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={DISCORD_PAGE_PATH}
                 className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
               >
                 Entrar no Discord
-              </a>
+              </Link>
             </div>
           ) : hasYoutubeRegistrationLink ? (
             <div className="flex gap-3">
@@ -212,14 +218,12 @@ export default function EventCard({
               >
                 Agendar Lembrete
               </a>
-              <a
-                href="https://discord.gg/cqF9THUfnN"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={DISCORD_PAGE_PATH}
                 className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
               >
                 Entrar no Discord
-              </a>
+              </Link>
             </div>
           ) : (
             <div className="flex gap-3">
@@ -231,14 +235,12 @@ export default function EventCard({
               >
                 Adicionar ao Calendário
               </a>
-              <a
-                href="https://discord.gg/cqF9THUfnN"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={DISCORD_PAGE_PATH}
                 className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
               >
                 Entrar no Discord
-              </a>
+              </Link>
             </div>
           )}
         </div>

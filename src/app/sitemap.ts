@@ -2,11 +2,12 @@ import { MetadataRoute } from 'next'
 import { getSortedPostsData } from '@/lib/posts'
 import { getEvents } from '@/lib/events'
 import { getSortedTopicList } from '@/lib/topics'
+import { SITE_URL } from '@/lib/site'
 
 export const dynamic = 'force-static'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.SITE_URL || 'https://craftcodeclub.io'
+  const baseUrl = SITE_URL
   
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -39,6 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/join`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/topics`,

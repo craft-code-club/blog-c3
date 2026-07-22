@@ -2,7 +2,10 @@
 
 import type { Event } from '@/lib/events';
 import { getTodayInSaoPaulo } from '@/lib/date';
+import { DISCORD_PAGE_PATH } from '@/lib/discord';
+import { absoluteUrl } from '@/lib/site';
 import Image from 'next/image';
+import Link from 'next/link';
 import EventCard from "./EventCard";
 import EventTags from "./EventTags";
 
@@ -41,7 +44,7 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
     url.searchParams.append('text', event.title);
     url.searchParams.append(
       'details',
-      `${event.description}${event.registrationLink ? `\n\n<a href="${event.registrationLink}">Link para o evento (${event.registrationLink})</a>` : ''}`
+      `${event.description}${event.registrationLink ? `\n\n<a href="${absoluteUrl(event.registrationLink)}">Link para o evento (${absoluteUrl(event.registrationLink)})</a>` : ''}`
     );
     url.searchParams.append('location', event.location);
     url.searchParams.append(
@@ -135,23 +138,19 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
                       Participar Agora
                     </a>
                   ) : (
-                    <a
-                      href="https://discord.gg/cqF9THUfnN"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href={DISCORD_PAGE_PATH}
                       className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium"
                     >
                       Participar via Discord
-                    </a>
+                    </Link>
                   )}
-                  <a
-                    href="https://discord.gg/cqF9THUfnN"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href={DISCORD_PAGE_PATH}
                     className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
                   >
                     Entrar no Discord
-                  </a>
+                  </Link>
                 </div>
               ) : new Date(event.date) > new Date() ? (
                 <div className="flex gap-3">
@@ -163,14 +162,12 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
                   >
                     Adicionar ao Calendário
                   </a>
-                  <a
-                    href="https://discord.gg/cqF9THUfnN"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href={DISCORD_PAGE_PATH}
                     className="flex-1 flex items-center justify-center text-center px-4 py-2 rounded-md transition-colors bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
                   >
                     Entrar no Discord
-                  </a>
+                  </Link>
                 </div>
               ) : (
                 <div className="flex flex-col sm:flex-row gap-3">

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { resolveDiscordLinks } from './discord';
 import { getTodayInSaoPaulo } from '@/lib/date';
 
 const eventsDirectory = path.join(process.cwd(), '_content', 'events');
@@ -34,7 +35,7 @@ export function getEvents(pastLimit?: number): EventsData {
     const id = fileName.replace(/\.md$/, '');
     const fullPath = path.join(eventsDirectory, fileName);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const matterResult = matter(fileContents);
+    const matterResult = matter(resolveDiscordLinks(fileContents));
 
     return {
       id,
@@ -95,7 +96,7 @@ export function getEvent(id: string): Event | null {
   try {
     const fullPath = path.join(eventsDirectory, `${id}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const matterResult = matter(fileContents);
+    const matterResult = matter(resolveDiscordLinks(fileContents));
 
     return {
       id,
