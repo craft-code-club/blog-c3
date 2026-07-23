@@ -30,8 +30,9 @@ only when something actually happened.
 - **Review bot**: GitHub **Copilot** (`copilot-pull-request-reviewer[bot]`) leaves
   inline review comments a minute or two after the PR opens.
 - **Checks**: `Build Pages` + `Deploy to Cloudflare Pages` (from the Cloudflare
-  workflow), `CodeQL` / `CodeQL Analyze (javascript)` (from `codeql-analysis.yml`),
-  and `Analyze (javascript-typescript)` (GitHub **default-setup** CodeQL).
+  workflow) and `CodeQL` / `CodeQL Analyze (javascript)` (from `codeql-analysis.yml`,
+  which runs a single `javascript` language matrix). This repo has **no**
+  default-setup CodeQL, so there is no `Analyze (javascript-typescript)` check.
 
 ---
 
@@ -44,8 +45,11 @@ only when something actually happened.
    - `npx tsc --noEmit`
    - `npm run build` (this is the real gate — it runs the static export and
      surfaces `output: export` problems)
-   - Do **not** rely on `next lint` / `eslint` — the repo's ESLint config is
-     broken (circular `eslintrc`) and throws. `tsc` + `build` are the gates.
+   - Do **not** rely on `next lint` / `eslint` — it throws before it lints:
+     `eslint-plugin-react` (pulled in via `eslint-config-next`) is incompatible
+     with ESLint 10 (`contextOrFilename.getFilename is not a function`). The repo
+     uses flat config (`eslint.config.mjs`); there is no `.eslintrc`. `tsc` +
+     `build` are the gates.
 3. **Commit** with a clear conventional-commit message. End the commit body with:
    ```
    Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
@@ -95,22 +99,27 @@ Run these each tick and report only the delta.
   gh api graphql -f query='{repository(owner:"craft-code-club",name:"blog-c3"){pullRequest(number:PR){reviewThreads(first:50){nodes{isResolved}}}}}' \
     --jq '[.data.repository.pullRequest.reviewThreads.nodes[]|select(.isResolved==false)]|length'
   ```
-- If there are unresolved threads, fetch their bodies
-  (`gh api repos/craft-code-club/blog-c3/pulls/PR/comments`) and **evaluate each on
-  its merits** — do not rubber-stamp. Fix the ones that are right; push the fix
-  (validate again with `tsc`/`build` first). For each thread, **reply** and then
-  **resolve** it:
-  - Reply: `gh api --method POST repos/craft-code-club/blog-c3/pulls/PR/comments/<id>/replies -f body="…"`.
+- If there are unresolved threads, **evaluate each on its merits** — do not
+  rubber-stamp. Fix the ones that are right; push the fix (validate again with
+  `tsc`/`build` first). To **reply then resolve** the *same* thread you need two
+  ids, both from one `reviewThreads` query: the thread node `id` (for the resolve
+  mutation) and its **root comment's `databaseId`** (the `<id>` the REST replies
+  endpoint expects). Fetch them together — that mapping is the whole point of
+  selecting `comments` inside each thread node:
+  ```bash
+  gh api graphql -f query='{repository(owner:"craft-code-club",name:"blog-c3"){pullRequest(number:PR){reviewThreads(first:50){nodes{id isResolved comments(first:1){nodes{databaseId body}}}}}}' \
+    --jq '.data.repository.pullRequest.reviewThreads.nodes[]|select(.isResolved==false)|{threadId:.id, commentId:.comments.nodes[0].databaseId}'
+  ```
+  - **Reply** to the root comment's `databaseId`:
+    `gh api --method POST repos/craft-code-club/blog-c3/pulls/PR/comments/<databaseId>/replies -f body="…"`.
     - If you fixed it: say so and reference the fix commit SHA.
     - If you disagree: explain why (a declined comment is still resolved with a
       rationale, not silently ignored).
-  - Resolve the thread via GraphQL, passing the thread node id as a **variable**
-    (string interpolation into the query breaks with "malformed"):
+  - **Resolve** the thread by its node `id`, passed as a **variable** (string
+    interpolation into the query breaks with "malformed"):
     ```bash
     gh api graphql -f threadId="$TID" -f query='mutation($threadId: ID!){resolveReviewThread(input:{threadId:$threadId}){thread{id isResolved}}}'
     ```
-  - Get thread node ids from the same `reviewThreads` query (add `id` to the node
-    selection).
 
 ### B. CI checks
 
@@ -121,11 +130,9 @@ Run these each tick and report only the delta.
   code. Confirm with:
   `gh api repos/craft-code-club/blog-c3/actions/jobs/<jobId> --jq '{conclusion, steps: (.steps|length)}'`
   (`cancelled` + `0` steps = infra).
-  - Remedy: `gh run rerun <runId> --repo craft-code-club/blog-c3`.
-  - **Exception**: the GitHub **default-setup** CodeQL check
-    (`Analyze (javascript-typescript)`) returns *"cannot be retried"* from the CLI.
-    It re-triggers automatically on the next push — so pushing any commit (e.g. a
-    review fix) also un-sticks it.
+  - Remedy: `gh run rerun <runId> --repo craft-code-club/blog-c3`. A check that
+    reports *"cannot be retried"* from the CLI re-triggers on the next push
+    anyway — so pushing a review fix also un-sticks it.
 - A deploy job can read `in_progress`/`pending` with **all steps already
   `completed`** — that is GitHub finalization lag, not a hang. Don't rerun it;
   it flips to `pass` shortly.
@@ -162,8 +169,8 @@ review resolved, preview link, PR ready for human review/merge). If the user say
 - **Resolve threads**: GraphQL `resolveReviewThread` with a `$threadId` **variable**, never string-interpolated.
 - **"Unhandled comments?"**: count unresolved threads, not `in_reply_to_id == null`.
 - **CI `fail` at ~15m, 0 steps** = queue timeout (`cancelled`) → `gh run rerun`.
-- **Default-setup CodeQL** can't be reran via CLI → re-triggers on the next push.
-- **Validation gates**: `tsc --noEmit` + `npm run build`. ESLint is broken — ignore it.
+- **Validation gates**: `tsc --noEmit` + `npm run build`. ESLint throws
+  (`eslint-plugin-react` vs ESLint 10) — ignore it.
 - **`output: export`**: `generateStaticParams()` must **never** return an empty
   array for a dynamic route, or the build fails with *"is missing
   generateStaticParams()"*. `redirect()` works in export (emits a
