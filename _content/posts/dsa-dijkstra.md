@@ -345,4 +345,4 @@ Junte-se à nossa comunidade para aprender mais sobre algoritmos, estruturas de 
 Compartilhe conhecimento, participe de discussões e expanda suas habilidades junto a outros entusiastas da tecnologia. \
 Estamos esperando por você!
 
-[Link para a comunidade no discord](https://discord.gg/cqF9THUfnN)
+[Link para a comunidade no discord]({{discord-link}})
