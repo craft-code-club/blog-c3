@@ -198,12 +198,12 @@ Contribuições são bem-vindas! Se você encontrou um bug ou tem uma sugestão 
 
 ## 🤖 Trabalhando com agentes de IA
 
-Este repositório traz skills em `.claude/skills/`, que agentes como o Claude Code carregam sozinhos quando a tarefa se encaixa.
+Este repositório traz skills em `.agents/skills/`, que agentes como o Claude Code carregam sozinhos quando a tarefa se encaixa.
 
 | Skill | Quando roda |
 |---|---|
-| [`pr-watch`](.claude/skills/pr-watch/SKILL.md) | **Sempre que um PR é aberto**, e quando pedirem para checar ou fechar comentários de PR |
-| [`validacao-visual`](.claude/skills/validacao-visual/SKILL.md) | Quando precisa *ver* uma página renderizada: layout, quebra de texto, contraste, tema, mobile |
+| [`pr-watch`](.agents/skills/pr-watch/SKILL.md) | **Sempre que um PR é aberto**, e quando pedirem para checar ou fechar comentários de PR |
+| [`validacao-visual`](.agents/skills/validacao-visual/SKILL.md) | Quando precisa *ver* uma página renderizada: layout, quebra de texto, contraste, tema, mobile |
 
 **Ao abrir um PR, a `pr-watch` é obrigatória.** Ela cobre o ciclo até o fim: conferir comentários de review e checks de CI, verificar cada alegação antes de agir (bot erra), responder com evidência, resolver as threads e reportar. Alguns pontos que ela fixa:
 
