@@ -22,6 +22,7 @@ Campos suportados hoje:
 - `isLive` (boolean, opcional): campo extra (nao usado pelo site hoje); usado por automacoes externas (ex.: bot do Discord).
 - `youtubeTitle` (string, opcional): campo extra (nao usado pelo site hoje); usado por automacoes externas (ex.: bot do Discord).
 - `sessionLink` (string, opcional): campo extra (nao usado pelo site hoje); usado por automacoes externas (ex.: bot do Discord).
+- `openSession` (boolean, opcional): campo extra (nao usado pelo site hoje); usado por automacoes externas (ex.: bot do Discord). Quando `true`, indica que a sessao esta aberta a todos os participantes — o `sessionLink` sera publicado publicamente nas notificacoes do Discord para que qualquer pessoa possa entrar no palco/meeting/session. Quando omitido ou `false`, o `sessionLink` nao e publicado nas notificacoes (uso restrito a moderadores).
 
 Tags encontradas hoje em `_content/events/*.md`:
 
@@ -127,7 +128,8 @@ Notificacoes no canal de eventos
 - Janela de lembretes: 1 semana, 3 dias, 1 dia e 1 hora antes.
 - O embed inclui horarios em BR/CA/PT
 - Link de participacao no embed segue fallback:
-  - quando `sessionLink` existe, mostra o link de participacao em tempo real (exemplo: Zoom, Google Meet)
+  - quando `sessionLink` existe **e** `openSession: true`, publica o link de participacao em tempo real (exemplo: Zoom, Google Meet) — acessivel a todos
+  - quando `sessionLink` existe **e** `openSession` e omitido ou `false`, o link nao e publicado na notificacao (acesso restrito a moderadores)
   - quando `recordingLink` existe, mostra o link da live (exemplo: YouTube)
   - Mostra sempre o link de detalhes do evento no site (`https://craftcodeclub.io/events/<slug>`)
 

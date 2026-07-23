@@ -5,6 +5,7 @@ date: "2026-07-25"
 time: "10:00-11:30"
 location: "Online via Zoom"
 type: "online"
+openSession: true
 registrationLink: "{{discord-link}}"
 banner: "roundtable-transaction-outbox-pattern.png"
 speakers:
