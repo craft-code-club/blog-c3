@@ -6,6 +6,7 @@ time: "20:00-21:30"
 location: "Online via Zoom"
 type: "online"
 isLive: true
+openSession: true
 youtubeTitle: "Clube do Livro DDIA: Capítulo 3 - Data Models e Query Languages - Parte 2"
 banner: "book-club-ddia.png"
 registrationLink: "{{discord-link}}"
