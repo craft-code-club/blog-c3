@@ -2,7 +2,6 @@
 
 import type { Event } from '@/lib/events';
 import { isEventPast, getEventStartTimestamp } from '@/lib/date';
-import { useMemo } from 'react';
 import Link from 'next/link';
 import EventCard from './EventCard';
 
@@ -12,20 +11,14 @@ interface Props {
 }
 
 export default function EventsListClient({ events, pastLimit = 6 }: Props) {
-  const upcoming = useMemo(() =>
-    events
-      .filter(e => !isEventPast(e.date, e.time))
-      .sort((a, b) => getEventStartTimestamp(a.date, a.time) - getEventStartTimestamp(b.date, b.time)),
-    [events]
-  );
+  const upcoming = events
+    .filter(e => !isEventPast(e.date, e.time))
+    .sort((a, b) => getEventStartTimestamp(a.date, a.time) - getEventStartTimestamp(b.date, b.time));
 
-  const past = useMemo(() =>
-    events
-      .filter(e => isEventPast(e.date, e.time))
-      .sort((a, b) => getEventStartTimestamp(b.date, b.time) - getEventStartTimestamp(a.date, a.time))
-      .slice(0, pastLimit),
-    [events, pastLimit]
-  );
+  const past = events
+    .filter(e => isEventPast(e.date, e.time))
+    .sort((a, b) => getEventStartTimestamp(b.date, b.time) - getEventStartTimestamp(a.date, a.time))
+    .slice(0, pastLimit);
 
   return (
     <div className="space-y-12">
