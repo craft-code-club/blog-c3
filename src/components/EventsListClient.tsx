@@ -1,7 +1,7 @@
 'use client';
 
 import type { Event } from '@/lib/events';
-import { getTodayInSaoPaulo } from '@/lib/date';
+import { isEventPast, getEventStartTimestamp } from '@/lib/date';
 import { useMemo } from 'react';
 import Link from 'next/link';
 import EventCard from './EventCard';
@@ -12,21 +12,19 @@ interface Props {
 }
 
 export default function EventsListClient({ events, pastLimit = 6 }: Props) {
-  const today = useMemo(() => getTodayInSaoPaulo(), []);
-
   const upcoming = useMemo(() =>
     events
-      .filter(e => e.date >= today)
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
-    [events, today]
+      .filter(e => !isEventPast(e.date, e.time))
+      .sort((a, b) => getEventStartTimestamp(a.date, a.time) - getEventStartTimestamp(b.date, b.time)),
+    [events]
   );
 
   const past = useMemo(() =>
     events
-      .filter(e => e.date < today)
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .filter(e => isEventPast(e.date, e.time))
+      .sort((a, b) => getEventStartTimestamp(b.date, b.time) - getEventStartTimestamp(a.date, a.time))
       .slice(0, pastLimit),
-    [events, today, pastLimit]
+    [events, pastLimit]
   );
 
   return (
