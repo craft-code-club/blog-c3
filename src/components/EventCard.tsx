@@ -6,7 +6,6 @@ import { DISCORD_PAGE_PATH } from "@/lib/discord";
 import { absoluteUrl } from "@/lib/site";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo } from "react";
 import EventTags from "./EventTags";
 
 export default function EventCard({
@@ -20,7 +19,7 @@ export default function EventCard({
   compact?: boolean;
   featured?: boolean;
 }) {
-  const isToday = useMemo(() => isEventToday(event.date, event.time), [event.date, event.time]);
+  const isToday = isEventToday(event.date, event.time);
   const isPast = isPastProp ?? isEventPast(event.date, event.time);
   const hasYoutubeRegistrationLink = event.registrationLink?.includes(
     "youtube.com/watch?v=",
