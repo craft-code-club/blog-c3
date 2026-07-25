@@ -1,7 +1,7 @@
 'use client';
 
 import type { Event } from '@/lib/events';
-import { getTodayInSaoPaulo } from '@/lib/date';
+import { isEventToday } from '@/lib/date';
 import { DISCORD_PAGE_PATH } from '@/lib/discord';
 import { absoluteUrl } from '@/lib/site';
 import Image from 'next/image';
@@ -22,8 +22,7 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
       year: 'numeric'
     });
 
-  const today = getTodayInSaoPaulo();
-  const isToday = event.date === today;
+  const isToday = isEventToday(event.date, event.time);
 
   // Banners are stored in `public/events/`. Frontmatter only holds the file
   // name, so we resolve it to an absolute path. Otherwise the relative URL is

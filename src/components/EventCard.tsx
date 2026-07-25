@@ -1,7 +1,7 @@
 "use client";
 
 import type { Event } from "@/lib/events";
-import { getTodayInSaoPaulo } from "@/lib/date";
+import { isEventPast, isEventToday } from "@/lib/date";
 import { DISCORD_PAGE_PATH } from "@/lib/discord";
 import { absoluteUrl } from "@/lib/site";
 import Image from "next/image";
@@ -20,9 +20,8 @@ export default function EventCard({
   compact?: boolean;
   featured?: boolean;
 }) {
-  const today = useMemo(() => getTodayInSaoPaulo(), []);
-  const isToday = event.date === today;
-  const isPast = isPastProp ?? event.date < today;
+  const isToday = useMemo(() => isEventToday(event.date, event.time), [event.date, event.time]);
+  const isPast = isPastProp ?? isEventPast(event.date, event.time);
   const hasYoutubeRegistrationLink = event.registrationLink?.includes(
     "youtube.com/watch?v=",
   );
