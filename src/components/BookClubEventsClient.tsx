@@ -2,7 +2,6 @@
 
 import type { Event } from '@/lib/events';
 import { isEventPast, getEventStartTimestamp } from '@/lib/date';
-import { useMemo } from 'react';
 import EventCard from './EventCard';
 
 interface Props {
@@ -11,20 +10,14 @@ interface Props {
 
 export default function BookClubEventsClient({ events }: Props) {
   // Next encounters: closest start time first
-  const upcoming = useMemo(() =>
-    events
-      .filter(e => !isEventPast(e.date, e.time))
-      .sort((a, b) => getEventStartTimestamp(a.date, a.time) - getEventStartTimestamp(b.date, b.time)),
-    [events]
-  );
+  const upcoming = events
+    .filter(e => !isEventPast(e.date, e.time))
+    .sort((a, b) => getEventStartTimestamp(a.date, a.time) - getEventStartTimestamp(b.date, b.time));
 
   // Past encounters: most recent first
-  const past = useMemo(() =>
-    events
-      .filter(e => isEventPast(e.date, e.time))
-      .sort((a, b) => getEventStartTimestamp(b.date, b.time) - getEventStartTimestamp(a.date, a.time)),
-    [events]
-  );
+  const past = events
+    .filter(e => isEventPast(e.date, e.time))
+    .sort((a, b) => getEventStartTimestamp(b.date, b.time) - getEventStartTimestamp(a.date, a.time));
 
   return (
     <div className="space-y-12">
