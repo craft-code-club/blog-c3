@@ -2,7 +2,6 @@
 
 import type { Event } from '@/lib/events';
 import { isEventPast, getEventStartTimestamp } from '@/lib/date';
-import { useMemo } from 'react';
 import Link from 'next/link';
 import EventCard from './EventCard';
 
@@ -15,13 +14,10 @@ interface Props {
 }
 
 export default function UpcomingEventsHome({ events, limit = 2 }: Props) {
-  const upcoming = useMemo(() =>
-    events
-      .filter(e => !isEventPast(e.date, e.time))
-      .sort((a, b) => getEventStartTimestamp(a.date, a.time) - getEventStartTimestamp(b.date, b.time))
-      .slice(0, limit),
-    [events, limit]
-  );
+  const upcoming = events
+    .filter(e => !isEventPast(e.date, e.time))
+    .sort((a, b) => getEventStartTimestamp(a.date, a.time) - getEventStartTimestamp(b.date, b.time))
+    .slice(0, limit);
 
   if (upcoming.length === 0) {
     return null;
