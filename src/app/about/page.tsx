@@ -1,3 +1,6 @@
+import Link from 'next/link';
+import { DISCORD_PAGE_PATH } from '@/lib/discord';
+
 export default function AboutPage() {
   return (
     <div className="bg-white dark:bg-gray-900 mb-20">
@@ -44,14 +47,12 @@ export default function AboutPage() {
               Junte-se a nós para fazer parte de uma comunidade vibrante de desenvolvedores apaixonados por qualidade e artesanato de software.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="https://discord.gg/cqF9THUfnN"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={DISCORD_PAGE_PATH}
                 className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors no-underline"
               >
                 Entrar no Discord
-              </a>
+              </Link>
             </div>
           </section>
         </div>

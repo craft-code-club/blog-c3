@@ -1,13 +1,14 @@
 import ArrowIcon from "@/components/ArrowIcon";
-import EventCard from "@/components/EventCard";
 import TopicTags from "@/components/TopicTags";
+import UpcomingEventsHome from "@/components/UpcomingEventsHome";
 import { getEvents } from "@/lib/events";
+import { DISCORD_PAGE_PATH } from "@/lib/discord";
 import { getSortedPostsData } from "@/lib/posts";
 import escapeHtml from "escape-html";
 import Link from "next/link";
 export default function Home() {
   const posts = getSortedPostsData().slice(0, 6);
-  const upcomingEvents = getEvents().upcoming.slice(0, 2);
+  const { upcoming } = getEvents();
 
   return (
     <div className="min-h-screen">
@@ -22,18 +23,15 @@ export default function Home() {
               </span>
             </h1>
             <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-300 sm:mt-4">
-              Uma comunidade de artesãos de software dedicada dos fundamentos a
-              t&oacute;picos avançados em engenharia e arquiteturas de software.
+              Conhecimento da comunidade para a comunidade
             </p>
             <div className="mt-8 flex justify-center space-x-4">
-              <a
-                href="https://discord.gg/V7hQJZSDYu"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={DISCORD_PAGE_PATH}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors"
               >
                 Entrar no Discord
-              </a>
+              </Link>
               <a
                 href="https://www.youtube.com/@CraftCodeClub"
                 target="_blank"
@@ -48,49 +46,15 @@ export default function Home() {
       </div>
 
       {/* Próximos Eventos */}
-      {upcomingEvents.length > 0 && (
-        <div className="py-12 bg-gray-50 dark:bg-gray-900">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="lg:text-center">
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-                Próximos Eventos
-              </h2>
-            </div>
-            <div className="mt-10">
-              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
-                {upcomingEvents.map((event) => (
-                  <EventCard
-                    key={event.id}
-                    event={event}
-                    isPast={false}
-                    compact={true}
-                  />
-                ))}
-              </div>
-            </div>
-            <div className="mt-6 lg:text-center">
-              <Link
-                href="/events"
-                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline font-medium"
-              >
-                Ver todos os eventos →
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
+      <UpcomingEventsHome events={upcoming} limit={2} />
 
       {/* Featured Topics */}
       <div className="py-12 bg-white dark:bg-gray-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:text-center">
+          <div className="text-center">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
               Tópicos em Destaque
             </h2>
-            <p className="mt-4 max-w-2xl text-xl text-gray-600 dark:text-gray-300 lg:mx-auto">
-              Explore nossos artigos e discussões sobre as melhores práticas de
-              engenharia de software.
-            </p>
           </div>
 
           <div className="mt-10">
@@ -124,10 +88,10 @@ export default function Home() {
       {/* Latest Posts */}
       <div className="py-12 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
             Últimos Posts
           </h2>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className={`grid gap-8 ${posts.length === 1 ? 'grid-cols-1 max-w-lg mx-auto' : posts.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-2 lg:grid-cols-3'}`}>
             {posts.map((post) => {
               return (
                 <article
@@ -161,7 +125,7 @@ export default function Home() {
               );
             })}
           </div>
-          <div className="mt-6 lg:text-center">
+          <div className="mt-6 text-center">
             <Link
               href="/blog"
               className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline font-medium"

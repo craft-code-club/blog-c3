@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { resolveDiscordLinks } from './discord';
+import { isEventPast, getEventStartTimestamp } from '@/lib/date';
 
 const eventsDirectory = path.join(process.cwd(), '_content', 'events');
 
@@ -33,7 +35,7 @@ export function getEvents(pastLimit?: number): EventsData {
     const id = fileName.replace(/\.md$/, '');
     const fullPath = path.join(eventsDirectory, fileName);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const matterResult = matter(fileContents);
+    const matterResult = matter(resolveDiscordLinks(fileContents));
 
     return {
       id,
@@ -41,20 +43,18 @@ export function getEvents(pastLimit?: number): EventsData {
     };
   });
 
-  const today = new Date().toISOString().split('T')[0];
+  // Filter events first, considering the event's end time (not just its date)
+  const upcomingEvents = allEvents.filter(event => !isEventPast(event.date, event.time));
+  const pastEvents = allEvents.filter(event => isEventPast(event.date, event.time));
 
-  // Filter events first
-  const upcomingEvents = allEvents.filter(event => event.date >= today);
-  const pastEvents = allEvents.filter(event => event.date < today);
-
-  // Sort upcoming events by date (closer dates first)
+  // Sort upcoming events by start instant (closer first)
   const upcoming = upcomingEvents.sort((a, b) => {
-    return new Date(a.date).getTime() - new Date(b.date).getTime();
+    return getEventStartTimestamp(a.date, a.time) - getEventStartTimestamp(b.date, b.time);
   });
 
-  // Sort past events by date (most recent first)
+  // Sort past events by start instant (most recent first)
   const past = pastEvents.sort((a, b) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
+    return getEventStartTimestamp(b.date, b.time) - getEventStartTimestamp(a.date, a.time);
   });
 
   return {
@@ -94,7 +94,7 @@ export function getEvent(id: string): Event | null {
   try {
     const fullPath = path.join(eventsDirectory, `${id}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const matterResult = matter(fileContents);
+    const matterResult = matter(resolveDiscordLinks(fileContents));
 
     return {
       id,
