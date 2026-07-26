@@ -1,9 +1,9 @@
 import BookClubEventsClient from "@/components/BookClubEventsClient";
+import { DISCORD_PAGE_PATH } from "@/lib/discord";
 import { getEventsByTags } from "@/lib/events";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { DISCORD_PAGE_PATH } from "@/lib/discord";
 
 const BOOK_CLUB_TAGS = ["book-club", "ddia"];
 
@@ -96,6 +96,24 @@ export default async function BookClubPage() {
               quem trabalha (ou quer trabalhar) em sistemas de alta escala e
               dominar System Design.
             </p>
+          </div>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <a
+              href="https://link.amazon/B0j5WeuXg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+            >
+              📖 Comprar livro - PT
+            </a>
+            <a
+              href="https://link.amazon/B0ct3Q7K7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+            >
+              📖 Comprar livro - EN
+            </a>
           </div>
         </section>
 
