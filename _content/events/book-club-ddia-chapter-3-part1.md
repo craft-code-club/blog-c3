@@ -9,6 +9,7 @@ isLive: true
 youtubeTitle: "Clube do Livro DDIA: Capítulo 3 - Data Models e Query Languages - Parte 1"
 banner: "book-club-ddia.png"
 registrationLink: "{{discord-link}}"
+recordingLink: "https://www.youtube.com/watch?v=56Vb5r5HjfQ"
 tags:
   - "book-club"
   - "ddia"
