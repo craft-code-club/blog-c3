@@ -124,12 +124,12 @@ Documentação completa de configuração de eventos:
 
 ### Roadmaps
 
-Os roadmaps são recursos de aprendizado estruturados que ajudam a comunidade a navegar por tópicos complexos de forma organizada. Atualmente, temos o **Roadmap de Algoritmos e Estruturas de Dados** disponível em `/roadmap/dsa`.
+Os roadmaps são recursos de aprendizado estruturados que ajudam a comunidade a navegar por tópicos complexos de forma organizada. Atualmente, temos o **Roadmap de Algoritmos e Estruturas de Dados**, hospedado em [dsa.craftcodeclub.io](https://dsa.craftcodeclub.io/).
 
 #### 📍 Acessando o Roadmap
 
-- **URL**: [https://craftcodeclub.io/roadmap/dsa](https://craftcodeclub.io/roadmap/dsa)
-- **Navegação**: Clique em "Roadmap DSA" no menu principal
+- **URL**: [https://dsa.craftcodeclub.io/](https://dsa.craftcodeclub.io/)
+- **Navegação**: Clique em "Roadmap DSA" no menu principal (abre em uma nova aba)
 
 #### ✏️ Editando o Roadmap
 
