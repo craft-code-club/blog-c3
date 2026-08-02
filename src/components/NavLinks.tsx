@@ -41,14 +41,29 @@ export function NavLinks({
           ? "text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400"
           : "text-gray-600 dark:text-gray-300 border-transparent hover:text-blue-600 dark:hover:text-blue-400";
 
+        const className = `font-medium transition-colors ${accent} ${state}`;
+
+        // Links externos usam <a> puro, como no resto do site (ex.: footer do layout).
+        if (external) {
+          return (
+            <a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={className}
+            >
+              {label}
+            </a>
+          );
+        }
+
         return (
           <Link
             key={href}
             href={href}
             aria-current={active ? "page" : undefined}
-            target={external ? "_blank" : undefined}
-            rel={external ? "noopener noreferrer" : undefined}
-            className={`font-medium transition-colors ${accent} ${state}`}
+            className={className}
           >
             {label}
           </Link>
