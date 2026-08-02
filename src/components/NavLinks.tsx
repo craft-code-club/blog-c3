@@ -3,14 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const links = [
+type NavLink = { href: string; label: string; external?: boolean };
+
+const links: NavLink[] = [
   { href: "/blog", label: "Blog" },
   { href: "/events", label: "Eventos" },
   {
     href: "/book-clubs/designing-data-intensive-applications",
     label: "Clube do Livro",
   },
-  { href: "/roadmap/dsa", label: "Roadmap DSA" },
+  { href: "https://dsa.craftcodeclub.io/", label: "Roadmap DSA", external: true },
   { href: "/about", label: "Sobre" },
 ];
 
@@ -28,8 +30,8 @@ export function NavLinks({
 
   return (
     <>
-      {links.map(({ href, label }) => {
-        const active = isActivePath(pathname, href);
+      {links.map(({ href, label, external }) => {
+        const active = !external && isActivePath(pathname, href);
 
         // Desktop: traço embaixo do texto. Mobile (menu vertical): barra à esquerda.
         const accent =
@@ -44,6 +46,8 @@ export function NavLinks({
             key={href}
             href={href}
             aria-current={active ? "page" : undefined}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
             className={`font-medium transition-colors ${accent} ${state}`}
           >
             {label}
