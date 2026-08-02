@@ -12,7 +12,7 @@ const links: { href: string; label: string; highlight?: boolean }[] = [
   },
   { href: "/roadmap/dsa", label: "Roadmap DSA" },
   { href: "/about", label: "Sobre" },
-  // "Apoiar" é um CTA: fica destacado em âmbar para chamar atenção.
+  // "Apoiar" é um CTA: fica destacado no azul do site para chamar atenção.
   { href: "/apoiar", label: "Apoiar", highlight: true },
 ];
 
@@ -37,11 +37,12 @@ export function NavLinks({
         const accent =
           variant === "mobile" ? "border-l-2 pl-3" : "border-b-2 py-1";
 
-        // "Apoiar" é destacado em âmbar (CTA), ativo ou não. Os demais seguem o azul.
+        // "Apoiar" é o CTA: usa o azul de destaque do site + negrito, ativo ou não.
+        // Os demais itens ficam cinza e só viram azul quando ativos.
         const state = highlight
           ? active
-            ? "text-amber-600 dark:text-amber-400 border-amber-500 dark:border-amber-400 font-semibold"
-            : "text-amber-600 dark:text-amber-400 border-transparent hover:text-amber-700 dark:hover:text-amber-300 font-semibold"
+            ? "text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400 font-semibold"
+            : "text-blue-600 dark:text-blue-400 border-transparent hover:text-blue-700 dark:hover:text-blue-300 font-semibold"
           : active
             ? "text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400"
             : "text-gray-600 dark:text-gray-300 border-transparent hover:text-blue-600 dark:hover:text-blue-400";
