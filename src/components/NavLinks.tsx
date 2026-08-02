@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const links = [
+const links: { href: string; label: string; highlight?: boolean }[] = [
   { href: "/blog", label: "Blog" },
   { href: "/events", label: "Eventos" },
   {
@@ -12,7 +12,8 @@ const links = [
   },
   { href: "/roadmap/dsa", label: "Roadmap DSA" },
   { href: "/about", label: "Sobre" },
-  { href: "/apoiar", label: "Apoiar" },
+  // "Apoiar" é um CTA: fica destacado em âmbar para chamar atenção.
+  { href: "/apoiar", label: "Apoiar", highlight: true },
 ];
 
 // Ativo na própria rota e em qualquer sub-rota (ex.: /blog/algum-post destaca "Blog").
@@ -29,16 +30,21 @@ export function NavLinks({
 
   return (
     <>
-      {links.map(({ href, label }) => {
+      {links.map(({ href, label, highlight }) => {
         const active = isActivePath(pathname, href);
 
         // Desktop: traço embaixo do texto. Mobile (menu vertical): barra à esquerda.
         const accent =
           variant === "mobile" ? "border-l-2 pl-3" : "border-b-2 py-1";
 
-        const state = active
-          ? "text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400"
-          : "text-gray-600 dark:text-gray-300 border-transparent hover:text-blue-600 dark:hover:text-blue-400";
+        // "Apoiar" é destacado em âmbar (CTA), ativo ou não. Os demais seguem o azul.
+        const state = highlight
+          ? active
+            ? "text-amber-600 dark:text-amber-400 border-amber-500 dark:border-amber-400 font-semibold"
+            : "text-amber-600 dark:text-amber-400 border-transparent hover:text-amber-700 dark:hover:text-amber-300 font-semibold"
+          : active
+            ? "text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400"
+            : "text-gray-600 dark:text-gray-300 border-transparent hover:text-blue-600 dark:hover:text-blue-400";
 
         return (
           <Link
