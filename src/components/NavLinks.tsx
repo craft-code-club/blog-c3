@@ -12,6 +12,7 @@ const links = [
   },
   { href: "/roadmap/dsa", label: "Roadmap DSA" },
   { href: "/about", label: "Sobre" },
+  { href: "/apoiar", label: "Apoiar" },
 ];
 
 // Ativo na própria rota e em qualquer sub-rota (ex.: /blog/algum-post destaca "Blog").
@@ -44,7 +45,7 @@ export function NavLinks({
             key={href}
             href={href}
             aria-current={active ? "page" : undefined}
-            className={`font-medium transition-colors ${accent} ${state}`}
+            className={`font-medium whitespace-nowrap transition-colors ${accent} ${state}`}
           >
             {label}
           </Link>

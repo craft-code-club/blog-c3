@@ -35,7 +35,7 @@ export default function RootLayout({
           <nav className="sticky top-0 bg-white dark:bg-gray-800 shadow-xs z-50">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               {/* Mobile Header (Two Lines) */}
-              <div className="md:hidden">
+              <div className="min-[1100px]:hidden">
                 {/* First Line: Logo, Title, and Hamburger */}
                 <div className="flex items-center justify-between h-20">
                   <Link href="/" className="flex items-center space-x-3">
@@ -102,7 +102,7 @@ export default function RootLayout({
               </div>
 
               {/* Desktop Header */}
-              <div className="hidden md:flex items-center justify-between h-20">
+              <div className="hidden min-[1100px]:flex items-center justify-between h-20">
                 <Link href="/" className="flex items-center space-x-3">
                   <Image
                     src="/logo.png"
@@ -120,7 +120,7 @@ export default function RootLayout({
                   </div>
                 </Link>
 
-                <div className="flex items-center space-x-8">
+                <div className="flex items-center space-x-6">
                   <NavLinks />
                   <div className="flex items-center space-x-4">
                     <a href="https://github.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
@@ -218,6 +218,9 @@ export default function RootLayout({
                       <a href="https://github.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                         Contribuir no GitHub
                       </a>
+                    </li>
+                    <li>
+                      <Link href="/apoiar" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Apoiar a comunidade</Link>
                     </li>
                     <li>
                       <Link href="/codigo-conduta" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Código de Conduta</Link>
