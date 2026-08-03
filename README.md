@@ -14,8 +14,8 @@ O Craft & Code Club é uma comunidade de desenvolvedores apaixonados por qualida
 
 ## :rocket: Faça parte da Comunidade
 
-Linkd para participar no Discord: \
-https://discord.gg/V7hQJZSDYu
+Link para participar no Discord: \
+https://craftcodeclub.io/join
 
 ## 📋 Usando este Template
 
