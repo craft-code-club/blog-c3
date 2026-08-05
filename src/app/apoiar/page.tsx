@@ -70,8 +70,8 @@ export default async function ApoiarPage() {
                 <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
                   <span className="text-amber-500">{supporters.length}</span>{" "}
                   {supporters.length === 1
-                    ? "pessoa já sustenta o Craft & Code Club."
-                    : "pessoas já sustentam o Craft & Code Club."}
+                    ? "pessoa já apoia o Craft & Code Club."
+                    : "pessoas já apoiam o Craft & Code Club."}
                 </h2>
                 <p className="mt-3 max-w-prose text-gray-600 dark:text-gray-300">
                   Cada apoio ajuda a manter o site no ar, os encontros acontecendo e o conteúdo
