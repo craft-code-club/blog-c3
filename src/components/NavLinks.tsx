@@ -9,9 +9,6 @@ type NavLink = {
   label: string;
   external?: boolean;
   highlight?: boolean;
-  // Envia o `Referer` para o destino. Só para propriedades da própria
-  // comunidade: é o que faz a analytics de lá creditar o tráfego a este site em
-  // vez de contar como "direto". Para terceiros, mantenha desligado.
   keepReferrer?: boolean;
 };
 

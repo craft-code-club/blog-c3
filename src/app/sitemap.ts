@@ -59,10 +59,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.7,
     },
-    // `/roadmap/dsa` saiu do sitemap junto com a página: hoje é um 301 para
-    // dsa.craftcodeclub.io (`public/_redirects`). URL que redireciona dentro do
-    // sitemap vira "erro de redirecionamento" no Search Console e gasta budget
-    // de rastreio à toa.
   ]
 
   // Dynamic blog post routes

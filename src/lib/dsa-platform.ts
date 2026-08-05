@@ -1,28 +1,8 @@
-/**
- * Ponte para a plataforma de algoritmos da comunidade (dsa.craftcodeclub.io).
- *
- * O roadmap deixou de ser uma página deste site: `/roadmap/dsa` responde 301
- * para a plataforma (ver `public/_redirects`). O que fica aqui é o elo
- * editorial — cada post e evento de DSA aponta para o tópico equivalente lá,
- * usando o nome do tópico como texto do link.
- *
- * Por que link por tópico e não um banner igual em todo lugar: link contextual
- * para a URL específica, com texto que descreve o destino, concentra relevância
- * naquela página. O mesmo bloco com o mesmo texto repetido em dezenas de
- * páginas é lido como boilerplate de rodapé e vale bem menos.
- *
- * Os slugs vêm do sitemap da plataforma e os rótulos, da página `/roadmap/`
- * dela. Mudou lá, muda aqui: link quebrado custa mais que link ausente.
- */
-
 const DSA_PLATFORM_ORIGIN = 'https://dsa.craftcodeclub.io';
 
-/** Home da plataforma — usada pela navegação, pelo rodapé e pela home. */
 export const DSA_PLATFORM_URL = `${DSA_PLATFORM_ORIGIN}/`;
-/** Roadmap: o equivalente da página `/roadmap/dsa` que existia aqui. */
 export const DSA_PLATFORM_ROADMAP_URL = `${DSA_PLATFORM_ORIGIN}/roadmap/`;
 
-/** Rótulo exibido na plataforma para cada tópico referenciado por este site. */
 const TOPIC_LABELS = {
   'a-star': 'A* (A Estrela)',
   arrays: 'Arrays e Listas',
@@ -58,7 +38,6 @@ const TOPIC_LABELS = {
   'two-pointers': 'Two Pointers',
 } as const;
 
-/** Slug de tópico existente na plataforma — errar o slug quebra o build. */
 type TopicSlug = keyof typeof TOPIC_LABELS;
 
 export type DsaTopic = {
@@ -67,18 +46,7 @@ export type DsaTopic = {
   url: string;
 };
 
-/**
- * Id do conteúdo deste site (arquivo em `_content/posts` ou `_content/events`,
- * sem a extensão) → tópico equivalente na plataforma.
- *
- * Posts e eventos dividem o mesmo mapa. Seis ids existem dos dois lados
- * (`dsa-a-star`, `dsa-backtracking`, `dsa-graph-tips`, `dsa-mst`,
- * `dsa-skip-list`, `dsa-topological-sorting`) e isso não é conflito: quando o
- * id se repete é porque o post documenta o evento homônimo, então o tópico de
- * destino é o mesmo dos dois lados.
- */
 const TOPIC_BY_CONTENT_ID: Record<string, TopicSlug> = {
-  // Eventos
   'dsa-a-star': 'a-star',
   'dsa-arrays': 'arrays',
   'dsa-backtracking': 'backtracking',
@@ -86,9 +54,6 @@ const TOPIC_BY_CONTENT_ID: Record<string, TopicSlug> = {
   'dsa-big-o': 'big-o',
   'dsa-binary-heap': 'binary-heap',
   'dsa-binary-search': 'busca-binaria',
-  // "Dicas e Truques" é taxonomia de grafos + representações: o equivalente é
-  // a introdução, não `grafos-avancados` (que é SCC, pontes e union-find —
-  // assunto que este site não cobre).
   'dsa-graph-tips': 'grafos-intro',
   'dsa-graphs-bellman-ford': 'bellman-ford',
   'dsa-graphs-dijkstra': 'dijkstra',
@@ -116,17 +81,10 @@ const TOPIC_BY_CONTENT_ID: Record<string, TopicSlug> = {
   'dsa-trees-binary-search': 'bst',
   'dsa-trees-traversals': 'tree-traversals',
   'dsa-two-pointers': 'two-pointers',
-
-  // Posts com id próprio (os demais reaproveitam a chave do evento)
   'dsa-bellman-ford': 'bellman-ford',
   'dsa-dijkstra': 'dijkstra',
 };
 
-/**
- * Tópico deste site (`/topics/<slug>`) → destino na plataforma. `null` manda
- * para o roadmap inteiro, que é o equivalente de um arquivo genérico como
- * "Algoritmos"; um tópico específico ganha o link específico.
- */
 const TOPIC_BY_SITE_TOPIC: Record<string, TopicSlug | null> = {
   algoritmos: null,
   'estruturas-de-dados': null,
@@ -138,28 +96,16 @@ function toTopic(slug: TopicSlug): DsaTopic {
   return {
     slug,
     label: TOPIC_LABELS[slug],
-    // A barra final é a forma canônica da plataforma. Sem ela o link ganha um
-    // salto de redirect antes de chegar no destino.
     url: `${DSA_PLATFORM_ORIGIN}/topico/${slug}/`,
   };
 }
 
-/**
- * As duas consultas usam `Object.hasOwn` de propósito. Estas funções recebem
- * `string` de fora, e tanto o operador `in` quanto o acesso direto enxergam o
- * protótipo: `TOPIC_BY_CONTENT_ID['toString']` devolve a função herdada, que é
- * truthy e produziria um link para
- * `/topico/function toString() { [native code] }/`. Chave própria ou nada.
- */
-
-/** Tópico da plataforma equivalente a um post ou evento, se houver. */
 export function getDsaTopicForContent(contentId: string): DsaTopic | null {
   if (!Object.hasOwn(TOPIC_BY_CONTENT_ID, contentId)) return null;
 
   return toTopic(TOPIC_BY_CONTENT_ID[contentId]);
 }
 
-/** Um tópico do site cai na plataforma? Se sim, para onde. */
 export function getDsaLinkForSiteTopic(
   topicSlug: string,
 ): { topic: DsaTopic | null } | null {

@@ -1,15 +1,3 @@
-# Redirects do Cloudflare Pages (este arquivo é copiado de `public/` para a raiz
-# do build). Formato: <origem> <destino> <status>. As regras são avaliadas de
-# cima para baixo e a primeira que casa vence — as estáticas antes das que usam
-# splat (`*`).
-#
-# O roadmap deixou de ser uma página deste site e virou a plataforma própria em
-# dsa.craftcodeclub.io. Enquanto as duas URLs existirem com o mesmo conteúdo, o
-# Google trata como duplicata e divide os sinais entre elas; o 301 (permanente)
-# resolve pelo outro lado: transfere histórico e backlinks da URL antiga para a
-# nova e tira a página daqui do índice. O destino é `/roadmap/` da plataforma —
-# o equivalente direto da página antiga. Redirecionar tudo para a home seria
-# tratado como soft-404 e não transferiria os sinais.
 /roadmap/dsa    https://dsa.craftcodeclub.io/roadmap/    301
 /roadmap/dsa/   https://dsa.craftcodeclub.io/roadmap/    301
 /roadmap        https://dsa.craftcodeclub.io/roadmap/    301

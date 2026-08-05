@@ -2,23 +2,10 @@ import ArrowIcon from '@/components/ArrowIcon';
 import { DSA_PLATFORM_ROADMAP_URL, type DsaTopic } from '@/lib/dsa-platform';
 
 interface Props {
-  /** Tópico equivalente na plataforma; sem ele o bloco aponta o roadmap todo. */
   topic?: DsaTopic | null;
   className?: string;
 }
 
-/**
- * Elo entre o conteúdo daqui e a plataforma de algoritmos
- * (dsa.craftcodeclub.io), que passou a ser a casa do roadmap.
- *
- * Detalhes que existem por causa de SEO, não de estilo:
- * - o texto do link nomeia o tópico de destino em vez de "clique aqui" — é o
- *   sinal que o Google usa para entender do que a página de destino trata;
- * - `rel` fica só com `noopener`. `noreferrer` também esconderia o `Referer`, e
- *   aí o tráfego que sai daqui chegaria na analytics da plataforma como
- *   "direto", sem crédito para o site;
- * - nada de `nofollow`: o link é editorial e deve passar autoridade.
- */
 export default function DsaPlatformCallout({ topic, className = '' }: Props) {
   const href = topic ? topic.url : DSA_PLATFORM_ROADMAP_URL;
 
