@@ -3,6 +3,7 @@ import TopicTags from "@/components/TopicTags";
 import UpcomingEventsHome from "@/components/UpcomingEventsHome";
 import { getEvents } from "@/lib/events";
 import { DISCORD_PAGE_PATH } from "@/lib/discord";
+import { DSA_PLATFORM_URL } from "@/lib/dsa-platform";
 import { getSortedPostsData } from "@/lib/posts";
 import escapeHtml from "escape-html";
 import Link from "next/link";
@@ -62,8 +63,13 @@ export default function Home() {
               <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Algoritmos</h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">Domine os fundamentos da ciência da computação e resolução de problemas.</p>
-                <a href="https://dsa.craftcodeclub.io/" target="_blank" rel="noopener noreferrer" aria-label="Saiba mais sobre Algoritmos" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
-                  Saiba mais <ArrowIcon />
+                {/* Texto do link descreve o destino ("roadmap de algoritmos")
+                    em vez de "Saiba mais": é o sinal que o buscador usa para
+                    entender do que trata a página apontada. `rel` sem
+                    `noreferrer` preserva o crédito do tráfego na analytics da
+                    plataforma. */}
+                <a href={DSA_PLATFORM_URL} target="_blank" rel="noopener" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
+                  Ver o roadmap de algoritmos <ArrowIcon />
                 </a>
               </div>
               <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
