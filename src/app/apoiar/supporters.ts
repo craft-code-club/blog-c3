@@ -107,9 +107,11 @@ export async function fetchSupporters(): Promise<Supporter[]> {
       .filter((b): b is { name: string; t: number } => b.name !== null)
       .sort((a, b) => b.t - a.t); // mais recente primeiro
 
-    // Remove nomes repetidos, preservando a ordem (o mais recente prevalece). Já começa
-    // com os nomes da lista manual, para ninguém aparecer duas vezes quando a API entrar.
-    const seen = new Set<string>(EXTRA_SUPPORTERS.map((s) => s.name.toLowerCase()));
+    // Remove nomes repetidos. Entre dois apoios vindos da API, prevalece o mais recente
+    // (a lista já chega ordenada). O Set começa com os nomes da lista manual, então numa
+    // duplicidade entre as duas fontes quem fica é a entrada manual — é ela que a página
+    // exibe, e a da API é descartada.
+    const seen = new Set<string>(EXTRA_SUPPORTERS.map((s) => s.name.trim().toLowerCase()));
     const names: Supporter[] = [];
     for (const b of parsed) {
       const key = b.name.toLowerCase();
