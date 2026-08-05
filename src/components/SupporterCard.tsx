@@ -15,7 +15,7 @@ export default function SupporterCard({ supporter }: { supporter: Supporter }) {
       {/* Brilho decorativo no canto, que acende no hover. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-10 -right-10 h-28 w-28 rounded-full bg-amber-400/10 blur-2xl transition-opacity duration-200 group-hover:bg-amber-400/25 dark:bg-amber-400/10"
+        className="pointer-events-none absolute -bottom-10 -right-10 h-28 w-28 rounded-full bg-amber-400/10 blur-2xl transition-colors duration-200 group-hover:bg-amber-400/25"
       />
       <div className="relative">
         <div
