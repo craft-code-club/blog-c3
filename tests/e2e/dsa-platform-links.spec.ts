@@ -11,7 +11,25 @@ import {
 } from './helpers/site';
 
 const PLATFORM_HOST = 'dsa.craftcodeclub.io';
+const PLATFORM_ROADMAP_URL = `https://${PLATFORM_HOST}/roadmap/`;
 const REDIRECTS_FILE = path.join(process.cwd(), 'public', '_redirects');
+
+/**
+ * O anchor aponta para a plataforma? Compara o **hostname** do href, não um
+ * pedaço da string: `https://outro.site/dsa.craftcodeclub.io` e
+ * `https://dsa.craftcodeclub.io.outrodominio.com/` contêm o host e não são a
+ * plataforma. Href relativo resolve contra o próprio site e cai fora.
+ */
+function isPlatformLink(anchorTag: string): boolean {
+  const href = anchorTag.match(/\bhref="([^"]*)"/)?.[1];
+  if (!href) return false;
+
+  try {
+    return new URL(href, 'https://craftcodeclub.io').hostname === PLATFORM_HOST;
+  } catch {
+    return false;
+  }
+}
 
 /**
  * O roadmap saiu deste site e virou dsa.craftcodeclub.io. O que estes testes
@@ -32,7 +50,11 @@ test.describe('ponte com a plataforma de algoritmos', () => {
       const rule = rules.find(([source]) => source === route);
 
       expect(rule, `sem regra de redirect para ${route}`).toBeDefined();
-      expect(rule?.[1], `${route} deveria apontar para a plataforma`).toContain(PLATFORM_HOST);
+      // Destino exato, não "contém o host": o equivalente da página antiga é o
+      // roadmap da plataforma, e a home seria tratada como soft-404.
+      expect(rule?.[1], `${route} deveria apontar para ${PLATFORM_ROADMAP_URL}`).toBe(
+        PLATFORM_ROADMAP_URL,
+      );
       // 302 diria ao Google que a mudança é temporária e o histórico da URL
       // antiga ficaria preso aqui.
       expect(rule?.[2], `${route} precisa ser 301, não ${rule?.[2]}`).toBe('301');
@@ -47,7 +69,7 @@ test.describe('ponte com a plataforma de algoritmos', () => {
       // Em dev não existe `_redirects` (é coisa do Cloudflare), então a rota
       // some de vez: 404. Num deploy real, o 301 responde no lugar.
       if (status === 301) {
-        expect(response.headers()['location']).toContain(PLATFORM_HOST);
+        expect(response.headers()['location']).toBe(PLATFORM_ROADMAP_URL);
       } else {
         expect(status, `${route} voltou a existir como página`).toBe(404);
       }
@@ -96,7 +118,7 @@ test.describe('ponte com a plataforma de algoritmos', () => {
       const html = await fetchHtml(request, route);
       const anchors = html.match(/<a\b[^>]*>/g) ?? [];
       const leaking = anchors.filter(
-        (anchor) => anchor.includes(PLATFORM_HOST) && /rel="[^"]*noreferrer/.test(anchor),
+        (anchor) => isPlatformLink(anchor) && /\brel="[^"]*noreferrer/.test(anchor),
       );
       return leaking.length ? `${route} → ${leaking.join(' ')}` : null;
     });
