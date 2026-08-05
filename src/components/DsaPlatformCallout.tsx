@@ -25,9 +25,9 @@ export default function DsaPlatformCallout({ topic, className = '' }: Props) {
           </>
         ) : (
           <>
-            A trilha completa — dos fundamentos aos grafos e à programação
-            dinâmica — vive na plataforma de algoritmos da comunidade, com
-            visualizações interativas e exercícios por tópico.
+            A trilha completa vive na plataforma de algoritmos da comunidade,
+            dos fundamentos aos grafos e à programação dinâmica. Cada tópico tem
+            visualizações interativas e exercícios.
           </>
         )}
       </p>

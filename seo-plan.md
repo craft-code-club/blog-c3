@@ -248,14 +248,14 @@ Armadilha do export estático: canônicas, sitemap e links internos devem usar a
   — capturar a busca em pt-BR ("Skip List: o que é e como implementar"). Séries merecem
   páginas-hub (`SEO-P2-03`).
 - **Relação com `dsa.craftcodeclub.io` (`SEO-P1-13`):** a plataforma é o material de
-  estudo; este site é o arquivo — artigos, encontros e gravações. A divisão precisa
+  estudo; este site é o arquivo: artigos, encontros e gravações. A divisão precisa
   aparecer no texto: título/description dos tópicos daqui falam de "artigos e encontros",
   e o link para lá nomeia o tópico de destino ("Estudar Dijkstra no roadmap de
   algoritmos"), nunca "clique aqui". Link contextual por tópico vale mais que banner
-  repetido — bloco idêntico em dezenas de páginas é lido como boilerplate. Aberto e a
+  repetido: bloco idêntico em dezenas de páginas é lido como boilerplate. Aberto e a
   decidir caso a caso: os 8 posts de DSA que têm tópico equivalente na plataforma
   (Dijkstra, A*, MST, Skip List, Backtracking, Bellman-Ford, Ordenação Topológica,
-  Dicas de Grafos) continuam disputando as mesmas queries — canonical cross-domain
+  Dicas de Grafos) continuam disputando as mesmas queries; canonical cross-domain
   tiraria o post do índice em favor da plataforma e só vale se o conteúdo de lá
   realmente substituir o artigo.
 - **78 gravações no YouTube sem elo com o blog:** descrições dos vídeos não linkam o
@@ -397,10 +397,10 @@ padrão desde jul/2025** — verificar o painel; RSS ajuda descoberta de conteú
   `mountTopics` deixa de auto-criar tópico sem registro; migração one-shot dos 14 posts
   com slugs atuais preservados (URLs `/topics/<slug>` não mudam). Habilita a validação de
   tópicos no CI (`SEO-P1-03`) e mata o tag sprawl. Spec na seção 3.
-- [ ] **SEO-P1-13** (sem issue própria — nasceu da criação de `dsa.craftcodeclub.io`) —
+- [ ] **SEO-P1-13** (sem issue própria; nasceu da criação de `dsa.craftcodeclub.io`):
   Separação do roadmap DSA: rota `/roadmap/dsa` removida do build e **301 permanente**
   para `dsa.craftcodeclub.io/roadmap/` no `public/_redirects` (o equivalente direto da
-  página antiga — home seria soft-404), saída do sitemap, e o elo editorial deste site
+  página antiga; home seria soft-404), saída do sitemap, e o elo editorial deste site
   para a plataforma: bloco por tópico nos posts e eventos de DSA
   (`src/lib/dsa-platform.ts` mapeia id do conteúdo → `/topico/<slug>/`), links de
   rodapé/home com texto que descreve o destino, `rel` sem `noreferrer` nos links para a
