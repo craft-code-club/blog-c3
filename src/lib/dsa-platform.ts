@@ -144,17 +144,26 @@ function toTopic(slug: TopicSlug): DsaTopic {
   };
 }
 
+/**
+ * As duas consultas usam `Object.hasOwn` de propósito. Estas funções recebem
+ * `string` de fora, e tanto o operador `in` quanto o acesso direto enxergam o
+ * protótipo: `TOPIC_BY_CONTENT_ID['toString']` devolve a função herdada, que é
+ * truthy e produziria um link para
+ * `/topico/function toString() { [native code] }/`. Chave própria ou nada.
+ */
+
 /** Tópico da plataforma equivalente a um post ou evento, se houver. */
 export function getDsaTopicForContent(contentId: string): DsaTopic | null {
-  const slug = TOPIC_BY_CONTENT_ID[contentId];
-  return slug ? toTopic(slug) : null;
+  if (!Object.hasOwn(TOPIC_BY_CONTENT_ID, contentId)) return null;
+
+  return toTopic(TOPIC_BY_CONTENT_ID[contentId]);
 }
 
 /** Um tópico do site cai na plataforma? Se sim, para onde. */
 export function getDsaLinkForSiteTopic(
   topicSlug: string,
 ): { topic: DsaTopic | null } | null {
-  if (!(topicSlug in TOPIC_BY_SITE_TOPIC)) return null;
+  if (!Object.hasOwn(TOPIC_BY_SITE_TOPIC, topicSlug)) return null;
 
   const slug = TOPIC_BY_SITE_TOPIC[topicSlug];
   return { topic: slug ? toTopic(slug) : null };
