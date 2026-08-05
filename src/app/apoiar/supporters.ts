@@ -2,8 +2,9 @@
 // apoio mais recente para o mais antigo). É o mesmo engine do Roadmap DSA.
 //
 // Sem as variáveis de ambiente, sem apoiadores ainda, ou em qualquer erro/timeout,
-// devolve lista vazia e a página /apoiar cai no convite "seja o primeiro". Nunca
-// quebra o build.
+// devolve só o que estiver em EXTRA_SUPPORTERS (hoje, a lista manual logo abaixo).
+// A página /apoiar só cai no convite "seja o primeiro" quando esse fallback também
+// está vazio. Nunca quebra o build.
 //
 // Config (env local e secret no GitHub):
 //   APOIASE_TOKEN        token Bearer do painel da APOIA.se (dashboard)
