@@ -183,10 +183,6 @@ export default function RootLayout({
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Links Rápidos</h3>
                   <ul className="space-y-3">
-                    {/* O roadmap mora na plataforma; aqui ficam os artigos. Os
-                        dois links precisam de textos diferentes: dois links com
-                        o mesmo texto apontando para páginas diferentes dividem
-                        o sinal e confundem os dois destinos. */}
                     <li>
                       <a href={DSA_PLATFORM_URL} target="_blank" rel="noopener" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Roadmap de Algoritmos e Estruturas de Dados</a>
                     </li>
