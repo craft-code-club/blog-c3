@@ -16,7 +16,16 @@ export const APOIA_URL = "https://apoia.se/craftcodeclub";
 export type Supporter = { name: string };
 
 // Apoiadores que não vêm da APOIA.se (opcional). Aparecem primeiro na lista.
-const EXTRA_SUPPORTERS: Supporter[] = [];
+//
+// Enquanto a integração com a API da APOIA.se não é aprovada do lado deles, a lista
+// vive aqui, na mão, do apoio mais recente para o mais antigo (mesma ordem que a API
+// devolve). Quando a integração entrar, é só esvaziar este array: os nomes passam a
+// vir do fetch.
+const EXTRA_SUPPORTERS: Supporter[] = [
+  { name: "Cristiano Cunha" }, // desde 04/08/2026
+  { name: "Wilson Neto" }, // desde 03/08/2026
+  { name: "Eduarda Martins" }, // desde 03/08/2026
+];
 
 const API_BASE = "https://dashboard-api-v1.apoia.se/api/reports/backers";
 
@@ -98,8 +107,9 @@ export async function fetchSupporters(): Promise<Supporter[]> {
       .filter((b): b is { name: string; t: number } => b.name !== null)
       .sort((a, b) => b.t - a.t); // mais recente primeiro
 
-    // Remove nomes repetidos, preservando a ordem (o mais recente prevalece).
-    const seen = new Set<string>();
+    // Remove nomes repetidos, preservando a ordem (o mais recente prevalece). Já começa
+    // com os nomes da lista manual, para ninguém aparecer duas vezes quando a API entrar.
+    const seen = new Set<string>(EXTRA_SUPPORTERS.map((s) => s.name.toLowerCase()));
     const names: Supporter[] = [];
     for (const b of parsed) {
       const key = b.name.toLowerCase();
@@ -108,7 +118,7 @@ export async function fetchSupporters(): Promise<Supporter[]> {
       names.push({ name: b.name });
     }
 
-    if (raw.length > 0 && names.length === 0) {
+    if (raw.length > 0 && parsed.length === 0) {
       console.warn(`[apoia.se] recebeu ${raw.length} apoios mas não reconheceu os campos de nome. Ajuste pickName().`);
     }
     return [...EXTRA_SUPPORTERS, ...names];
