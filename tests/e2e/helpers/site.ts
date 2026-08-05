@@ -20,8 +20,16 @@ export const KEY_ROUTES = [
   '/posts/dsa-dijkstra',
   '/codigo-conduta',
   '/topics',
-  '/roadmap/dsa',
+  '/topics/algoritmos',
 ] as const;
+
+/**
+ * Rotas que saíram do site e viraram 301 para dsa.craftcodeclub.io
+ * (`public/_redirects`). Não podem voltar a existir como página nem a ser
+ * linkadas daqui: link interno para uma URL que redireciona desperdiça o salto
+ * e a página duplicaria o conteúdo da plataforma.
+ */
+export const REDIRECTED_AWAY_ROUTES = ['/roadmap/dsa', '/roadmap'] as const;
 
 /** Qualquer convite direto do Discord, não só o que está em uso hoje. */
 export const RAW_INVITE_PATTERN = /discord\.(gg|com\/invite)\/[A-Za-z0-9-]+/g;
