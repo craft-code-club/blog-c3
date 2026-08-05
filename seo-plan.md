@@ -60,7 +60,7 @@ problemas atuais (títulos genéricos, descriptions longas, autores vazios, zero
 | Canonical / metadataBase | P0 | Nenhuma página declara canonical. Risco real de duplicação: apex + www + previews `*.pages.dev` indexáveis. |
 | og:image / twitter:image | P0 | Nenhuma imagem social. CTR de compartilhamento despenca sem thumbnail. Atenção: `ImageResponse`/`next/og` **não funciona com `output: export`** — gerar PNGs em build (satori/sharp) ou usar imagem estática. |
 | Feed RSS/Atom | P1 | Canal de descoberta para agregadores, Bing e crawlers de IA; o Google aceita feed como sitemap complementar. |
-| `_redirects` (Cloudflare) | P1 | Redirects atuais são client-side/meta-refresh (book-club e /events/past) — crawler não segue de forma confiável. Devem ser 301 reais. |
+| `_redirects` (Cloudflare) | P1 ⚠️ parcial | Criado em `public/_redirects` (04/08/2026) com o 301 de `/roadmap/dsa` → `dsa.craftcodeclub.io/roadmap/`. Os outros continuam client-side/meta-refresh (book-club e /events/past) — crawler não segue de forma confiável. Devem ser 301 reais. |
 | `_headers` (Cloudflare) | P1 | Sem cache imutável, sem security headers e — crítico — sem `X-Robots-Tag: noindex` escopado a `https://:project.pages.dev/*`. |
 | IndexNow | P1 | Indexação em minutos no Bing (→ cadeia ChatGPT). Google não participa. |
 | Web manifest + ícones | P2 | PWA manifest, ícones 192/512, apple-touch-icon. |
@@ -247,6 +247,17 @@ Armadilha do export estático: canônicas, sitemap e links internos devem usar a
 - **Títulos que não competem:** o diferencial é conteúdo técnico profundo **em português**
   — capturar a busca em pt-BR ("Skip List: o que é e como implementar"). Séries merecem
   páginas-hub (`SEO-P2-03`).
+- **Relação com `dsa.craftcodeclub.io` (`SEO-P1-13`):** a plataforma é o material de
+  estudo; este site é o arquivo — artigos, encontros e gravações. A divisão precisa
+  aparecer no texto: título/description dos tópicos daqui falam de "artigos e encontros",
+  e o link para lá nomeia o tópico de destino ("Estudar Dijkstra no roadmap de
+  algoritmos"), nunca "clique aqui". Link contextual por tópico vale mais que banner
+  repetido — bloco idêntico em dezenas de páginas é lido como boilerplate. Aberto e a
+  decidir caso a caso: os 8 posts de DSA que têm tópico equivalente na plataforma
+  (Dijkstra, A*, MST, Skip List, Backtracking, Bellman-Ford, Ordenação Topológica,
+  Dicas de Grafos) continuam disputando as mesmas queries — canonical cross-domain
+  tiraria o post do índice em favor da plataforma e só vale se o conteúdo de lá
+  realmente substituir o artigo.
 - **78 gravações no YouTube sem elo com o blog:** descrições dos vídeos não linkam o
   post/evento (tráfego referral + descoberta), e o JSON-LD `Event` pode carregar a gravação
   como `VideoObject` (`SEO-P1-11`; schema em `SEO-P0-02`).
@@ -354,6 +365,8 @@ padrão desde jul/2025** — verificar o painel; RSS ajuda descoberta de conteú
   `/events/past→/events/past/1` — hoje ambos redirects fracos client-side/meta-refresh) +
   `_headers` (cache imutável em `/_next/static/*`, `X-Robots-Tag: noindex` em
   `*.pages.dev`, security headers) + redirect www→apex na zona Cloudflare.
+  _Parcial em 04/08/2026: o arquivo `public/_redirects` já existe com o 301 de
+  `/roadmap/dsa` (ver `SEO-P1-13`); os demais redirects e o `_headers` seguem abertos._
 - [ ] **SEO-P1-03** ([#833](https://github.com/craft-code-club/blog-c3/issues/833)) — Validação de frontmatter no CI com zod (title 30–65, description
   120–165, authors obrigatório, datas válidas, todo tópico referenciado por slug existente
   em `_content/tags/` — habilitado pelo `SEO-P1-12`; `image` obrigatório quando a fase (c)
@@ -384,6 +397,16 @@ padrão desde jul/2025** — verificar o painel; RSS ajuda descoberta de conteú
   `mountTopics` deixa de auto-criar tópico sem registro; migração one-shot dos 14 posts
   com slugs atuais preservados (URLs `/topics/<slug>` não mudam). Habilita a validação de
   tópicos no CI (`SEO-P1-03`) e mata o tag sprawl. Spec na seção 3.
+- [ ] **SEO-P1-13** (sem issue própria — nasceu da criação de `dsa.craftcodeclub.io`) —
+  Separação do roadmap DSA: rota `/roadmap/dsa` removida do build e **301 permanente**
+  para `dsa.craftcodeclub.io/roadmap/` no `public/_redirects` (o equivalente direto da
+  página antiga — home seria soft-404), saída do sitemap, e o elo editorial deste site
+  para a plataforma: bloco por tópico nos posts e eventos de DSA
+  (`src/lib/dsa-platform.ts` mapeia id do conteúdo → `/topico/<slug>/`), links de
+  rodapé/home com texto que descreve o destino, `rel` sem `noreferrer` nos links para a
+  plataforma (preserva o referral na analytics de lá) e description do tópico
+  "Algoritmos" reescrita para não disputar a mesma query do roadmap.
+  _Implementado; marcar a data no merge._
 
 ### P2 — Autoridade e longo prazo
 

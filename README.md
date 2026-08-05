@@ -131,13 +131,34 @@ Os roadmaps são recursos de aprendizado estruturados que ajudam a comunidade a 
 - **URL**: [https://dsa.craftcodeclub.io/](https://dsa.craftcodeclub.io/)
 - **Navegação**: Clique em "Roadmap DSA" no menu principal (abre em uma nova aba)
 
+#### ↪️ A página `/roadmap/dsa` saiu deste site
+
+O roadmap era uma página daqui e passou a ser a plataforma própria. Ter as duas
+no ar com o mesmo conteúdo faria o Google dividir os sinais entre elas, então a
+rota antiga deixou de existir neste site e responde **301 (permanente)** para
+[`dsa.craftcodeclub.io/roadmap/`](https://dsa.craftcodeclub.io/roadmap/) — o
+equivalente direto da página antiga. A regra vive em
+[`public/_redirects`](public/_redirects) (formato do Cloudflare Pages).
+
+Consequências práticas para quem contribui:
+
+- **Não recrie** uma página de roadmap neste repositório nem linke `/roadmap/dsa`
+  em post, evento ou navegação — o teste `tests/e2e/dsa-platform-links.spec.ts`
+  quebra de propósito nesse caso.
+- Para apontar um post ou evento de DSA para o tópico equivalente na plataforma,
+  use o mapa em [`src/lib/dsa-platform.ts`](src/lib/dsa-platform.ts): o bloco de
+  link é renderizado sozinho a partir do id do conteúdo.
+
 #### ✏️ Editando o Roadmap
+
+> ⚠️ O YAML abaixo é o conteúdo herdado da época em que o roadmap era renderizado
+> aqui. **Editá-lo não muda mais nada no site** — o roadmap publicado é o da
+> plataforma.
 
 Os roadmaps são configurados via arquivos YAML na pasta `_content/roadmap/`. Para editar o roadmap DSA:
 
 1. **Arquivo de Conteúdo**: `_content/roadmap/dsa.yml`
-2. **Documentação Completa**: `_content/roadmap/README.md`
-3. **Validação Local**: Execute `npx tsx scripts/validate-roadmap.ts`
+2. **Validação Local**: Execute `npx tsx scripts/validate-roadmap.ts`
 
 **Exemplo de estrutura YAML**:
 
