@@ -22,9 +22,9 @@ export type Supporter = { name: string };
 // devolve). Quando a integração entrar, é só esvaziar este array: os nomes passam a
 // vir do fetch.
 const EXTRA_SUPPORTERS: Supporter[] = [
-  { name: "Cristiano Cunha" }, // desde 04/08/2026
-  { name: "Wilson Neto" }, // desde 03/08/2026
-  { name: "Eduarda Martins" }, // desde 03/08/2026
+  { name: "Cristiano Cunha" },
+  { name: "Wilson Neto" },
+  { name: "Eduarda Martins" },
 ];
 
 const API_BASE = "https://dashboard-api-v1.apoia.se/api/reports/backers";
