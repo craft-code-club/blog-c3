@@ -58,7 +58,8 @@ test.describe(`página de apoio (${APOIAR_PATH})`, () => {
     }
 
     const total = await grid.getByRole('listitem').count();
-    const destaque = page.getByRole('heading', { level: 2, name: /sustenta/i });
+    // "já apoia" e não "apoia": o h2 do CTA ("Seja um apoiador") também casaria.
+    const destaque = page.getByRole('heading', { level: 2, name: /já apoia/i });
     await expect(destaque).toContainText(String(total));
   });
 
