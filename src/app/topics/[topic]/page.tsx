@@ -46,9 +46,6 @@ export default async function TopicPage({ params }: Props) {
   const { posts, totalPages } = getPaginatedPostsByTopic(topic.key, 1);
   const topicTitle = topic.name;
   const topicDescription = topic.description ?? `Artigos e recursos sobre ${topicTitle} da comunidade Craft & Code Club.`;
-  // Tópicos de algoritmos existem dos dois lados: aqui é o arquivo de artigos e
-  // encontros, na plataforma é o material de estudo. O link deixa a divisão
-  // explícita para quem lê e para o buscador.
   const dsaLink = getDsaLinkForSiteTopic(topic.slug);
 
   return (

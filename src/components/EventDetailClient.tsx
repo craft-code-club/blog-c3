@@ -26,9 +26,6 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
 
   const isToday = isEventToday(event.date, event.time);
 
-  // Encontros de DSA continuam sendo a memória do evento (gravação, slides,
-  // artigo). O estudo do tema mora na plataforma — daí o link para o tópico
-  // equivalente, quando existe.
   const dsaTopic = getDsaTopicForContent(event.id);
 
   // Banners are stored in `public/events/`. Frontmatter only holds the file
