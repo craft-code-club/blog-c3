@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SITE_URL } from "@/lib/site";
 import { DISCORD_PAGE_PATH } from "@/lib/discord";
+import { DSA_PLATFORM_URL } from "@/lib/dsa-platform";
 import { GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -182,8 +183,15 @@ export default function RootLayout({
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Links Rápidos</h3>
                   <ul className="space-y-3">
-                  <li>
-                      <Link href="/topics/algoritmos" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Algoritmos e Estruturas de Dados</Link>
+                    {/* O roadmap mora na plataforma; aqui ficam os artigos. Os
+                        dois links precisam de textos diferentes: dois links com
+                        o mesmo texto apontando para páginas diferentes dividem
+                        o sinal e confundem os dois destinos. */}
+                    <li>
+                      <a href={DSA_PLATFORM_URL} target="_blank" rel="noopener" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Roadmap de Algoritmos e Estruturas de Dados</a>
+                    </li>
+                    <li>
+                      <Link href="/topics/algoritmos" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Artigos sobre Algoritmos</Link>
                     </li>
                     <li>
                       <Link href="/topics/system-design" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">System Design</Link>

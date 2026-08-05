@@ -6,8 +6,10 @@ import { DISCORD_PAGE_PATH } from '@/lib/discord';
 import { absoluteUrl } from '@/lib/site';
 import Image from 'next/image';
 import Link from 'next/link';
+import DsaPlatformCallout from "./DsaPlatformCallout";
 import EventCard from "./EventCard";
 import EventTags from "./EventTags";
+import { getDsaTopicForContent } from '@/lib/dsa-platform';
 
 interface Props {
   event: Event;
@@ -23,6 +25,11 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
     });
 
   const isToday = isEventToday(event.date, event.time);
+
+  // Encontros de DSA continuam sendo a memória do evento (gravação, slides,
+  // artigo). O estudo do tema mora na plataforma — daí o link para o tópico
+  // equivalente, quando existe.
+  const dsaTopic = getDsaTopicForContent(event.id);
 
   // Banners are stored in `public/events/`. Frontmatter only holds the file
   // name, so we resolve it to an absolute path. Otherwise the relative URL is
@@ -206,6 +213,8 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
           </div>
         </div>
       </div>
+
+      {dsaTopic && <DsaPlatformCallout topic={dsaTopic} className="mt-8" />}
 
       {nextEvents.length > 0 && (
         <div className="mt-12">

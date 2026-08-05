@@ -1,7 +1,7 @@
 ---
 name: "Algoritmos"
 key: "algoritmos"
-description: "Domine os fundamentos da ciência da computação e resolução de problemas."
+description: "Artigos e encontros da comunidade sobre algoritmos e estruturas de dados — a trilha de estudo completa fica no roadmap em dsa.craftcodeclub.io."
 featured: true
 order: 1
 ---

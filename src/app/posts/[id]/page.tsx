@@ -4,6 +4,8 @@ import { Metadata } from 'next';
 import FocusModeWrapper from '@/components/FocusModeWrapper';
 import { FocusModeProvider } from '@/components/FocusModeContext';
 import AuthorAvatar from '@/components/AuthorAvatar';
+import DsaPlatformCallout from '@/components/DsaPlatformCallout';
+import { getDsaTopicForContent } from '@/lib/dsa-platform';
 import { buildKeywords, DEFAULT_POST_KEYWORDS } from '@/lib/seo';
 
 interface Props {
@@ -44,6 +46,7 @@ export default async function Post({ params }: Props) {
   const resolvedParams = await params;
   const post = await getPostData(resolvedParams.id);
   const authors = post.authors || [];
+  const dsaTopic = getDsaTopicForContent(post.id);
 
   return (
     <FocusModeProvider>
@@ -74,6 +77,8 @@ export default async function Post({ params }: Props) {
         <div className="prose dark:prose-invert prose-lg max-w-none">
           <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
         </div>
+
+        {dsaTopic && <DsaPlatformCallout topic={dsaTopic} className="mt-12" />}
 
         {authors.length > 0 && (
           <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
