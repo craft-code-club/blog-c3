@@ -11,6 +11,8 @@ youtubeTitle: "Clube do Livro DDIA: Capítulo 3 - Data Models e Query Languages 
 banner: "book-club-ddia.png"
 registrationLink: "{{discord-link}}"
 recordingLink: "https://www.youtube.com/watch?v=ofCUEWI6aPc"
+postLink: "https://craftcodeclub.io/posts/ddia-modelos-de-dados-e-query-languages"
+excalidrawLink: "https://link.excalidraw.com/l/ADMgGFVWISx/4HF9psGkCyZ"
 tags:
   - "book-club"
   - "ddia"
