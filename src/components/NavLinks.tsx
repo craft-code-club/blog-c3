@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { DSA_PLATFORM_URL } from "@/lib/dsa-platform";
 
 type NavLink = {
   href: string;
   label: string;
   external?: boolean;
   highlight?: boolean;
+  keepReferrer?: boolean;
 };
 
 const links: NavLink[] = [
@@ -17,7 +19,12 @@ const links: NavLink[] = [
     href: "/book-clubs/designing-data-intensive-applications",
     label: "Clube do Livro",
   },
-  { href: "https://dsa.craftcodeclub.io/", label: "Roadmap DSA", external: true },
+  {
+    href: DSA_PLATFORM_URL,
+    label: "Roadmap DSA",
+    external: true,
+    keepReferrer: true,
+  },
   { href: "/about", label: "Sobre" },
   // "Apoiar" é um CTA: fica destacado no azul do site para chamar atenção.
   { href: "/apoiar", label: "Apoiar", highlight: true },
@@ -37,7 +44,7 @@ export function NavLinks({
 
   return (
     <>
-      {links.map(({ href, label, external, highlight }) => {
+      {links.map(({ href, label, external, highlight, keepReferrer }) => {
         // Link externo nunca marca rota ativa: o href não é uma rota do site.
         const active = !external && isActivePath(pathname, href);
 
@@ -64,7 +71,7 @@ export function NavLinks({
               key={href}
               href={href}
               target="_blank"
-              rel="noopener noreferrer"
+              rel={keepReferrer ? "noopener" : "noopener noreferrer"}
               className={className}
             >
               {label}
