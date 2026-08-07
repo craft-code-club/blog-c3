@@ -44,7 +44,7 @@
     "eslint-config-next": "16.2.12",
     "postcss": "^8",
     "tailwindcss": "^4.3.3",
-    "tsx": "^4.23.4",
+    "tsx": "^4.23.5",
     "typescript": "^6"
   },
   "overrides": {
