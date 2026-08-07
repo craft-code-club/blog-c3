@@ -2,8 +2,9 @@
 // apoio mais recente para o mais antigo). É o mesmo engine do Roadmap DSA.
 //
 // Sem as variáveis de ambiente, sem apoiadores ainda, ou em qualquer erro/timeout,
-// devolve lista vazia e a página /apoiar cai no convite "seja o primeiro". Nunca
-// quebra o build.
+// devolve só o que estiver em EXTRA_SUPPORTERS (hoje, a lista manual logo abaixo).
+// A página /apoiar só cai no convite "seja o primeiro" quando esse fallback também
+// está vazio. Nunca quebra o build.
 //
 // Config (env local e secret no GitHub):
 //   APOIASE_TOKEN        token Bearer do painel da APOIA.se (dashboard)
@@ -16,7 +17,16 @@ export const APOIA_URL = "https://apoia.se/craftcodeclub";
 export type Supporter = { name: string };
 
 // Apoiadores que não vêm da APOIA.se (opcional). Aparecem primeiro na lista.
-const EXTRA_SUPPORTERS: Supporter[] = [];
+//
+// Enquanto a integração com a API da APOIA.se não é aprovada do lado deles, a lista
+// vive aqui, na mão, do apoio mais recente para o mais antigo (mesma ordem que a API
+// devolve). Quando a integração entrar, é só esvaziar este array: os nomes passam a
+// vir do fetch.
+const EXTRA_SUPPORTERS: Supporter[] = [
+  { name: "Cristiano Cunha" },
+  { name: "Wilson Neto" },
+  { name: "Eduarda Martins" },
+];
 
 const API_BASE = "https://dashboard-api-v1.apoia.se/api/reports/backers";
 
@@ -98,8 +108,11 @@ export async function fetchSupporters(): Promise<Supporter[]> {
       .filter((b): b is { name: string; t: number } => b.name !== null)
       .sort((a, b) => b.t - a.t); // mais recente primeiro
 
-    // Remove nomes repetidos, preservando a ordem (o mais recente prevalece).
-    const seen = new Set<string>();
+    // Remove nomes repetidos. Entre dois apoios vindos da API, prevalece o mais recente
+    // (a lista já chega ordenada). O Set começa com os nomes da lista manual, então numa
+    // duplicidade entre as duas fontes quem fica é a entrada manual — é ela que a página
+    // exibe, e a da API é descartada.
+    const seen = new Set<string>(EXTRA_SUPPORTERS.map((s) => s.name.trim().toLowerCase()));
     const names: Supporter[] = [];
     for (const b of parsed) {
       const key = b.name.toLowerCase();
@@ -108,7 +121,7 @@ export async function fetchSupporters(): Promise<Supporter[]> {
       names.push({ name: b.name });
     }
 
-    if (raw.length > 0 && names.length === 0) {
+    if (raw.length > 0 && parsed.length === 0) {
       console.warn(`[apoia.se] recebeu ${raw.length} apoios mas não reconheceu os campos de nome. Ajuste pickName().`);
     }
     return [...EXTRA_SUPPORTERS, ...names];
