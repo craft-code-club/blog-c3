@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowRight, Heart } from "lucide-react";
+import SupporterCard from "@/components/SupporterCard";
 import { APOIA_URL, fetchSupporters } from "./supporters";
 
 const TITLE = "Apoiar a comunidade | Craft & Code Club";
@@ -59,34 +60,65 @@ export default async function ApoiarPage() {
         </div>
 
         {/* Apoiadores (nomes trazidos da APOIA.se no build) */}
-        <section className="mt-12">
-          <div className="flex items-baseline justify-between gap-4 border-b border-gray-200 pb-3 dark:border-gray-700">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Apoiadores</h2>
-            <span className="text-sm text-gray-500 dark:text-gray-400">Pessoas que bancam a comunidade</span>
-          </div>
+        <section className="mt-14">
           {supporters.length > 0 ? (
-            <div className="mt-5 flex flex-wrap gap-2">
-              {supporters.map((s) => (
-                <span
-                  key={s.name}
-                  className="rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-medium text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                >
-                  {s.name}
-                </span>
-              ))}
-            </div>
+            <>
+              <div className="rounded-3xl border border-gray-200 bg-white/70 p-6 sm:p-8 dark:border-gray-700 dark:bg-gray-800/50">
+                <p className="text-xs font-semibold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+                  Gratidão
+                </p>
+                <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  <span className="text-amber-500">{supporters.length}</span>{" "}
+                  {supporters.length === 1
+                    ? "pessoa já apoia o Craft & Code Club."
+                    : "pessoas já apoiam o Craft & Code Club."}
+                </h2>
+                <p className="mt-3 max-w-prose text-gray-600 dark:text-gray-300">
+                  Cada apoio ajuda a manter o site no ar, os encontros acontecendo e o conteúdo
+                  livre e aberto para quem chegar depois.
+                </p>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-xl border border-gray-200 p-4 dark:border-gray-700">
+                    <p className="font-semibold text-gray-900 dark:text-white">Conteúdo aberto</p>
+                    <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
+                      sem paywall e sem anúncios
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-gray-200 p-4 dark:border-gray-700">
+                    <p className="font-semibold text-gray-900 dark:text-white">Encontros</p>
+                    <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
+                      gratuitos e abertos a todo mundo
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <ul
+                aria-label="Apoiadores da comunidade"
+                className="mt-8 grid list-none grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3"
+              >
+                {supporters.map((s) => (
+                  <li key={s.name}>
+                    <SupporterCard supporter={s} />
+                  </li>
+                ))}
+              </ul>
+            </>
           ) : (
-            <div className="mt-5 rounded-2xl border border-dashed border-gray-300 p-8 text-center dark:border-gray-600">
-              <p className="text-gray-600 dark:text-gray-300">
-                Ainda não há apoiadores por aqui.{" "}
-                <strong className="text-gray-900 dark:text-white">Seja o primeiro</strong>{" "}
-                a sustentar a comunidade Craft &amp; Code Club.
-              </p>
-              <a href={APOIA_URL} target="_blank" rel="noopener noreferrer" className={`mt-4 ${amberButton}`}>
-                Quero apoiar
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </a>
-            </div>
+            <>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Apoiadores</h2>
+              <div className="mt-5 rounded-2xl border border-dashed border-gray-300 p-8 text-center dark:border-gray-600">
+                <p className="text-gray-600 dark:text-gray-300">
+                  Ainda não há apoiadores por aqui.{" "}
+                  <strong className="text-gray-900 dark:text-white">Seja o primeiro</strong>{" "}
+                  a sustentar a comunidade Craft &amp; Code Club.
+                </p>
+                <a href={APOIA_URL} target="_blank" rel="noopener noreferrer" className={`mt-4 ${amberButton}`}>
+                  Quero apoiar
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+              </div>
+            </>
           )}
         </section>
       </div>

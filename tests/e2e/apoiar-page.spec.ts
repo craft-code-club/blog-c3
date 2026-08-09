@@ -46,6 +46,23 @@ test.describe(`página de apoio (${APOIAR_PATH})`, () => {
     expect(canonical).toMatch(new RegExp(`${APOIAR_PATH}$`));
   });
 
+  test('a lista de apoiadores bate com a contagem em destaque', async ({ page }) => {
+    await gotoOk(page, APOIAR_PATH);
+
+    const grid = page.getByRole('list', { name: /apoiadores/i });
+
+    // Sem apoiadores no build, a página cai no convite "seja o primeiro".
+    if ((await grid.count()) === 0) {
+      await expect(page.getByText(/seja o primeiro/i)).toBeVisible();
+      return;
+    }
+
+    const total = await grid.getByRole('listitem').count();
+    // "já apoia" e não "apoia": o h2 do CTA ("Seja um apoiador") também casaria.
+    const destaque = page.getByRole('heading', { level: 2, name: /já apoia/i });
+    await expect(destaque).toContainText(String(total));
+  });
+
   test('renderiza no mobile sem estourar a largura', async ({ page }) => {
     await gotoOk(page, APOIAR_PATH);
     await page.setViewportSize({ width: 375, height: 812 });
