@@ -12,6 +12,6 @@ banner: "da-decisao-ao-codigo-design-docs-na-era-da-ia.png"
 speakers:
   - "Diogo Simão"
 tags:
-  - docs
-  - ai
+  - "docs"
+  - "ai"
 ---
