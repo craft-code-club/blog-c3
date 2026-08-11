@@ -7,8 +7,9 @@ location: "Online via Zoom"
 type: "online"
 isLive: true
 openSession: true
-registrationLink: "{{discord-link}}"
 banner: "da-decisao-ao-codigo-design-docs-na-era-da-ia.png"
+registrationLink: "{{discord-link}}"
+recordingLink: "https://www.youtube.com/watch?v=wjrob3o2nr0"
 speakers:
   - "Diogo Simão"
 tags:
