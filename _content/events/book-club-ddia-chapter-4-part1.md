@@ -10,6 +10,8 @@ openSession: true
 youtubeTitle: "Clube do Livro DDIA: Capítulo 4 - Armazenamento e Recuperação"
 banner: "book-club-ddia.png"
 registrationLink: "{{discord-link}}"
+recordingLink: "https://www.youtube.com/watch?v=56Vb5r5HjfQ"
+excalidrawLink: "https://app.excalidraw.com/l/1f9mHtk3CgI/dVU6m3aPsg"
 tags:
   - "book-club"
   - "ddia"
