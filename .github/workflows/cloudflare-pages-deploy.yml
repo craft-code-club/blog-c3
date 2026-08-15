@@ -13,12 +13,16 @@ env:
   ARTIFACT_NAME: blog-artifact
 
 
+permissions: {}
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Build Pages
     permissions:
       contents: read
+      actions: write
     steps:
     - name: Checkout
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -63,6 +67,7 @@ jobs:
     name: Deploy to Cloudflare Pages
     permissions:
       contents: read
+      actions: read
       deployments: write
       pull-requests: write # To can create a comment in PR
     steps:
