@@ -60,7 +60,7 @@ jobs:
     needs: build
     name: Deploy to Cloudflare Pages
     # Forks don't have access to secrets nor a writable GITHUB_TOKEN
-    if: github.event.pull_request.head.repo.fork != true
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
     permissions:
       contents: read
       deployments: write
