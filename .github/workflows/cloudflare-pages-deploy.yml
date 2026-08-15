@@ -13,10 +13,6 @@ env:
   ARTIFACT_NAME: blog-artifact
 
 
-permissions:
-  contents: read
-
-
 jobs:
   build:
     runs-on: ubuntu-latest
