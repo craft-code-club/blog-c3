@@ -105,6 +105,68 @@ Comportamento da pagina de detalhe
 
 - Mostra `Adicionar ao Calendario` + `Entrar no Discord`.
 
+## API
+
+### `GET /api/events/future`
+
+Retorna os proximos eventos como um array JSON, ordenados por data/hora de inicio (crescente).
+
+**Geracao:** a rota e gerada estaticamente em tempo de build (`force-static`). A janela de corte usa `Date.now() - 12h` no momento do build, de modo que eventos que acabaram de comecar ainda sao incluidos caso o build tenha ocorrido pouco antes do inicio.
+
+**Transformacoes aplicadas na resposta:**
+
+- `banner` e `registrationLink` sao reescritos para URLs absolutas via `absoluteUrl()`.
+
+**Exemplo de requisicao:**
+
+```
+GET /api/events/future
+```
+
+**Exemplo de resposta:**
+
+```json
+[
+  {
+    "id": "book-club-ddia-chapter-4",
+    "title": "Clube do Livro DDIA — Capitulo 4",
+    "description": "Discussao sobre codificacao e evolucao de schemas.",
+    "date": "2026-08-24",
+    "time": "20:00-21:30",
+    "location": "Online via Zoom",
+    "type": "online",
+    "banner": "https://craftcodeclub.io/_next/image?url=book-club-ddia.png",
+    "registrationLink": "https://discord.gg/...",
+    "recordingLink": "https://www.youtube.com/watch?v=abc123",
+    "postLink": "https://craftcodeclub.io/blog/ddia-chapter-4",
+    "excalidrawLink": "https://app.excalidraw.com/l/abc123",
+    "speakers": ["Jane Doe", "John Smith"],
+    "tags": ["book-club", "ddia"]
+  }
+]
+```
+
+### Propriedades do objeto `Event`
+
+| Campo | Tipo | Obrigatorio | Descricao |
+|---|---|---|---|
+| `id` | `string` | sim | Slug do evento (nome do arquivo sem `.md`) |
+| `title` | `string` | sim | Titulo do evento |
+| `description` | `string` | sim | Descricao curta exibida no site e usada no SEO |
+| `date` | `string` | sim | Data no formato `YYYY-MM-DD` |
+| `time` | `string` | sim | Faixa horaria no formato `HH:mm-HH:mm` (fuso BR, UTC-03:00) |
+| `location` | `string` | sim | Local do evento |
+| `type` | `string` | sim | Tipo do evento (ex.: `online`, `hybrid`) |
+| `banner` | `string` | nao | URL absoluta da imagem do banner |
+| `registrationLink` | `string` | nao | URL absoluta do link de inscricao/participacao |
+| `recordingLink` | `string` | nao | URL da gravacao ou live do evento |
+| `postLink` | `string` | nao | URL de artigo relacionado ao evento |
+| `excalidrawLink` | `string` | nao | URL do quadro Excalidraw relacionado ao evento |
+| `speakers` | `string[]` | nao | Lista de palestrantes |
+| `tags` | `string[]` | nao | Tags do evento |
+
+> Os campos exclusivos de automacoes externas (`isLive`, `youtubeTitle`, `sessionLink`, `openSession`) **nao fazem parte da interface `Event`** e **nao sao retornados pela API**.
+
 ## Discord Bot
 
 Os eventos tambem sao processados por um bot do Discord (fora deste repositorio).
