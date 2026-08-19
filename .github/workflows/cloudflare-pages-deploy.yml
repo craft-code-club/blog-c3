@@ -13,22 +13,28 @@ env:
   ARTIFACT_NAME: blog-artifact
 
 
+permissions: {}
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Build Pages
+    permissions:
+      contents: read
+      actions: write
     steps:
     - name: Checkout
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
     - name: Setup Node
-      uses: actions/setup-node@v7
+      uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
       with:
         node-version: "20"
         cache: npm
 
     - name: Restore cache
-      uses: actions/cache@v6
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
       with:
         path: |
           .next/cache
@@ -37,14 +43,14 @@ jobs:
           ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
     - name: Install dependencies
-      run: npm ci
+      run: npm ci --ignore-scripts
 
     - name: Build with Next.js
       run: npm run build
 
     - name: Upload artifact
       if: github.event.pull_request.head.repo.fork == false
-      uses: actions/upload-artifact@v7
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
       with:
         name: ${{ env.ARTIFACT_NAME }}
         retention-days: 3
@@ -63,21 +69,25 @@ jobs:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
     permissions:
       contents: read
+      actions: read
       deployments: write
       pull-requests: write # To can create a comment in PR
     steps:
     - name: Checkout
-      uses: actions/checkout@v7
+      if: github.event.pull_request.head.repo.fork == false
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
     - name: Download a Build Artifact
-      uses: actions/download-artifact@v8
+      if: github.event.pull_request.head.repo.fork == false
+      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
       with:
         name: ${{ env.ARTIFACT_NAME }}
         path: ./out
 
     - name: Deploy
       id: deploy
-      uses: cloudflare/wrangler-action@v4
+      if: github.event.pull_request.head.repo.fork == false
+      uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -85,7 +95,7 @@ jobs:
         gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Add Preview Url in PR Comment
-      uses: marocchino/sticky-pull-request-comment@v3
+      uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
       if: github.event_name == 'pull_request'
       with:
         header: pr-preview-url
