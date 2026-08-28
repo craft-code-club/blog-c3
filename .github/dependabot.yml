@@ -1,10 +1,14 @@
 version: 2
 updates:
-
   - package-ecosystem: "github-actions"
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    groups:
+      # Keep all codeql-action sub-actions (init/autobuild/analyze) on the same version
+      codeql-action:
+        patterns:
+          - "github/codeql-action*"
     commit-message:
       prefix: "build"
       include: "scope"
