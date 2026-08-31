@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { page } = await params;
 
   return {
-    title: `Blog - Página ${page} | Craft & Code Club`,
+    title: `Blog - Página ${page}`,
     description: "Artigos sobre engenharia de software, System Design, Algoritmos, Estruturas de dados, DDD, melhores práticas e aprendizados da comunidade.",
   };
 }

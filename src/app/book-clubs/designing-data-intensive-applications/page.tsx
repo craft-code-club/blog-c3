@@ -1,6 +1,7 @@
 import BookClubEventsClient from "@/components/BookClubEventsClient";
 import { DISCORD_PAGE_PATH } from "@/lib/discord";
 import { getEventsByTags } from "@/lib/events";
+import { OG_DEFAULTS } from "@/lib/seo";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +9,7 @@ import Link from "next/link";
 const BOOK_CLUB_TAGS = ["book-club", "ddia"];
 
 export const metadata: Metadata = {
-  title: "Book Club: Designing Data-Intensive Applications | Craft & Code Club",
+  title: "Book Club: Designing Data-Intensive Applications",
   description:
     'Leitura guiada da 2ª edição de "Designing Data-Intensive Applications" (DDIA), de Martin Kleppmann e Chris Riccomini. Um encontro por capítulo, em ritmo quinzenal, com discussões no Discord da comunidade.',
   keywords: [
@@ -23,15 +24,7 @@ export const metadata: Metadata = {
     "Comunidade",
   ],
   openGraph: {
-    title:
-      "Book Club: Designing Data-Intensive Applications | Craft & Code Club",
-    description:
-      'Leitura guiada da 2ª edição de "Designing Data-Intensive Applications" (DDIA). Um encontro por capítulo, em ritmo quinzenal.',
-    images: ["/assets/book-club-ddia.png"],
-  },
-  twitter: {
-    title:
-      "Book Club: Designing Data-Intensive Applications | Craft & Code Club",
+    ...OG_DEFAULTS,
     description:
       'Leitura guiada da 2ª edição de "Designing Data-Intensive Applications" (DDIA). Um encontro por capítulo, em ritmo quinzenal.',
     images: ["/assets/book-club-ddia.png"],

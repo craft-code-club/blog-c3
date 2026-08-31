@@ -314,11 +314,11 @@ padrão desde jul/2025** — verificar o painel; RSS ajuda descoberta de conteú
 
 ### P0 — Fundação (destrava tudo)
 
-- [ ] **SEO-P0-01** ([#824](https://github.com/craft-code-club/blog-c3/issues/824)) — `metadataBase` + `title.template` + OG defaults (`siteName`,
+- [x] **SEO-P0-01** ([#824](https://github.com/craft-code-club/blog-c3/issues/824)) — `metadataBase` + `title.template` + OG defaults (`siteName`,
   `locale: 'pt_BR'`) + `alternates.canonical` em todas as páginas + `robots` com
   `max-image-preview: large` (Google Discover). Canônicas, sitemap e links internos na
   mesma forma **sem barra final** que o Cloudflare serve.
-  _Onde: `src/app/layout.tsx` + páginas._
+  _Onde: `src/app/layout.tsx` + páginas._ — concluído em 2026-08-30
 - [ ] **SEO-P0-02** ([#825](https://github.com/craft-code-club/blog-c3/issues/825)) — JSON-LD: `BlogPosting` (autores como `Person` com url,
   `datePublished`/`dateModified`) + `BreadcrumbList` nos posts; `Organization` (com
   `sameAs`: GitHub, YouTube, Discord) + `WebSite` na home; `Event` nos eventos, enriquecido

@@ -3,17 +3,9 @@ import { getSortedTopicList } from "@/lib/topics";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Tópicos | Craft & Code Club",
+  title: "Tópicos",
   description: "Explore nossos artigos e discussões sobre as melhores práticas de engenharia de software e os fundamentos da arte de programar. Veja os tópicos que abordamos abaixo.",
   keywords: ["Tópicos", "Engenharia de Software", "System Design", "Algoritmos", "DDD", "Domain Driven Design", "Arquitetura de Software", "Desenvolvimento de Software", "Artesanato de Software"],
-  openGraph: {
-    title: "Tópicos | Craft & Code Club",
-    description: "Explore nossos artigos e discussões sobre as melhores práticas de engenharia de software e os fundamentos da arte de programar. Veja os tópicos que abordamos abaixo.",
-  },
-  twitter: {
-    title: "Tópicos | Craft & Code Club",
-    description: "Explore nossos artigos e discussões sobre as melhores práticas de engenharia de software e os fundamentos da arte de programar. Veja os tópicos que abordamos abaixo.",
-  }
 };
 
 export default function TopicsPage() {

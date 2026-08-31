@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const pageNumber = parseInt(resolvedParams.page, 10);
 
   return {
-    title: `Eventos Anteriores - Página ${pageNumber} | Craft & Code Club`,
+    title: `Eventos Anteriores - Página ${pageNumber}`,
     description: "Veja todos os eventos anteriores do Craft & Code Club sobre engenharia de software, System Design, Algoritmos, e muito mais.",
   };
 }
