@@ -23,22 +23,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!event) {
     return {
-      title: 'Evento não encontrado | Craft & Code Club'
+      title: 'Evento não encontrado'
     };
   }
 
   return {
-    title: `${event.title} | Craft & Code Club`,
+    title: event.title,
     description: event.description,
     keywords: buildKeywords(event.tags ?? [], DEFAULT_EVENT_KEYWORDS),
-    openGraph: {
-      title: `${event.title} | Craft & Code Club`,
-      description: event.description
-    },
-    twitter: {
-      title: `${event.title} | Craft & Code Club`,
-      description: event.description
-    }
   };
 }
 

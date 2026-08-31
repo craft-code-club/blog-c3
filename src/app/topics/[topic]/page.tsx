@@ -25,17 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const topicKeywords = [topicTitle, "Desenvolvimento de Software", "Desenvolvimento", "Software", "Aprendizado", "Comunidade", "Algoritmos", "Estruturas de Dados", "System Design", "DDD"];
 
   return {
-    title: `${topicTitle} | Craft & Code Club`,
+    title: topicTitle,
     description: topicDescription,
     keywords: topicKeywords,
-    openGraph: {
-      title: `${topicTitle} | Craft & Code Club`,
-      description: topicDescription,
-    },
-    twitter: {
-      title: `${topicTitle} | Craft & Code Club`,
-      description: topicDescription,
-    }
   };
 }
 

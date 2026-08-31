@@ -36,16 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const topicDescription = topic.description ?? `Artigos e recursos sobre ${topicTitle} da comunidade Craft & Code Club.`;
 
   return {
-    title: `${topicTitle} - Página ${page} | Craft & Code Club`,
+    title: `${topicTitle} - Página ${page}`,
     description: topicDescription,
-    openGraph: {
-      title: `${topicTitle} - Página ${page} | Craft & Code Club`,
-      description: topicDescription,
-    },
-    twitter: {
-      title: `${topicTitle} - Página ${page} | Craft & Code Club`,
-      description: topicDescription,
-    }
   };
 }
 

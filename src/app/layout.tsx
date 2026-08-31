@@ -2,6 +2,7 @@ import MermaidInitializer from '@/components/MermaidInitializer';
 import { NavLinks } from "@/components/NavLinks";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { OG_DEFAULTS } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import { DISCORD_PAGE_PATH } from "@/lib/discord";
 import { DSA_PLATFORM_URL } from "@/lib/dsa-platform";
@@ -18,8 +19,30 @@ export const metadata: Metadata = {
   // Sem isto, as imagens de Open Graph e Twitter resolvem para localhost e o
   // card do link quebra ao compartilhar. Mesma origem usada pelo sitemap.
   metadataBase: new URL(SITE_URL),
-  title: "Comunidade Craft & Code Club",
+  title: {
+    default: "Craft & Code Club — System Design, Algoritmos e Engenharia de Software",
+    // Páginas passam só o título próprio; o sufixo entra pelo template.
+    template: "%s | Craft & Code Club",
+  },
   description: "Mergulhe em Algoritmos, Estruturas de Dados, System Design, DDD e Tópicos Avançados",
+  // './' resolve para o pathname de cada rota: canonical autorreferente em
+  // todas as páginas, na mesma forma sem barra final que o Cloudflare serve.
+  alternates: { canonical: "./" },
+  openGraph: {
+    ...OG_DEFAULTS,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      // Requisito de elegibilidade para o Google Discover.
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({

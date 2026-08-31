@@ -6,7 +6,7 @@ import { FocusModeProvider } from '@/components/FocusModeContext';
 import AuthorAvatar from '@/components/AuthorAvatar';
 import DsaPlatformCallout from '@/components/DsaPlatformCallout';
 import { getDsaTopicForContent } from '@/lib/dsa-platform';
-import { buildKeywords, DEFAULT_POST_KEYWORDS } from '@/lib/seo';
+import { buildKeywords, DEFAULT_POST_KEYWORDS, OG_DEFAULTS } from '@/lib/seo';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -24,21 +24,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPostData(resolvedParams.id);
 
   return {
-    title: `${post.title} | Craft & Code Club`,
+    title: post.title,
     description: post.description,
     keywords: buildKeywords([...(post.keywords ?? []), ...post.topics.map(topic => topic.name)], DEFAULT_POST_KEYWORDS),
     openGraph: {
-      title: `${post.title} | Craft & Code Club`,
-      description: post.description,
+      ...OG_DEFAULTS,
       type: 'article',
       publishedTime: post.date,
       authors: post.authors?.map(author => author.name) || [],
       tags: post.topics.map(topic => topic.name),
     },
-    twitter: {
-      title: `${post.title} | Craft & Code Club`,
-      description: post.description
-    }
   };
 }
 
