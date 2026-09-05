@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
 import { ArrowRight, Heart } from "lucide-react";
 import SupporterCard from "@/components/SupporterCard";
+import { OG_DEFAULTS } from "@/lib/seo";
 import { APOIA_URL, fetchSupporters } from "./supporters";
 
-const TITLE = "Apoiar a comunidade | Craft & Code Club";
+const TITLE = "Apoiar a comunidade";
 const DESCRIPTION =
   "Ajude a manter o Craft & Code Club livre e aberto. Apoie o conteúdo, os eventos e as ferramentas da comunidade, e entre na lista de apoiadores.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "/apoiar" },
-  openGraph: { title: TITLE, description: DESCRIPTION, images: ["/logo.png"] },
-  twitter: { title: TITLE, description: DESCRIPTION, images: ["/logo.png"] },
+  openGraph: { ...OG_DEFAULTS, images: ["/logo.png"] },
 };
 
 // Página estática: a lista de apoiadores é buscada na APOIA.se no build.
