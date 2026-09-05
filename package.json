@@ -12,7 +12,7 @@
     "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
-    "@next/third-parties": "16.3.3",
+    "@next/third-parties": "16.3.4",
     "@tailwindcss/typography": "^0.5.20",
     "escape-html": "^1.0.3",
     "gray-matter": "^4.0.3",
