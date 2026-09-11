@@ -1,26 +1,18 @@
 import { DISCORD_INVITE_URL } from "@/lib/discord";
+import { OG_DEFAULTS } from "@/lib/seo";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-const TITLE = "Entrar no Discord | Craft & Code Club";
+const TITLE = "Entrar no Discord";
 const DESCRIPTION =
   "Convite oficial para o servidor Discord do Craft & Code Club, comunidade de engenharia de software de alto nível. Clube do livro, papos técnicos, workshops, algoritmos e system design.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: {
-    canonical: "/join",
-  },
   openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    images: ["/logo.png"],
-  },
-  twitter: {
-    title: TITLE,
-    description: DESCRIPTION,
+    ...OG_DEFAULTS,
     images: ["/logo.png"],
   },
 };

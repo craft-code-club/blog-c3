@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Código de Conduta | Craft & Code Club',
+  title: 'Código de Conduta',
   description: 'Código de Conduta da comunidade Craft & Code Club - diretrizes para um ambiente inclusivo, respeitoso e colaborativo.',
 };
 
