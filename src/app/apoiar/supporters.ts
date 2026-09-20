@@ -23,6 +23,8 @@ export type Supporter = { name: string };
 // devolve). Quando a integração entrar, é só esvaziar este array: os nomes passam a
 // vir do fetch.
 const EXTRA_SUPPORTERS: Supporter[] = [
+  { name: "Eliel Sousa" },
+  { name: "Gustavo Huguenin" },
   { name: "Cristiano Cunha" },
   { name: "Wilson Neto" },
   { name: "Eduarda Martins" },
