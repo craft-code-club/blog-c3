@@ -48,12 +48,26 @@ export async function fetchHtml(
   route: string,
   attempts = 3,
 ): Promise<string> {
+  const { html } = await fetchPage(request, route, attempts);
+  return html;
+}
+
+/**
+ * Como `fetchHtml`, mas devolve também a URL final. Rotas que só redirecionam
+ * (a página 1 das listagens) respondem 307 no dev server, então quem compara
+ * metadata com a própria rota precisa saber onde a requisição foi parar.
+ */
+export async function fetchPage(
+  request: APIRequestContext,
+  route: string,
+  attempts = 3,
+): Promise<{ html: string; url: string }> {
   let lastStatus = 0;
 
   for (let attempt = 1; attempt <= attempts; attempt++) {
     const response = await request.get(route);
     if (response.ok()) {
-      return response.text();
+      return { html: await response.text(), url: response.url() };
     }
 
     lastStatus = response.status();
