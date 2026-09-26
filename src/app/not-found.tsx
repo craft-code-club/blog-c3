@@ -3,8 +3,10 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Página não encontrada',
-  // O Next já injeta noindex na 404; anula o canonical herdado do layout, que
-  // apontaria para o pathname interno /_not-found.
+  // Anula o canonical herdado do layout, que apontaria para o pathname interno
+  // /_not-found. O `robots` parece redundante com o noindex que o Next já injeta
+  // na 404, mas não é: sem ele a página herda o `index, follow` do layout e sai
+  // com as duas diretivas se contradizendo.
   alternates: { canonical: null },
   robots: { index: false },
 };

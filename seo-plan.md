@@ -318,7 +318,7 @@ padrão desde jul/2025** — verificar o painel; RSS ajuda descoberta de conteú
   `locale: 'pt_BR'`) + `alternates.canonical` em todas as páginas + `robots` com
   `max-image-preview: large` (Google Discover). Canônicas, sitemap e links internos na
   mesma forma **sem barra final** que o Cloudflare serve.
-  _Onde: `src/app/layout.tsx` + páginas._ — concluído em 2026-08-30
+  _Onde: `src/app/layout.tsx` + páginas._ — concluído em 2026-09-26
 - [ ] **SEO-P0-02** ([#825](https://github.com/craft-code-club/blog-c3/issues/825)) — JSON-LD: `BlogPosting` (autores como `Person` com url,
   `datePublished`/`dateModified`) + `BreadcrumbList` nos posts; `Organization` (com
   `sameAs`: GitHub, YouTube, Discord) + `WebSite` na home; `Event` nos eventos, enriquecido

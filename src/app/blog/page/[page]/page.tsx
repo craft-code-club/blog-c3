@@ -24,6 +24,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Blog - Página ${page}`,
     description: "Artigos sobre engenharia de software, System Design, Algoritmos, Estruturas de dados, DDD, melhores práticas e aprendizados da comunidade.",
+    // A página 1 só redireciona para /blog (ver abaixo). Sem isto ela herdaria o
+    // canonical autorreferente do layout e se declararia a versão canônica de um
+    // conteúdo que vive em /blog. Mesmo padrão da rota legada do book club.
+    ...(parseInt(page, 10) === 1
+      ? { robots: { index: false }, alternates: { canonical: '/blog' } }
+      : {}),
   };
 }
 

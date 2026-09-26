@@ -1,4 +1,7 @@
 /roadmap/dsa    https://dsa.craftcodeclub.io/roadmap/    301
 /roadmap/dsa/   https://dsa.craftcodeclub.io/roadmap/    301
 /roadmap        https://dsa.craftcodeclub.io/roadmap/    301
+/blog/page/1    /blog    301
+/events/past    /events/past/1    301
 /roadmap/*      https://dsa.craftcodeclub.io/roadmap/    301
+/topics/:topic/page/1    /topics/:topic    301
