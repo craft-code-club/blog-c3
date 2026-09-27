@@ -1,10 +1,12 @@
 import ArrowIcon from "@/components/ArrowIcon";
 import TopicTags from "@/components/TopicTags";
 import UpcomingEventsHome from "@/components/UpcomingEventsHome";
+import JsonLd from "@/components/JsonLd";
 import { getEvents } from "@/lib/events";
 import { DISCORD_PAGE_PATH } from "@/lib/discord";
 import { DSA_PLATFORM_URL } from "@/lib/dsa-platform";
 import { getSortedPostsData } from "@/lib/posts";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 import escapeHtml from "escape-html";
 import Link from "next/link";
 export default function Home() {
@@ -13,6 +15,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       {/* Hero Section */}
       <div className="bg-linear-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
