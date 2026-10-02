@@ -1,5 +1,12 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { DISCORD_PAGE_PATH } from '@/lib/discord';
+
+export const metadata: Metadata = {
+  title: 'Sobre',
+  description:
+    'Uma comunidade dedicada à excelência em engenharia de software e boas práticas, de algoritmos e estruturas de dados à arquitetura de sistemas avançados.',
+};
 
 export default function AboutPage() {
   return (

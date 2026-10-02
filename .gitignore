@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# cache do wrangler pages dev, usado para conferir o _redirects localmente
+/.wrangler/
+
 # production
 /build
 

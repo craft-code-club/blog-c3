@@ -4,17 +4,9 @@ import PostCard from '@/components/PostCard';
 import Pagination from '@/components/Pagination';
 
 export const metadata: Metadata = {
-  title: "Blog | Craft & Code Club",
+  title: "Blog",
   description: "Artigos sobre engenharia de software, System Design, Algoritmos, Estruturas de dados, DDD, melhores práticas e aprendizados da comunidade.",
   keywords: ["Blog", "Artigos", "Desenvolvimento de Software", "Engenharia de Software", "System Design", "Algoritmos", "DDD"],
-  openGraph: {
-    title: "Blog | Craft & Code Club",
-    description: "Artigos sobre engenharia de software, System Design, Algoritmos, Estruturas de dados, DDD, melhores práticas e aprendizados da comunidade.",
-  },
-  twitter: {
-    title: "Blog | Craft & Code Club",
-    description: "Artigos sobre engenharia de software, System Design, Algoritmos, Estruturas de dados, DDD, melhores práticas e aprendizados da comunidade.",
-  }
 };
 
 export default function BlogPage() {

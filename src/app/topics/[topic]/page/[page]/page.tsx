@@ -36,16 +36,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const topicDescription = topic.description ?? `Artigos e recursos sobre ${topicTitle} da comunidade Craft & Code Club.`;
 
   return {
-    title: `${topicTitle} - Página ${page} | Craft & Code Club`,
+    title: `${topicTitle} - Página ${page}`,
     description: topicDescription,
-    openGraph: {
-      title: `${topicTitle} - Página ${page} | Craft & Code Club`,
-      description: topicDescription,
-    },
-    twitter: {
-      title: `${topicTitle} - Página ${page} | Craft & Code Club`,
-      description: topicDescription,
-    }
+    // A página 1 só redireciona para /topics/[topic] (ver abaixo). Sem isto ela
+    // herdaria o canonical autorreferente do layout e se declararia a versão
+    // canônica de um conteúdo que vive em /topics/[topic].
+    ...(parseInt(page, 10) === 1
+      ? { robots: { index: false }, alternates: { canonical: `/topics/${topicSlug}` } }
+      : {}),
   };
 }
 

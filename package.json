@@ -12,14 +12,14 @@
     "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
-    "@next/third-parties": "16.2.11",
+    "@next/third-parties": "16.3.7",
     "@tailwindcss/typography": "^0.5.20",
     "escape-html": "^1.0.3",
     "gray-matter": "^4.0.3",
-    "js-yaml": "^5.2.2",
-    "lucide-react": "^1.26.0",
-    "mermaid": "^11.16.0",
-    "next": "16.2.11",
+    "js-yaml": "^5.4.2",
+    "lucide-react": "^1.48.0",
+    "mermaid": "^12.0.0",
+    "next": "16.3.7",
     "next-themes": "^0.4.6",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
@@ -30,10 +30,10 @@
     "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
     "remark-rehype": "^11.1.2",
-    "zod": "^4.4.3"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/escape-html": "^1.0.4",
     "@types/js-yaml": "^4.0.9",
@@ -41,10 +41,10 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^10",
-    "eslint-config-next": "16.2.11",
+    "eslint-config-next": "16.3.7",
     "postcss": "^8",
     "tailwindcss": "^4.3.3",
-    "tsx": "^4.23.1",
+    "tsx": "^4.23.15",
     "typescript": "^6"
   },
   "overrides": {

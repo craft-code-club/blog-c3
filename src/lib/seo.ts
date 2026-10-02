@@ -1,3 +1,14 @@
+/**
+ * Defaults de Open Graph do site. O merge de metadata do Next é raso por campo:
+ * uma página que declara o próprio `openGraph` descarta por inteiro o do layout,
+ * então precisa reespalhar estes campos (`...OG_DEFAULTS`).
+ */
+export const OG_DEFAULTS = {
+  siteName: 'Craft & Code Club',
+  locale: 'pt_BR',
+  type: 'website',
+} as const;
+
 export const DEFAULT_POST_KEYWORDS = [
   'Blog',
   'Artigo',

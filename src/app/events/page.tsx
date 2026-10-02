@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import EventsListClient from '@/components/EventsListClient';
 
 export const metadata: Metadata = {
-  title: 'Eventos | Craft & Code Club',
+  title: 'Eventos',
   description:
     'Participe dos nossos encontros sobre engenharia de software, System Design, Algoritmos, e muito mais.',
   keywords: [
@@ -17,16 +17,6 @@ export const metadata: Metadata = {
     'System Design',
     'DDD'
   ],
-  openGraph: {
-    title: 'Eventos | Craft & Code Club',
-    description:
-      'Participe dos nossos encontros sobre engenharia de software, System Design, Algoritmos, e muito mais.'
-  },
-  twitter: {
-    title: 'Eventos | Craft & Code Club',
-    description:
-      'Participe dos nossos encontros sobre engenharia de software, System Design, Algoritmos, e muito mais.'
-  }
 };
 
 export default async function EventsPage() {

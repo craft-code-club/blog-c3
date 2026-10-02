@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { resolveDiscordLinks } from './discord';
 import { isEventPast, getEventStartTimestamp } from '@/lib/date';
+import { absoluteUrl } from '@/lib/site';
 
 const eventsDirectory = path.join(process.cwd(), '_content', 'events');
 
@@ -78,6 +79,20 @@ export function getPaginatedPastEvents(page: number = 1, limit: number = 20): { 
     total: past.length,
     totalPages
   };
+}
+
+export function getFutureEvents(): Event[] {
+  const { allEvents } = getEvents();
+  const cutoff = Date.now() - 12 * 60 * 60 * 1000; // now (UTC) - 12h, fixed at build time
+
+  return allEvents
+    .filter((event) => getEventStartTimestamp(event.date, event.time) >= cutoff)
+    .sort((a, b) => getEventStartTimestamp(a.date, a.time) - getEventStartTimestamp(b.date, b.time))
+    .map((event) => ({
+      ...event,
+      ...(event.registrationLink && { registrationLink: absoluteUrl(event.registrationLink) }),
+      ...(event.banner && { banner: absoluteUrl(`/events/${event.banner}`) }),
+    }));
 }
 
 export function getEventsByTags(tags: string[]): Event[] {

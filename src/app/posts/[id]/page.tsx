@@ -4,7 +4,9 @@ import { Metadata } from 'next';
 import FocusModeWrapper from '@/components/FocusModeWrapper';
 import { FocusModeProvider } from '@/components/FocusModeContext';
 import AuthorAvatar from '@/components/AuthorAvatar';
-import { buildKeywords, DEFAULT_POST_KEYWORDS } from '@/lib/seo';
+import DsaPlatformCallout from '@/components/DsaPlatformCallout';
+import { getDsaTopicForContent } from '@/lib/dsa-platform';
+import { buildKeywords, DEFAULT_POST_KEYWORDS, OG_DEFAULTS } from '@/lib/seo';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -22,21 +24,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPostData(resolvedParams.id);
 
   return {
-    title: `${post.title} | Craft & Code Club`,
+    title: post.title,
     description: post.description,
     keywords: buildKeywords([...(post.keywords ?? []), ...post.topics.map(topic => topic.name)], DEFAULT_POST_KEYWORDS),
     openGraph: {
-      title: `${post.title} | Craft & Code Club`,
-      description: post.description,
+      ...OG_DEFAULTS,
       type: 'article',
       publishedTime: post.date,
       authors: post.authors?.map(author => author.name) || [],
       tags: post.topics.map(topic => topic.name),
     },
-    twitter: {
-      title: `${post.title} | Craft & Code Club`,
-      description: post.description
-    }
   };
 }
 
@@ -44,6 +41,7 @@ export default async function Post({ params }: Props) {
   const resolvedParams = await params;
   const post = await getPostData(resolvedParams.id);
   const authors = post.authors || [];
+  const dsaTopic = getDsaTopicForContent(post.id);
 
   return (
     <FocusModeProvider>
@@ -74,6 +72,8 @@ export default async function Post({ params }: Props) {
         <div className="prose dark:prose-invert prose-lg max-w-none">
           <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
         </div>
+
+        {dsaTopic && <DsaPlatformCallout topic={dsaTopic} className="mt-12" />}
 
         {authors.length > 0 && (
           <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">

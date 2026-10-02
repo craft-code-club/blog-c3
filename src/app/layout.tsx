@@ -2,8 +2,10 @@ import MermaidInitializer from '@/components/MermaidInitializer';
 import { NavLinks } from "@/components/NavLinks";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { OG_DEFAULTS } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import { DISCORD_PAGE_PATH } from "@/lib/discord";
+import { DSA_PLATFORM_URL } from "@/lib/dsa-platform";
 import { GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -17,8 +19,30 @@ export const metadata: Metadata = {
   // Sem isto, as imagens de Open Graph e Twitter resolvem para localhost e o
   // card do link quebra ao compartilhar. Mesma origem usada pelo sitemap.
   metadataBase: new URL(SITE_URL),
-  title: "Comunidade Craft & Code Club",
+  title: {
+    default: "Craft & Code Club — System Design, Algoritmos e Engenharia de Software",
+    // Páginas passam só o título próprio; o sufixo entra pelo template.
+    template: "%s | Craft & Code Club",
+  },
   description: "Mergulhe em Algoritmos, Estruturas de Dados, System Design, DDD e Tópicos Avançados",
+  // './' resolve para o pathname de cada rota: canonical autorreferente em
+  // todas as páginas, na mesma forma sem barra final que o Cloudflare serve.
+  alternates: { canonical: "./" },
+  openGraph: {
+    ...OG_DEFAULTS,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      // Requisito de elegibilidade para o Google Discover.
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -35,7 +59,7 @@ export default function RootLayout({
           <nav className="sticky top-0 bg-white dark:bg-gray-800 shadow-xs z-50">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               {/* Mobile Header (Two Lines) */}
-              <div className="md:hidden">
+              <div className="min-[1100px]:hidden">
                 {/* First Line: Logo, Title, and Hamburger */}
                 <div className="flex items-center justify-between h-20">
                   <Link href="/" className="flex items-center space-x-3">
@@ -102,7 +126,7 @@ export default function RootLayout({
               </div>
 
               {/* Desktop Header */}
-              <div className="hidden md:flex items-center justify-between h-20">
+              <div className="hidden min-[1100px]:flex items-center justify-between h-20">
                 <Link href="/" className="flex items-center space-x-3">
                   <Image
                     src="/logo.png"
@@ -120,7 +144,7 @@ export default function RootLayout({
                   </div>
                 </Link>
 
-                <div className="flex items-center space-x-8">
+                <div className="flex items-center space-x-6">
                   <NavLinks />
                   <div className="flex items-center space-x-4">
                     <a href="https://github.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
@@ -182,8 +206,11 @@ export default function RootLayout({
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Links Rápidos</h3>
                   <ul className="space-y-3">
-                  <li>
-                      <Link href="/topics/algoritmos" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Algoritmos e Estruturas de Dados</Link>
+                    <li>
+                      <a href={DSA_PLATFORM_URL} target="_blank" rel="noopener" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Roadmap de Algoritmos e Estruturas de Dados</a>
+                    </li>
+                    <li>
+                      <Link href="/topics/algoritmos" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Artigos sobre Algoritmos</Link>
                     </li>
                     <li>
                       <Link href="/topics/system-design" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">System Design</Link>
@@ -218,6 +245,9 @@ export default function RootLayout({
                       <a href="https://github.com/craft-code-club" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                         Contribuir no GitHub
                       </a>
+                    </li>
+                    <li>
+                      <Link href="/apoiar" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Apoiar a comunidade</Link>
                     </li>
                     <li>
                       <Link href="/codigo-conduta" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Código de Conduta</Link>
