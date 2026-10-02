@@ -7,6 +7,8 @@ import AuthorAvatar from '@/components/AuthorAvatar';
 import DsaPlatformCallout from '@/components/DsaPlatformCallout';
 import { getDsaTopicForContent } from '@/lib/dsa-platform';
 import { buildKeywords, DEFAULT_POST_KEYWORDS, OG_DEFAULTS } from '@/lib/seo';
+import JsonLd from '@/components/JsonLd';
+import { blogPostingJsonLd, breadcrumbJsonLd } from '@/lib/structured-data';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -45,6 +47,16 @@ export default async function Post({ params }: Props) {
 
   return (
     <FocusModeProvider>
+      <JsonLd
+        data={[
+          blogPostingJsonLd(post),
+          breadcrumbJsonLd([
+            { name: 'Início', path: '/' },
+            { name: 'Blog', path: '/blog' },
+            { name: post.title, path: `/posts/${post.id}` },
+          ]),
+        ]}
+      />
       <FocusModeWrapper>
         <header className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{post.title}</h1>

@@ -4,6 +4,8 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import EventDetailClient from '@/components/EventDetailClient';
 import { buildKeywords, DEFAULT_EVENT_KEYWORDS } from '@/lib/seo';
+import JsonLd from '@/components/JsonLd';
+import { breadcrumbJsonLd, eventJsonLd } from '@/lib/structured-data';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -47,6 +49,16 @@ export default async function EventPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <JsonLd
+        data={[
+          eventJsonLd(event),
+          breadcrumbJsonLd([
+            { name: 'Início', path: '/' },
+            { name: 'Eventos', path: '/events' },
+            { name: event.title, path: `/events/${event.id}` },
+          ]),
+        ]}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <EventDetailClient event={event!} nextEvents={nextEvents} />
       </div>
