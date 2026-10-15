@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import { resolveDiscordLinks } from './discord';
 import { isEventPast, getEventStartTimestamp } from '@/lib/date';
 import { absoluteUrl } from '@/lib/site';
+import { markdownToHtml } from '@/lib/markdown';
 
 const eventsDirectory = path.join(process.cwd(), '_content', 'events');
 
@@ -22,6 +23,16 @@ export interface Event {
   excalidrawLink?: string;
   speakers?: string[];
   tags?: string[];
+}
+
+/**
+ * O evento da página de detalhe. O corpo do Markdown é opcional: quando o
+ * arquivo tem corpo, ele vira o conteúdo do detalhe e a `description` fica só
+ * para a listagem e o SEO. Sem corpo (ou com corpo só de comentários),
+ * `contentHtml` não existe e o detalhe mostra a `description`.
+ */
+export interface EventDetail extends Event {
+  contentHtml?: string;
 }
 
 export interface EventsData {
@@ -105,17 +116,24 @@ export function getEventsByTags(tags: string[]): Event[] {
   });
 }
 
-export function getEvent(id: string): Event | null {
+export async function getEvent(id: string): Promise<EventDetail | null> {
+  let fileContents: string;
   try {
-    const fullPath = path.join(eventsDirectory, `${id}.md`);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const matterResult = matter(resolveDiscordLinks(fileContents));
-
-    return {
-      id,
-      ...(matterResult.data as Omit<Event, 'id'>),
-    };
+    fileContents = fs.readFileSync(path.join(eventsDirectory, `${id}.md`), 'utf8');
   } catch {
     return null;
   }
+
+  // Só o arquivo inexistente vira 404. Erro de parse ou de renderização tem
+  // que quebrar o build, senão a página do evento some do export sem aviso.
+  const matterResult = matter(resolveDiscordLinks(fileContents));
+  const contentHtml = await markdownToHtml(matterResult.content);
+  // Corpo vazio ou só com comentários conta como sem corpo.
+  const hasContent = contentHtml.replace(/<!--[\s\S]*?-->/g, '').trim() !== '';
+
+  return {
+    id,
+    ...(matterResult.data as Omit<Event, 'id'>),
+    ...(hasContent && { contentHtml }),
+  };
 } 

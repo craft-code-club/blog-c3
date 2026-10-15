@@ -28,7 +28,7 @@ speakers:
 ## Required Properties
 
 - **title**: Event title (string), approximately up to 60 characters.
-- **description**: Detailed event description (string), approximately 350 to 400 characters maximum.
+- **description**: Event summary (string), approximately 350 to 400 characters maximum. It is shown in the event cards, the meta description and the calendar invite, and on the detail page when the event has no body.
 - **date**: Event date in `YYYY-MM-DD` format (string).
 - **time**: Event time in `HH:MM-HH:MM` format (string).
 - **location**: Event location, typically `Online via Zoom` (string).
@@ -43,6 +43,15 @@ speakers:
 - **registrationLink**: Always use the placeholder `"{{discord-link}}"` for the event registration page link.
 - **speakers**: List of speakers, each with a `name` property (array of objects).
 
+## Optional Body
+
+Everything after the closing `---` is optional Markdown content for the event detail page.
+
+- With a body, the detail page renders the Markdown instead of `description`. The `description` is still the short summary used in the event cards, the meta description and the calendar invite, so it stays required.
+- Without a body, the detail page shows `description`. An empty or comment-only body counts as no body.
+- Use the body when the announcement has more than fits in the description, such as a topic list, agenda or prerequisites. Leave out what the page already shows (title, date, time, location, speakers) and relative dates like "na próxima segunda".
+- The page already renders the title as `h1`, so don't use `#` headings in the body.
+
 ## Event Creation Workflow
 
 1. Collect the event details from the prompt, including date, time, draft title and description, and any links.
@@ -55,3 +64,4 @@ speakers:
    - Use clear and concise language.
    - Respect the suggested title and description limits.
    - Write the event content details in Portuguese.
+5. If the announcement has more detail than fits in the description, add it as the Markdown body (see Optional Body).
