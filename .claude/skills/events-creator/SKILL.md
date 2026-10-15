@@ -51,7 +51,7 @@ Everything after the closing `---` is optional Markdown content for the event de
 
 - With a body, the detail page renders the Markdown instead of `description`. The `description` is still the short summary used in the event cards, the meta description and the calendar invite, so it stays required.
 - Without a body, the detail page shows `description`. A body that renders no HTML, such as only a Markdown comment `[//]: # (draft)`, counts as no body. An HTML comment (`<!-- -->`) counts as a body and leaves the detail page blank, so use the Markdown form for notes.
-- Use the body when the announcement has more than fits in the description, such as a topic list, agenda or prerequisites. Leave out what the page already shows (title, date, time, location, speaker names) and relative dates like "na próxima segunda". A short speaker bio is fine: put it last, under `## Sobre o palestrante`.
+- Use the body when the announcement has more than fits in the description, such as a topic list, agenda or prerequisites. Leave out what the page already shows (title, date, time, location, speaker names) and relative dates like "na próxima segunda". A short speaker bio is fine: put it last, after a `**Sobre o palestrante**` line in bold, not a heading.
 - The page already renders the title as `h1`, so don't use `#` headings in the body.
 
 ## Event Creation Workflow

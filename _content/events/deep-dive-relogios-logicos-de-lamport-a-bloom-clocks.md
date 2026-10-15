@@ -33,7 +33,7 @@ Esse é o primeiro de dois encontros sobre o tema. No segundo, aprofundamos em *
 
 O link da sala do Zoom será compartilhado no dia do evento na [comunidade]({{discord-link}}).
 
-## Sobre o palestrante
+**Sobre o palestrante**
 
 **Edward Ribeiro** é Senior Software Engineer, com passagem por Amazon e DataStax e experiência com grandes projetos open source. Hoje constrói sistemas em escala no Interlegis (Senado Federal).
 
