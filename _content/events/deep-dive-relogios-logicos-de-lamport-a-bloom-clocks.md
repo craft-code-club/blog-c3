@@ -11,7 +11,8 @@ banner: "deep-dive-relogios-logicos-de-lamport-a-bloom-clocks.png"
 registrationLink: "{{discord-link}}"
 recordingLink: "https://www.youtube.com/watch?v=K5avXPf_hO8"
 speakers:
-  - "Edward Ribeiro"
+  - name: "Edward Ribeiro"
+    link: "https://www.linkedin.com/in/edward-ribeiro-6530b82/"
 tags:
   - "distributed-systems"
 ---
@@ -31,3 +32,9 @@ Ao longo do caminho, vamos falar sobre exemplos de uso em sistemas do mundo real
 Esse é o primeiro de dois encontros sobre o tema. No segundo, aprofundamos em **CRDTs e OT/Operational Transformation**.
 
 O link da sala do Zoom será compartilhado no dia do evento na [comunidade]({{discord-link}}).
+
+## Sobre o palestrante
+
+**Edward Ribeiro** é Senior Software Engineer, com passagem por Amazon e DataStax e experiência com grandes projetos open source. Hoje constrói sistemas em escala no Interlegis (Senado Federal).
+
+LinkedIn: [linkedin.com/in/edward-ribeiro-6530b82](https://www.linkedin.com/in/edward-ribeiro-6530b82/)
