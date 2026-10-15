@@ -21,7 +21,7 @@ postLink: "https://craftcodeclub.io/posts/post-slug"
 excalidrawLink: "https://link.excalidraw.com/l/XXXXXXXXXXX"
 registrationLink: "{{discord-link}}"
 speakers:
-  - name: "Speaker Name"
+  - "Speaker Name"
 ---
 ```
 
@@ -41,7 +41,7 @@ speakers:
 - **postLink**: Link to the related blog post (string).
 - **excalidrawLink**: Link to the related Excalidraw board (string).
 - **registrationLink**: Always use the placeholder `"{{discord-link}}"` for the event registration page link.
-- **speakers**: List of speakers, each with a `name` property (array of objects).
+- **speakers**: List of speaker names (array of strings).
 
 ## Optional Body
 
