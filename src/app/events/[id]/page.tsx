@@ -46,7 +46,7 @@ export default async function EventPage({ params }: Props) {
   }
 
   const { upcoming } = await getEvents();
-  const nextEvents = upcoming.slice(0, 4);
+  const nextEvents = upcoming.filter((upcomingEvent) => upcomingEvent.id !== event!.id).slice(0, 4);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
