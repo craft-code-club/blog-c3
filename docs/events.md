@@ -109,7 +109,7 @@ Comportamento da pagina de detalhe
 
 - Mostra `title`, `date`, `time`, `location`, `type`.
 - Mostra o corpo do Markdown quando existe; senao, a `description` (ver [Corpo do arquivo](#corpo-do-arquivo-conteudo-em-markdown)).
-- `banner` so aparece quando existe.
+- `banner` so aparece quando existe. Quando existe, tambem e a imagem do preview do link (`og:image` e `twitter:image`, com card `summary_large_image`).
 - `speakers` so aparece quando existe.
 - `tags` renderiza como chips (`span`).
 
