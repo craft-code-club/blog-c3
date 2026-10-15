@@ -28,8 +28,8 @@ export interface Event {
 /**
  * O evento da página de detalhe. O corpo do Markdown é opcional: quando o
  * arquivo tem corpo, ele vira o conteúdo do detalhe e a `description` fica só
- * para a listagem e o SEO. Sem corpo (ou com corpo só de comentários),
- * `contentHtml` não existe e o detalhe mostra a `description`.
+ * para a listagem e o SEO. Sem corpo, `contentHtml` não existe e o detalhe
+ * mostra a `description`.
  */
 export interface EventDetail extends Event {
   contentHtml?: string;
@@ -128,8 +128,8 @@ export async function getEvent(id: string): Promise<EventDetail | null> {
   // que quebrar o build, senão a página do evento some do export sem aviso.
   const matterResult = matter(resolveDiscordLinks(fileContents));
   const contentHtml = await markdownToHtml(matterResult.content);
-  // Corpo vazio ou só com comentários conta como sem corpo.
-  const hasContent = contentHtml.replace(/<!--[\s\S]*?-->/g, '').trim() !== '';
+  // Corpo que não gera HTML (vazio, ou só um comentário `[//]: #`) conta como sem corpo.
+  const hasContent = contentHtml.trim() !== '';
 
   return {
     id,

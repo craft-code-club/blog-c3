@@ -34,7 +34,7 @@ Tags encontradas hoje em `_content/events/*.md`:
 O corpo do arquivo, depois do frontmatter, e opcional.
 
 - Com corpo: o Markdown vira o conteudo da pagina de detalhe, no lugar da `description`. A renderizacao e a mesma dos posts (GFM, ids nos titulos, destaque de codigo).
-- Sem corpo (ou com corpo so de comentarios HTML): a pagina de detalhe mostra a `description`.
+- Sem corpo: a pagina de detalhe mostra a `description`. Um corpo que nao gera HTML, como o comentario de Markdown `[//]: # (rascunho)`, conta como sem corpo. Ja um comentario HTML (`<!-- -->`) conta como corpo e deixa o detalhe em branco, entao use a forma do Markdown para anotacoes.
 - A `description` continua sendo usada na listagem (cards), na meta description (SEO) e no convite de calendario, com ou sem corpo.
 - O token `{{discord-link}}` tambem funciona no corpo.
 - O titulo do evento ja aparece como `h1` na pagina; nao use `#` no corpo.
