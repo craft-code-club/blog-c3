@@ -4,6 +4,9 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import EventDetailClient from '@/components/EventDetailClient';
 import { buildKeywords, DEFAULT_EVENT_KEYWORDS } from '@/lib/seo';
+// O corpo do evento em Markdown usa os mesmos estilos de código dos posts.
+import '@/assets/code-stackoverflow-dark.css';
+import '@/assets/inline-code.css';
 
 type Props = {
   params: Promise<{ id: string }>;

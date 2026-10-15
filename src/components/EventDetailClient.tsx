@@ -1,6 +1,6 @@
 'use client';
 
-import type { Event } from '@/lib/events';
+import type { Event, EventDetail } from '@/lib/events';
 import { isEventToday } from '@/lib/date';
 import { DISCORD_PAGE_PATH } from '@/lib/discord';
 import { absoluteUrl } from '@/lib/site';
@@ -12,7 +12,7 @@ import EventTags from "./EventTags";
 import { getDsaTopicForContent } from '@/lib/dsa-platform';
 
 interface Props {
-  event: Event;
+  event: EventDetail;
   nextEvents: Event[];
 }
 
@@ -108,9 +108,16 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
               </div>
             )}
 
-            <div className="prose prose-lg dark:prose-invert max-w-none mb-8">
-              <p>{event.description}</p>
-            </div>
+            {event.contentHtml ? (
+              <div
+                className="prose prose-lg dark:prose-invert max-w-none mb-8"
+                dangerouslySetInnerHTML={{ __html: event.contentHtml }}
+              />
+            ) : (
+              <div className="prose prose-lg dark:prose-invert max-w-none mb-8">
+                <p>{event.description}</p>
+              </div>
+            )}
 
             {event.speakers && event.speakers.length > 0 && (
               <div className="mb-8">

@@ -29,6 +29,29 @@ Tags encontradas hoje em `_content/events/*.md`:
 - `book-club`
 - `ddia`
 
+## Corpo do arquivo (conteudo em Markdown)
+
+O corpo do arquivo, depois do frontmatter, e opcional.
+
+- Com corpo: o Markdown vira o conteudo da pagina de detalhe, no lugar da `description`. A renderizacao e a mesma dos posts (GFM, ids nos titulos, destaque de codigo).
+- Sem corpo (ou com corpo so de comentarios HTML): a pagina de detalhe mostra a `description`.
+- A `description` continua sendo usada na listagem (cards), na meta description (SEO) e no convite de calendario, com ou sem corpo.
+- O token `{{discord-link}}` tambem funciona no corpo.
+- O titulo do evento ja aparece como `h1` na pagina; nao use `#` no corpo.
+
+```markdown
+---
+title: "..."
+description: "Resumo curto para a listagem e o SEO."
+# ...demais campos
+---
+
+Texto completo do evento, com **destaques**, listas e links.
+
+- Topico 1
+- Topico 2
+```
+
 ## Website
 
 ### Slug (nome do arquivo)
@@ -84,7 +107,8 @@ Comportamento do card na listagem
 
 Comportamento da pagina de detalhe
 
-- Mostra `title`, `description`, `date`, `time`, `location`, `type`.
+- Mostra `title`, `date`, `time`, `location`, `type`.
+- Mostra o corpo do Markdown quando existe; senao, a `description` (ver [Corpo do arquivo](#corpo-do-arquivo-conteudo-em-markdown)).
 - `banner` so aparece quando existe.
 - `speakers` so aparece quando existe.
 - `tags` renderiza como chips (`span`).
@@ -166,6 +190,8 @@ GET /api/events/future
 | `tags` | `string[]` | nao | Tags do evento |
 
 > Os campos exclusivos de automacoes externas (`isLive`, `youtubeTitle`, `sessionLink`, `openSession`) **nao fazem parte da interface `Event`** e **nao sao retornados pela API**.
+>
+> O corpo do Markdown tambem nao e retornado pela API: ele so existe na pagina de detalhe.
 
 ## Discord Bot
 
