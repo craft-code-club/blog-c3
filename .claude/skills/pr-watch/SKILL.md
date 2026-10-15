@@ -90,7 +90,7 @@ Então, num PR já aprovado, só empurre o que a própria revisão pediu. Trabal
 - **Push:** pode não haver chave SSH carregada no agent. Use o token do `gh` sem alterar a config global:
   `git -c credential.helper='!gh auth git-credential' push https://github.com/craft-code-club/blog-c3.git HEAD:<branch>`
 - **Checks obrigatórios:** Build Pages, Deploy to Cloudflare Pages, CodeQL, CodeQL Analyze (javascript).
-- **Antes de empurrar correção:** `npm run build` e `npm run test:e2e`. O `npm run lint` está quebrado na `main` por incompatibilidade do `eslint-plugin-react` com ESLint 10; não é regressão sua.
+- **Antes de empurrar correção:** `npm run lint`, `npm run build` e `npm run test:e2e`.
 - **Commits:** conventional commits, em inglês. O corpo do PR usa o `.github/PULL_REQUEST_TEMPLATE.md`, cujos títulos e checklist são em inglês; o conteúdo que você escreve dentro dele vai em português.
 - O `github-actions[bot]` comenta o link de preview do Cloudflare a cada push. É ruído, ignore.
 
