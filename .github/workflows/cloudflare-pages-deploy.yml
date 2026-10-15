@@ -45,6 +45,11 @@ jobs:
     - name: Install dependencies
       run: npm ci --ignore-scripts
 
+    # Since Next 16, `next build` no longer runs the linter. Without this step a
+    # dependency bump can break lint and nobody notices.
+    - name: Lint
+      run: npm run lint
+
     - name: Build with Next.js
       run: npm run build
 
