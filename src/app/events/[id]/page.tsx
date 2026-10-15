@@ -3,7 +3,7 @@ import { getEvent, getEvents } from '@/lib/events';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import EventDetailClient from '@/components/EventDetailClient';
-import { buildKeywords, DEFAULT_EVENT_KEYWORDS } from '@/lib/seo';
+import { buildKeywords, DEFAULT_EVENT_KEYWORDS, OG_DEFAULTS } from '@/lib/seo';
 // O corpo do evento em Markdown usa os mesmos estilos de código dos posts.
 import '@/assets/code-stackoverflow-dark.css';
 import '@/assets/inline-code.css';
@@ -34,6 +34,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: event.title,
     description: event.description,
     keywords: buildKeywords(event.tags ?? [], DEFAULT_EVENT_KEYWORDS),
+    // O banner vira o card do link no WhatsApp, LinkedIn e X. O Next copia as
+    // imagens do Open Graph para o card do Twitter, já como summary_large_image.
+    openGraph: {
+      ...OG_DEFAULTS,
+      ...(event.banner && { images: [`/events/${event.banner}`] }),
+    },
   };
 }
 
