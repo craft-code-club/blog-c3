@@ -1,17 +1,11 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
-import rehypeHighlight from "rehype-highlight";
-import rehypeStringify from 'rehype-stringify';
-import remarkGfm from 'remark-gfm';
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import { unified } from "unified";
 import '../assets/code-stackoverflow-dark.css';
 import '../assets/inline-code.css';
-import rehypeSlug from 'rehype-slug';
 import { getTopicsMetadataAsDictionary, Topic } from './topics';
 import { resolveDiscordLinks } from './discord';
+import { markdownToHtml } from './markdown';
 
 const postsDirectory = path.join(process.cwd(), '_content', 'posts');
 
@@ -105,20 +99,7 @@ export async function getPostData(id: string): Promise<BlogPost> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(resolveDiscordLinks(fileContents));
-  const processedContent = await unified()
-      .use(remarkParse)
-      .use(remarkGfm)
-      .use(remarkRehype, { allowDangerousHtml: true }) // Allow HTML to pass through
-      .use(rehypeSlug)
-      .use(rehypeHighlight)
-      .use(rehypeStringify, { allowDangerousHtml: true }) // Preserve HTML in the output
-      .process(content);
-
-  let contentHtml = processedContent.toString();
-  // Adjust image paths dynamically
-  contentHtml = contentHtml
-    .replace(/<img src="\/public/g, `<img src="`)
-    .replace(/<img src="\.\.\/\.\.\/public/g, `<img src="`)
+  const contentHtml = await markdownToHtml(content);
 
   const topicsMetadata = getTopicsMetadataAsDictionary();
 
