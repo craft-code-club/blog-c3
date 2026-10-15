@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import matter from 'gray-matter';
 import { expect, test } from '@playwright/test';
 import {
   DISCORD_PAGE_PATH,
@@ -12,6 +13,13 @@ import {
 const INDEXABLE_ROUTES = [...KEY_ROUTES, DISCORD_PAGE_PATH];
 
 const REDIRECTS_FILE = path.join(process.cwd(), 'public', '_redirects');
+
+const EVENTS_DIR = path.join(process.cwd(), '_content', 'events');
+
+const events = fs.readdirSync(EVENTS_DIR).map((fileName) => {
+  const { data } = matter(fs.readFileSync(path.join(EVENTS_DIR, fileName), 'utf8'));
+  return { id: fileName.replace(/\.md$/, ''), banner: data.banner as string | undefined };
+});
 
 /** O sufixo que o `title.template` do layout raiz acrescenta, já escapado no HTML. */
 const BRAND_SUFFIX = ' | Craft &amp; Code Club';
@@ -59,6 +67,35 @@ test.describe('indexação', () => {
       expect(robotsMeta, `${route} ganhou um noindex sem querer`).not.toContain('noindex');
     });
   }
+});
+
+test.describe('card de compartilhamento dos eventos', () => {
+  test('evento com banner usa o banner como imagem do card', async ({ request }) => {
+    const event = events.find((e) => e.banner);
+    expect(event, 'nenhum evento com banner em _content/events').toBeDefined();
+
+    const html = await fetchHtml(request, `/events/${event!.id}`);
+    const ogImage = html.match(/<meta property="og:image" content="([^"]*)"/)?.[1];
+
+    expect(ogImage, `/events/${event!.id} está sem og:image`).toBeDefined();
+    expect(decodeURIComponent(new URL(ogImage!).pathname)).toBe(`/events/${event!.banner}`);
+    // O card do X não é declarado na página: o Next copia a imagem do Open
+    // Graph. Se um upgrade mudar isso, o link volta a sair sem imagem no X.
+    expect(html).toContain(`<meta name="twitter:image" content="${ogImage}"/>`);
+    expect(html).toContain('<meta name="twitter:card" content="summary_large_image"/>');
+    // O `openGraph` da página substitui o do layout por inteiro.
+    expect(html).toContain('<meta property="og:site_name" content="Craft &amp; Code Club"/>');
+  });
+
+  test('evento sem banner não declara imagem no card', async ({ request }) => {
+    const event = events.find((e) => !e.banner);
+    expect(event, 'nenhum evento sem banner em _content/events').toBeDefined();
+
+    const html = await fetchHtml(request, `/events/${event!.id}`);
+
+    expect(html).not.toMatch(/<meta property="og:image"/);
+    expect(html).toContain('<meta name="twitter:card" content="summary"/>');
+  });
 });
 
 test.describe('metadata global', () => {
