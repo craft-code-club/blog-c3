@@ -12,10 +12,18 @@ import { gotoOk } from './helpers/site';
  */
 const EVENTS_DIR = path.join(process.cwd(), '_content', 'events');
 
+/** Palestrante como está no frontmatter: só o nome ou `{ name, link }`. */
+type FrontmatterSpeaker = string | { name: string; link?: string };
+
 const events = fs.readdirSync(EVENTS_DIR).map((fileName) => {
   const fileContents = fs.readFileSync(path.join(EVENTS_DIR, fileName), 'utf8');
   const { data, content } = matter(resolveDiscordLinks(fileContents));
-  return { id: fileName.replace(/\.md$/, ''), description: String(data.description), body: content };
+  return {
+    id: fileName.replace(/\.md$/, ''),
+    description: String(data.description),
+    body: content,
+    speakers: data.speakers as FrontmatterSpeaker[] | undefined,
+  };
 });
 
 /** Primeira linha do corpo sem a marcação Markdown, para procurar no texto da página. */
@@ -47,4 +55,32 @@ test('evento com corpo mostra o Markdown no detalhe, e não a description', asyn
 
   await expect(content).toContainText(firstBodyLine(event!.body));
   await expect(content).not.toContainText(event!.description);
+});
+
+test('palestrante com link vira link para o perfil, em nova aba', async ({ page }) => {
+  const event = events.find((e) => e.speakers?.some((s) => typeof s === 'object' && s.link));
+  // Falha em vez de pular: sem nenhum palestrante com link, esse caminho ficaria sem teste.
+  expect(event, 'nenhum palestrante com link em _content/events').toBeDefined();
+  const speaker = event!.speakers!.find((s) => typeof s === 'object' && s.link) as { name: string; link: string };
+
+  await gotoOk(page, `/events/${event!.id}`);
+  const link = page.getByRole('link', { name: speaker.name, exact: true });
+
+  await expect(link).toHaveAttribute('href', speaker.link);
+  await expect(link).toHaveAttribute('target', '_blank');
+});
+
+test('a API devolve os palestrantes só com o nome', async ({ request }) => {
+  // O bot do Discord lê `speakers` como lista de strings. O `{ name, link }` do
+  // frontmatter não pode vazar para a API.
+  const response = await request.get('/api/events/future');
+  expect(response.ok()).toBe(true);
+  const apiEvents: { id: string; speakers?: unknown[] }[] = await response.json();
+
+  for (const apiEvent of apiEvents) {
+    const source = events.find((e) => e.id === apiEvent.id);
+    const names = source?.speakers?.map((s) => (typeof s === 'string' ? s : s.name));
+
+    expect(apiEvent.speakers, `palestrantes de ${apiEvent.id} na API`).toEqual(names);
+  }
 });

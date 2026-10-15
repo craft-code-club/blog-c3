@@ -62,7 +62,7 @@ function EventCard({ event }: { event: Event }) {
                 <h4 className="font-medium text-gray-900 dark:text-white">Palestrantes:</h4>
                 <ul className="space-y-1">
                   {event.speakers.map((speaker) => (
-                    <li key={speaker} className="text-gray-600 dark:text-gray-300">{speaker}</li>
+                    <li key={speaker.name} className="text-gray-600 dark:text-gray-300">{speaker.name}</li>
                   ))}
                 </ul>
               </div>

@@ -22,6 +22,8 @@ excalidrawLink: "https://link.excalidraw.com/l/XXXXXXXXXXX"
 registrationLink: "{{discord-link}}"
 speakers:
   - "Speaker Name"
+  - name: "Speaker With Profile"
+    link: "https://www.linkedin.com/in/XXXXXXXXXXX/"
 ---
 ```
 
@@ -41,7 +43,7 @@ speakers:
 - **postLink**: Link to the related blog post (string).
 - **excalidrawLink**: Link to the related Excalidraw board (string).
 - **registrationLink**: Always use the placeholder `"{{discord-link}}"` for the event registration page link.
-- **speakers**: List of speaker names (array of strings).
+- **speakers**: List of speakers. Each item is either the name (string) or an object with `name` and `link`. With `link` (an `http` or `https` URL, such as the speaker's LinkedIn), the name becomes a link on the event page that opens in a new tab. An invalid item fails the build.
 
 ## Optional Body
 
@@ -49,7 +51,7 @@ Everything after the closing `---` is optional Markdown content for the event de
 
 - With a body, the detail page renders the Markdown instead of `description`. The `description` is still the short summary used in the event cards, the meta description and the calendar invite, so it stays required.
 - Without a body, the detail page shows `description`. A body that renders no HTML, such as only a Markdown comment `[//]: # (draft)`, counts as no body. An HTML comment (`<!-- -->`) counts as a body and leaves the detail page blank, so use the Markdown form for notes.
-- Use the body when the announcement has more than fits in the description, such as a topic list, agenda or prerequisites. Leave out what the page already shows (title, date, time, location, speakers) and relative dates like "na próxima segunda".
+- Use the body when the announcement has more than fits in the description, such as a topic list, agenda or prerequisites. Leave out what the page already shows (title, date, time, location, speaker names) and relative dates like "na próxima segunda". A short speaker bio is fine: put it last, under `## Sobre o palestrante`.
 - The page already renders the title as `h1`, so don't use `#` headings in the body.
 
 ## Event Creation Workflow

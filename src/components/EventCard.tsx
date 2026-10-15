@@ -152,7 +152,7 @@ export default function EventCard({
                         key={index}
                         className="text-gray-600 dark:text-gray-300"
                       >
-                        {speaker}
+                        {speaker.name}
                       </li>
                     ))}
                   </ul>
