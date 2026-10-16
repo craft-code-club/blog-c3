@@ -21,14 +21,16 @@ postLink: "https://craftcodeclub.io/posts/post-slug"
 excalidrawLink: "https://link.excalidraw.com/l/XXXXXXXXXXX"
 registrationLink: "{{discord-link}}"
 speakers:
-  - name: "Speaker Name"
+  - "Speaker Name"
+  - name: "Speaker With Profile"
+    link: "https://www.linkedin.com/in/XXXXXXXXXXX/"
 ---
 ```
 
 ## Required Properties
 
 - **title**: Event title (string), approximately up to 60 characters.
-- **description**: Detailed event description (string), approximately 350 to 400 characters maximum.
+- **description**: Event summary (string), approximately 350 to 400 characters maximum. It is shown in the event cards, the meta description and the calendar invite, and on the detail page when the event has no body.
 - **date**: Event date in `YYYY-MM-DD` format (string).
 - **time**: Event time in `HH:MM-HH:MM` format (string).
 - **location**: Event location, typically `Online via Zoom` (string).
@@ -41,7 +43,16 @@ speakers:
 - **postLink**: Link to the related blog post (string).
 - **excalidrawLink**: Link to the related Excalidraw board (string).
 - **registrationLink**: Always use the placeholder `"{{discord-link}}"` for the event registration page link.
-- **speakers**: List of speakers, each with a `name` property (array of objects).
+- **speakers**: List of speakers. Each item is either the name (string) or an object with `name` and `link`. With `link` (an `http` or `https` URL, such as the speaker's LinkedIn), the name becomes a link on the event page that opens in a new tab. An invalid item fails the build.
+
+## Optional Body
+
+Everything after the closing `---` is optional Markdown content for the event detail page.
+
+- With a body, the detail page renders the Markdown instead of `description`. The `description` is still the short summary used in the event cards, the meta description and the calendar invite, so it stays required.
+- Without a body, the detail page shows `description`. A body that renders no HTML, such as only a Markdown comment `[//]: # (draft)`, counts as no body. An HTML comment (`<!-- -->`) counts as a body and leaves the detail page blank, so use the Markdown form for notes.
+- Use the body when the announcement has more than fits in the description, such as a topic list, agenda or prerequisites. Leave out what the page already shows (title, date, time, location, speaker names) and relative dates like "na próxima segunda". A short speaker bio is fine: put it last, after a `**Sobre o palestrante**` line in bold, not a heading.
+- The page already renders the title as `h1`, so don't use `#` headings in the body.
 
 ## Event Creation Workflow
 
@@ -55,3 +66,4 @@ speakers:
    - Use clear and concise language.
    - Respect the suggested title and description limits.
    - Write the event content details in Portuguese.
+5. If the announcement has more detail than fits in the description, add it as the Markdown body (see Optional Body).

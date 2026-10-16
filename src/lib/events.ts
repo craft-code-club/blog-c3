@@ -1,11 +1,32 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { z } from 'zod';
 import { resolveDiscordLinks } from './discord';
 import { isEventPast, getEventStartTimestamp } from '@/lib/date';
 import { absoluteUrl } from '@/lib/site';
+import { markdownToHtml } from '@/lib/markdown';
 
 const eventsDirectory = path.join(process.cwd(), '_content', 'events');
+
+/**
+ * No frontmatter, cada item de `speakers` é só o nome ou `{ name, link }`. O
+ * `link` vira o link do nome na página do evento. Dentro do código, o
+ * palestrante é sempre o objeto.
+ */
+const SpeakersSchema = z.array(
+  z
+    .union([
+      z.string().min(1),
+      z.object({
+        name: z.string().min(1),
+        link: z.url({ protocol: /^https?$/ }).optional(),
+      }),
+    ])
+    .transform((speaker) => (typeof speaker === 'string' ? { name: speaker } : speaker)),
+);
+
+export type Speaker = z.output<typeof SpeakersSchema>[number];
 
 export interface Event {
   id: string;
@@ -20,14 +41,45 @@ export interface Event {
   recordingLink?: string;
   postLink?: string;
   excalidrawLink?: string;
-  speakers?: string[];
+  speakers?: Speaker[];
   tags?: string[];
+}
+
+/**
+ * O evento como sai em `/api/events/future`. Os palestrantes saem só com o
+ * nome, como a API sempre devolveu, para não quebrar o bot do Discord.
+ */
+export type ApiEvent = Omit<Event, 'speakers'> & { speakers?: string[] };
+
+/**
+ * O evento da página de detalhe. O corpo do Markdown é opcional: quando o
+ * arquivo tem corpo, ele vira o conteúdo do detalhe e a `description` fica só
+ * para a listagem e o SEO. Sem corpo, `contentHtml` não existe e o detalhe
+ * mostra a `description`.
+ */
+export interface EventDetail extends Event {
+  contentHtml?: string;
 }
 
 export interface EventsData {
   upcoming: Event[];
   past: Event[];
   allEvents: Event[];
+}
+
+/**
+ * Os campos do frontmatter, com os palestrantes normalizados. Palestrante
+ * inválido quebra o build, com o nome do arquivo na mensagem.
+ */
+function parseFrontmatter(id: string, data: Record<string, unknown>): Omit<Event, 'id'> {
+  const fields = data as Omit<Event, 'id'>;
+  if (data.speakers === undefined) return fields;
+
+  const speakers = SpeakersSchema.safeParse(data.speakers);
+  if (!speakers.success) {
+    throw new Error(`_content/events/${id}.md: speakers inválido\n${z.prettifyError(speakers.error)}`);
+  }
+  return { ...fields, speakers: speakers.data };
 }
 
 export function getEvents(pastLimit?: number): EventsData {
@@ -40,7 +92,7 @@ export function getEvents(pastLimit?: number): EventsData {
 
     return {
       id,
-      ...(matterResult.data as Omit<Event, 'id'>),
+      ...parseFrontmatter(id, matterResult.data),
     };
   });
 
@@ -81,15 +133,16 @@ export function getPaginatedPastEvents(page: number = 1, limit: number = 20): { 
   };
 }
 
-export function getFutureEvents(): Event[] {
+export function getFutureEvents(): ApiEvent[] {
   const { allEvents } = getEvents();
   const cutoff = Date.now() - 12 * 60 * 60 * 1000; // now (UTC) - 12h, fixed at build time
 
   return allEvents
     .filter((event) => getEventStartTimestamp(event.date, event.time) >= cutoff)
     .sort((a, b) => getEventStartTimestamp(a.date, a.time) - getEventStartTimestamp(b.date, b.time))
-    .map((event) => ({
+    .map(({ speakers, ...event }) => ({
       ...event,
+      ...(speakers && { speakers: speakers.map((speaker) => speaker.name) }),
       ...(event.registrationLink && { registrationLink: absoluteUrl(event.registrationLink) }),
       ...(event.banner && { banner: absoluteUrl(`/events/${event.banner}`) }),
     }));
@@ -105,17 +158,24 @@ export function getEventsByTags(tags: string[]): Event[] {
   });
 }
 
-export function getEvent(id: string): Event | null {
+export async function getEvent(id: string): Promise<EventDetail | null> {
+  let fileContents: string;
   try {
-    const fullPath = path.join(eventsDirectory, `${id}.md`);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const matterResult = matter(resolveDiscordLinks(fileContents));
-
-    return {
-      id,
-      ...(matterResult.data as Omit<Event, 'id'>),
-    };
+    fileContents = fs.readFileSync(path.join(eventsDirectory, `${id}.md`), 'utf8');
   } catch {
     return null;
   }
+
+  // Só o arquivo inexistente vira 404. Erro de parse ou de renderização tem
+  // que quebrar o build, senão a página do evento some do export sem aviso.
+  const matterResult = matter(resolveDiscordLinks(fileContents));
+  const contentHtml = await markdownToHtml(matterResult.content);
+  // Corpo que não gera HTML (vazio, ou só um comentário `[//]: #`) conta como sem corpo.
+  const hasContent = contentHtml.trim() !== '';
+
+  return {
+    id,
+    ...parseFrontmatter(id, matterResult.data),
+    ...(hasContent && { contentHtml }),
+  };
 } 
