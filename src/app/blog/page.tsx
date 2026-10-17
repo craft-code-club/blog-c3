@@ -2,10 +2,14 @@ import { getPaginatedPosts } from '@/lib/posts';
 import { Metadata } from 'next';
 import PostCard from '@/components/PostCard';
 import Pagination from '@/components/Pagination';
+import JsonLd from '@/components/JsonLd';
+import { blogCollectionJsonLd } from '@/lib/structured-data';
+
+const DESCRIPTION = "Artigos sobre engenharia de software, System Design, Algoritmos, Estruturas de dados, DDD, melhores práticas e aprendizados da comunidade.";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Artigos sobre engenharia de software, System Design, Algoritmos, Estruturas de dados, DDD, melhores práticas e aprendizados da comunidade.",
+  description: DESCRIPTION,
   keywords: ["Blog", "Artigos", "Desenvolvimento de Software", "Engenharia de Software", "System Design", "Algoritmos", "DDD"],
 };
 
@@ -14,6 +18,7 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
+      <JsonLd data={blogCollectionJsonLd(posts, { name: 'Blog', description: DESCRIPTION, path: '/blog' })} />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <header className="mb-12">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Blog</h1>
