@@ -17,7 +17,7 @@ Campos suportados hoje:
 - `recordingLink` (string, opcional): link da gravação ou live do evento.
 - `postLink` (string, opcional): link de artigo relacionado.
 - `excalidrawLink` (string, opcional): link do quadro Excalidraw relacionado ao evento.
-- `speakers` (string[], opcional): lista de palestrantes.
+- `speakers` (lista, opcional): palestrantes. Cada item e so o nome (`"Jane Doe"`) ou `{ name, link }`. Com `link` (URL `http` ou `https`), o nome vira link na pagina do evento e abre em nova aba. Um item invalido, como `link` sem `https://`, quebra o build com o nome do arquivo na mensagem.
 - `tags` (string[], opcional): tags do evento.
 - `isLive` (boolean, opcional): campo extra (nao usado pelo site hoje); usado por automacoes externas (ex.: bot do Discord).
 - `youtubeTitle` (string, opcional): campo extra (nao usado pelo site hoje); usado por automacoes externas (ex.: bot do Discord).
@@ -28,6 +28,29 @@ Tags encontradas hoje em `_content/events/*.md`:
 
 - `book-club`
 - `ddia`
+
+## Corpo do arquivo (conteudo em Markdown)
+
+O corpo do arquivo, depois do frontmatter, e opcional.
+
+- Com corpo: o Markdown vira o conteudo da pagina de detalhe, no lugar da `description`. A renderizacao e a mesma dos posts (GFM, ids nos titulos, destaque de codigo).
+- Sem corpo: a pagina de detalhe mostra a `description`. Um corpo que nao gera HTML, como o comentario de Markdown `[//]: # (rascunho)`, conta como sem corpo. Ja um comentario HTML (`<!-- -->`) conta como corpo e deixa o detalhe em branco, entao use a forma do Markdown para anotacoes.
+- A `description` continua sendo usada na listagem (cards), na meta description (SEO) e no convite de calendario, com ou sem corpo.
+- O token `{{discord-link}}` tambem funciona no corpo.
+- O titulo do evento ja aparece como `h1` na pagina; nao use `#` no corpo.
+
+```markdown
+---
+title: "..."
+description: "Resumo curto para a listagem e o SEO."
+# ...demais campos
+---
+
+Texto completo do evento, com **destaques**, listas e links.
+
+- Topico 1
+- Topico 2
+```
 
 ## Website
 
@@ -84,9 +107,10 @@ Comportamento do card na listagem
 
 Comportamento da pagina de detalhe
 
-- Mostra `title`, `description`, `date`, `time`, `location`, `type`.
-- `banner` so aparece quando existe.
-- `speakers` so aparece quando existe.
+- Mostra `title`, `date`, `time`, `location`, `type`.
+- Mostra o corpo do Markdown quando existe; senao, a `description` (ver [Corpo do arquivo](#corpo-do-arquivo-conteudo-em-markdown)).
+- `banner` so aparece quando existe. Quando existe, tambem e a imagem do preview do link (`og:image` e `twitter:image`, com card `summary_large_image`).
+- `speakers` so aparece quando existe. O nome do palestrante com `link` vira link, que abre em nova aba.
 - `tags` renderiza como chips (`span`).
 
 #### Evento passado
@@ -116,6 +140,7 @@ Retorna os proximos eventos como um array JSON, ordenados por data/hora de inici
 **Transformacoes aplicadas na resposta:**
 
 - `banner` e `registrationLink` sao reescritos para URLs absolutas via `absoluteUrl()`.
+- `speakers` sai so com os nomes (`string[]`), mesmo quando o frontmatter usa `{ name, link }`.
 
 **Exemplo de requisicao:**
 
@@ -162,10 +187,12 @@ GET /api/events/future
 | `recordingLink` | `string` | nao | URL da gravacao ou live do evento |
 | `postLink` | `string` | nao | URL de artigo relacionado ao evento |
 | `excalidrawLink` | `string` | nao | URL do quadro Excalidraw relacionado ao evento |
-| `speakers` | `string[]` | nao | Lista de palestrantes |
+| `speakers` | `string[]` | nao | Nomes dos palestrantes (sem o `link`) |
 | `tags` | `string[]` | nao | Tags do evento |
 
 > Os campos exclusivos de automacoes externas (`isLive`, `youtubeTitle`, `sessionLink`, `openSession`) **nao fazem parte da interface `Event`** e **nao sao retornados pela API**.
+>
+> O corpo do Markdown tambem nao e retornado pela API: ele so existe na pagina de detalhe.
 
 ## Discord Bot
 

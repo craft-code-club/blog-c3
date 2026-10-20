@@ -1,6 +1,6 @@
 'use client';
 
-import type { Event } from '@/lib/events';
+import type { Event, EventDetail } from '@/lib/events';
 import { isEventToday } from '@/lib/date';
 import { DISCORD_PAGE_PATH } from '@/lib/discord';
 import { absoluteUrl } from '@/lib/site';
@@ -12,7 +12,7 @@ import EventTags from "./EventTags";
 import { getDsaTopicForContent } from '@/lib/dsa-platform';
 
 interface Props {
-  event: Event;
+  event: EventDetail;
   nextEvents: Event[];
 }
 
@@ -108,9 +108,16 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
               </div>
             )}
 
-            <div className="prose prose-lg dark:prose-invert max-w-none mb-8">
-              <p>{event.description}</p>
-            </div>
+            {event.contentHtml ? (
+              <div
+                className="prose prose-lg dark:prose-invert max-w-none mb-8"
+                dangerouslySetInnerHTML={{ __html: event.contentHtml }}
+              />
+            ) : (
+              <div className="prose prose-lg dark:prose-invert max-w-none mb-8">
+                <p>{event.description}</p>
+              </div>
+            )}
 
             {event.speakers && event.speakers.length > 0 && (
               <div className="mb-8">
@@ -121,7 +128,18 @@ export default function EventDetailClient({ event, nextEvents }: Props) {
                       <svg className="h-5 w-5 mr-2 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
-                      {speaker}
+                      {speaker.link ? (
+                        <a
+                          href={speaker.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 dark:text-blue-400 hover:underline"
+                        >
+                          {speaker.name}
+                        </a>
+                      ) : (
+                        speaker.name
+                      )}
                     </li>
                   ))}
                 </ul>

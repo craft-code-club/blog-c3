@@ -9,6 +9,7 @@ isLive: true
 openSession: true
 banner: "live-pipeline-verde-configuracao-saudavel.png"
 registrationLink: "{{discord-link}}"
+recordingLink: "https://www.youtube.com/watch?v=sxtSmidWTLA"
 speakers:
   - "Matheus Freitas"
 tags:
