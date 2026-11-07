@@ -10,7 +10,7 @@ openSession: true
 youtubeTitle: "Clube do Livro DDIA: Capítulo 7 - Sharding - Parte 2"
 banner: "book-club-ddia.png"
 registrationLink: "{{discord-link}}"
-recordingLink: "https://www.youtube.com/watch?v=kbKChBNwUsw"
+recordingLink: "https://www.youtube.com/live/20ZlQgNbiPg"
 tags:
   - "book-club"
   - "ddia"
