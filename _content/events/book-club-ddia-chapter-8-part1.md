@@ -30,3 +30,5 @@ Vamos abrir o Capítulo 8, "Transações", vendo o que uma transação promete d
 - **Snapshot isolation e MVCC:** read skew (os $100 que "somem"), backups e consultas analíticas, versões de linha com transaction IDs, regras de visibilidade, B-trees imutáveis e a confusão de nomes ("repeatable read" significa coisas diferentes em PostgreSQL, MySQL, Oracle e Db2).
 - **Prevenindo lost updates:** operações atômicas, `SELECT ... FOR UPDATE`, detecção automática (que o MySQL/InnoDB não faz), compare-and-set e resolução de conflitos com réplicas.
 - **Write skew e phantoms:** os médicos de plantão, reserva de salas, nomes de usuário e gasto duplo. Por que travar linhas não resolve quando a condição é a ausência de linhas, e a materialização de conflitos como último recurso.
+
+Na segunda parte, seguimos com as formas de obter serializabilidade (execução serial, two-phase locking e serializable snapshot isolation) e com transações distribuídas.
