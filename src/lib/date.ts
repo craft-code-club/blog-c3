@@ -81,3 +81,11 @@ export function isEventToday(date: string, time?: string): boolean {
 export function getEventStartTimestamp(date: string, time?: string): number {
   return getEventStartInstant(date, time);
 }
+
+/**
+ * The instant (epoch ms) an event ends, using the same rule as `isEventPast`
+ * (1h30m after the start when `time` has no end segment).
+ */
+export function getEventEndTimestamp(date: string, time?: string): number {
+  return getEventEndInstant(date, time);
+}
