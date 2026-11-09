@@ -10,7 +10,7 @@ openSession: true
 youtubeTitle: "Clube do Livro DDIA: Capítulo 8 - Transações - Parte 2"
 banner: "book-club-ddia.png"
 registrationLink: "{{discord-link}}"
-recordingLink: ""
+recordingLink: "https://www.youtube.com/watch?v=Wa_QQgmzNPA"
 tags:
   - "book-club"
   - "ddia"
